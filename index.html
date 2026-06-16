@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kru P'June - Classroom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f4ff;
+            --surface: #ffffff;
+            --text: #1e1b4b;
+            --primary: #4f46e5;
+            --ted-armor: #14b8a6; /* สีฟ้าอมเขียวของเกราะ Ted */
+            --ted-body: #e5e5cb; /* สีทรายของตัว Ted */
+        }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: var(--surface);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            border-top: 6px solid var(--primary);
+        }
+        h1 {
+            margin-top: 0;
+            color: var(--text);
+        }
+        .mascot-box {
+            background-color: var(--ted-body);
+            border: 2px dashed var(--ted-armor);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 30px;
+        }
+        .menu-link {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .menu-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👩🏻‍🏫 ห้องเรียนของครูพี่จูน</h1>
+        
+        <div class="mascot-box">
+            🦖 <strong>Ted Says:</strong> โฮก! (แปล: ยินดีต้อนรับครับ!) วันนี้ผมผู้ช่วยแองคิโลซอรัสสุดแกร่ง จะมาช่วยพาทุกคนลุยบทเรียนและเอาตัวรอดไปด้วยกันนะครับ!
+        </div>
+        
+        <p>เลือกเนื้อหาที่คุณต้องการเข้าสู่บทเรียนด้านล่างนี้ได้เลยค่ะ:</p>
+        
+        <div class="menu">
+            <!-- ลิงก์ไปยังไฟล์ต่างๆ ที่คุณมีอยู่ในคลังข้อมูล -->
+            <a href="curriculum_redesign.html" class="menu-link">📌 Curriculum Redesign</a>
+            <a href="unit1_sentence_structure.html" class="menu-link">📖 Unit 1: Sentence Structure</a>
+            <a href="unit2_subject_verb_agreement.html" class="menu-link">📖 Unit 2: Subject-Verb Agreement</a>
+            <a href="unit3_all_tenses.html" class="menu-link">📖 Unit 3: All Tenses</a>
+        </div>
+    </div>
+</body>
+</html>
