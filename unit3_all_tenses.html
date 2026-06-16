@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3 — All 12 Tenses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf9f4; --surface:#ffffff; --ink:#23282e; --muted:#7a7367;
+  --rule:#e6e0d4;
+
+  --present:#2563eb; --present_lt:#eff6ff;
+  --past:#c2410c;    --past_lt:#fff7ed;
+  --future:#16a34a;  --future_lt:#f0fdf4;
+  --perfect:#9333ea; --perfect_lt:#faf5ff;
+  --cont:#0d9488;    --cont_lt:#f0fdfa;
+
+  --good:#15803d; --good_lt:#f0fdf4;
+  --bad:#dc2626;  --bad_lt:#fef2f2;
+  --gold:#d97706; --gold_lt:#fffbeb;
+
+  --r:14px; --shadow:0 4px 20px rgba(35,40,46,.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);font-size:15.5px;line-height:1.75;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fade{animation:fadeUp .5s ease both;}
+.fade:nth-child(1){animation-delay:.04s}.fade:nth-child(2){animation-delay:.10s}
+.fade:nth-child(3){animation-delay:.16s}.fade:nth-child(4){animation-delay:.22s}
+
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--present),var(--past),var(--future));z-index:9999;width:0%;transition:width .08s linear;}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--surface);display:flex;flex-direction:column;justify-content:center;padding:80px 6%;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,235,.06) 0%,transparent 60%);top:-250px;right:-200px;}
+.cover::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(194,65,12,.06) 0%,transparent 60%);bottom:-200px;left:-150px;}
+.cover-inner{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+.utag{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);padding:7px 18px;border-radius:100px;
+  font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:30px;font-family:'Space Mono',monospace;}
+.utag i{width:8px;height:8px;border-radius:50%;background:var(--present);display:inline-block;}
+.cover h1{font-family:'Fraunces',serif;font-size:clamp(42px,7vw,84px);font-weight:900;line-height:1.05;margin-bottom:22px;}
+.cover h1 .hl{font-style:italic;background:linear-gradient(90deg,var(--present),var(--past),var(--future));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.cover-sub{font-size:17px;color:var(--muted);max-width:560px;margin-bottom:44px;line-height:1.7;}
+
+.timeline{display:flex;gap:3px;margin-bottom:44px;border-radius:var(--r);overflow:hidden;}
+.tl-seg{flex:1;padding:16px 14px;text-align:center;}
+.tl-seg.past{background:var(--past_lt);border-bottom:4px solid var(--past);}
+.tl-seg.present{background:var(--present_lt);border-bottom:4px solid var(--present);}
+.tl-seg.future{background:var(--future_lt);border-bottom:4px solid var(--future);}
+.tl-seg h4{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:4px;}
+.tl-seg.past h4{color:var(--past);} .tl-seg.present h4{color:var(--present);} .tl-seg.future h4{color:var(--future);}
+.tl-seg p{font-size:12px;color:var(--muted);}
+
+.cstats{display:flex;gap:2px;flex-wrap:wrap;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;max-width:600px;}
+.cstat{flex:1;min-width:110px;padding:18px 20px;background:var(--surface);text-align:center;border-right:1px solid var(--rule);}
+.cstat:last-child{border-right:none;}
+.cstat-n{font-family:'Fraunces',serif;font-size:32px;font-weight:900;line-height:1;color:var(--present);}
+.cstat-l{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(251,249,244,.94);border-bottom:1px solid var(--rule);
+  backdrop-filter:blur(10px);padding:0 6%;display:flex;gap:0;overflow-x:auto;}
+.nav a{color:var(--muted);text-decoration:none;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:15px 16px;white-space:nowrap;border-bottom:2px solid transparent;transition:.18s;font-family:'Space Mono',monospace;}
+.nav a:hover{color:var(--present);border-bottom-color:var(--present);}
+
+.page{max-width:920px;margin:0 auto;padding:60px 24px;}
+.gap{margin-bottom:72px;}
+
+.sh{display:flex;align-items:flex-start;gap:18px;margin-bottom:36px;}
+.sh-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.sh-text h2{font-family:'Fraunces',serif;font-size:27px;font-weight:700;line-height:1.2;}
+.sh-text p{font-size:14px;color:var(--muted);margin-top:3px;}
+
+/* TENSE CARD */
+.tense-card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:18px;box-shadow:var(--shadow);}
+.tense-head{padding:18px 24px;display:flex;align-items:center;gap:16px;cursor:pointer;}
+.tense-num{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:18px;font-weight:900;flex-shrink:0;}
+.tense-title{flex:1;}
+.tense-title h3{font-family:'Fraunces',serif;font-size:19px;font-weight:700;}
+.tense-title p{font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;margin-top:2px;}
+.tense-chevron{font-size:20px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+.tense-head.open .tense-chevron{transform:rotate(90deg);}
+.tense-body{padding:0 24px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;}
+.tense-body.open{max-height:3000px;padding:0 24px 24px;}
+
+.formula-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--bg);border-radius:10px;padding:14px 16px;margin:14px 0;font-family:'Space Mono',monospace;font-size:14px;}
+.f-part{padding:5px 12px;border-radius:8px;font-weight:700;}
+
+.usebox{border-radius:10px;padding:14px 18px;margin:10px 0;font-size:14px;line-height:1.6;}
+.usebox b{display:block;margin-bottom:4px;font-size:13px;letter-spacing:.05em;text-transform:uppercase;font-family:'Space Mono',monospace;}
+
+.examples{display:flex;flex-direction:column;gap:8px;margin:14px 0;}
+.ex-line{background:var(--bg);border-radius:8px;padding:10px 14px;font-size:14px;}
+.ex-line .ex-vb{font-weight:700;}
+.ex-line .ex-th{color:var(--muted);font-size:13px;margin-top:2px;}
+
+.timewords{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
+.tw{padding:4px 12px;border-radius:100px;font-size:12.5px;font-weight:700;font-family:'Space Mono',monospace;}
+
+.ib{border-radius:var(--r);padding:16px 20px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.6;}
+.ib .ico{font-size:18px;flex-shrink:0;}
+.ib.gold{background:var(--gold_lt);border-left:3px solid var(--gold);}
+.ib.bad{background:var(--bad_lt);border-left:3px solid var(--bad);}
+.ib.good{background:var(--good_lt);border-left:3px solid var(--good);}
+.ib.blue{background:var(--present_lt);border-left:3px solid var(--present);}
+
+/* group headers (12 tenses by category) */
+.cat-head{display:flex;align-items:center;gap:14px;margin:36px 0 16px;}
+.cat-head .line{flex:1;height:1px;background:var(--rule);}
+.cat-head h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;white-space:nowrap;}
+
+/* TABLE */
+.twrap{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin:18px 0;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead tr{background:var(--ink);}
+thead th{padding:12px 14px;text-align:left;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:#fff;}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tbody tr:nth-child(even){background:var(--bg);}
+tbody tr:last-child td{border-bottom:none;}
+code{font-family:'Space Mono',monospace;font-size:13px;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:5px;}
+
+/* EXERCISES */
+.exh{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r) var(--r) 0 0;padding:18px 24px;
+  display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule);}
+.exn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:17px;font-weight:900;flex-shrink:0;color:#fff;}
+.exh h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.exh p{font-size:13px;color:var(--muted);margin-top:2px;}
+.exb{background:var(--bg);border:1px solid var(--rule);border-top:none;border-radius:0 0 var(--r) var(--r);padding:28px;margin-bottom:28px;}
+.ex-inst{font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--present);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:22px;}
+
+.mcq{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--rule);}
+.mcq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-q{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;}
+.qn{width:28px;height:28px;border-radius:8px;background:var(--present_lt);color:var(--present);
+  display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.opts{display:flex;flex-direction:column;gap:8px;padding-left:38px;}
+.opt{display:flex;align-items:center;gap:11px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--rule);
+  font-size:14px;cursor:pointer;transition:.16s;background:var(--surface);}
+.opt:hover{border-color:var(--present);background:var(--present_lt);}
+.opt.correct{border-color:var(--good);background:var(--good_lt);color:var(--good);font-weight:600;}
+.opt.wrong{border-color:var(--bad);background:var(--bad_lt);color:var(--bad);}
+.ob{width:26px;height:26px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;transition:.16s;}
+.opt:hover .ob{border-color:var(--present);background:var(--present);color:#fff;}
+.opt.correct .ob{border-color:var(--good);background:var(--good);color:#fff;}
+.opt.wrong .ob{border-color:var(--bad);background:var(--bad);color:#fff;}
+.fb{display:none;margin-top:10px;padding:11px 16px;border-radius:10px;font-size:13.5px;font-weight:500;padding-left:38px;line-height:1.5;}
+.fb.show{display:block;}
+.fb.ok{background:var(--good_lt);color:var(--good);}
+.fb.no{background:var(--bad_lt);color:var(--bad);}
+
+/* fill-in */
+.fi-item{margin-bottom:16px;background:var(--surface);border-radius:10px;padding:14px 18px;border:1px solid var(--rule);}
+.fi-sent{font-size:15px;line-height:1.8;}
+.fi-blank{display:inline-block;min-width:90px;border-bottom:2px solid var(--present);text-align:center;margin:0 4px;font-family:'Space Mono',monospace;font-size:13px;color:transparent;transition:color .25s;}
+.fi-blank.shown{color:var(--present);font-weight:700;}
+.fi-ans{display:none;font-size:13px;color:var(--muted);padding-top:6px;border-top:1px solid var(--rule);margin-top:6px;}
+.fi-ans.show{display:block;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:100px;font-size:13.5px;font-weight:700;
+  cursor:pointer;border:none;font-family:'Manrope',sans-serif;transition:.18s;}
+.btn-present{background:var(--present);color:#fff;}
+.btn-present:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn-ghost{background:var(--surface);color:var(--ink);border:1.5px solid var(--rule);}
+.btn-ghost:hover{border-color:var(--present);color:var(--present);}
+.btn-sm{padding:8px 16px;font-size:12.5px;}
+
+/* score */
+.scoreboard{background:linear-gradient(135deg,#23282e,#3a4250);color:#fff;border-radius:var(--r);padding:28px 30px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
+.sc-num{font-family:'Fraunces',serif;font-size:56px;font-weight:900;color:#7dd3fc;line-height:1;}
+.sc-txt{flex:1;}
+.sc-txt h4{font-family:'Fraunces',serif;font-size:19px;font-weight:700;margin-bottom:4px;}
+.sc-txt p{font-size:13px;opacity:.7;}
+.sc-bar-wrap{flex:1;min-width:180px;}
+.sc-bar-lbl{font-size:12px;opacity:.7;margin-bottom:6px;}
+.sc-bar{height:10px;background:rgba(255,255,255,.2);border-radius:5px;overflow:hidden;}
+.sc-fill{height:100%;background:linear-gradient(90deg,#7dd3fc,#86efac);border-radius:5px;transition:width .7s ease;}
+
+.chk{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;}
+.chk li{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--rule);padding:13px 16px;border-radius:10px;font-size:14px;}
+.chk li input{width:18px;height:18px;accent-color:var(--present);cursor:pointer;flex-shrink:0;margin-top:2px;}
+
+.footer{background:var(--surface);border-top:1px solid var(--rule);padding:32px 6%;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;}
+
+@media(max-width:640px){.page{padding:40px 18px;}.cover{padding:60px 5%;}.timeline{flex-direction:column;}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="utag fade"><i></i> B1 English · Grammar Series · Unit 3</div>
+    <h1 class="fade">All <span class="hl">12 Tenses</span><br>of English</h1>
+    <p class="cover-sub fade">Master every tense from Present Simple to Future Perfect Continuous — with formulas, time words, and exam-format practice for every form.</p>
+
+    <div class="timeline fade">
+      <div class="tl-seg past"><h4>Past</h4><p>4 tenses</p></div>
+      <div class="tl-seg present"><h4>Present</h4><p>4 tenses</p></div>
+      <div class="tl-seg future"><h4>Future</h4><p>4 tenses</p></div>
+    </div>
+
+    <div class="cstats fade">
+      <div class="cstat"><div class="cstat-n">12</div><div class="cstat-l">Tenses</div></div>
+      <div class="cstat"><div class="cstat-n">15</div><div class="cstat-l">Vocab Words</div></div>
+      <div class="cstat"><div class="cstat-n">5</div><div class="cstat-l">Exercises</div></div>
+      <div class="cstat"><div class="cstat-n">50</div><div class="cstat-l">Exam Questions</div></div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <a href="#vocab">📚 Vocab</a>
+  <a href="#reading">📖 Reading</a>
+  <a href="#grammar">⏰ Tenses</a>
+  <a href="#exercises">✏️ Exercises</a>
+  <a href="#review">⭐ Review</a>
+</nav>
+
+<!-- SECTION A: VOCAB -->
+<div class="page gap" id="vocab">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--present_lt);">📚</div>
+    <div class="sh-text"><h2>Section A — Vocabulary Builder</h2><p>15 time-expression words that signal which tense to use.</p></div>
+  </div>
+  <div class="ib blue fade"><span class="ico">💡</span><div><strong>Study tip:</strong> Time expressions are the biggest clue for choosing the correct tense. Memorising these 15 words/phrases will instantly improve your tense accuracy.</div></div>
+  <div class="twrap fade">
+  <table>
+    <thead><tr><th>Word/Phrase</th><th>Thai</th><th>Signals Tense</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>every day / usually</strong></td><td>ทุกวัน / ปกติ</td><td>Present Simple</td><td>She <em>walks</em> to school every day.</td></tr>
+      <tr><td><strong>now / at the moment</strong></td><td>ขณะนี้ / ในขณะนี้</td><td>Present Continuous</td><td>They <em>are studying</em> right now.</td></tr>
+      <tr><td><strong>since / for</strong></td><td>ตั้งแต่ / เป็นเวลา</td><td>Present Perfect</td><td>I <em>have lived</em> here since 2020.</td></tr>
+      <tr><td><strong>already / yet / just</strong></td><td>แล้ว / ยัง / เพิ่งจะ</td><td>Present Perfect</td><td>She <em>has</em> <em>just</em> arrived.</td></tr>
+      <tr><td><strong>lately / recently</strong></td><td>เมื่อเร็วๆนี้</td><td>Present Perfect (Cont.)</td><td>I <em>have been studying</em> a lot lately.</td></tr>
+      <tr><td><strong>yesterday / last week</strong></td><td>เมื่อวาน / สัปดาห์ก่อน</td><td>Past Simple</td><td>We <em>visited</em> Chiang Mai last week.</td></tr>
+      <tr><td><strong>while / when (interrupting action)</strong></td><td>ขณะที่ / ตอนที่</td><td>Past Continuous</td><td>I <em>was sleeping</em> when he called.</td></tr>
+      <tr><td><strong>before / after (one action before another)</strong></td><td>ก่อน / หลังจาก</td><td>Past Perfect</td><td>She <em>had finished</em> before I arrived.</td></tr>
+      <tr><td><strong>by the time</strong></td><td>ภายในเวลาที่</td><td>Past Perfect</td><td>By the time we got there, the film <em>had started</em>.</td></tr>
+      <tr><td><strong>tomorrow / next week</strong></td><td>พรุ่งนี้ / สัปดาห์หน้า</td><td>Future Simple</td><td>We <em>will travel</em> next week.</td></tr>
+      <tr><td><strong>at this time tomorrow</strong></td><td>เวลานี้พรุ่งนี้</td><td>Future Continuous</td><td>I <em>will be flying</em> at this time tomorrow.</td></tr>
+      <tr><td><strong>by + future time</strong></td><td>ภายใน...(เวลาในอนาคต)</td><td>Future Perfect</td><td>By 2030, she <em>will have graduated</em>.</td></tr>
+      <tr><td><strong>anniversary / milestone</strong></td><td>วันครบรอบ / เหตุการณ์สำคัญ</td><td>Future Perfect Continuous</td><td>By June, I <em>will have been working</em> here for 5 years.</td></tr>
+      <tr><td><strong>ago</strong></td><td>...มาแล้ว / ที่แล้ว</td><td>Past Simple</td><td>She left two hours <em>ago</em>.</td></tr>
+      <tr><td><strong>this week / this month</strong></td><td>สัปดาห์นี้ / เดือนนี้</td><td>Present Perfect (ongoing period)</td><td>I <em>have read</em> three books this month.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- SECTION B: READING -->
+<div class="page gap" id="reading">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--cont_lt);">📖</div>
+    <div class="sh-text"><h2>Section B — Reading Passage</h2><p>A diary entry using 8 different tenses. Find the tense clues!</p></div>
+  </div>
+  <div class="twrap fade">
+    <div style="padding:28px;font-size:15.5px;line-height:2.1;">
+      <p style="margin-bottom:16px;"><strong>My Trip to Japan — A Travel Diary</strong></p>
+      <p style="margin-bottom:16px;">I <span style="color:var(--past);font-weight:700;">arrived</span> in Tokyo three days ago, and I <span style="color:var(--perfect);font-weight:700;">have already visited</span> five temples! Right now, I <span style="color:var(--present);font-weight:700;">am sitting</span> in a small café, writing this diary while it <span style="color:var(--past);font-weight:700;">is raining</span> outside.</p>
+      <p style="margin-bottom:16px;">Yesterday, while I <span style="color:var(--past);font-weight:700;">was walking</span> through Shibuya, I <span style="color:var(--past);font-weight:700;">met</span> a group of students from Korea. By the time we <span style="color:var(--perfect);font-weight:700;">had finished</span> talking, it <span style="color:var(--past);font-weight:700;">was</span> already dark!</p>
+      <p style="margin-bottom:16px;">Tomorrow, I <span style="color:var(--future);font-weight:700;">will visit</span> Kyoto. At this time tomorrow, I <span style="color:var(--cont);font-weight:700;">will be exploring</span> the famous bamboo forest. By the end of this trip, I <span style="color:var(--future);font-weight:700;">will have travelled</span> to four cities and <span style="color:var(--future);font-weight:700;">will have taken</span> over 500 photos!</p>
+    </div>
+  </div>
+  <div class="ib blue fade"><span class="ico">🎨</span><div>
+    <span style="color:var(--past);font-weight:700;">Orange = Past forms</span> &nbsp;·&nbsp;
+    <span style="color:var(--present);font-weight:700;">Blue = Present forms</span> &nbsp;·&nbsp;
+    <span style="color:var(--perfect);font-weight:700;">Purple = Perfect forms</span> &nbsp;·&nbsp;
+    <span style="color:var(--cont);font-weight:700;">Teal = Continuous forms</span> &nbsp;·&nbsp;
+    <span style="color:var(--future);font-weight:700;">Green = Future forms</span>
+  </div></div>
+
+  <div class="exh" style="margin-top:4px;"><div class="exn" style="background:var(--present);">Q</div>
+    <div><h3>Reading Comprehension</h3><p>Click an option to check your answer.</p></div></div>
+  <div class="exb">
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">1</span> Which tense is used in "I have already visited five temples"?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Past Simple</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Present Perfect</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Present Continuous</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Future Perfect</div>
+      </div>
+      <div class="fb ok">✅ "have + already + V.3 (visited)" = Present Perfect — an action completed before now, with a result that matters now.</div>
+      <div class="fb no">❌ Look for "have/has + V.3" — that's the Present Perfect structure.</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">2</span> "By the time we had finished talking, it was already dark" — why is "had finished" used?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> It describes an action happening now.</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> It describes an action completed BEFORE another past action (it was dark).</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> It describes a future plan.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> It describes a habitual action.</div>
+      </div>
+      <div class="fb ok">✅ Past Perfect (had + V.3) shows one past action finished BEFORE another past action started — "finished talking" happened before "it was dark."</div>
+      <div class="fb no">❌ Past Perfect always shows the EARLIER of two past events.</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">3</span> "At this time tomorrow, I will be exploring the bamboo forest" — what tense is this?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Future Simple</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Future Continuous</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Future Perfect</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Present Continuous</div>
+      </div>
+      <div class="fb ok">✅ "will be + V-ing" = Future Continuous — an action that will be IN PROGRESS at a specific future time ("at this time tomorrow").</div>
+      <div class="fb no">❌ "will be + V-ing" is the Future Continuous formula.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION C: THE 12 TENSES -->
+<div class="page gap" id="grammar">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--gold_lt);">⏰</div>
+    <div class="sh-text"><h2>Section C — The 12 Tenses</h2><p>Click each tense to expand. Every tense includes formula, uses, examples, and time words.</p></div>
+  </div>
+
+  <!-- ════════ PRESENT GROUP ════════ -->
+  <div class="cat-head"><h3 style="color:var(--present);">🔵 PRESENT TENSES</h3><div class="line"></div></div>
+
+  <!-- Present Simple -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--present_lt);color:var(--present);">1</div>
+      <div class="tense-title"><h3>Present Simple</h3><p>กริยาปัจจุบันธรรมดา</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--present_lt);color:var(--present);">S + V1 (+s/es)</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + do/does not + V1</span>
+        <span>question:</span>
+        <span class="f-part" style="background:var(--good_lt);color:var(--good);">Do/Does + S + V1?</span>
+      </div>
+      <div class="usebox" style="background:var(--present_lt);"><b>Use 1 — Facts &amp; General Truths</b>The sun <strong>rises</strong> in the east. ความจริงทั่วไปที่ไม่เปลี่ยนแปลง</div>
+      <div class="usebox" style="background:var(--present_lt);"><b>Use 2 — Habits &amp; Routines</b>She <strong>brushes</strong> her teeth every morning. การกระทำที่ทำเป็นประจำ</div>
+      <div class="usebox" style="background:var(--present_lt);"><b>Use 3 — Schedules &amp; Timetables</b>The train <strong>leaves</strong> at 9 AM. ตารางเวลาที่กำหนดไว้แน่นอน</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--present_lt);color:var(--present);">every day</span>
+        <span class="tw" style="background:var(--present_lt);color:var(--present);">always</span>
+        <span class="tw" style="background:var(--present_lt);color:var(--present);">usually</span>
+        <span class="tw" style="background:var(--present_lt);color:var(--present);">often</span>
+        <span class="tw" style="background:var(--present_lt);color:var(--present);">sometimes</span>
+        <span class="tw" style="background:var(--present_lt);color:var(--present);">never</span>
+        <span class="tw" style="background:var(--present_lt);color:var(--present);">on Mondays</span>
+      </div>
+      <div class="ib bad"><span class="ico">❌</span><div><strong>Common Error:</strong> "She <s>go</s> to school every day." → She <strong>goes</strong> to school. (3rd person singular: He/She/It + V-s)</div></div>
+    </div>
+  </div>
+
+  <!-- Present Continuous -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--cont_lt);color:var(--cont);">2</div>
+      <div class="tense-title"><h3>Present Continuous</h3><p>กริยาปัจจุบันต่อเนื่อง / กำลังเกิดขึ้น</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--cont_lt);color:var(--cont);">S + am/is/are + V-ing</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + am/is/are + not + V-ing</span>
+        <span>question:</span>
+        <span class="f-part" style="background:var(--good_lt);color:var(--good);">Am/Is/Are + S + V-ing?</span>
+      </div>
+      <div class="usebox" style="background:var(--cont_lt);"><b>Use 1 — Action happening now</b>She <strong>is reading</strong> a book right now. การกระทำที่กำลังเกิดขึ้นในขณะพูด</div>
+      <div class="usebox" style="background:var(--cont_lt);"><b>Use 2 — Temporary situations</b>I <strong>am staying</strong> with my aunt this month. สถานการณ์ชั่วคราว</div>
+      <div class="usebox" style="background:var(--cont_lt);"><b>Use 3 — Fixed future arrangements</b>We <strong>are meeting</strong> them tomorrow. แผนการที่นัดไว้แล้วในอนาคต</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">now</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">right now</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">at the moment</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">currently</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">Look!</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">Listen!</span>
+      </div>
+      <div class="ib gold"><span class="ico">⚠️</span><div><strong>Stative verbs</strong> (know, like, love, want, believe, understand, own, belong) are usually NOT used in continuous form. "I <s>am knowing</s> the answer" ✗ → "I <strong>know</strong> the answer" ✓</div></div>
+    </div>
+  </div>
+
+  <!-- Present Perfect -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--perfect_lt);color:var(--perfect);">3</div>
+      <div class="tense-title"><h3>Present Perfect</h3><p>กริยาปัจจุบันสมบูรณ์</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--perfect_lt);color:var(--perfect);">S + have/has + V3</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + have/has + not + V3</span>
+        <span>question:</span>
+        <span class="f-part" style="background:var(--good_lt);color:var(--good);">Have/Has + S + V3?</span>
+      </div>
+      <div class="usebox" style="background:var(--perfect_lt);"><b>Use 1 — Experience (unspecified time)</b>I <strong>have visited</strong> Japan twice. ประสบการณ์ที่เคยทำ ไม่ระบุเวลาที่แน่นอน</div>
+      <div class="usebox" style="background:var(--perfect_lt);"><b>Use 2 — Action started in past, continues to now</b>She <strong>has lived</strong> here since 2018. เริ่มในอดีตและต่อเนื่องถึงปัจจุบัน</div>
+      <div class="usebox" style="background:var(--perfect_lt);"><b>Use 3 — Recently completed action with present result</b>He <strong>has just finished</strong> his homework. การกระทำที่เพิ่งเสร็จและมีผลต่อปัจจุบัน</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">already</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">yet</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">just</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">ever</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">never</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">since</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">for</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">so far</span>
+      </div>
+      <div class="ib bad"><span class="ico">❌</span><div><strong>Common Error:</strong> "I <s>have went</s> to Paris last year." → "<strong>last year</strong>" = specific past time → use Past Simple: "I <strong>went</strong> to Paris last year."</div></div>
+    </div>
+  </div>
+
+  <!-- Present Perfect Continuous -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--perfect_lt);color:var(--perfect);">4</div>
+      <div class="tense-title"><h3>Present Perfect Continuous</h3><p>กริยาปัจจุบันสมบูรณ์ต่อเนื่อง</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--perfect_lt);color:var(--perfect);">S + have/has + been + V-ing</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + have/has + not been + V-ing</span>
+      </div>
+      <div class="usebox" style="background:var(--perfect_lt);"><b>Use 1 — Duration of an ongoing action</b>I <strong>have been waiting</strong> for an hour. การกระทำที่ต่อเนื่องมาจนถึงปัจจุบัน เน้นช่วงเวลา</div>
+      <div class="usebox" style="background:var(--perfect_lt);"><b>Use 2 — Recent activity with visible result</b>Her eyes are red — she <strong>has been crying</strong>. การกระทำที่ผ่านมาเร็วๆนี้ ส่งผลถึงปัจจุบัน</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">all day</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">for hours</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">lately</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">recently</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">since morning</span>
+      </div>
+      <div class="ib gold"><span class="ico">⚖️</span><div><strong>Present Perfect vs. Present Perfect Continuous:</strong> "I have read 3 books" (focus on RESULT/quantity) vs. "I have been reading all afternoon" (focus on DURATION/process).</div></div>
+    </div>
+  </div>
+
+  <!-- ════════ PAST GROUP ════════ -->
+  <div class="cat-head"><h3 style="color:var(--past);">🟠 PAST TENSES</h3><div class="line"></div></div>
+
+  <!-- Past Simple -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--past_lt);color:var(--past);">5</div>
+      <div class="tense-title"><h3>Past Simple</h3><p>กริยาอดีตธรรมดา</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--past_lt);color:var(--past);">S + V2 (regular: V+ed)</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + did not + V1</span>
+        <span>question:</span>
+        <span class="f-part" style="background:var(--good_lt);color:var(--good);">Did + S + V1?</span>
+      </div>
+      <div class="usebox" style="background:var(--past_lt);"><b>Use 1 — Completed action at specific past time</b>She <strong>visited</strong> Korea last summer. เหตุการณ์ที่เกิดขึ้นและจบลงแล้วในอดีต</div>
+      <div class="usebox" style="background:var(--past_lt);"><b>Use 2 — Series of completed past actions</b>He <strong>woke up</strong>, <strong>ate</strong> breakfast, and <strong>left</strong>. ลำดับเหตุการณ์ในอดีต</div>
+      <div class="usebox" style="background:var(--past_lt);"><b>Use 3 — Past habits (with "used to")</b>I <strong>used to play</strong> football every weekend. นิสัยในอดีตที่ไม่ทำแล้ว</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--past_lt);color:var(--past);">yesterday</span>
+        <span class="tw" style="background:var(--past_lt);color:var(--past);">last week/month/year</span>
+        <span class="tw" style="background:var(--past_lt);color:var(--past);">ago</span>
+        <span class="tw" style="background:var(--past_lt);color:var(--past);">in 2020</span>
+        <span class="tw" style="background:var(--past_lt);color:var(--past);">when I was young</span>
+      </div>
+      <div class="ib bad"><span class="ico">❌</span><div><strong>Common Error:</strong> "She <s>did went</s> to school." → "did" already shows past — use base verb: "She <strong>did</strong> not <strong>go</strong> / Did she <strong>go</strong>?"</div></div>
+    </div>
+  </div>
+
+  <!-- Past Continuous -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--cont_lt);color:var(--cont);">6</div>
+      <div class="tense-title"><h3>Past Continuous</h3><p>กริยาอดีตต่อเนื่อง / กำลังเกิดขึ้นในอดีต</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--cont_lt);color:var(--cont);">S + was/were + V-ing</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + was/were + not + V-ing</span>
+      </div>
+      <div class="usebox" style="background:var(--cont_lt);"><b>Use 1 — Action in progress at a specific past time</b>At 8 PM yesterday, I <strong>was studying</strong>. การกระทำที่กำลังดำเนินอยู่ ณ เวลาหนึ่งในอดีต</div>
+      <div class="usebox" style="background:var(--cont_lt);"><b>Use 2 — Interrupted action (with Past Simple)</b>I <strong>was sleeping</strong> when the phone <strong>rang</strong>. การกระทำที่กำลังเกิดถูกขัดจังหวะโดยอีกการกระทำ</div>
+      <div class="usebox" style="background:var(--cont_lt);"><b>Use 3 — Two simultaneous past actions</b>While she <strong>was cooking</strong>, he <strong>was cleaning</strong>. สองเหตุการณ์เกิดพร้อมกันในอดีต</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">while</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">when (+ Past Simple)</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">at that moment</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">at 8 PM yesterday</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">all day yesterday</span>
+      </div>
+      <div class="ib good"><span class="ico">🔑</span><div><strong>Key pattern:</strong> WHILE + Past Continuous (longer action), WHEN + Past Simple (shorter, interrupting action). "While I <strong>was walking</strong> home, it <strong>started</strong> to rain."</div></div>
+    </div>
+  </div>
+
+  <!-- Past Perfect -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--perfect_lt);color:var(--perfect);">7</div>
+      <div class="tense-title"><h3>Past Perfect</h3><p>กริยาอดีตสมบูรณ์</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--perfect_lt);color:var(--perfect);">S + had + V3</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + had + not + V3</span>
+        <span>question:</span>
+        <span class="f-part" style="background:var(--good_lt);color:var(--good);">Had + S + V3?</span>
+      </div>
+      <div class="usebox" style="background:var(--perfect_lt);"><b>Use — Action completed BEFORE another past action</b>By the time I arrived, the meeting <strong>had</strong> already <strong>started</strong>. การกระทำที่เกิดขึ้นและจบลงก่อนอีกเหตุการณ์ในอดีต</div>
+      <div class="usebox" style="background:var(--perfect_lt);"><b>Use — In reported speech (backshift from Present Perfect)</b>She said she <strong>had finished</strong> the report. (original: "I have finished")</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">before</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">after</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">by the time</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">already (in past context)</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">by 6 PM</span>
+      </div>
+      <div class="ib good"><span class="ico">🔑</span><div><strong>Two past events, two tenses:</strong> The EARLIER event = Past Perfect (had + V3). The LATER event = Past Simple. "The train <strong>had</strong> already <strong>left</strong> [earlier] when we <strong>arrived</strong> [later] at the station."</div></div>
+    </div>
+  </div>
+
+  <!-- ════════ FUTURE GROUP ════════ -->
+  <div class="cat-head"><h3 style="color:var(--future);">🟢 FUTURE TENSES</h3><div class="line"></div></div>
+
+  <!-- Future Simple -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--future_lt);color:var(--future);">8</div>
+      <div class="tense-title"><h3>Future Simple</h3><p>กริยาอนาคตธรรมดา</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--future_lt);color:var(--future);">S + will + V1</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + will not (won't) + V1</span>
+        <span>question:</span>
+        <span class="f-part" style="background:var(--good_lt);color:var(--good);">Will + S + V1?</span>
+      </div>
+      <div class="usebox" style="background:var(--future_lt);"><b>Use 1 — Prediction (no evidence/spontaneous decision)</b>I think it <strong>will rain</strong> tomorrow. การคาดการณ์ / การตัดสินใจทันที</div>
+      <div class="usebox" style="background:var(--future_lt);"><b>Use 2 — Promise / Offer</b>I <strong>will help</strong> you with your homework. คำสัญญา / การเสนอตัว</div>
+      <div class="ib gold"><span class="ico">⚖️</span><div><strong>will vs. be going to:</strong> "Will" = spontaneous decision/general prediction. "Be going to" = plan made before now, or prediction WITH evidence ("Look at those clouds — it's going to rain.")</div></div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--future_lt);color:var(--future);">tomorrow</span>
+        <span class="tw" style="background:var(--future_lt);color:var(--future);">next week/month/year</span>
+        <span class="tw" style="background:var(--future_lt);color:var(--future);">soon</span>
+        <span class="tw" style="background:var(--future_lt);color:var(--future);">in the future</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Future Continuous -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--cont_lt);color:var(--cont);">9</div>
+      <div class="tense-title"><h3>Future Continuous</h3><p>กริยาอนาคตต่อเนื่อง</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--cont_lt);color:var(--cont);">S + will be + V-ing</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + will not be + V-ing</span>
+      </div>
+      <div class="usebox" style="background:var(--cont_lt);"><b>Use — Action in progress at a specific future time</b>At 10 AM tomorrow, I <strong>will be taking</strong> my exam. การกระทำที่กำลังดำเนินอยู่ ณ เวลาหนึ่งในอนาคต</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">at this time tomorrow</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">at 8 PM next Friday</span>
+        <span class="tw" style="background:var(--cont_lt);color:var(--cont);">this time next year</span>
+      </div>
+      <div class="ib good"><span class="ico">🔑</span><div>Pattern parallels Past Continuous, but moved to the future: "At this time tomorrow, I <strong>will be flying</strong> to Japan" — picture a specific moment with the action already in progress.</div></div>
+    </div>
+  </div>
+
+  <!-- Future Perfect -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--perfect_lt);color:var(--perfect);">10</div>
+      <div class="tense-title"><h3>Future Perfect</h3><p>กริยาอนาคตสมบูรณ์</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--perfect_lt);color:var(--perfect);">S + will have + V3</span>
+        <span>negative:</span>
+        <span class="f-part" style="background:var(--bad_lt);color:var(--bad);">S + will not have + V3</span>
+      </div>
+      <div class="usebox" style="background:var(--perfect_lt);"><b>Use — Action completed BEFORE a specific future time</b>By 2030, she <strong>will have graduated</strong> from university. การกระทำที่จะเสร็จสิ้นภายในเวลาหนึ่งในอนาคต</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">by + future time</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">by the end of</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">by next year</span>
+      </div>
+      <div class="ib good"><span class="ico">🔑</span><div>"BY" is the key signal word. "By next month, I <strong>will have finished</strong> this project." = the action will be complete at or before that future point.</div></div>
+    </div>
+  </div>
+
+  <!-- Future Perfect Continuous -->
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--perfect_lt);color:var(--perfect);">11</div>
+      <div class="tense-title"><h3>Future Perfect Continuous</h3><p>กริยาอนาคตสมบูรณ์ต่อเนื่อง</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="formula-row">
+        <span class="f-part" style="background:var(--perfect_lt);color:var(--perfect);">S + will have been + V-ing</span>
+      </div>
+      <div class="usebox" style="background:var(--perfect_lt);"><b>Use — Duration of action up to a future point</b>By June, I <strong>will have been working</strong> here for 5 years. ระยะเวลาที่กระทำต่อเนื่องจนถึงจุดหนึ่งในอนาคต</div>
+      <div class="timewords">
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">by + time + for + duration</span>
+        <span class="tw" style="background:var(--perfect_lt);color:var(--perfect);">for X years by then</span>
+      </div>
+      <div class="ib gold"><span class="ico">📝</span><div>This is the least common tense — focus on RECOGNIZING it rather than producing it. Pattern: "By [future time], [subject] will have been [V-ing] for [duration]."</div></div>
+    </div>
+  </div>
+
+  <!-- ════════ SPECIAL: "USED TO" ════════ -->
+  <div class="cat-head"><h3 style="color:var(--gold);">⭐ BONUS: USED TO vs. BE USED TO</h3><div class="line"></div></div>
+  <div class="tense-card fade">
+    <div class="tense-head" onclick="toggleTense(this)">
+      <div class="tense-num" style="background:var(--gold_lt);color:var(--gold);">12</div>
+      <div class="tense-title"><h3>Used to / Be used to / Get used to</h3><p>เคย (อดีต) / ชินกับ (ปัจจุบัน)</p></div>
+      <div class="tense-chevron">›</div>
+    </div>
+    <div class="tense-body">
+      <div class="twrap">
+        <table>
+          <thead><tr><th>Form</th><th>Meaning</th><th>Followed by</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><code>used to + V1</code></td><td>เคยทำ (แต่ไม่ทำแล้ว) — past habit</td><td>base verb</td><td>I <strong>used to play</strong> tennis. (now I don't)</td></tr>
+            <tr><td><code>be used to + V-ing/noun</code></td><td>ชินกับ — accustomed to</td><td>gerund / noun</td><td>I <strong>am used to waking</strong> up early. (it's normal for me)</td></tr>
+            <tr><td><code>get used to + V-ing/noun</code></td><td>กำลังจะชิน — becoming accustomed</td><td>gerund / noun</td><td>She is <strong>getting used to living</strong> abroad.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ib bad"><span class="ico">❌</span><div><strong>Common Error:</strong> "I am used to <s>wake</s> up early." → must use gerund (V-ing) after "be/get used to": "I am used to <strong>waking</strong> up early."</div></div>
+    </div>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div style="margin-top:48px;">
+    <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:16px;">Quick Reference — All 12 Tenses</h3>
+    <div class="twrap">
+      <table>
+        <thead><tr><th>#</th><th>Tense</th><th>Formula</th><th>Key Time Word</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Present Simple</td><td>S + V1(s)</td><td>every day, always</td></tr>
+          <tr><td>2</td><td>Present Continuous</td><td>S + am/is/are + V-ing</td><td>now, right now</td></tr>
+          <tr><td>3</td><td>Present Perfect</td><td>S + have/has + V3</td><td>already, since, for</td></tr>
+          <tr><td>4</td><td>Present Perfect Continuous</td><td>S + have/has been + V-ing</td><td>all day, lately</td></tr>
+          <tr><td>5</td><td>Past Simple</td><td>S + V2</td><td>yesterday, ago</td></tr>
+          <tr><td>6</td><td>Past Continuous</td><td>S + was/were + V-ing</td><td>while, when (interrupted)</td></tr>
+          <tr><td>7</td><td>Past Perfect</td><td>S + had + V3</td><td>before, by the time</td></tr>
+          <tr><td>8</td><td>Future Simple</td><td>S + will + V1</td><td>tomorrow, next week</td></tr>
+          <tr><td>9</td><td>Future Continuous</td><td>S + will be + V-ing</td><td>at this time tomorrow</td></tr>
+          <tr><td>10</td><td>Future Perfect</td><td>S + will have + V3</td><td>by + future time</td></tr>
+          <tr><td>11</td><td>Future Perfect Continuous</td><td>S + will have been + V-ing</td><td>by + time + for + duration</td></tr>
+          <tr><td>12</td><td>Used to / Be used to</td><td>used to + V1 / be used to + V-ing</td><td>used to (past habit)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION D: EXERCISES -->
+<div class="page gap" id="exercises">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--bad_lt);">✏️</div>
+    <div class="sh-text"><h2>Section D — Exercises</h2><p>Five activities covering all 12 tenses — from identification to full exam practice.</p></div>
+  </div>
+
+  <!-- EX 1: Identify the Tense -->
+  <div class="exh"><div class="exn" style="background:var(--present);">1</div>
+    <div><h3>Identify the Tense</h3><p>Read each sentence and choose which tense is used.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">📌 Look at the verb form and time words to identify the tense.</div>
+
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">1</span> "By the time the movie started, we had already eaten dinner."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Past Simple</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Past Perfect</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Present Perfect</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Past Continuous</div>
+      </div>
+      <div class="fb ok">✅ "had + V3 (eaten)" = Past Perfect — eating dinner happened BEFORE the movie started (another past event).</div>
+      <div class="fb no">❌ "had + V3" is the formula for Past Perfect — an earlier past action.</div>
+    </div>
+
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">2</span> "She has been working on this project for three months."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Present Perfect</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Present Perfect Continuous</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Present Continuous</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Past Perfect Continuous</div>
+      </div>
+      <div class="fb ok">✅ "has been + V-ing (working)" = Present Perfect Continuous — emphasises the ongoing duration ("for three months").</div>
+      <div class="fb no">❌ "has been + V-ing" = Present Perfect Continuous, focuses on duration of an ongoing action.</div>
+    </div>
+
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">3</span> "At this time next week, I will be lying on a beach in Phuket."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Future Simple</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Future Continuous</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Future Perfect</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Present Continuous</div>
+      </div>
+      <div class="fb ok">✅ "will be + V-ing" = Future Continuous. "At this time next week" signals an action in progress at a specific future moment.</div>
+      <div class="fb no">❌ "will be + V-ing" = Future Continuous, used with "at this time + future time."</div>
+    </div>
+
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">4</span> "I used to live in Bangkok, but now I live in Chiang Mai."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> Past habit (used to)</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Present habit</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Be used to (accustomed)</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Future plan</div>
+      </div>
+      <div class="fb ok">✅ "used to + V1 (live)" = a habit/situation that existed in the past but no longer does. "but now I live..." confirms the contrast.</div>
+      <div class="fb no">❌ "used to + base verb" describes something that was true in the past but isn't anymore.</div>
+    </div>
+
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">5</span> "By 2030, scientists will have developed a cure for this disease."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Future Simple</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Future Continuous</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> Future Perfect</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Present Perfect</div>
+      </div>
+      <div class="fb ok">✅ "will have + V3 (developed)" = Future Perfect — an action that will be COMPLETE by a specific future point ("by 2030").</div>
+      <div class="fb no">❌ "will have + V3" = Future Perfect, signalled by "by + future time."</div>
+    </div>
+
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">6</span> "While she was cooking dinner, the phone rang."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Past Simple only</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Past Continuous + Past Simple</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Present Continuous + Past Simple</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Past Perfect + Past Simple</div>
+      </div>
+      <div class="fb ok">✅ "was cooking" (Past Continuous = longer ongoing action) is interrupted by "rang" (Past Simple = shorter sudden action). Classic "while...when" pattern.</div>
+      <div class="fb no">❌ "was/were + V-ing" = Past Continuous (the longer action), interrupted by a Past Simple verb.</div>
+    </div>
+  </div>
+
+  <!-- EX 2: Fill in the correct tense -->
+  <div class="exh"><div class="exn" style="background:var(--cont);">2</div>
+    <div><h3>Fill in the Correct Tense Form</h3><p>Conjugate the verb in brackets correctly.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">📌 Click <strong>Reveal</strong> to see the answer and which tense rule applies.</div>
+
+    <div class="fi-item"><div class="fi-sent">1. By the time we (arrive) at the cinema, the film <span class="fi-blank" id="f1">had already started</span>.</div>
+      <button class="btn btn-ghost btn-sm" onclick="showFill('f1','a1')">Reveal</button>
+      <div class="fi-ans" id="a1">✅ <code>had already started</code> — Past Perfect: an action completed BEFORE another past action (we arrived).</div></div>
+
+    <div class="fi-item"><div class="fi-sent">2. Look! It <span class="fi-blank" id="f2">is raining</span> (rain) heavily outside.</div>
+      <button class="btn btn-ghost btn-sm" onclick="showFill('f2','a2')">Reveal</button>
+      <div class="fi-ans" id="a2">✅ <code>is raining</code> — Present Continuous: action happening right now, signalled by "Look!"</div></div>
+
+    <div class="fi-item"><div class="fi-sent">3. My grandmother <span class="fi-blank" id="f3">has lived</span> (live) in this house for 40 years.</div>
+      <button class="btn btn-ghost btn-sm" onclick="showFill('f3','a3')">Reveal</button>
+      <div class="fi-ans" id="a3">✅ <code>has lived</code> — Present Perfect with "for" — action started in the past and continues now.</div></div>
+
+    <div class="fi-item"><div class="fi-sent">4. This time tomorrow, I <span class="fi-blank" id="f4">will be taking</span> (take) my final exam.</div>
+      <button class="btn btn-ghost btn-sm" onclick="showFill('f4','a4')">Reveal</button>
+      <div class="fi-ans" id="a4">✅ <code>will be taking</code> — Future Continuous: action in progress at a specific future time.</div></div>
+
+    <div class="fi-item"><div class="fi-sent">5. When I was a child, I <span class="fi-blank" id="f5">used to play</span> (play) outside every day after school.</div>
+      <button class="btn btn-ghost btn-sm" onclick="showFill('f5','a5')">Reveal</button>
+      <div class="fi-ans" id="a5">✅ <code>used to play</code> — past habit that is no longer true.</div></div>
+
+    <div class="fi-item"><div class="fi-sent">6. I'm exhausted! I <span class="fi-blank" id="f6">have been studying</span> (study) since 7 AM.</div>
+      <button class="btn btn-ghost btn-sm" onclick="showFill('f6','a6')">Reveal</button>
+      <div class="fi-ans" id="a6">✅ <code>have been studying</code> — Present Perfect Continuous: emphasises duration up to now ("since 7 AM"), with present result (exhaustion).</div></div>
+
+    <div class="fi-item"><div class="fi-sent">7. While I <span class="fi-blank" id="f7">was walking</span> (walk) to school, I saw an accident.</div>
+      <button class="btn btn-ghost btn-sm" onclick="showFill('f7','a7')">Reveal</button>
+      <div class="fi-ans" id="a7">✅ <code>was walking</code> — Past Continuous: the longer ongoing action, interrupted by "saw" (Past Simple).</div></div>
+
+    <div class="fi-item"><div class="fi-sent">8. By the end of this year, she <span class="fi-blank" id="f8">will have saved</span> (save) enough money for a car.</div>
+      <button class="btn btn-ghost btn-sm" onclick="showFill('f8','a8')">Reveal</button>
+      <div class="fi-ans" id="a8">✅ <code>will have saved</code> — Future Perfect: action will be complete by a future deadline ("by the end of this year").</div></div>
+  </div>
+
+  <!-- EX 3: Error Correction -->
+  <div class="exh"><div class="exn" style="background:var(--past);">3</div>
+    <div><h3>Error Correction</h3><p>Each sentence has one tense error. Find and fix it.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">📌 Click "Show Correction" to see the fix and explanation.</div>
+
+    <div style="margin-bottom:18px;">
+      <div style="background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;">1. I have went to the dentist yesterday. <code style="color:var(--bad);">❌ have went</code></div>
+      <button class="btn btn-ghost btn-sm" onclick="showFix(this)">Show Correction →</button>
+      <div style="display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-top:6px;" class="ec-fix">✅ I <code style="color:var(--good);font-weight:700;">went</code> to the dentist yesterday.<br><span style="color:var(--muted);font-size:13px;">"Yesterday" = specific past time → Past Simple, not Present Perfect.</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div style="background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;">2. She is knowing the answer to that question. <code style="color:var(--bad);">❌ is knowing</code></div>
+      <button class="btn btn-ghost btn-sm" onclick="showFix(this)">Show Correction →</button>
+      <div style="display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-top:6px;" class="ec-fix">✅ She <code style="color:var(--good);font-weight:700;">knows</code> the answer to that question.<br><span style="color:var(--muted);font-size:13px;">"Know" is a stative verb — never used in continuous form.</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div style="background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;">3. By the time the ambulance arrived, the patient already died. <code style="color:var(--bad);">❌ already died</code></div>
+      <button class="btn btn-ghost btn-sm" onclick="showFix(this)">Show Correction →</button>
+      <div style="display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-top:6px;" class="ec-fix">✅ By the time the ambulance arrived, the patient <code style="color:var(--good);font-weight:700;">had already died</code>.<br><span style="color:var(--muted);font-size:13px;">"By the time" signals Past Perfect — the death happened BEFORE the ambulance arrived (another past event).</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div style="background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;">4. I am used to wake up early every morning. <code style="color:var(--bad);">❌ wake</code></div>
+      <button class="btn btn-ghost btn-sm" onclick="showFix(this)">Show Correction →</button>
+      <div style="display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-top:6px;" class="ec-fix">✅ I am used to <code style="color:var(--good);font-weight:700;">waking</code> up early every morning.<br><span style="color:var(--muted);font-size:13px;">"be used to" must be followed by a gerund (V-ing), not the base verb.</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div style="background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;">5. Tomorrow at 8 AM, I am flying to Tokyo (fixed plan), so right now I am being very excited. <code style="color:var(--bad);">❌ am being</code></div>
+      <button class="btn btn-ghost btn-sm" onclick="showFix(this)">Show Correction →</button>
+      <div style="display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-top:6px;" class="ec-fix">✅ ...so right now I <code style="color:var(--good);font-weight:700;">am</code> very excited.<br><span style="color:var(--muted);font-size:13px;">"Be" describing an emotion/state is stative — don't use continuous form ("am being") unless describing temporary behaviour.</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div style="background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;">6. Did you ever visit Europe? <code style="color:var(--bad);">❌ Did you ever visit</code></div>
+      <button class="btn btn-ghost btn-sm" onclick="showFix(this)">Show Correction →</button>
+      <div style="display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-top:6px;" class="ec-fix">✅ <code style="color:var(--good);font-weight:700;">Have you ever visited</code> Europe?<br><span style="color:var(--muted);font-size:13px;">"Ever" (asking about life experience, unspecified time) signals Present Perfect, not Past Simple.</span></div>
+    </div>
+  </div>
+
+  <!-- EX 4: Exam MCQ -->
+  <div class="exh"><div class="exn" style="background:var(--future);">4</div>
+    <div><h3>Exam-Style Multiple Choice (12 Questions)</h3><p>Full exam format — matches ม.1 Advanced / EP difficulty.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">📌 Choose the best verb form for each sentence.</div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> By the time you read this letter, I _____ for New York.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> leave</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> will leave</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> will have left</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> have left</div>
+      </div>
+      <div class="fb ok">✅ "By the time" + future action = Future Perfect — by the time of reading, the leaving will already be complete.</div>
+      <div class="fb no">❌ "By the time" with a future action signals Future Perfect: will have + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> My brother _____ basketball every Saturday morning.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> plays</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> is playing</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> played</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> has played</div>
+      </div>
+      <div class="fb ok">✅ "Every Saturday morning" = routine → Present Simple. Note 3rd person singular "plays".</div>
+      <div class="fb no">❌ "Every Saturday morning" signals a routine — Present Simple.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> I'm so tired because I _____ all night for the exam.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> study</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> studied</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> have been studying</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> will study</div>
+      </div>
+      <div class="fb ok">✅ Present Perfect Continuous — duration ("all night") leading to a present result ("I'm so tired").</div>
+      <div class="fb no">❌ "All night" + present result (tired now) = Present Perfect Continuous.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> When I got home, my dog _____ on the sofa.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> sleeps</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> was sleeping</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> has slept</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> will sleep</div>
+      </div>
+      <div class="fb ok">✅ Past Continuous — the dog was already sleeping (ongoing) when I arrived (interrupting Past Simple action).</div>
+      <div class="fb no">❌ "When + Past Simple" interrupts an ongoing Past Continuous action.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> _____ you ever _____ sushi before?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Did / eat</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Have / eaten</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Do / eat</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Are / eating</div>
+      </div>
+      <div class="fb ok">✅ "Ever" + life experience (unspecified time) = Present Perfect → "Have you ever eaten...?"</div>
+      <div class="fb no">❌ "Ever" asking about life experience always pairs with Present Perfect.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> Don't call me at 9 PM tonight — I _____ dinner with my family.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> will eat</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> will be eating</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> eat</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> have eaten</div>
+      </div>
+      <div class="fb ok">✅ Future Continuous — an action that will be in progress at a specific future time (9 PM tonight).</div>
+      <div class="fb no">❌ A specific future time + ongoing action = Future Continuous (will be + V-ing).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">7</span> She told me that she _____ the movie twice already.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> sees</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> has seen</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> had seen</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> will see</div>
+      </div>
+      <div class="fb ok">✅ In reported speech, Present Perfect ("has seen") shifts back to Past Perfect ("had seen") when the main verb is past ("told").</div>
+      <div class="fb no">❌ Reported speech with past main verb ("told") shifts Present Perfect → Past Perfect.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">8</span> Water _____ at 100 degrees Celsius.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> boils</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> is boiling</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> boiled</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> has boiled</div>
+      </div>
+      <div class="fb ok">✅ Scientific fact = Present Simple, regardless of when you're speaking.</div>
+      <div class="fb no">❌ Universal/scientific facts always use Present Simple.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">9</span> I can't go out tonight — I _____ my room since this morning, and it's still a mess.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> clean</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> cleaned</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> have been cleaning</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> will clean</div>
+      </div>
+      <div class="fb ok">✅ "Since this morning" + ongoing unfinished action = Present Perfect Continuous.</div>
+      <div class="fb no">❌ "Since" + an action still ongoing = Present Perfect Continuous.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">10</span> In 10 years, robots _____ most factory jobs.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> do</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> will do</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> have done</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> are doing</div>
+      </div>
+      <div class="fb ok">✅ "In 10 years" = future prediction without "by" → Future Simple (will + V1), not Future Perfect.</div>
+      <div class="fb no">❌ "In [time period]" without "by" → simple future prediction = will + V1.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">11</span> He moved to Bangkok last year. Since then, he _____ three different jobs.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> had</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> has had</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> has</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> will have</div>
+      </div>
+      <div class="fb ok">✅ "Since then" connects past to present = Present Perfect — the period from moving until now.</div>
+      <div class="fb no">❌ "Since then" = Present Perfect, linking a past starting point to now.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">12</span> I'm not used to _____ in such a noisy environment.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> work</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> working</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> worked</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> to work</div>
+      </div>
+      <div class="fb ok">✅ "be used to" + gerund (V-ing). "Not used to working" = not accustomed to working.</div>
+      <div class="fb no">❌ "(not) used to" + V-ing (gerund form), never the base verb.</div>
+    </div>
+  </div>
+
+  <!-- EX 5: Cloze -->
+  <div class="exh"><div class="exn" style="background:linear-gradient(135deg,var(--present),var(--past));">5</div>
+    <div><h3>Cloze Test — Mixed Tenses (12 Blanks)</h3><p>Choose the correct tense for each blank in this story.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">📌 Read the whole passage first, then identify each blank's tense from context clues.</div>
+    <div class="twrap" style="margin-bottom:20px;">
+      <div style="padding:28px;font-size:15px;line-height:2.4;">
+        <strong>A Day That Changed Everything</strong><br><br>
+        Lin (1) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">wakes</span></strong> up at 6 AM every day — it's part of her daily routine. But last Tuesday (2) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">was</span></strong> different. While she (3) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">was getting</span></strong> ready for school, she (4) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">received</span></strong> a call from her teacher.
+        <br><br>
+        By the time Lin (5) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">arrived</span></strong> at school, the news (6) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">had already spread</span></strong> — she (7) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">had won</span></strong> first prize in the national science competition! She (8) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">has been preparing</span></strong> for this competition for six months.
+        <br><br>
+        Right now, Lin (9) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">is celebrating</span></strong> with her friends. Tomorrow, she (10) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">will give</span></strong> a speech at the school assembly. By the time she graduates, she (11) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">will have won</span></strong> three major competitions. She (12) <strong><span style="border-bottom:2px dashed var(--present);padding:0 6px;color:var(--present);">used to think</span></strong> science was boring, but not anymore!
+      </div>
+    </div>
+    <button class="btn btn-present" onclick="this.nextElementSibling.style.display='block';this.textContent='✅ Key Shown';this.disabled=true;this.style.opacity='.6';">✅ Show Answer Key</button>
+    <div style="display:none;margin-top:16px;">
+      <div class="twrap"><table>
+        <thead><tr><th>#</th><th>Answer</th><th>Tense</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>wakes</code></td><td>Present Simple</td><td>"every day" = routine</td></tr>
+          <tr><td>2</td><td><code>was</code></td><td>Past Simple</td><td>"last Tuesday" = specific past time</td></tr>
+          <tr><td>3</td><td><code>was getting</code></td><td>Past Continuous</td><td>"while" + ongoing action interrupted by "received"</td></tr>
+          <tr><td>4</td><td><code>received</code></td><td>Past Simple</td><td>interrupting action (shorter, sudden)</td></tr>
+          <tr><td>5</td><td><code>arrived</code></td><td>Past Simple</td><td>the later of two past events</td></tr>
+          <tr><td>6</td><td><code>had already spread</code></td><td>Past Perfect</td><td>"by the time" + earlier past event</td></tr>
+          <tr><td>7</td><td><code>had won</code></td><td>Past Perfect</td><td>winning happened before arriving — earlier past event</td></tr>
+          <tr><td>8</td><td><code>has been preparing</code></td><td>Present Perfect Continuous</td><td>duration "for six months" up to now</td></tr>
+          <tr><td>9</td><td><code>is celebrating</code></td><td>Present Continuous</td><td>"right now" = happening at this moment</td></tr>
+          <tr><td>10</td><td><code>will give</code></td><td>Future Simple</td><td>"tomorrow" = simple future plan</td></tr>
+          <tr><td>11</td><td><code>will have won</code></td><td>Future Perfect</td><td>"by the time she graduates" = completed by future point</td></tr>
+          <tr><td>12</td><td><code>used to think</code></td><td>Used to</td><td>"but not anymore" = past habit/belief that changed</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION E: REVIEW -->
+<div class="page gap" id="review">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--perfect_lt);">⭐</div>
+    <div class="sh-text"><h2>Section E — Unit Review</h2><p>Master summary of all 12 tenses + self-evaluation checklist.</p></div>
+  </div>
+
+  <div class="ib gold fade"><span class="ico">🚨</span><div>
+    <strong>Top 8 Exam Traps (ข้อสอบชอบออก):</strong>
+    <ol style="margin-top:10px;padding-left:20px;font-size:14px;line-height:2.1;">
+      <li><code>have went</code> ✗ → <code>went</code> ✓ or <code>have gone</code> ✓ — never mix "have" + V2</li>
+      <li><code>since yesterday</code> with Past Simple ✗ → "since" always pairs with Present Perfect</li>
+      <li><code>am knowing / am understanding</code> ✗ → stative verbs never take -ing</li>
+      <li><code>by the time + Past Simple (both clauses)</code> — usually needs Past Perfect in one clause</li>
+      <li><code>used to + V-ing</code> ✗ → "used to" + base verb (V1) only</li>
+      <li><code>be used to + V1</code> ✗ → "be used to" + V-ing/noun</li>
+      <li><code>will + V1</code> for "by [future time]" ✗ → use Future Perfect "will have + V3"</li>
+      <li><code>ago</code> with Present Perfect ✗ → "ago" always pairs with Past Simple</li>
+    </ol>
+  </div></div>
+
+  <div style="margin-top:24px;" class="twrap fade">
+    <table>
+      <thead><tr><th>If you see…</th><th>…use this tense</th></tr></thead>
+      <tbody>
+        <tr><td>every day, always, usually, on Mondays</td><td>Present Simple</td></tr>
+        <tr><td>now, right now, Look!, Listen!</td><td>Present Continuous</td></tr>
+        <tr><td>already, yet, just, ever, never, since, for</td><td>Present Perfect</td></tr>
+        <tr><td>all day, lately, recently, for + duration (+ "still ongoing")</td><td>Present Perfect Continuous</td></tr>
+        <tr><td>yesterday, last week, ago, in 2020</td><td>Past Simple</td></tr>
+        <tr><td>while, when (longer action), at 8 PM yesterday</td><td>Past Continuous</td></tr>
+        <tr><td>before, after, by the time (earlier past event)</td><td>Past Perfect</td></tr>
+        <tr><td>tomorrow, next week, soon</td><td>Future Simple</td></tr>
+        <tr><td>at this time tomorrow, this time next year</td><td>Future Continuous</td></tr>
+        <tr><td>by + future time</td><td>Future Perfect</td></tr>
+        <tr><td>by + time + for + duration</td><td>Future Perfect Continuous</td></tr>
+        <tr><td>used to (no longer true) / be used to (accustomed)</td><td>Used to / Be used to</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:32px;" class="fade">
+    <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:16px;">Self-Evaluation Checklist — "I Can…"</h3>
+    <ul class="chk">
+      <li><input type="checkbox"> Form all 12 tenses correctly (positive, negative, question).</li>
+      <li><input type="checkbox"> Identify the correct tense from time-word clues.</li>
+      <li><input type="checkbox"> Distinguish Present Perfect from Past Simple (since/for vs. ago/yesterday).</li>
+      <li><input type="checkbox"> Use Past Perfect correctly when two past events are mentioned.</li>
+      <li><input type="checkbox"> Use the "while + Past Continuous, Past Simple" pattern correctly.</li>
+      <li><input type="checkbox"> Distinguish Future Simple, Future Continuous, and Future Perfect.</li>
+      <li><input type="checkbox"> Use "used to" vs. "be used to" vs. "get used to" correctly.</li>
+      <li><input type="checkbox"> Avoid using stative verbs in continuous form.</li>
+      <li><input type="checkbox"> Complete a 12-blank mixed-tense cloze passage.</li>
+      <li><input type="checkbox"> Score at least 10/12 on the exam-style MCQ section.</li>
+    </ul>
+  </div>
+
+  <div class="scoreboard fade" style="margin-top:32px;">
+    <div class="sc-num" id="scoreNum">–</div>
+    <div class="sc-txt"><h4>Your Live Score</h4><p>Click through the MCQ exercises above and your score updates here automatically.</p></div>
+    <div class="sc-bar-wrap"><div class="sc-bar-lbl">Accuracy</div><div class="sc-bar"><div class="sc-fill" id="scoreFill" style="width:0%"></div></div></div>
+  </div>
+
+  <div class="ib good fade">
+    <span class="ico">➡️</span>
+    <div><strong>Next Unit: Unit 4 — Passive Voice</strong><br>Learn how to transform active sentences into passive voice across all tenses, plus exam-format practice!</div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Unit 3 · All 12 Tenses · B1 English Course</span>
+  <span>12 Tenses · 50 Practice Questions</span>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  document.getElementById('prog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+
+function toggleTense(head){
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+}
+
+let cor=0,tot=0;
+function chk(el,r){
+  const item=el.closest('.mcq');
+  if(item.dataset.done)return;
+  item.dataset.done='1';
+  tot++;
+  item.querySelectorAll('.opt').forEach(o=>o.style.pointerEvents='none');
+  const fbs=item.querySelectorAll('.fb');
+  if(r==='c'){
+    el.classList.add('correct');
+    fbs[0].classList.add('show');
+    cor++;
+  } else {
+    el.classList.add('wrong');
+    fbs[1].classList.add('show');
+    item.querySelectorAll('.opt').forEach(o=>{
+      if(o.getAttribute('onclick')&&o.getAttribute('onclick').includes("'c'"))
+        o.classList.add('correct');
+    });
+  }
+  const pct=Math.round(cor/Math.max(tot,1)*100);
+  const sn=document.getElementById('scoreNum');
+  const sf=document.getElementById('scoreFill');
+  if(sn)sn.textContent=cor+' / '+tot;
+  if(sf)sf.style.width=pct+'%';
+}
+
+function showFill(blankId,ansId){
+  const b=document.getElementById(blankId);
+  const a=document.getElementById(ansId);
+  if(b)b.classList.add('shown');
+  if(a)a.classList.add('show');
+}
+
+function showFix(btn){
+  btn.nextElementSibling.style.display='block';
+  btn.style.display='none';
+}
+</script>
+</body>
+</html>

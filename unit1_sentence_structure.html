@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 — Sentence Structure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Baloo+2:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─── */
+:root {
+  --bg:       #f0f4ff;
+  --surface:  #ffffff;
+  --ink:      #1e1b4b;
+  --muted:    #6b7280;
+  --rule:     #e0e7ff;
+
+  --s: #4f46e5;   /* Subject  — indigo */
+  --v: #059669;   /* Verb     — emerald */
+  --o: #d97706;   /* Object   — amber */
+  --c: #db2777;   /* Complement — pink */
+  --a: #7c3aed;   /* Adverbial — violet */
+
+  --s-light: #eef2ff;
+  --v-light: #ecfdf5;
+  --o-light: #fffbeb;
+  --c-light: #fdf2f8;
+  --a-light: #f5f3ff;
+
+  --radius: 14px;
+  --shadow: 0 4px 24px rgba(79,70,229,.10);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+/* ─── PAGE LOAD ANIMATION ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade { animation: fadeUp .55s ease both; }
+.fade:nth-child(1){ animation-delay:.05s }
+.fade:nth-child(2){ animation-delay:.12s }
+.fade:nth-child(3){ animation-delay:.19s }
+.fade:nth-child(4){ animation-delay:.26s }
+.fade:nth-child(5){ animation-delay:.33s }
+.fade:nth-child(6){ animation-delay:.40s }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+
+/* ══════════════════ COVER ══════════════════ */
+.cover {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 55%, #4338ca 100%);
+  color: white;
+  padding: 80px 5% 100px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(129,140,248,.18) 0%, transparent 70%);
+  top: -200px; right: -150px;
+  pointer-events: none;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,181,253,.12) 0%, transparent 70%);
+  bottom: -100px; left: -80px;
+  pointer-events: none;
+}
+.cover-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+.cover-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  margin-bottom: 28px;
+  backdrop-filter: blur(8px);
+}
+.cover-badge span { width: 8px; height: 8px; border-radius: 50%; background: #a5b4fc; display: inline-block; }
+.cover h1 {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(38px, 7vw, 72px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.cover h1 em { font-style: normal; color: #a5b4fc; }
+.cover-desc {
+  font-size: 17px;
+  color: rgba(255,255,255,.72);
+  max-width: 520px;
+  margin-bottom: 48px;
+  line-height: 1.65;
+}
+
+/* colour pills on cover */
+.pill-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 52px; }
+.pill {
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.pill-s { background: var(--s); color: white; }
+.pill-v { background: var(--v); color: white; }
+.pill-o { background: var(--o); color: white; }
+.pill-c { background: var(--c); color: white; }
+
+/* cover stat strip */
+.stat-strip {
+  display: flex; gap: 0;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: var(--radius);
+  overflow: hidden;
+  max-width: 560px;
+}
+.stat-item {
+  flex: 1;
+  padding: 18px 20px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,.1);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Baloo 2', cursive;
+  font-size: 28px;
+  font-weight: 800;
+  color: #a5b4fc;
+  line-height: 1;
+}
+.stat-lbl { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 4px; }
+
+/* ══════════════════ NAV ══════════════════ */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface);
+  border-bottom: 2px solid var(--rule);
+  padding: 0 5%;
+  display: flex; gap: 0;
+  overflow-x: auto;
+  box-shadow: 0 2px 12px rgba(79,70,229,.07);
+}
+.nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 16px 18px;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.nav a:hover { color: var(--s); border-bottom-color: var(--s); }
+
+/* ══════════════════ LAYOUT ══════════════════ */
+.page { max-width: 860px; margin: 0 auto; padding: 56px 24px; }
+.section-gap { margin-bottom: 64px; }
+
+/* ══════════════════ SECTION HEADERS ══════════════════ */
+.section-head {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 32px;
+}
+.section-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.section-head h2 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.section-head p { font-size: 14px; color: var(--muted); margin-top: 2px; }
+
+/* ══════════════════ COLOUR LABEL SYSTEM ══════════════════ */
+.lbl {
+  display: inline-block;
+  padding: 3px 11px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  vertical-align: middle;
+}
+.lbl-s { background: var(--s-light); color: var(--s); }
+.lbl-v { background: var(--v-light); color: var(--v); }
+.lbl-o { background: var(--o-light); color: var(--o); }
+.lbl-c { background: var(--c-light); color: var(--c); }
+.lbl-a { background: var(--a-light); color: var(--a); }
+
+/* ══════════════════ DEFINITION CARDS ══════════════════ */
+.def-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+@media(max-width:600px){ .def-grid { grid-template-columns: 1fr; } }
+
+.def-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px 26px;
+  box-shadow: var(--shadow);
+  border-top: 5px solid;
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.def-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(79,70,229,.14); }
+.def-card.s { border-color: var(--s); }
+.def-card.v { border-color: var(--v); }
+.def-card.o { border-color: var(--o); }
+.def-card.c { border-color: var(--c); }
+
+.def-letter {
+  position: absolute;
+  top: -10px; right: 16px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 80px;
+  font-weight: 900;
+  opacity: .06;
+  line-height: 1;
+  pointer-events: none;
+}
+.def-pill { margin-bottom: 12px; }
+.def-card h3 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.def-card p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+.def-thai {
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.s .def-thai { background: var(--s-light); color: var(--s); }
+.v .def-thai { background: var(--v-light); color: var(--v); }
+.o .def-thai { background: var(--o-light); color: var(--o); }
+.c .def-thai { background: var(--c-light); color: var(--c); }
+.def-asks {
+  font-size: 13px;
+  font-family: 'Fira Code', monospace;
+  color: var(--muted);
+  border-left: 3px solid var(--rule);
+  padding-left: 10px;
+  margin-top: 8px;
+}
+.def-asks span { font-weight: 700; }
+
+/* ══════════════════ SENTENCE DIAGRAM ══════════════════ */
+.diagram-wrap {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+.diagram-wrap h4 {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.sentence-block {
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.sent-piece {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.sent-word {
+  font-family: 'Baloo 2', cursive;
+  font-size: 19px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 10px 10px 0 0;
+  white-space: nowrap;
+  min-width: 80px;
+  text-align: center;
+}
+.sent-word.s { background: var(--s); color: white; }
+.sent-word.v { background: var(--v); color: white; }
+.sent-word.o { background: var(--o); color: white; }
+.sent-word.c { background: var(--c); color: white; }
+.sent-word.a { background: var(--a); color: white; }
+.sent-word.x { background: #e5e7eb; color: var(--muted); } /* punctuation */
+
+.sent-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 0 0 10px 10px;
+  min-width: 80px;
+  text-align: center;
+}
+.sent-tag.s { background: var(--s-light); color: var(--s); }
+.sent-tag.v { background: var(--v-light); color: var(--v); }
+.sent-tag.o { background: var(--o-light); color: var(--o); }
+.sent-tag.c { background: var(--c-light); color: var(--c); }
+.sent-tag.a { background: var(--a-light); color: var(--a); }
+.sent-tag.x { background: transparent; color: transparent; }
+
+.sent-sep {
+  display: flex; align-items: center;
+  padding: 0 2px;
+  color: var(--muted);
+  font-size: 22px;
+  padding-top: 0;
+  align-self: flex-start;
+  padding-top: 10px;
+}
+
+/* ══════════════════ PATTERN CARDS ══════════════════ */
+.pattern-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+.pattern-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 18px;
+  align-items: start;
+}
+@media(max-width:600px){ .pattern-card { grid-template-columns: 1fr; } }
+.pattern-num {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--s-light);
+  color: var(--s);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Baloo 2', cursive;
+  font-size: 20px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.pattern-body h4 {
+  font-family: 'Fira Code', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.pattern-body p { font-size: 13.5px; color: var(--muted); }
+.pattern-tag {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: var(--rule);
+  color: var(--s);
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+/* ══════════════════ INFO BOX ══════════════════ */
+.info-box {
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 20px 0;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.info-box .icon { font-size: 22px; flex-shrink: 0; }
+.info-box.blue  { background: #eff6ff; border-left: 4px solid #3b82f6; }
+.info-box.green { background: var(--v-light); border-left: 4px solid var(--v); }
+.info-box.amber { background: var(--o-light); border-left: 4px solid var(--o); }
+.info-box.red   { background: #fff1f2; border-left: 4px solid #f43f5e; }
+.info-box.purple{ background: var(--s-light); border-left: 4px solid var(--s); }
+
+/* ══════════════════ TABLE ══════════════════ */
+.tbl-wrap {
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin: 20px 0 32px;
+  overflow-x: auto;
+}
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead tr { background: var(--ink); color: white; }
+thead th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+tbody tr:nth-child(even) { background: var(--bg); }
+tbody td { padding: 12px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+
+/* ══════════════════ VOCAB CARDS ══════════════════ */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.vocab-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--rule);
+  transition: transform .2s;
+}
+.vocab-card:hover { transform: translateY(-2px); }
+.vocab-word {
+  font-family: 'Baloo 2', cursive;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.vocab-pron {
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.vocab-type {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+.vocab-thai { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.vocab-ex { font-size: 13px; color: var(--muted); font-style: italic; }
+
+/* ══════════════════ READING ══════════════════ */
+.reading-box {
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+.reading-header {
+  background: var(--ink);
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.reading-header h3 { font-family: 'Baloo 2', cursive; font-size: 18px; font-weight: 800; }
+.reading-header span { font-size: 12px; opacity: .6; font-family: 'Fira Code', monospace; }
+.reading-body { padding: 28px 28px; font-size: 15.5px; line-height: 1.9; }
+.reading-body p { margin-bottom: 14px; }
+.reading-body p:last-child { margin-bottom: 0; }
+.hl-s { background: var(--s-light); color: var(--s); font-weight: 700; padding: 1px 4px; border-radius: 4px; }
+.hl-v { background: var(--v-light); color: var(--v); font-weight: 700; padding: 1px 4px; border-radius: 4px; }
+.hl-o { background: var(--o-light); color: var(--o); font-weight: 700; padding: 1px 4px; border-radius: 4px; }
+.hl-c { background: var(--c-light); color: var(--c); font-weight: 700; padding: 1px 4px; border-radius: 4px; }
+
+/* ══════════════════ EXERCISES ══════════════════ */
+.ex-header {
+  background: var(--ink);
+  color: white;
+  padding: 16px 24px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ex-header .ex-num {
+  width: 36px; height: 36px;
+  background: var(--s);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Baloo 2', cursive;
+  font-size: 18px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.ex-header h3 { font-family: 'Baloo 2', cursive; font-size: 17px; font-weight: 800; }
+.ex-header p  { font-size: 13px; opacity: .7; margin-top: 2px; }
+
+.ex-body {
+  background: var(--surface);
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+.ex-instruction {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: var(--bg);
+  border-radius: 10px;
+  border-left: 4px solid var(--s);
+}
+
+/* MCQ */
+.mcq-item {
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--rule);
+}
+.mcq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.mcq-q {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+.mcq-q .qnum {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px;
+  background: var(--s);
+  color: white;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 900;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.mcq-options { display: flex; flex-direction: column; gap: 8px; padding-left: 36px; }
+.mcq-opt {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--rule);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .18s;
+  user-select: none;
+  background: white;
+}
+.mcq-opt:hover { border-color: var(--s); background: var(--s-light); }
+.mcq-opt.correct { border-color: var(--v); background: var(--v-light); color: var(--v); font-weight: 700; }
+.mcq-opt.wrong   { border-color: #f43f5e; background: #fff1f2; color: #f43f5e; }
+.opt-bubble {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+  flex-shrink: 0;
+  transition: all .18s;
+  font-family: 'Baloo 2', cursive;
+}
+.mcq-opt:hover .opt-bubble { border-color: var(--s); background: var(--s); color: white; }
+.mcq-opt.correct .opt-bubble { border-color: var(--v); background: var(--v); color: white; }
+.mcq-opt.wrong   .opt-bubble { border-color: #f43f5e; background: #f43f5e; color: white; }
+
+/* feedback */
+.feedback {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding-left: 36px;
+}
+.feedback.show { display: block; }
+.feedback.ok  { background: var(--v-light); color: var(--v); }
+.feedback.bad { background: #fff1f2; color: #f43f5e; }
+
+/* label exercise */
+.label-ex { display: flex; flex-direction: column; gap: 18px; }
+.label-sent {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 18px 20px;
+  font-size: 15px;
+}
+.label-sent .lnum {
+  font-weight: 900;
+  color: var(--s);
+  margin-right: 8px;
+  font-family: 'Baloo 2', cursive;
+}
+.blank-label {
+  display: inline-block;
+  min-width: 80px;
+  border-bottom: 3px solid var(--s);
+  text-align: center;
+  margin: 0 4px;
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+  color: transparent;
+  transition: color .2s;
+}
+.blank-label.revealed { color: var(--s); font-weight: 700; }
+
+/* build-a-sentence */
+.build-zone {
+  background: var(--bg);
+  border-radius: 12px;
+  min-height: 68px;
+  border: 2.5px dashed var(--rule);
+  padding: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  transition: border-color .2s;
+}
+.build-zone.active { border-color: var(--s); }
+.word-token {
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .15s, box-shadow .15s;
+  white-space: nowrap;
+}
+.word-token:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+.word-token.s-tok { background: var(--s); color: white; }
+.word-token.v-tok { background: var(--v); color: white; }
+.word-token.o-tok { background: var(--o); color: white; }
+.word-token.c-tok { background: var(--c); color: white; }
+.word-token.n-tok { background: #e5e7eb; color: var(--ink); }
+.token-bank {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 14px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--rule);
+  margin-bottom: 12px;
+  min-height: 52px;
+}
+
+/* error correction */
+.error-sent {
+  background: #fff1f2;
+  border-left: 4px solid #f43f5e;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+.error-sent code {
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  color: #f43f5e;
+  text-decoration: line-through;
+}
+.correction {
+  display: none;
+  background: var(--v-light);
+  border-left: 4px solid var(--v);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.correction.show { display: block; }
+.correction code { font-family: 'Fira Code', monospace; font-size: 14px; color: var(--v); font-weight: 700; }
+
+/* ── BTN ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  transition: all .18s;
+  font-family: 'Nunito', sans-serif;
+}
+.btn-primary { background: var(--s); color: white; }
+.btn-primary:hover { background: #4338ca; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(79,70,229,.35); }
+.btn-ghost { background: var(--bg); color: var(--ink); border: 2px solid var(--rule); }
+.btn-ghost:hover { border-color: var(--s); color: var(--s); }
+.btn-green { background: var(--v); color: white; }
+.btn-green:hover { background: #047857; }
+.btn-sm { padding: 8px 18px; font-size: 13px; }
+
+/* ── SCORE BOARD ── */
+.scoreboard {
+  background: linear-gradient(135deg, #312e81, #4338ca);
+  color: white;
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.score-num {
+  font-family: 'Baloo 2', cursive;
+  font-size: 52px;
+  font-weight: 900;
+  line-height: 1;
+}
+.score-txt { flex: 1; }
+.score-txt h4 { font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.score-txt p  { font-size: 14px; opacity: .75; }
+.score-bar-wrap { flex: 1; min-width: 200px; }
+.score-bar { height: 12px; background: rgba(255,255,255,.2); border-radius: 6px; overflow: hidden; }
+.score-fill { height: 100%; background: #a5b4fc; border-radius: 6px; transition: width .8s ease; }
+
+/* ── REVIEW BOX ── */
+.review-box {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.review-box-header {
+  background: linear-gradient(90deg, #312e81, #4338ca);
+  color: white;
+  padding: 16px 24px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 18px;
+  font-weight: 800;
+}
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+@media(max-width:600px){ .review-grid { grid-template-columns: 1fr; } }
+.review-cell {
+  padding: 20px 24px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.review-cell:nth-child(even) { border-right: none; }
+.review-cell h4 { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.review-cell ul { padding-left: 18px; font-size: 14px; color: var(--muted); }
+.review-cell ul li { margin-bottom: 4px; }
+
+/* ── CHECKLIST ── */
+.checklist { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 14.5px;
+  background: var(--surface);
+  padding: 14px 16px;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(79,70,229,.06);
+}
+.checklist li input[type="checkbox"] {
+  width: 20px; height: 20px;
+  accent-color: var(--s);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--ink);
+  color: rgba(255,255,255,.45);
+  padding: 36px 5%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  font-family: 'Fira Code', monospace;
+}
+
+/* ── PROGRESS TRACKER ── */
+.progress-strip {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--s), #818cf8);
+  z-index: 9999;
+  transition: width .1s linear;
+  width: 0%;
+}
+</style>
+</head>
+<body>
+
+<div class="progress-strip" id="progress"></div>
+
+<!-- ══════════ COVER ══════════ -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-badge fade"><span></span> B1 English · Sentence Grammar</div>
+    <h1 class="fade">Unit 1<br><em>Sentence Structure</em></h1>
+    <p class="cover-desc fade">Learn how every English sentence is built — from the simplest Subject + Verb to complex patterns with Objects and Complements.</p>
+
+    <div class="pill-row fade">
+      <div class="pill pill-s">S  Subject</div>
+      <div class="pill pill-v">V  Verb</div>
+      <div class="pill pill-o">O  Object</div>
+      <div class="pill pill-c">C  Complement</div>
+    </div>
+
+    <div class="stat-strip fade">
+      <div class="stat-item"><div class="stat-num">4</div><div class="stat-lbl">Key Concepts</div></div>
+      <div class="stat-item"><div class="stat-num">6</div><div class="stat-lbl">Sentence Patterns</div></div>
+      <div class="stat-item"><div class="stat-num">5</div><div class="stat-lbl">Exercises</div></div>
+      <div class="stat-item"><div class="stat-num">40</div><div class="stat-lbl">Exam Questions</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ NAV ══════════ -->
+<nav class="nav">
+  <a href="#vocab">📚 Vocabulary</a>
+  <a href="#reading">📖 Reading</a>
+  <a href="#grammar">🔵 Grammar</a>
+  <a href="#patterns">🔗 Patterns</a>
+  <a href="#exercises">✏️ Exercises</a>
+  <a href="#review">⭐ Review</a>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     SECTION A — VOCABULARY
+══════════════════════════════════════════ -->
+<div class="page section-gap" id="vocab">
+  <div class="section-head fade">
+    <div class="section-icon" style="background:#eef2ff; font-size:26px;">📚</div>
+    <div>
+      <h2>Section A — Vocabulary Builder</h2>
+      <p>Learn these 12 key words before reading the passage. They appear in the exercises too!</p>
+    </div>
+  </div>
+
+  <div class="info-box blue fade">
+    <span class="icon">💡</span>
+    <div><strong>Study Tip:</strong> Read each word, say it aloud, cover the Thai meaning and try to recall it. Each word is also colour-coded by its part of speech — the same colours used throughout this unit.</div>
+  </div>
+
+  <div class="vocab-grid fade">
+
+    <div class="vocab-card" style="border-left-color:var(--s);">
+      <div class="vocab-word">architect</div>
+      <div class="vocab-pron">/ˈɑːr.kɪ.tekt/</div>
+      <div class="vocab-type lbl lbl-s">noun</div>
+      <div class="vocab-thai">สถาปนิก</div>
+      <div class="vocab-ex">"The <u>architect</u> designed a beautiful library."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--v);">
+      <div class="vocab-word">design</div>
+      <div class="vocab-pron">/dɪˈzaɪn/</div>
+      <div class="vocab-type lbl lbl-v">verb</div>
+      <div class="vocab-thai">ออกแบบ</div>
+      <div class="vocab-ex">"She <u>designs</u> houses for a living."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--o);">
+      <div class="vocab-word">museum</div>
+      <div class="vocab-pron">/mjuːˈziː.əm/</div>
+      <div class="vocab-type lbl lbl-o">noun</div>
+      <div class="vocab-thai">พิพิธภัณฑ์</div>
+      <div class="vocab-ex">"We visited the science <u>museum</u> yesterday."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--c);">
+      <div class="vocab-word">talented</div>
+      <div class="vocab-pron">/ˈtæl.ən.tɪd/</div>
+      <div class="vocab-type lbl lbl-c">adjective</div>
+      <div class="vocab-thai">มีพรสวรรค์</div>
+      <div class="vocab-ex">"She is extremely <u>talented</u>."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--v);">
+      <div class="vocab-word">receive</div>
+      <div class="vocab-pron">/rɪˈsiːv/</div>
+      <div class="vocab-type lbl lbl-v">verb</div>
+      <div class="vocab-thai">ได้รับ</div>
+      <div class="vocab-ex">"He <u>received</u> an award for his work."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--s);">
+      <div class="vocab-word">community</div>
+      <div class="vocab-pron">/kəˈmjuː.nɪ.ti/</div>
+      <div class="vocab-type lbl lbl-s">noun</div>
+      <div class="vocab-thai">ชุมชน</div>
+      <div class="vocab-ex">"The <u>community</u> built a new park."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--c);">
+      <div class="vocab-word">proud</div>
+      <div class="vocab-pron">/praʊd/</div>
+      <div class="vocab-type lbl lbl-c">adjective</div>
+      <div class="vocab-thai">ภาคภูมิใจ</div>
+      <div class="vocab-ex">"Her parents felt very <u>proud</u>."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--v);">
+      <div class="vocab-word">inspire</div>
+      <div class="vocab-pron">/ɪnˈspaɪər/</div>
+      <div class="vocab-type lbl lbl-v">verb</div>
+      <div class="vocab-thai">สร้างแรงบันดาลใจ</div>
+      <div class="vocab-ex">"Her story <u>inspires</u> young students."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--o);">
+      <div class="vocab-word">award</div>
+      <div class="vocab-pron">/əˈwɔːrd/</div>
+      <div class="vocab-type lbl lbl-o">noun</div>
+      <div class="vocab-thai">รางวัล</div>
+      <div class="vocab-ex">"She gave him an <u>award</u>."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--v);">
+      <div class="vocab-word">grow up</div>
+      <div class="vocab-pron">/ɡrəʊ ʌp/</div>
+      <div class="vocab-type lbl lbl-v">phrasal verb</div>
+      <div class="vocab-thai">เติบโตขึ้น</div>
+      <div class="vocab-ex">"She <u>grew up</u> in Chiang Mai."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--c);">
+      <div class="vocab-word">famous</div>
+      <div class="vocab-pron">/ˈfeɪ.məs/</div>
+      <div class="vocab-type lbl lbl-c">adjective</div>
+      <div class="vocab-thai">มีชื่อเสียง</div>
+      <div class="vocab-ex">"The building became <u>famous</u> worldwide."</div>
+    </div>
+
+    <div class="vocab-card" style="border-left-color:var(--o);">
+      <div class="vocab-word">project</div>
+      <div class="vocab-pron">/ˈprɒdʒ.ekt/</div>
+      <div class="vocab-type lbl lbl-o">noun</div>
+      <div class="vocab-thai">โครงการ</div>
+      <div class="vocab-ex">"The team finished the <u>project</u> on time."</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION B — READING
+══════════════════════════════════════════ -->
+<div class="page section-gap" id="reading">
+  <div class="section-head fade">
+    <div class="section-icon" style="background:#ecfdf5; font-size:26px;">📖</div>
+    <div>
+      <h2>Section B — Reading Passage</h2>
+      <p>Read the text. Every coloured word shows a sentence part — Subject, Verb, Object, or Complement.</p>
+    </div>
+  </div>
+
+  <div class="info-box green fade">
+    <span class="icon">🎨</span>
+    <div>
+      <strong>Colour Key: </strong>
+      <span class="hl-s">Subject (S)</span> &nbsp;
+      <span class="hl-v">Verb (V)</span> &nbsp;
+      <span class="hl-o">Object (O)</span> &nbsp;
+      <span class="hl-c">Complement (C)</span>
+    </div>
+  </div>
+
+  <div class="reading-box fade">
+    <div class="reading-header">
+      <h3>The Young Architect</h3>
+      <span>~150 words · Narrative · B1</span>
+    </div>
+    <div class="reading-body">
+      <p>
+        <span class="hl-s">Maya</span> <span class="hl-v">is</span> <span class="hl-c">a talented architect</span>.
+        <span class="hl-s">She</span> <span class="hl-v">grew up</span> in a small town in northern Thailand.
+        As a child, <span class="hl-s">she</span> <span class="hl-v">loved</span> <span class="hl-o">drawing buildings</span>.
+        <span class="hl-s">Her parents</span> <span class="hl-v">gave</span> <span class="hl-o">her</span> <span class="hl-o">art lessons</span> every weekend.
+      </p>
+      <p>
+        Today, <span class="hl-s">Maya</span> <span class="hl-v">designs</span> <span class="hl-o">beautiful museums and libraries</span>.
+        <span class="hl-s">Her work</span> <span class="hl-v">has become</span> <span class="hl-c">famous</span> around the world.
+        Last year, <span class="hl-s">the city</span> <span class="hl-v">gave</span> <span class="hl-o">her</span> <span class="hl-o">a special award</span> for her contributions.
+        <span class="hl-s">The community</span> <span class="hl-v">feels</span> <span class="hl-c">proud</span> of her achievements.
+      </p>
+      <p>
+        <span class="hl-s">Maya</span> <span class="hl-v">inspires</span> <span class="hl-o">young students</span> every day.
+        <span class="hl-s">She</span> <span class="hl-v">visits</span> <span class="hl-o">schools</span> and <span class="hl-v">teaches</span> <span class="hl-o">children</span> about architecture.
+        <span class="hl-s">Her dream</span> <span class="hl-v">is</span> <span class="hl-c">simple</span> — to make every building a work of art.
+      </p>
+    </div>
+  </div>
+
+  <!-- Comprehension Qs -->
+  <div class="ex-header" style="border-radius: var(--radius) var(--radius) 0 0;">
+    <div class="ex-num">Q</div>
+    <div>
+      <h3>Reading Comprehension</h3>
+      <p>Choose the best answer. Click an option to check!</p>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">1</span> What is Maya's job?</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> She is a teacher.</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">B</span> She is an architect.</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">C</span> She is an artist.</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> She is a student.</div>
+      </div>
+      <div class="feedback">✅ Correct! "Maya is a talented architect." — the complement tells us who she is.</div>
+      <div class="feedback bad">❌ Try again. Re-read the first sentence!</div>
+    </div>
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">2</span> What did the city give Maya?</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> A museum.</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">B</span> Art lessons.</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">C</span> A special award.</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> A school.</div>
+      </div>
+      <div class="feedback">✅ Correct! "The city gave her a special award." — two objects: her (indirect) + award (direct).</div>
+      <div class="feedback bad">❌ Look at the sentence "The city gave her…"</div>
+    </div>
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">3</span> The word <em>"proud"</em> in the passage describes the feeling of…</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> Maya.</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">B</span> Young students.</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">C</span> The community.</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> Her parents.</div>
+      </div>
+      <div class="feedback">✅ Correct! "The community feels proud." — <em>proud</em> is a Subject Complement after the linking verb <em>feels</em>.</div>
+      <div class="feedback bad">❌ Find the sentence with the word "proud" and check who the subject is.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION C — GRAMMAR SPOTLIGHT
+══════════════════════════════════════════ -->
+<div class="page section-gap" id="grammar">
+  <div class="section-head fade">
+    <div class="section-icon" style="background:#eef2ff; font-size:26px;">🔵</div>
+    <div>
+      <h2>Section C — Grammar Spotlight</h2>
+      <p>The four building blocks of every English sentence.</p>
+    </div>
+  </div>
+
+  <!-- 4 definition cards -->
+  <div class="def-grid fade">
+
+    <div class="def-card s">
+      <div class="def-letter">S</div>
+      <div class="def-pill"><span class="lbl lbl-s">Subject</span></div>
+      <h3>Subject</h3>
+      <p>The <strong>person, animal, thing, or idea</strong> that the sentence is about. The subject <em>does</em> the action or <em>is described</em>.</p>
+      <div class="def-thai">ประธาน — ผู้กระทำหรือสิ่งที่ถูกพูดถึง</div>
+      <div class="def-asks">
+        Ask: <span>"Who or what does the action?"</span><br>
+        Position: <span>Usually at the start</span>
+      </div>
+    </div>
+
+    <div class="def-card v">
+      <div class="def-letter">V</div>
+      <div class="def-pill"><span class="lbl lbl-v">Verb</span></div>
+      <h3>Verb</h3>
+      <p>The <strong>action or state</strong> in the sentence. Every sentence <em>must</em> have a verb. Verbs can show actions (run, eat) or states (be, seem, feel).</p>
+      <div class="def-thai">กริยา — การกระทำหรือสภาพ</div>
+      <div class="def-asks">
+        Ask: <span>"What does the subject do or feel?"</span><br>
+        Types: <span>Action verb / Linking verb</span>
+      </div>
+    </div>
+
+    <div class="def-card o">
+      <div class="def-letter">O</div>
+      <div class="def-pill"><span class="lbl lbl-o">Object</span></div>
+      <h3>Object</h3>
+      <p>The <strong>receiver of the action</strong>. Follows an <em>action verb</em>. Can be Direct (what?) or Indirect (to whom?).</p>
+      <div class="def-thai">กรรม — ผู้ถูกกระทำหรือสิ่งที่รับการกระทำ</div>
+      <div class="def-asks">
+        Direct O: <span>"What/Whom does the subject verb?"</span><br>
+        Indirect O: <span>"To whom / For whom?"</span>
+      </div>
+    </div>
+
+    <div class="def-card c">
+      <div class="def-letter">C</div>
+      <div class="def-pill"><span class="lbl lbl-c">Complement</span></div>
+      <h3>Complement</h3>
+      <p>A word that <strong>describes or renames</strong> the subject or object. Always follows a <em>linking verb</em> (be, seem, look, feel, become, sound, taste).</p>
+      <div class="def-thai">ส่วนเติมเต็ม — คำที่ขยายหรือบอกลักษณะของประธาน/กรรม</div>
+      <div class="def-asks">
+        Ask: <span>"What is the subject / object like?"</span><br>
+        Types: <span>Noun / Adjective after linking verb</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- KEY DIFFERENCE BOX -->
+  <div class="info-box amber fade">
+    <span class="icon">⚡</span>
+    <div>
+      <strong>Object vs. Complement — The Key Difference:</strong><br>
+      An <strong>Object</strong> is a different person or thing that receives the action: "She loves <u>music</u>." (music ≠ she)<br>
+      A <strong>Complement</strong> describes or renames the subject itself: "She is <u>a musician</u>." (musician = she)
+    </div>
+  </div>
+
+  <!-- LINKING VERBS BOX -->
+  <div class="info-box purple fade">
+    <span class="icon">🔗</span>
+    <div>
+      <strong>Common Linking Verbs (always followed by Complement, never Object):</strong><br>
+      <strong>be</strong> (is, am, are, was, were) &nbsp;·&nbsp;
+      <strong>become</strong> &nbsp;·&nbsp; <strong>seem</strong> &nbsp;·&nbsp;
+      <strong>look</strong> &nbsp;·&nbsp; <strong>sound</strong> &nbsp;·&nbsp;
+      <strong>feel</strong> &nbsp;·&nbsp; <strong>taste</strong> &nbsp;·&nbsp;
+      <strong>smell</strong> &nbsp;·&nbsp; <strong>appear</strong> &nbsp;·&nbsp; <strong>remain</strong><br><br>
+      <em>เป็น อยู่ คือ / กลายเป็น / ดู / ฟังดู / รู้สึก / รสชาติ / กลิ่น / ดูเหมือน / ยังคงเป็น</em>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION D — SENTENCE PATTERNS
+══════════════════════════════════════════ -->
+<div class="page section-gap" id="patterns">
+  <div class="section-head fade">
+    <div class="section-icon" style="background:#fffbeb; font-size:26px;">🔗</div>
+    <div>
+      <h2>Section D — The 6 Sentence Patterns</h2>
+      <p>All English sentences follow one of these six patterns. Learn to recognise them!</p>
+    </div>
+  </div>
+
+  <!-- PATTERN DIAGRAMS -->
+  <div class="diagram-wrap fade">
+    <h4>Pattern 1 — S + V &nbsp;&nbsp; (Subject + Verb)</h4>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">Birds</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">fly</div><div class="sent-tag v">Verb</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">The baby</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">is sleeping</div><div class="sent-tag v">Verb</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="info-box green" style="margin-top:0;">
+      <span class="icon">📝</span>
+      <div>The simplest pattern. No object or complement needed. The verb is complete by itself (intransitive verb). <br><em>กริยาไม่ต้องการกรรม (อกรรมกริยา)</em></div>
+    </div>
+  </div>
+
+  <div class="diagram-wrap fade">
+    <h4>Pattern 2 — S + V + C &nbsp;&nbsp; (Subject + Linking Verb + Complement)</h4>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">Maya</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">is</div><div class="sent-tag v">Linking V</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word c">talented</div><div class="sent-tag c">Complement</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">The soup</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">smells</div><div class="sent-tag v">Linking V</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word c">wonderful</div><div class="sent-tag c">Complement</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="info-box purple" style="margin-top:0;">
+      <span class="icon">📝</span>
+      <div>The complement is an <strong>adjective or noun</strong> that describes the subject. It cannot be replaced by a pronoun (him/her/it). <br><em>ส่วนเติมเต็มบอกลักษณะของประธาน ตามหลังกริยาเชื่อม</em></div>
+    </div>
+  </div>
+
+  <div class="diagram-wrap fade">
+    <h4>Pattern 3 — S + V + O &nbsp;&nbsp; (Subject + Action Verb + Direct Object)</h4>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">She</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">loves</div><div class="sent-tag v">Action V</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">drawing</div><div class="sent-tag o">Direct Object</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">Tom</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">kicked</div><div class="sent-tag v">Action V</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">the ball</div><div class="sent-tag o">Direct Object</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="info-box amber" style="margin-top:0;">
+      <span class="icon">📝</span>
+      <div>The direct object receives the action. You can ask "What?" or "Whom?" after the verb. <br><em>กรรมตรง รับการกระทำโดยตรง ถามว่า "ทำอะไร" หรือ "ทำใคร"</em></div>
+    </div>
+  </div>
+
+  <div class="diagram-wrap fade">
+    <h4>Pattern 4 — S + V + IO + DO &nbsp;&nbsp; (Subject + Verb + Indirect Object + Direct Object)</h4>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">The city</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">gave</div><div class="sent-tag v">Verb</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">her</div><div class="sent-tag o">Indirect O</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">an award</div><div class="sent-tag o">Direct O</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">Dad</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">bought</div><div class="sent-tag v">Verb</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">me</div><div class="sent-tag o">Indirect O</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">a book</div><div class="sent-tag o">Direct O</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="info-box blue" style="margin-top:0;">
+      <span class="icon">📝</span>
+      <div><strong>Indirect Object</strong> = the person who receives the direct object. Ask "To whom?" or "For whom?"<br>
+      Verbs that use this pattern: <strong>give, send, tell, show, teach, buy, bring, offer, lend, write</strong><br>
+      <em>กรรมรอง = ผู้รับ (บุคคล) · กรรมตรง = สิ่งที่ให้</em></div>
+    </div>
+  </div>
+
+  <div class="diagram-wrap fade">
+    <h4>Pattern 5 — S + V + O + C &nbsp;&nbsp; (Subject + Verb + Object + Object Complement)</h4>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">We</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">elected</div><div class="sent-tag v">Verb</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">her</div><div class="sent-tag o">Object</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word c">president</div><div class="sent-tag c">Object Complement</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">They</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">named</div><div class="sent-tag v">Verb</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">the baby</div><div class="sent-tag o">Object</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word c">Luna</div><div class="sent-tag c">Object Complement</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="info-box red" style="margin-top:0;">
+      <span class="icon">📝</span>
+      <div>The object complement describes or renames the <strong>object</strong> (not the subject). <br>
+      Verbs: <strong>call, name, elect, make, consider, find, keep, paint, appoint</strong><br>
+      <em>ส่วนเติมเต็มกรรม — บอกลักษณะของกรรม ไม่ใช่ประธาน</em></div>
+    </div>
+  </div>
+
+  <div class="diagram-wrap fade">
+    <h4>Pattern 6 — S + V + O + O &nbsp;&nbsp; (Alternative to Pattern 4 — using "for/to")</h4>
+    <div class="sentence-block">
+      <div class="sent-piece"><div class="sent-word s">The city</div><div class="sent-tag s">Subject</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word v">gave</div><div class="sent-tag v">Verb</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">an award</div><div class="sent-tag o">Direct O</div></div>
+      <div class="sent-sep">+</div>
+      <div class="sent-piece"><div class="sent-word o">to her</div><div class="sent-tag o">Prep. Phrase</div></div>
+      <div class="sent-piece"><div class="sent-word x">.</div><div class="sent-tag x">.</div></div>
+    </div>
+    <div class="info-box blue" style="margin-top:0;">
+      <span class="icon">🔄</span>
+      <div>Pattern 4 and 6 mean the same thing but in a different order. Use <strong>to</strong> with: give, send, show, tell, teach, bring. Use <strong>for</strong> with: buy, make, cook, get, find.<br>
+      <em>สลับตำแหน่งกรรมได้โดยใช้ to หรือ for นำหน้ากรรมรอง</em></div>
+    </div>
+  </div>
+
+  <!-- PATTERN QUICK-REF TABLE -->
+  <div class="tbl-wrap fade">
+    <table>
+      <thead>
+        <tr><th>Pattern</th><th>Structure</th><th>Thai Summary</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td><span class="lbl lbl-s">S</span> + <span class="lbl lbl-v">V</span></td>
+          <td>ประธาน + กริยา (ไม่มีกรรม)</td>
+          <td>Dogs bark.</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td><span class="lbl lbl-s">S</span> + <span class="lbl lbl-v">V</span><small>(linking)</small> + <span class="lbl lbl-c">C</span></td>
+          <td>ประธาน + กริยาเชื่อม + ส่วนเติมเต็ม</td>
+          <td>She is happy.</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td><span class="lbl lbl-s">S</span> + <span class="lbl lbl-v">V</span> + <span class="lbl lbl-o">O</span></td>
+          <td>ประธาน + กริยา + กรรมตรง</td>
+          <td>He plays guitar.</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td><span class="lbl lbl-s">S</span> + <span class="lbl lbl-v">V</span> + <span class="lbl lbl-o">IO</span> + <span class="lbl lbl-o">DO</span></td>
+          <td>ประธาน + กริยา + กรรมรอง + กรรมตรง</td>
+          <td>She gave him a gift.</td>
+        </tr>
+        <tr>
+          <td><strong>5</strong></td>
+          <td><span class="lbl lbl-s">S</span> + <span class="lbl lbl-v">V</span> + <span class="lbl lbl-o">O</span> + <span class="lbl lbl-c">C</span></td>
+          <td>ประธาน + กริยา + กรรม + ส่วนเติมเต็มกรรม</td>
+          <td>They called her a hero.</td>
+        </tr>
+        <tr>
+          <td><strong>6</strong></td>
+          <td><span class="lbl lbl-s">S</span> + <span class="lbl lbl-v">V</span> + <span class="lbl lbl-o">DO</span> + <em>to/for</em> + <span class="lbl lbl-o">IO</span></td>
+          <td>สลับตำแหน่งกรรมโดยใช้ to/for</td>
+          <td>She gave a gift to him.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION E — EXERCISES
+══════════════════════════════════════════ -->
+<div class="page section-gap" id="exercises">
+  <div class="section-head fade">
+    <div class="section-icon" style="background:#fff7ed; font-size:26px;">✏️</div>
+    <div>
+      <h2>Section E — Exercises</h2>
+      <p>Five activities to practise what you've learned. Click to check your answers!</p>
+    </div>
+  </div>
+
+  <!-- ─── EXERCISE 1 ─── -->
+  <div class="ex-header">
+    <div class="ex-num">1</div>
+    <div>
+      <h3>Identify the Sentence Part</h3>
+      <p>Click the correct answer for each underlined word.</p>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="ex-instruction">📌 Each sentence has an underlined word. Choose whether it is a Subject, Verb, Object, or Complement.</div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">1</span> <u>The dog</u> chased the cat.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">A</span> Subject</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">B</span> Verb</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">C</span> Object</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> Complement</div>
+      </div>
+      <div class="feedback">✅ "The dog" is the Subject — it performs the action (chasing).</div>
+      <div class="feedback bad">❌ Think: who does the action? → "The dog" does the chasing.</div>
+    </div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">2</span> The teacher seems <u>very kind</u>.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> Subject</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">B</span> Object</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">C</span> Complement</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> Verb</div>
+      </div>
+      <div class="feedback">✅ "Very kind" is a Subject Complement — it describes the teacher after the linking verb <em>seems</em>.</div>
+      <div class="feedback bad">❌ After linking verbs (seem, look, feel…), what follows is a Complement, not an Object.</div>
+    </div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">3</span> She <u>painted</u> the wall white.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> Subject</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">B</span> Verb</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">C</span> Object</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> Complement</div>
+      </div>
+      <div class="feedback">✅ "Painted" is the Verb — it shows the action the subject (She) performed.</div>
+      <div class="feedback bad">❌ Which word shows the action? → "painted".</div>
+    </div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">4</span> My brother gave me <u>a birthday cake</u>.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> Subject</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">B</span> Indirect Object</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">C</span> Direct Object</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> Complement</div>
+      </div>
+      <div class="feedback">✅ "A birthday cake" is the Direct Object — it is the thing that was given. "Me" is the Indirect Object (the receiver).</div>
+      <div class="feedback bad">❌ Ask: "What did he give?" → a birthday cake = Direct Object.</div>
+    </div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">5</span> The fans consider <u>him</u> a legend.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> Subject</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">B</span> Object</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">C</span> Complement</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> Verb</div>
+      </div>
+      <div class="feedback">✅ "Him" is the Object. "A legend" is the Object Complement — it describes him. Pattern: S + V + O + C.</div>
+      <div class="feedback bad">❌ "Him" receives the action of "consider". It is the Object.</div>
+    </div>
+  </div>
+
+  <!-- ─── EXERCISE 2 ─── -->
+  <div class="ex-header">
+    <div class="ex-num" style="background:var(--v);">2</div>
+    <div>
+      <h3>Label the Sentence Pattern</h3>
+      <p>Click "Reveal" to see the correct analysis of each sentence.</p>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="ex-instruction">📌 Read each sentence and decide the pattern. Then click Reveal to check.</div>
+
+    <div class="label-ex">
+
+      <div>
+        <div class="label-sent">
+          <span class="lnum">1.</span>
+          <strong>The children</strong> laughed loudly.
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin:8px 0;" onclick="revealLabel(this, 'S + V (Pattern 1) — The children = Subject · laughed = Verb · No object or complement needed.')">Reveal →</button>
+        <div class="correction">
+          <strong>Answer:</strong> <code>S + V</code> (Pattern 1)<br>
+          <span class="lbl lbl-s">The children</span> = Subject &nbsp;·&nbsp; <span class="lbl lbl-v">laughed</span> = Verb &nbsp;·&nbsp; <em>loudly</em> is an adverb (not part of the core pattern)
+        </div>
+      </div>
+
+      <div>
+        <div class="label-sent">
+          <span class="lnum">2.</span>
+          <strong>The food</strong> smells delicious.
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin:8px 0;" onclick="revealLabel(this, '')">Reveal →</button>
+        <div class="correction">
+          <strong>Answer:</strong> <code>S + V(linking) + C</code> (Pattern 2)<br>
+          <span class="lbl lbl-s">The food</span> = Subject &nbsp;·&nbsp; <span class="lbl lbl-v">smells</span> = Linking Verb &nbsp;·&nbsp; <span class="lbl lbl-c">delicious</span> = Complement (adjective describing the food)
+        </div>
+      </div>
+
+      <div>
+        <div class="label-sent">
+          <span class="lnum">3.</span>
+          My sister sent me a long message.
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin:8px 0;" onclick="revealLabel(this, '')">Reveal →</button>
+        <div class="correction">
+          <strong>Answer:</strong> <code>S + V + IO + DO</code> (Pattern 4)<br>
+          <span class="lbl lbl-s">My sister</span> = Subject &nbsp;·&nbsp; <span class="lbl lbl-v">sent</span> = Verb &nbsp;·&nbsp; <span class="lbl lbl-o">me</span> = Indirect Object &nbsp;·&nbsp; <span class="lbl lbl-o">a long message</span> = Direct Object
+        </div>
+      </div>
+
+      <div>
+        <div class="label-sent">
+          <span class="lnum">4.</span>
+          Everyone called the dog Lucky.
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin:8px 0;" onclick="revealLabel(this, '')">Reveal →</button>
+        <div class="correction">
+          <strong>Answer:</strong> <code>S + V + O + C</code> (Pattern 5)<br>
+          <span class="lbl lbl-s">Everyone</span> = Subject &nbsp;·&nbsp; <span class="lbl lbl-v">called</span> = Verb &nbsp;·&nbsp; <span class="lbl lbl-o">the dog</span> = Object &nbsp;·&nbsp; <span class="lbl lbl-c">Lucky</span> = Object Complement (renames the dog)
+        </div>
+      </div>
+
+      <div>
+        <div class="label-sent">
+          <span class="lnum">5.</span>
+          The students made their teacher very proud.
+        </div>
+        <button class="btn btn-ghost btn-sm" style="margin:8px 0;" onclick="revealLabel(this, '')">Reveal →</button>
+        <div class="correction">
+          <strong>Answer:</strong> <code>S + V + O + C</code> (Pattern 5)<br>
+          <span class="lbl lbl-s">The students</span> = Subject &nbsp;·&nbsp; <span class="lbl lbl-v">made</span> = Verb &nbsp;·&nbsp; <span class="lbl lbl-o">their teacher</span> = Object &nbsp;·&nbsp; <span class="lbl lbl-c">very proud</span> = Object Complement (adjective phrase describing the teacher)
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── EXERCISE 3 — ERROR CORRECTION ─── -->
+  <div class="ex-header">
+    <div class="ex-num" style="background:var(--o);">3</div>
+    <div>
+      <h3>Error Correction</h3>
+      <p>Find the mistake in each sentence. Click "Show Correction" to see the right answer.</p>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="ex-instruction">📌 Each sentence has ONE error related to sentence structure. Find it and fix it!</div>
+
+    <div>
+      <div class="error-sent"><span style="font-weight:700; margin-right:8px; color:var(--ink);">1.</span> She gave to me the homework yesterday. <code>❌ to me</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin:0 0 8px;" onclick="showFix(this)">Show Correction</button>
+      <div class="correction">
+        ✅ <strong>She gave me the homework yesterday.</strong><br>
+        When IO comes before DO, do NOT use "to". Use "to" only when IO comes after DO: "She gave the homework <em>to me</em>."
+      </div>
+    </div>
+
+    <div>
+      <div class="error-sent"><span style="font-weight:700; margin-right:8px; color:var(--ink);">2.</span> The coffee tastes bitterly. <code>❌ bitterly</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin:0 0 8px;" onclick="showFix(this)">Show Correction</button>
+      <div class="correction">
+        ✅ <strong>The coffee tastes bitter.</strong><br>
+        After a linking verb (tastes, smells, sounds, feels), use an <strong>adjective</strong>, not an adverb. <em>tastes bitter ✓ (not bitterly ✗)</em>
+      </div>
+    </div>
+
+    <div>
+      <div class="error-sent"><span style="font-weight:700; margin-right:8px; color:var(--ink);">3.</span> My parents bought for me a new laptop. <code>❌ for me</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin:0 0 8px;" onclick="showFix(this)">Show Correction</button>
+      <div class="correction">
+        ✅ <strong>My parents bought me a new laptop.</strong> <em>OR</em> <strong>My parents bought a new laptop for me.</strong><br>
+        "For me" can only come AFTER the direct object. When IO comes first, no preposition is used.
+      </div>
+    </div>
+
+    <div>
+      <div class="error-sent"><span style="font-weight:700; margin-right:8px; color:var(--ink);">4.</span> They elected him as a president. <code>❌ as a president</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin:0 0 8px;" onclick="showFix(this)">Show Correction</button>
+      <div class="correction">
+        ✅ <strong>They elected him president.</strong><br>
+        With verbs like elect, appoint, call, name — the Object Complement does NOT need "as". Write it directly after the object.
+      </div>
+    </div>
+
+    <div>
+      <div class="error-sent"><span style="font-weight:700; margin-right:8px; color:var(--ink);">5.</span> The news made her sadly. <code>❌ sadly</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin:0 0 8px;" onclick="showFix(this)">Show Correction</button>
+      <div class="correction">
+        ✅ <strong>The news made her sad.</strong><br>
+        In Pattern S + V + O + C, the object complement must be an <strong>adjective</strong>, not an adverb. <em>made her sad ✓ (not sadly ✗)</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── EXERCISE 4 — EXAM MCQ ─── -->
+  <div class="ex-header">
+    <div class="ex-num" style="background:var(--c);">4</div>
+    <div>
+      <h3>Exam-Style Multiple Choice</h3>
+      <p>These are the exact question types you will see in the entrance exam. Time yourself!</p>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="ex-instruction">📌 Choose the best answer. This section mirrors the <strong>Sentence Structure</strong> section of the ม.1 Advanced entrance exam.</div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">1</span> _____ was falling heavily as we entered the village.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">A</span> Snow</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">B</span> Snow fell</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">C</span> It was snow</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> Snow was</div>
+      </div>
+      <div class="feedback">✅ "Snow" is the Subject. The verb "was falling" is already provided — the blank only needs a Subject.</div>
+      <div class="feedback bad">❌ The verb "was falling" is already in the sentence. The blank needs only a Subject.</div>
+    </div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">2</span> The only living things we saw _____ dogs and cats.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> was</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">B</span> were</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">C</span> and</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> them</div>
+      </div>
+      <div class="feedback">✅ "The only living things" = plural subject → needs plural linking verb "were". Pattern: S + V(linking) + C.</div>
+      <div class="feedback bad">❌ The subject "The only living things" is plural. Which linking verb agrees?</div>
+    </div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">3</span> If anyone calls, tell _____ I'll be back around 5.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> they</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">B</span> that</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">C</span> them</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> to</div>
+      </div>
+      <div class="feedback">✅ "Tell them" — the blank is an Indirect Object. Use object pronoun "them" (not subject pronoun "they").</div>
+      <div class="feedback bad">❌ Objects use object pronouns: me / you / him / her / us / <u>them</u>. Not subject pronouns.</div>
+    </div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">4</span> The music sounds _____ in the concert hall.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> beautifully</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">B</span> beautiful</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">C</span> a beauty</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> beautify</div>
+      </div>
+      <div class="feedback">✅ "Sounds" is a linking verb → use adjective Complement "beautiful". Never use an adverb after a linking verb.</div>
+      <div class="feedback bad">❌ After linking verbs (sounds, feels, looks…) always use an ADJECTIVE, not an adverb.</div>
+    </div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">5</span> The committee appointed Lisa _____ the new director.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> to be</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">B</span> as being</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">C</span> (nothing needed)</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> who is</div>
+      </div>
+      <div class="feedback">✅ Pattern S + V + O + C (Pattern 5). With "appoint", no word is needed between Object and Object Complement.</div>
+      <div class="feedback bad">❌ With appoint, elect, name, call — the Object Complement follows directly. No word in between.</div>
+    </div>
+
+    <div class="mcq-item">
+      <div class="mcq-q"><span class="qnum">6</span> She wrote _____ a letter explaining the situation.</div>
+      <div class="mcq-options">
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">A</span> for him</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'correct')"><span class="opt-bubble">B</span> him</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">C</span> to him</div>
+        <div class="mcq-opt" onclick="checkMCQ(this,'wrong')"><span class="opt-bubble">D</span> his</div>
+      </div>
+      <div class="feedback">✅ "Wrote him a letter" = S + V + IO + DO (Pattern 4). IO before DO requires no preposition.</div>
+      <div class="feedback bad">❌ When IO comes BEFORE DO, use no preposition. "Him" alone is correct here.</div>
+    </div>
+  </div>
+
+  <!-- ─── EXERCISE 5 — CLOZE ─── -->
+  <div class="ex-header">
+    <div class="ex-num" style="background:linear-gradient(135deg,var(--s),var(--c));">5</div>
+    <div>
+      <h3>Cloze Test</h3>
+      <p>Fill each blank with the correct word from the box below.</p>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="ex-instruction">📌 Word bank: <strong>her &nbsp;·&nbsp; became &nbsp;·&nbsp; gave &nbsp;·&nbsp; famous &nbsp;·&nbsp; an architect &nbsp;·&nbsp; The community &nbsp;·&nbsp; taught &nbsp;·&nbsp; proud &nbsp;·&nbsp; is &nbsp;·&nbsp; designed</strong></div>
+
+    <div class="reading-box" style="margin-bottom:20px;">
+      <div class="reading-header"><h3>Cloze Passage — A City's Hero</h3><span>10 blanks</span></div>
+      <div class="reading-body" style="font-size:15px; line-height:2.4;">
+        Nara <strong>(1) ________</strong> a well-known architect in her city.
+        She <strong>(2) ________</strong> many important buildings, including the city library and the central park pavilion.
+        Her work <strong>(3) ________</strong> <strong>(4) ________</strong> when a magazine featured it on its cover.
+        <br><br>
+        Last year, the mayor <strong>(5) ________</strong> <strong>(6) ________</strong> a golden key to the city.
+        Many people consider <strong>(7) ________</strong> <strong>(8) ________</strong> of the century.
+        <strong>(9) ________</strong> feels very <strong>(10) ________</strong> of her achievements.
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="this.nextElementSibling.style.display='block'; this.textContent='✅ Key Shown'; this.disabled=true; this.style.opacity='.6';">
+      ✅ Show Answer Key
+    </button>
+    <div style="display:none; margin-top:16px;">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Answer</th><th>Pattern Role</th><th>Why?</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><code>is</code></td><td>Linking Verb</td><td>S + V(linking) + C → "is a well-known architect"</td></tr>
+            <tr><td>2</td><td><code>designed</code></td><td>Action Verb</td><td>S + V + O → "She designed buildings" (Pattern 3)</td></tr>
+            <tr><td>3</td><td><code>became</code></td><td>Linking Verb</td><td>"became famous" = linking verb + adjective complement</td></tr>
+            <tr><td>4</td><td><code>famous</code></td><td>Subject Complement</td><td>Adjective describing "Her work" after linking verb</td></tr>
+            <tr><td>5</td><td><code>gave</code></td><td>Verb</td><td>S + V + IO + DO → "gave her a golden key" (Pattern 4)</td></tr>
+            <tr><td>6</td><td><code>her</code></td><td>Indirect Object</td><td>Person who receives the direct object (golden key)</td></tr>
+            <tr><td>7</td><td><code>her</code></td><td>Object</td><td>S + V + O + C → "consider her an architect" (Pattern 5)</td></tr>
+            <tr><td>8</td><td><code>an architect</code></td><td>Object Complement</td><td>Noun phrase that renames the object "her"</td></tr>
+            <tr><td>9</td><td><code>The community</code></td><td>Subject</td><td>Performer of the action "feels"</td></tr>
+            <tr><td>10</td><td><code>proud</code></td><td>Subject Complement</td><td>Adjective after linking verb "feels" (Pattern 2)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION F — UNIT REVIEW
+══════════════════════════════════════════ -->
+<div class="page section-gap" id="review">
+  <div class="section-head">
+    <div class="section-icon" style="background:#fdf2f8; font-size:26px;">⭐</div>
+    <div>
+      <h2>Section F — Unit Review</h2>
+      <p>Key rules to remember + your self-evaluation checklist.</p>
+    </div>
+  </div>
+
+  <div class="review-box">
+    <div class="review-box-header">📋 Unit 1 — Key Rules Summary</div>
+    <div class="review-grid">
+      <div class="review-cell">
+        <h4 style="color:var(--s);">🔵 Subject</h4>
+        <ul>
+          <li>Who or what the sentence is about</li>
+          <li>Always before the main verb</li>
+          <li>Can be a noun, pronoun, or noun phrase</li>
+          <li>Ask: "Who/What + verb?"</li>
+        </ul>
+      </div>
+      <div class="review-cell">
+        <h4 style="color:var(--v);">🟢 Verb</h4>
+        <ul>
+          <li>Shows action or state</li>
+          <li>Every sentence MUST have a verb</li>
+          <li>Action verbs → take Objects</li>
+          <li>Linking verbs → take Complements</li>
+        </ul>
+      </div>
+      <div class="review-cell">
+        <h4 style="color:var(--o);">🟡 Object</h4>
+        <ul>
+          <li>Receives the action (after action verb)</li>
+          <li>Direct Object: Ask "What/Whom?"</li>
+          <li>Indirect Object: Ask "To/For whom?"</li>
+          <li>IO before DO = no preposition needed</li>
+        </ul>
+      </div>
+      <div class="review-cell">
+        <h4 style="color:var(--c);">🩷 Complement</h4>
+        <ul>
+          <li>Describes or renames S or O</li>
+          <li>Follows a linking verb only</li>
+          <li>Always use adjective (not adverb!)</li>
+          <li>Subject C = describes subject; Object C = describes object</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box amber">
+    <span class="icon">🚨</span>
+    <div>
+      <strong>Top 5 Most Common Errors (ข้อผิดพลาดที่พบบ่อย):</strong>
+      <ol style="margin-top:8px; padding-left:20px; font-size:14px; line-height:2;">
+        <li>Using adverb after linking verb: <code>tastes bitterly ✗ → tastes bitter ✓</code></li>
+        <li>Adding "as" with object complement: <code>elected him as president ✗ → elected him president ✓</code></li>
+        <li>Putting "to" before IO: <code>gave to me a gift ✗ → gave me a gift ✓</code></li>
+        <li>Using subject pronoun as object: <code>Tell they ✗ → Tell them ✓</code></li>
+        <li>Confusing O with C after linking verb: <code>She became it ✗ → She became a doctor ✓</code></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="review-box">
+    <div class="review-box-header">✅ Self-Evaluation Checklist — "I Can…"</div>
+    <div style="padding:20px 24px;">
+      <ul class="checklist">
+        <li><input type="checkbox"> Identify Subject, Verb, Object, and Complement in any sentence.</li>
+        <li><input type="checkbox"> Explain the difference between an Object and a Complement.</li>
+        <li><input type="checkbox"> Name at least 5 common linking verbs.</li>
+        <li><input type="checkbox"> Use an adjective (not adverb) correctly after a linking verb.</li>
+        <li><input type="checkbox"> Tell apart Direct Object and Indirect Object.</li>
+        <li><input type="checkbox"> Rewrite a Pattern 4 sentence using "to" or "for" (Pattern 6).</li>
+        <li><input type="checkbox"> Recognise all 6 sentence patterns from examples.</li>
+        <li><input type="checkbox"> Complete a 10-blank cloze using sentence structure knowledge.</li>
+        <li><input type="checkbox"> Answer 6 exam-style MCQ on sentence structure correctly.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SCORE BOARD -->
+  <div class="scoreboard">
+    <div class="score-num" id="scoreNum">–</div>
+    <div class="score-txt">
+      <h4>Your Live Score</h4>
+      <p>Click through the MCQ exercises above — your score is tracked automatically!</p>
+    </div>
+    <div class="score-bar-wrap">
+      <div style="font-size:12px; opacity:.7; margin-bottom:6px;">Accuracy</div>
+      <div class="score-bar"><div class="score-fill" id="scoreFill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="info-box green">
+    <span class="icon">➡️</span>
+    <div>
+      <strong>Next Unit:</strong> Unit 2 — Subject–Verb Agreement<br>
+      Learn why some subjects look plural but need singular verbs, and practise with 40 more exam-style questions!
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<div class="footer">
+  <span>Unit 1 · Sentence Structure · B1 English Course</span>
+  <span>S = Subject &nbsp;·&nbsp; V = Verb &nbsp;·&nbsp; O = Object &nbsp;·&nbsp; C = Complement</span>
+</div>
+
+<!-- ══════════ JAVASCRIPT ══════════ -->
+<script>
+/* Reading progress bar */
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  const pct = d.scrollTop / (d.scrollHeight - d.clientHeight) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+});
+
+/* MCQ */
+let correctCount = 0, totalAnswered = 0;
+
+function checkMCQ(el, result) {
+  const item = el.closest('.mcq-item');
+  if (item.dataset.answered) return;
+  item.dataset.answered = 'yes';
+  totalAnswered++;
+
+  item.querySelectorAll('.mcq-opt').forEach(o => o.style.pointerEvents = 'none');
+  const fbs = item.querySelectorAll('.feedback');
+
+  if (result === 'correct') {
+    el.classList.add('correct');
+    fbs[0].classList.add('show');
+    correctCount++;
+  } else {
+    el.classList.add('wrong');
+    fbs[1].classList.add('show');
+    item.querySelectorAll('.mcq-opt').forEach(o => {
+      if (o.getAttribute('onclick') && o.getAttribute('onclick').includes("'correct'"))
+        o.classList.add('correct');
+    });
+  }
+  updateScore();
+}
+
+function updateScore() {
+  const pct = Math.round(correctCount / Math.max(totalAnswered, 1) * 100);
+  const el = document.getElementById('scoreNum');
+  const fill = document.getElementById('scoreFill');
+  if (el) el.textContent = correctCount + ' / ' + totalAnswered;
+  if (fill) fill.style.width = pct + '%';
+}
+
+/* Reveal label */
+function revealLabel(btn) {
+  btn.nextElementSibling.classList.add('show');
+  btn.style.display = 'none';
+}
+
+/* Show fix */
+function showFix(btn) {
+  btn.nextElementSibling.classList.add('show');
+  btn.style.display = 'none';
+}
+</script>
+</body>
+</html>
