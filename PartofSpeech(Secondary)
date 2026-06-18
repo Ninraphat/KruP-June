@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parts of Speech – ป.6</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff9f0;
+    --card: #ffffff;
+    --primary: #ff6b35;
+    --secondary: #4ecdc4;
+    --accent: #ffe66d;
+    --purple: #a855f7;
+    --green: #22c55e;
+    --red: #ef4444;
+    --text: #1e1b18;
+    --muted: #78716c;
+    --shadow: 0 4px 0 #e5d5c5;
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, #ff6b3511 0%, transparent 60%);
+    min-height: 100vh;
+    color: var(--text);
+    padding: 24px 16px 60px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(28px, 6vw, 48px);
+    color: var(--primary);
+    line-height: 1.1;
+  }
+
+  h1 span { color: var(--secondary); }
+
+  .subtitle {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+
+  .leg-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 2px 0 #e5d5c5;
+    border: 2px solid transparent;
+  }
+
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  /* Score bar */
+  .scorebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+    border: 2px solid #f0e8df;
+  }
+
+  .score-label { font-size: 14px; font-weight: 700; color: var(--muted); }
+
+  .score-val {
+    font-family: 'Fredoka One', cursive;
+    font-size: 28px;
+    color: var(--primary);
+  }
+
+  .progress-wrap {
+    flex: 1;
+    margin: 0 16px;
+    background: #f0e8df;
+    border-radius: 999px;
+    height: 14px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  /* Question card */
+  .q-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    border: 2px solid #f0e8df;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .q-card.correct { border-color: var(--green); box-shadow: 0 4px 0 #bbf7d0; }
+  .q-card.wrong { border-color: var(--red); box-shadow: 0 4px 0 #fecaca; }
+
+  .q-num {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .q-text {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .q-text em {
+    font-style: normal;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color: var(--primary);
+    font-weight: 800;
+  }
+
+  /* Options grid */
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .opt-btn {
+    background: #faf5f0;
+    border: 2px solid #e5d5c5;
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    color: var(--text);
+  }
+
+  .opt-btn:hover:not(:disabled) {
+    background: #fff3e0;
+    border-color: var(--primary);
+    transform: translateY(-1px);
+  }
+
+  .opt-btn.selected { background: #fff3e0; border-color: var(--primary); }
+  .opt-btn.correct-ans { background: #dcfce7; border-color: var(--green); color: #16a34a; }
+  .opt-btn.wrong-ans { background: #fee2e2; border-color: var(--red); color: #dc2626; }
+  .opt-btn:disabled { cursor: default; }
+
+  .feedback {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .feedback.show { display: flex; }
+  .feedback.ok { color: var(--green); }
+  .feedback.no { color: var(--red); }
+
+  /* Submit */
+  .btn-submit {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 32px auto 0;
+    background: var(--primary);
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px;
+    border: none;
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #c94e1e;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #c94e1e; }
+  .btn-submit:active { transform: translateY(2px); box-shadow: 0 2px 0 #c94e1e; }
+
+  /* Result modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: white;
+    border-radius: 24px;
+    padding: 36px 28px;
+    text-align: center;
+    max-width: 340px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .modal-emoji { font-size: 60px; margin-bottom: 12px; }
+
+  .modal-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 30px;
+    margin-bottom: 6px;
+    color: var(--primary);
+  }
+
+  .modal-score {
+    font-size: 48px;
+    font-family: 'Fredoka One', cursive;
+    color: var(--text);
+  }
+
+  .modal-grade {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .btn-retry {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 32px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #2db5ac;
+  }
+
+  .btn-retry:hover { transform: translateY(-2px); }
+
+  @media (max-width: 480px) {
+    .options { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">ภาษาอังกฤษ ป.6</div>
+  <h1>Parts of <span>Speech</span> 🌟</h1>
+  <p class="subtitle">แบบฝึกหัด 50 ข้อ — ชนิดของคำในภาษาอังกฤษ</p>
+</header>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="leg-item"><div class="dot" style="background:#3b82f6"></div>Noun (คำนาม)</div>
+  <div class="leg-item"><div class="dot" style="background:#f59e0b"></div>Verb (คำกริยา)</div>
+  <div class="leg-item"><div class="dot" style="background:#10b981"></div>Adjective (คำคุณศัพท์)</div>
+  <div class="leg-item"><div class="dot" style="background:#8b5cf6"></div>Adverb (คำวิเศษณ์)</div>
+  <div class="leg-item"><div class="dot" style="background:#ec4899"></div>Pronoun (คำสรรพนาม)</div>
+  <div class="leg-item"><div class="dot" style="background:#f97316"></div>Preposition (คำบุพบท)</div>
+  <div class="leg-item"><div class="dot" style="background:#14b8a6"></div>Conjunction (คำเชื่อม)</div>
+</div>
+
+<!-- Score bar -->
+<div class="scorebar">
+  <div>
+    <div class="score-label">คะแนน</div>
+    <div class="score-val" id="scoreDisplay">0/50</div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div>
+    <div class="score-label">ตอบแล้ว</div>
+    <div class="score-val" id="answeredDisplay">0</div>
+  </div>
+</div>
+
+<div id="quiz-container"></div>
+
+<button class="btn-submit" id="submitBtn">ตรวจคำตอบ ✅</button>
+
+<!-- Result Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-emoji" id="modalEmoji">🎉</div>
+    <div class="modal-title">ผลคะแนน</div>
+    <div class="modal-score" id="modalScore">0/50</div>
+    <div class="modal-grade" id="modalGrade"></div>
+    <button class="btn-retry" onclick="resetQuiz()">ลองใหม่อีกครั้ง 🔄</button>
+  </div>
+</div>
+
+<script>
+const allQuestions = [
+  // Noun
+  { q:"The <em>dog</em> runs in the park.", ans:"Noun", opts:["Noun","Verb","Adjective","Adverb"] },
+  { q:"My <em>teacher</em> is very kind.", ans:"Noun", opts:["Pronoun","Noun","Adverb","Conjunction"] },
+  { q:"We drink <em>water</em> every day.", ans:"Noun", opts:["Verb","Adjective","Noun","Preposition"] },
+  { q:"The <em>book</em> is on the desk.", ans:"Noun", opts:["Adjective","Noun","Adverb","Verb"] },
+  { q:"She has a <em>cat</em> at home.", ans:"Noun", opts:["Noun","Pronoun","Conjunction","Adverb"] },
+  { q:"<em>Bangkok</em> is the capital of Thailand.", ans:"Noun", opts:["Adjective","Adverb","Noun","Verb"] },
+  { q:"The <em>sun</em> rises in the east.", ans:"Noun", opts:["Verb","Noun","Preposition","Adjective"] },
+  { q:"He eats <em>rice</em> for lunch.", ans:"Noun", opts:["Noun","Adverb","Adjective","Conjunction"] },
+  { q:"My <em>sister</em> loves music.", ans:"Noun", opts:["Pronoun","Adjective","Noun","Adverb"] },
+  { q:"We went to the <em>beach</em> yesterday.", ans:"Noun", opts:["Adverb","Verb","Preposition","Noun"] },
+  // Verb
+  { q:"She <em>reads</em> a book every night.", ans:"Verb", opts:["Adjective","Noun","Adverb","Verb"] },
+  { q:"They <em>played</em> football yesterday.", ans:"Verb", opts:["Verb","Preposition","Conjunction","Noun"] },
+  { q:"The baby <em>cries</em> a lot.", ans:"Verb", opts:["Adjective","Verb","Adverb","Pronoun"] },
+  { q:"He <em>drinks</em> milk every morning.", ans:"Verb", opts:["Noun","Verb","Adjective","Conjunction"] },
+  { q:"We <em>study</em> English at school.", ans:"Verb", opts:["Adverb","Preposition","Noun","Verb"] },
+  { q:"The bird <em>sings</em> beautifully.", ans:"Verb", opts:["Verb","Adjective","Adverb","Noun"] },
+  { q:"My dad <em>cooked</em> dinner last night.", ans:"Verb", opts:["Adjective","Verb","Preposition","Adverb"] },
+  { q:"She <em>smiles</em> when she is happy.", ans:"Verb", opts:["Noun","Conjunction","Adverb","Verb"] },
+  { q:"The children <em>run</em> in the playground.", ans:"Verb", opts:["Verb","Adjective","Preposition","Noun"] },
+  { q:"I <em>saw</em> a rainbow this morning.", ans:"Verb", opts:["Adverb","Pronoun","Noun","Verb"] },
+  // Adjective
+  { q:"She has a <em>beautiful</em> dress.", ans:"Adjective", opts:["Adverb","Noun","Adjective","Verb"] },
+  { q:"The <em>big</em> elephant walked slowly.", ans:"Adjective", opts:["Adverb","Adjective","Noun","Conjunction"] },
+  { q:"I want a <em>cold</em> drink.", ans:"Adjective", opts:["Adjective","Preposition","Verb","Adverb"] },
+  { q:"He is a <em>clever</em> student.", ans:"Adjective", opts:["Noun","Adverb","Verb","Adjective"] },
+  { q:"We live in a <em>small</em> house.", ans:"Adjective", opts:["Preposition","Adjective","Noun","Adverb"] },
+  { q:"The <em>hot</em> soup tasted delicious.", ans:"Adjective", opts:["Adverb","Verb","Adjective","Pronoun"] },
+  { q:"She wore a <em>red</em> dress to the party.", ans:"Adjective", opts:["Noun","Adjective","Preposition","Conjunction"] },
+  // Adverb
+  { q:"She sings <em>beautifully</em>.", ans:"Adverb", opts:["Adjective","Noun","Adverb","Verb"] },
+  { q:"He runs <em>fast</em>.", ans:"Adverb", opts:["Noun","Adverb","Adjective","Preposition"] },
+  { q:"The baby sleeps <em>quietly</em>.", ans:"Adverb", opts:["Adjective","Adverb","Conjunction","Verb"] },
+  { q:"She <em>always</em> wakes up early.", ans:"Adverb", opts:["Adverb","Preposition","Pronoun","Noun"] },
+  { q:"He spoke <em>loudly</em> in the classroom.", ans:"Adverb", opts:["Adjective","Noun","Verb","Adverb"] },
+  { q:"They arrived <em>late</em> to school.", ans:"Adverb", opts:["Conjunction","Adverb","Noun","Preposition"] },
+  { q:"She <em>never</em> eats junk food.", ans:"Adverb", opts:["Adjective","Pronoun","Adverb","Conjunction"] },
+  // Pronoun
+  { q:"<em>She</em> is my best friend.", ans:"Pronoun", opts:["Noun","Adverb","Pronoun","Verb"] },
+  { q:"<em>They</em> went to the zoo.", ans:"Pronoun", opts:["Adjective","Conjunction","Pronoun","Preposition"] },
+  { q:"<em>He</em> likes to play chess.", ans:"Pronoun", opts:["Verb","Pronoun","Noun","Adverb"] },
+  { q:"Can <em>you</em> help me?", ans:"Pronoun", opts:["Preposition","Pronoun","Adjective","Verb"] },
+  { q:"<em>We</em> are going to the park.", ans:"Pronoun", opts:["Conjunction","Adverb","Noun","Pronoun"] },
+  // Preposition
+  { q:"The cat is <em>under</em> the table.", ans:"Preposition", opts:["Preposition","Adverb","Adjective","Conjunction"] },
+  { q:"She sits <em>between</em> Tom and Sam.", ans:"Preposition", opts:["Adverb","Preposition","Conjunction","Verb"] },
+  { q:"We go to school <em>by</em> bus.", ans:"Preposition", opts:["Conjunction","Pronoun","Preposition","Adverb"] },
+  { q:"He lives <em>near</em> the river.", ans:"Preposition", opts:["Verb","Preposition","Adjective","Noun"] },
+  { q:"The bird flew <em>over</em> the house.", ans:"Preposition", opts:["Adverb","Noun","Preposition","Verb"] },
+  // Conjunction
+  { q:"I like cats <em>and</em> dogs.", ans:"Conjunction", opts:["Preposition","Adverb","Conjunction","Adjective"] },
+  { q:"She is tired <em>but</em> happy.", ans:"Conjunction", opts:["Adjective","Conjunction","Adverb","Noun"] },
+  { q:"He will come <em>if</em> it stops raining.", ans:"Conjunction", opts:["Preposition","Adverb","Verb","Conjunction"] },
+  { q:"I studied hard <em>so</em> I passed the exam.", ans:"Conjunction", opts:["Conjunction","Adverb","Adjective","Preposition"] },
+  { q:"She can dance <em>or</em> sing in the show.", ans:"Conjunction", opts:["Adverb","Preposition","Conjunction","Verb"] },
+  { q:"We stayed inside <em>because</em> it was raining.", ans:"Conjunction", opts:["Noun","Conjunction","Adjective","Adverb"] },
+];
+
+// Shuffle array (Fisher-Yates)
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let questions = [];
+let answered = {};
+let submitted = false;
+
+function buildQuiz() {
+  questions = shuffle(allQuestions);
+  answered = {};
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+
+  questions.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `card-${idx}`;
+
+    const shuffledOpts = shuffle(q.opts);
+
+    card.innerHTML = `
+      <div class="q-num">ข้อ ${idx + 1}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options" id="opts-${idx}">
+        ${shuffledOpts.map(o => `<button class="opt-btn" onclick="selectAns(${idx}, '${o}', this)">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb-${idx}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function selectAns(idx, choice, btn) {
+  if (submitted) return;
+  answered[idx] = choice;
+
+  // Clear selection highlights
+  document.querySelectorAll(`#opts-${idx} .opt-btn`).forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  updateScorebar();
+}
+
+function updateScorebar() {
+  const count = Object.keys(answered).length;
+  document.getElementById('answeredDisplay').textContent = count;
+
+  // calc correct so far
+  let correct = 0;
+  Object.entries(answered).forEach(([idx, ans]) => {
+    if (ans === questions[idx].ans) correct++;
+  });
+  document.getElementById('scoreDisplay').textContent = `${correct}/50`;
+  document.getElementById('progressFill').style.width = `${(count/50)*100}%`;
+}
+
+function submitQuiz() {
+  if (submitted) return;
+  submitted = true;
+
+  let correct = 0;
+
+  questions.forEach((q, idx) => {
+    const card = document.getElementById(`card-${idx}`);
+    const fb = document.getElementById(`fb-${idx}`);
+    const userAns = answered[idx];
+
+    document.querySelectorAll(`#opts-${idx} .opt-btn`).forEach(btn => {
+      btn.disabled = true;
+      if (btn.textContent === q.ans) btn.classList.add('correct-ans');
+      if (userAns && btn.textContent === userAns && userAns !== q.ans) btn.classList.add('wrong-ans');
+    });
+
+    if (userAns === q.ans) {
+      correct++;
+      card.classList.add('correct');
+      fb.className = 'feedback show ok';
+      fb.innerHTML = '✅ ถูกต้อง!';
+    } else {
+      card.classList.add('wrong');
+      fb.className = 'feedback show no';
+      fb.innerHTML = `❌ เฉลย: <strong>${q.ans}</strong>`;
+    }
+  });
+
+  document.getElementById('scoreDisplay').textContent = `${correct}/50`;
+  document.getElementById('progressFill').style.width = `${(correct/50)*100}%`;
+
+  // Show modal
+  const pct = (correct/50)*100;
+  document.getElementById('modalScore').textContent = `${correct}/50`;
+  document.getElementById('modalEmoji').textContent = pct>=80?'🏆':pct>=60?'😊':pct>=40?'💪':'📚';
+  document.getElementById('modalGrade').textContent =
+    pct>=80 ? 'ยอดเยี่ยมมาก! เก่งมากเลย 🌟' :
+    pct>=60 ? 'ดีมาก! ฝึกต่อไปนะ 👍' :
+    pct>=40 ? 'พยายามต่อไป! ทำได้อีก 💪' :
+    'ทบทวนอีกครั้งนะ แล้วลองใหม่ 📖';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function resetQuiz() {
+  submitted = false;
+  document.getElementById('modalOverlay').classList.remove('show');
+  document.getElementById('scoreDisplay').textContent = '0/50';
+  document.getElementById('answeredDisplay').textContent = '0';
+  document.getElementById('progressFill').style.width = '0%';
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.getElementById('submitBtn').addEventListener('click', submitQuiz);
+
+buildQuiz();
+</script>
+</body>
+</html>
