@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4 — Passive Voice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#fff; --ink:#1c1917; --muted:#78716c;
+  --rule:#e7e5e0; --grey_lt:#fafaf9;
+  --act:#0f766e; --act_lt:#f0fdfa;
+  --pas:#7c3aed; --pas_lt:#f5f3ff;
+  --good:#15803d; --good_lt:#f0fdf4;
+  --bad:#dc2626; --bad_lt:#fef2f2;
+  --gold:#b45309; --gold_lt:#fffbeb;
+  --blue:#1d4ed8; --blue_lt:#eff6ff;
+  --r:14px; --sh:0 4px 24px rgba(28,25,23,.07);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);font-size:15.5px;line-height:1.75;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fade{animation:fadeUp .5s ease both;}
+.fade:nth-child(1){animation-delay:.04s}.fade:nth-child(2){animation-delay:.10s}
+.fade:nth-child(3){animation-delay:.16s}.fade:nth-child(4){animation-delay:.22s}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--act),var(--pas));z-index:9999;width:0%;}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--surface);display:flex;flex-direction:column;justify-content:center;padding:80px 6%;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(15,118,110,.07) 0%,transparent 60%);top:-200px;right:-150px;}
+.cover::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.07) 0%,transparent 60%);bottom:-150px;left:-100px;}
+.cover-inner{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+.utag{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);padding:7px 18px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:30px;font-family:'Space Mono',monospace;}
+.utag i{width:8px;height:8px;border-radius:50%;background:var(--pas);display:inline-block;}
+.cover h1{font-family:'Fraunces',serif;font-size:clamp(44px,7vw,86px);font-weight:900;line-height:1.05;margin-bottom:22px;}
+.cover h1 .hl{font-style:italic;color:var(--pas);}
+.cover-sub{font-size:17px;color:var(--muted);max-width:560px;margin-bottom:44px;line-height:1.7;}
+
+/* transform demo */
+.transform-demo{background:var(--grey_lt);border:1px solid var(--rule);border-radius:var(--r);padding:24px 28px;margin-bottom:44px;max-width:680px;}
+.td-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+.td-row:last-child{margin-bottom:0;}
+.td-label{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;width:80px;flex-shrink:0;}
+.td-label.act{color:var(--act);}
+.td-label.pas{color:var(--pas);}
+.td-sent{font-size:15px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.chip{padding:5px 12px;border-radius:8px;font-weight:700;font-size:14px;}
+.chip-s{background:var(--blue_lt);color:var(--blue);}
+.chip-v{background:var(--act_lt);color:var(--act);}
+.chip-o{background:var(--gold_lt);color:var(--gold);}
+.chip-v2{background:var(--pas_lt);color:var(--pas);}
+.chip-by{background:var(--rule);color:var(--muted);}
+.td-arrow{font-size:22px;color:var(--muted);}
+
+.cstats{display:flex;gap:2px;flex-wrap:wrap;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;max-width:600px;}
+.cstat{flex:1;min-width:110px;padding:18px 20px;background:var(--surface);text-align:center;border-right:1px solid var(--rule);}
+.cstat:last-child{border-right:none;}
+.cstat-n{font-family:'Fraunces',serif;font-size:32px;font-weight:900;line-height:1;color:var(--pas);}
+.cstat-l{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(247,245,240,.94);border-bottom:1px solid var(--rule);backdrop-filter:blur(10px);padding:0 6%;display:flex;gap:0;overflow-x:auto;}
+.nav a{color:var(--muted);text-decoration:none;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:15px 16px;white-space:nowrap;border-bottom:2px solid transparent;transition:.18s;font-family:'Space Mono',monospace;}
+.nav a:hover{color:var(--pas);border-bottom-color:var(--pas);}
+
+.page{max-width:920px;margin:0 auto;padding:60px 24px;}
+.gap{margin-bottom:72px;}
+.sh{display:flex;align-items:flex-start;gap:18px;margin-bottom:36px;}
+.sh-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.sh-text h2{font-family:'Fraunces',serif;font-size:27px;font-weight:700;line-height:1.2;}
+.sh-text p{font-size:14px;color:var(--muted);margin-top:3px;}
+
+/* INFO BOX */
+.ib{border-radius:var(--r);padding:16px 20px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.6;}
+.ib .ico{font-size:18px;flex-shrink:0;}
+.ib.gold{background:var(--gold_lt);border-left:3px solid var(--gold);}
+.ib.bad{background:var(--bad_lt);border-left:3px solid var(--bad);}
+.ib.good{background:var(--good_lt);border-left:3px solid var(--good);}
+.ib.blue{background:var(--blue_lt);border-left:3px solid var(--blue);}
+.ib.pas{background:var(--pas_lt);border-left:3px solid var(--pas);}
+.ib.act{background:var(--act_lt);border-left:3px solid var(--act);}
+
+/* VOCAB TABLE */
+.twrap{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin:18px 0;overflow-x:auto;box-shadow:var(--sh);}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead tr{background:var(--ink);}
+thead th{padding:12px 14px;text-align:left;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tbody tr:nth-child(even){background:var(--grey_lt);}
+tbody tr:last-child td{border-bottom:none;}
+code{font-family:'Space Mono',monospace;font-size:13px;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:5px;}
+
+/* READING */
+.rbox{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:24px;box-shadow:var(--sh);}
+.rhead{background:var(--ink);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.rhead h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.rhead span{font-family:'Space Mono',monospace;font-size:11px;opacity:.6;}
+.rbody{padding:28px;font-size:15.5px;line-height:2.1;}
+.rbody p{margin-bottom:16px;}
+.rbody p:last-child{margin-bottom:0;}
+.hp{background:var(--pas_lt);color:var(--pas);font-weight:700;padding:1px 5px;border-radius:4px;}
+.ha{background:var(--act_lt);color:var(--act);font-weight:700;padding:1px 5px;border-radius:4px;}
+
+/* TENSE FORMULA TABLE */
+.formula-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px;}
+.formula-table th{background:var(--pas);color:#fff;padding:12px 14px;text-align:left;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+.formula-table td{padding:11px 14px;border:1px solid var(--rule);vertical-align:top;}
+.formula-table tr:nth-child(even) td{background:var(--pas_lt);}
+.formula-table .tense-name{font-weight:700;color:var(--pas);white-space:nowrap;}
+.formula-table .formula{font-family:'Space Mono',monospace;font-size:12.5px;color:var(--ink);}
+.formula-table .example{color:var(--muted);font-style:italic;}
+
+/* TRANSFORM PRACTICE */
+.transform-card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:20px 24px;margin-bottom:12px;box-shadow:var(--sh);}
+.tc-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.tc-sent{font-size:15.5px;line-height:1.8;margin-bottom:10px;}
+.tc-arrow{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:14px;margin-bottom:10px;}
+.tc-answer{background:var(--pas_lt);border-left:3px solid var(--pas);padding:10px 16px;border-radius:0 8px 8px 0;font-size:14.5px;display:none;}
+.tc-answer.show{display:block;}
+.tc-blank{color:var(--rule);font-family:'Space Mono',monospace;}
+
+/* EXERCISES */
+.exh{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r) var(--r) 0 0;padding:18px 24px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule);box-shadow:var(--sh);}
+.exn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:17px;font-weight:900;flex-shrink:0;color:#fff;}
+.exh h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.exh p{font-size:13px;color:var(--muted);margin-top:2px;}
+.exb{background:var(--grey_lt);border:1px solid var(--rule);border-top:none;border-radius:0 0 var(--r) var(--r);padding:28px;margin-bottom:28px;}
+.ex-inst{font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--pas);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:22px;}
+
+/* MCQ */
+.mcq{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--rule);}
+.mcq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-q{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;}
+.qn{width:28px;height:28px;border-radius:8px;background:var(--pas_lt);color:var(--pas);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.opts{display:flex;flex-direction:column;gap:8px;padding-left:38px;}
+.opt{display:flex;align-items:center;gap:11px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--rule);font-size:14px;cursor:pointer;transition:.16s;background:var(--surface);}
+.opt:hover{border-color:var(--pas);background:var(--pas_lt);}
+.opt.correct{border-color:var(--good);background:var(--good_lt);color:var(--good);font-weight:600;}
+.opt.wrong{border-color:var(--bad);background:var(--bad_lt);color:var(--bad);}
+.ob{width:26px;height:26px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;transition:.16s;}
+.opt:hover .ob{border-color:var(--pas);background:var(--pas);color:#fff;}
+.opt.correct .ob{border-color:var(--good);background:var(--good);color:#fff;}
+.opt.wrong .ob{border-color:var(--bad);background:var(--bad);color:#fff;}
+.fb{display:none;margin-top:10px;padding:11px 16px;border-radius:10px;font-size:13.5px;font-weight:500;padding-left:38px;line-height:1.55;}
+.fb.show{display:block;}
+.fb.ok{background:var(--good_lt);color:var(--good);}
+.fb.no{background:var(--bad_lt);color:var(--bad);}
+
+/* fill-in */
+.fi-item{margin-bottom:16px;background:var(--surface);border-radius:10px;padding:14px 18px;border:1px solid var(--rule);}
+.fi-sent{font-size:15px;line-height:1.9;}
+.fi-blank{display:inline-block;min-width:110px;border-bottom:2px solid var(--pas);text-align:center;margin:0 4px;font-family:'Space Mono',monospace;font-size:13px;color:transparent;transition:color .25s;}
+.fi-blank.shown{color:var(--pas);font-weight:700;}
+.fi-ans{display:none;font-size:13px;color:var(--muted);padding-top:6px;border-top:1px solid var(--rule);margin-top:6px;}
+.fi-ans.show{display:block;}
+
+/* EC */
+.ec-wrong{background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;}
+.ec-fix{display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-bottom:4px;}
+.ec-fix.show{display:block;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:100px;font-size:13.5px;font-weight:700;cursor:pointer;border:none;font-family:'Manrope',sans-serif;transition:.18s;}
+.btn-pas{background:var(--pas);color:#fff;}
+.btn-pas:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn-ghost{background:var(--surface);color:var(--ink);border:1.5px solid var(--rule);}
+.btn-ghost:hover{border-color:var(--pas);color:var(--pas);}
+.btn-sm{padding:8px 16px;font-size:12.5px;}
+
+/* SCOREBOARD */
+.scoreboard{background:linear-gradient(135deg,#1c1917,#292524);color:#fff;border-radius:var(--r);padding:28px 30px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
+.sc-num{font-family:'Fraunces',serif;font-size:56px;font-weight:900;color:#d8b4fe;line-height:1;}
+.sc-txt{flex:1;} .sc-txt h4{font-family:'Fraunces',serif;font-size:19px;font-weight:700;margin-bottom:4px;} .sc-txt p{font-size:13px;opacity:.7;}
+.sc-bar-wrap{flex:1;min-width:180px;} .sc-bar-lbl{font-size:12px;opacity:.7;margin-bottom:6px;}
+.sc-bar{height:10px;background:rgba(255,255,255,.2);border-radius:5px;overflow:hidden;}
+.sc-fill{height:100%;background:linear-gradient(90deg,#d8b4fe,#86efac);border-radius:5px;transition:width .7s ease;}
+
+.chk{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;}
+.chk li{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--rule);padding:13px 16px;border-radius:10px;font-size:14px;}
+.chk li input{width:18px;height:18px;accent-color:var(--pas);cursor:pointer;flex-shrink:0;margin-top:2px;}
+
+.footer{background:var(--surface);border-top:1px solid var(--rule);padding:32px 6%;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;}
+@media(max-width:640px){.page{padding:40px 18px;}.cover{padding:60px 5%;}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="utag fade"><i></i> B1 English &middot; Grammar Series &middot; Unit 4</div>
+    <h1 class="fade"><span class="hl">Passive</span><br>Voice</h1>
+    <p class="cover-sub fade">Learn how to change active sentences to passive form across all tenses &mdash; and when to use each. Master the most tested transformation skill in Thai English exams.</p>
+
+    <div class="transform-demo fade">
+      <div class="td-row">
+        <span class="td-label act">Active</span>
+        <div class="td-sent">
+          <span class="chip chip-s">The chef</span>
+          <span class="chip chip-v">cooked</span>
+          <span class="chip chip-o">the meal</span>
+          <span style="color:var(--muted);">.</span>
+        </div>
+      </div>
+      <div class="td-arrow">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8595; transform</div>
+      <div class="td-row">
+        <span class="td-label pas">Passive</span>
+        <div class="td-sent">
+          <span class="chip chip-s">The meal</span>
+          <span class="chip chip-v2">was cooked</span>
+          <span class="chip chip-by">by the chef</span>
+          <span style="color:var(--muted);">.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cstats fade">
+      <div class="cstat"><div class="cstat-n">10</div><div class="cstat-l">Tense Forms</div></div>
+      <div class="cstat"><div class="cstat-n">15</div><div class="cstat-l">Vocab Words</div></div>
+      <div class="cstat"><div class="cstat-n">5</div><div class="cstat-l">Exercises</div></div>
+      <div class="cstat"><div class="cstat-n">50</div><div class="cstat-l">Exam Questions</div></div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <a href="#vocab">&#128218; Vocab</a>
+  <a href="#reading">&#128214; Reading</a>
+  <a href="#grammar">&#128295; Grammar</a>
+  <a href="#exercises">&#9999; Exercises</a>
+  <a href="#review">&#11088; Review</a>
+</nav>
+
+<!-- ═══ SECTION A: VOCAB ═══ -->
+<div class="page gap" id="vocab">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--pas_lt);">&#128218;</div>
+    <div class="sh-text"><h2>Section A &mdash; Vocabulary Builder</h2><p>15 key words often used in passive voice contexts &mdash; scientific, news, and academic topics.</p></div>
+  </div>
+  <div class="ib blue fade"><span class="ico">&#128161;</span><div><strong>Study tip:</strong> Passive voice is used most frequently in formal writing, science, and news. These 15 words appear most often in passive-voice sentences in Thai entrance exams.</div></div>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Word</th><th>Type</th><th>Thai</th><th>Passive Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong>invent</strong></td><td>verb</td><td>&#3611;&#3619;&#3632;&#3604;&#3636;&#3625;&#3660;</td><td>The telephone <em>was invented</em> by Bell.</td></tr>
+        <tr><td><strong>discover</strong></td><td>verb</td><td>&#3588;&#3657;&#3609;&#3614;&#3610;</td><td>Penicillin <em>was discovered</em> in 1928.</td></tr>
+        <tr><td><strong>construct</strong></td><td>verb</td><td>&#3585;&#3656;&#3629;&#3626;&#3619;&#3657;&#3634;&#3591;</td><td>The bridge <em>is being constructed</em> now.</td></tr>
+        <tr><td><strong>elect</strong></td><td>verb</td><td>&#3648;&#3621;&#3639;&#3629;&#3585;&#3605;&#3633;&#3657;&#3591;</td><td>A new president <em>was elected</em> last month.</td></tr>
+        <tr><td><strong>announce</strong></td><td>verb</td><td>&#3611;&#3619;&#3632;&#3585;&#3634;&#3624;</td><td>The results <em>will be announced</em> tomorrow.</td></tr>
+        <tr><td><strong>publish</strong></td><td>verb</td><td>&#3605;&#3637;&#3614;&#3636;&#3617;&#3614;&#3660;/&#3648;&#3612;&#3618;&#3649;&#3614;&#3619;&#3656;</td><td>This book <em>has been published</em> in 20 languages.</td></tr>
+        <tr><td><strong>deliver</strong></td><td>verb</td><td>&#3626;&#3656;&#3591;&#3617;&#3629;&#3610;</td><td>The package <em>has been delivered</em>.</td></tr>
+        <tr><td><strong>damage</strong></td><td>verb</td><td>&#3607;&#3635;&#3621;&#3634;&#3618;</td><td>Several houses <em>were damaged</em> by the storm.</td></tr>
+        <tr><td><strong>replace</strong></td><td>verb</td><td>&#3649;&#3607;&#3609;&#3607;&#3637;&#3656;</td><td>Cashiers <em>are being replaced</em> by machines.</td></tr>
+        <tr><td><strong>display</strong></td><td>verb</td><td>&#3619;&#3656;&#3634;&#3591;&#3649;&#3626;&#3604;&#3591;</td><td>The paintings <em>are displayed</em> in the gallery.</td></tr>
+        <tr><td><strong>examine</strong></td><td>verb</td><td>&#3605;&#3619;&#3623;&#3592;&#3626;&#3629;&#3610;</td><td>The patient <em>is being examined</em> by the doctor.</td></tr>
+        <tr><td><strong>arrest</strong></td><td>verb</td><td>&#3592;&#3633;&#3610;&#3585;&#3640;&#3617;</td><td>The suspect <em>was arrested</em> last night.</td></tr>
+        <tr><td><strong>locate</strong></td><td>verb</td><td>&#3605;&#3633;&#3657;&#3591;&#3629;&#3618;&#3641;&#3656;</td><td>The missing child <em>has been located</em>.</td></tr>
+        <tr><td><strong>manufacture</strong></td><td>verb</td><td>&#3612;&#3621;&#3636;&#3605;&#3652;&#3609;&#3650;&#3619;&#3591;&#3591;&#3634;&#3609;</td><td>These cars <em>are manufactured</em> in Japan.</td></tr>
+        <tr><td><strong>award</strong></td><td>verb</td><td>&#3617;&#3629;&#3610;&#3619;&#3634;&#3591;&#3623;&#3633;&#3621;</td><td>She <em>was awarded</em> a scholarship.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ SECTION B: READING ═══ -->
+<div class="page gap" id="reading">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--act_lt);">&#128214;</div>
+    <div class="sh-text"><h2>Section B &mdash; Reading Passage</h2><p>A news article rich in passive voice. Find every passive verb!</p></div>
+  </div>
+  <div class="ib pas fade"><span class="ico">&#127912;</span><div><strong>Colour key:</strong> <span class="hp">PURPLE = Passive voice verb</span> &nbsp;&middot;&nbsp; <span class="ha">TEAL = Active voice verb</span></div></div>
+  <div class="rbox fade">
+    <div class="rhead"><h3>Ancient City Discovered in Thailand</h3><span>~170 words &middot; News Article &middot; B1</span></div>
+    <div class="rbody">
+      <p>An ancient city <span class="hp">has been discovered</span> deep in the forests of northern Thailand. The site <span class="hp">was found</span> by a team of archaeologists last month and <span class="hp">is believed</span> to be over 1,000 years old.</p>
+      <p>Hundreds of artefacts <span class="hp">have been collected</span> from the site. The objects <span class="hp">are currently being examined</span> by experts at Chiang Mai University. It <span class="hp">is expected</span> that many more discoveries <span class="hp">will be made</span> over the coming months.</p>
+      <p>The ancient city <span class="hp">is thought</span> to have been a major trading centre. Several gold coins <span class="hp">were found</span> near the entrance, and a large temple <span class="hp">has been located</span> at the centre of the site. The temple walls <span class="hp">are decorated</span> with beautiful carvings.</p>
+      <p>The Thai government <span class="ha">has announced</span> that the area <span class="hp">will be protected</span> as a national heritage site. Tourists <span class="hp">will be allowed</span> to visit once the initial research <span class="hp">has been completed</span>.</p>
+    </div>
+  </div>
+
+  <div class="exh" style="margin-top:4px;"><div class="exn" style="background:var(--pas);">Q</div><div><h3>Reading Comprehension</h3><p>Click an option to check your answer.</p></div></div>
+  <div class="exb">
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">1</span> The sentence "The objects are currently being examined" is in which tense and voice?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Present Simple Passive</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Present Continuous Passive</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Present Perfect Passive</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Past Continuous Passive</div>
+      </div>
+      <div class="fb ok">&#10003; "are being + V3 (examined)" = Present Continuous Passive. "Currently" signals an action happening right now.</div>
+      <div class="fb no">&#10007; The formula "am/is/are + being + V3" = Present Continuous Passive.</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">2</span> Which sentence in the passage uses ACTIVE voice?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> "The site was found by archaeologists."</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> "The temple walls are decorated with carvings."</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> "The Thai government has announced..."</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> "Tourists will be allowed to visit."</div>
+      </div>
+      <div class="fb ok">&#10003; "The Thai government has announced" &mdash; the subject (government) is the doer of the action. That's active voice.</div>
+      <div class="fb no">&#10007; In active voice, the subject DOES the action. In passive voice, the subject RECEIVES the action.</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">3</span> "Many more discoveries will be made over the coming months." &mdash; what is the passive formula used here?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> have/has + been + V3</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> am/is/are + being + V3</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> will + be + V3</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was/were + V3</div>
+      </div>
+      <div class="fb ok">&#10003; "will be made" = Future Simple Passive. Formula: will + be + V3.</div>
+      <div class="fb no">&#10007; "will be + V3" is the Future Simple Passive formula.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION C: GRAMMAR ═══ -->
+<div class="page gap" id="grammar">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--pas_lt);">&#128295;</div>
+    <div class="sh-text"><h2>Section C &mdash; Grammar Spotlight</h2><p>Active vs Passive, when to use passive, and all 10 passive forms.</p></div>
+  </div>
+
+  <!-- What is passive? -->
+  <div class="ib pas fade"><span class="ico">&#128161;</span><div>
+    <strong>What is Passive Voice?</strong><br>
+    In <strong>active</strong> voice, the subject DOES the action: <span class="ha">"The dog bit the man."</span><br>
+    In <strong>passive</strong> voice, the subject RECEIVES the action: <span class="hp">"The man was bitten by the dog."</span><br>
+    <em>Passive voice = S (receiver) + be + V3 (+ by + agent)</em>
+  </div></div>
+
+  <!-- When to use passive -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:28px 0 14px;">When Do We Use Passive Voice?</h3>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Situation</th><th>Why passive?</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>&#127757; The doer is <strong>unknown</strong></td><td>We don't know who did it</td><td>"My car <em>was stolen</em> last night."</td></tr>
+        <tr><td>&#128203; The doer is <strong>obvious / unimportant</strong></td><td>Everyone knows who; focus on result</td><td>"Rice <em>is grown</em> in Thailand."</td></tr>
+        <tr><td>&#128240; <strong>Formal / academic / news</strong> writing</td><td>Removes personal subject for objectivity</td><td>"It <em>has been decided</em> that..."</td></tr>
+        <tr><td>&#127919; Focus on the <strong>object</strong>, not the doer</td><td>The receiver is more important</td><td>"Ten people <em>were injured</em> in the accident."</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- The formula -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:28px 0 14px;">The Golden Formula</h3>
+  <div style="background:var(--pas);color:#fff;border-radius:var(--r);padding:22px 28px;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;text-align:center;letter-spacing:.05em;margin-bottom:20px;">
+    Subject &nbsp;+&nbsp; <span style="color:#e9d5ff;">be (correct tense)</span> &nbsp;+&nbsp; <span style="color:#bbf7d0;">V3 (past participle)</span> &nbsp;+&nbsp; <span style="color:#fde68a;">(by + agent)</span>
+  </div>
+  <div class="ib gold fade"><span class="ico">&#9889;</span><div>
+    The <strong>"by + agent"</strong> phrase is optional. Omit it when the doer is unknown, obvious, or unimportant.<br>
+    <em>"English is spoken here." (by people &mdash; too obvious to mention)</em>
+  </div></div>
+
+  <!-- 10 Passive Tense Forms -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:28px 0 14px;">All 10 Passive Tense Forms</h3>
+  <div class="twrap fade">
+    <table class="formula-table">
+      <thead><tr><th>#</th><th>Tense</th><th>Active Formula</th><th>Passive Formula</th><th>Example (Passive)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="tense-name">Present Simple</td><td class="formula">S + V1(s)</td><td class="formula">S + am/is/are + V3</td><td class="example">This car <strong>is made</strong> in Germany.</td></tr>
+        <tr><td>2</td><td class="tense-name">Present Continuous</td><td class="formula">S + am/is/are + V-ing</td><td class="formula">S + am/is/are + being + V3</td><td class="example">The road <strong>is being repaired</strong>.</td></tr>
+        <tr><td>3</td><td class="tense-name">Present Perfect</td><td class="formula">S + have/has + V3</td><td class="formula">S + have/has + been + V3</td><td class="example">The form <strong>has been signed</strong>.</td></tr>
+        <tr><td>4</td><td class="tense-name">Past Simple</td><td class="formula">S + V2</td><td class="formula">S + was/were + V3</td><td class="example">The window <strong>was broken</strong>.</td></tr>
+        <tr><td>5</td><td class="tense-name">Past Continuous</td><td class="formula">S + was/were + V-ing</td><td class="formula">S + was/were + being + V3</td><td class="example">The suspect <strong>was being questioned</strong>.</td></tr>
+        <tr><td>6</td><td class="tense-name">Past Perfect</td><td class="formula">S + had + V3</td><td class="formula">S + had + been + V3</td><td class="example">The letter <strong>had been sent</strong> already.</td></tr>
+        <tr><td>7</td><td class="tense-name">Future Simple</td><td class="formula">S + will + V1</td><td class="formula">S + will + be + V3</td><td class="example">The prize <strong>will be announced</strong> tomorrow.</td></tr>
+        <tr><td>8</td><td class="tense-name">Future Perfect</td><td class="formula">S + will have + V3</td><td class="formula">S + will have + been + V3</td><td class="example">The project <strong>will have been completed</strong> by June.</td></tr>
+        <tr><td>9</td><td class="tense-name">Modal Verbs</td><td class="formula">S + modal + V1</td><td class="formula">S + modal + be + V3</td><td class="example">This rule <strong>must be followed</strong>.</td></tr>
+        <tr><td>10</td><td class="tense-name">Modal Perfect</td><td class="formula">S + modal + have + V3</td><td class="formula">S + modal + have + been + V3</td><td class="example">It <strong>should have been done</strong> earlier.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- How to transform -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:28px 0 14px;">How to Transform: Active &#8594; Passive (4 Steps)</h3>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Step</th><th>What to do</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Step 1</strong></td><td>Move the <strong>Object</strong> to Subject position</td><td>"the book" becomes the new subject</td></tr>
+        <tr><td><strong>Step 2</strong></td><td>Add the correct form of <strong>BE</strong> (match the tense)</td><td>was / is / has been / will be...</td></tr>
+        <tr><td><strong>Step 3</strong></td><td>Change the main verb to <strong>V3</strong> (past participle)</td><td>"wrote" &#8594; "written"</td></tr>
+        <tr><td><strong>Step 4</strong></td><td>Add <strong>"by + original subject"</strong> (optional)</td><td>"by Maya" (or omit if unimportant)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Worked example -->
+  <div class="ib act fade"><span class="ico">&#128203;</span><div>
+    <strong>Worked Example:</strong><br>
+    Active: <em>"Maya <span class="ha">writes</span> beautiful poems."</em><br>
+    Step 1: Object "beautiful poems" &#8594; new subject<br>
+    Step 2: Present Simple &#8594; be = <strong>are</strong><br>
+    Step 3: "writes" &#8594; <strong>written</strong><br>
+    Step 4: by Maya (optional)<br>
+    Passive: <em>"Beautiful poems <span class="hp">are written</span> by Maya."</em>
+  </div></div>
+
+  <!-- Common errors -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:28px 0 14px;">Common Errors</h3>
+  <div class="ib bad fade"><span class="ico">&#10060;</span><div>
+    <strong>Error 1 &mdash; Using V2 instead of V3:</strong><br>
+    <s>"The book was wrote by Maya."</s> &#10007; &nbsp;&#8594;&nbsp; "The book <strong>was written</strong> by Maya." &#10003;<br><br>
+    <strong>Error 2 &mdash; Wrong form of BE:</strong><br>
+    <s>"The letters was sent yesterday."</s> &#10007; &nbsp;&#8594;&nbsp; "The letters <strong>were</strong> sent yesterday." &#10003;<br><br>
+    <strong>Error 3 &mdash; Keeping the original subject in subject position:</strong><br>
+    <s>"The meal was cooked by was delicious."</s> &#10007; &nbsp;&#8594;&nbsp; Remove or restructure.<br><br>
+    <strong>Error 4 &mdash; Using "by" when doer is unknown/obvious:</strong><br>
+    "Rice is grown <s>by farmers</s> in Thailand." &#8594; "Rice <strong>is grown</strong> in Thailand." (simpler and more natural)
+  </div></div>
+
+  <!-- Impersonal passive -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:28px 0 14px;">Special Form: Impersonal Passive</h3>
+  <div class="ib pas fade"><span class="ico">&#127919;</span><div>
+    Used when reporting what "people say / think / believe / know / expect / report."<br><br>
+    <strong>Pattern 1:</strong> It + passive + that + clause<br>
+    <em>"It <strong>is believed</strong> that the city is 1,000 years old."</em><br><br>
+    <strong>Pattern 2:</strong> Subject + passive + to + infinitive<br>
+    <em>"The city <strong>is believed</strong> to be 1,000 years old."</em><br><br>
+    Common verbs: say, think, believe, know, expect, report, consider, claim, suppose
+  </div></div>
+</div>
+
+<!-- ═══ SECTION D: EXERCISES ═══ -->
+<div class="page gap" id="exercises">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--bad_lt);">&#9999;</div>
+    <div class="sh-text"><h2>Section D &mdash; Exercises</h2><p>Five activities &mdash; from identifying passive voice to full exam-format practice.</p></div>
+  </div>
+
+  <!-- EX 1: MCQ Identify -->
+  <div class="exh"><div class="exn" style="background:var(--pas);">1</div><div><h3>Identify &amp; Choose</h3><p>Choose the correct passive verb form for each sentence.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Choose the best answer. Each question tests a different passive tense form.</div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> The Eiffel Tower _____ in Paris. (general fact)</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> was located</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> is located</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> has been located</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> is being located</div>
+      </div>
+      <div class="fb ok">&#10003; Present Simple Passive "is located" &mdash; general fact, permanent situation. Formula: S + is + V3.</div>
+      <div class="fb no">&#10007; General facts use Present Simple Passive: S + am/is/are + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> The new hospital _____ at the moment. (action in progress now)</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> is built</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> is being built</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> has been built</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was built</div>
+      </div>
+      <div class="fb ok">&#10003; Present Continuous Passive "is being built" &mdash; ongoing now. Formula: S + is/are + being + V3.</div>
+      <div class="fb no">&#10007; "At the moment" = ongoing = Present Continuous Passive: am/is/are + being + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> The report _____ to the manager yet. (not yet, recent past with present relevance)</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> wasn't sent</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> hasn't been sent</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> isn't being sent</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> won't be sent</div>
+      </div>
+      <div class="fb ok">&#10003; Present Perfect Passive (negative) "hasn't been sent" &mdash; "yet" signals Present Perfect. Formula: haven't/hasn't + been + V3.</div>
+      <div class="fb no">&#10007; "Yet" signals Present Perfect Passive: have/has + been + V3 (negative: haven't/hasn't been + V3).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> Three people _____ in the accident yesterday.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> were injured</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> are injured</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> have been injured</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> will be injured</div>
+      </div>
+      <div class="fb ok">&#10003; Past Simple Passive "were injured" &mdash; "yesterday" = specific past time. Plural subject "three people" &#8594; were. Formula: S + were + V3.</div>
+      <div class="fb no">&#10007; "Yesterday" = specific past time = Past Simple Passive: S + was/were + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> The suspect _____ when the police arrived. (ongoing action interrupted)</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> was questioned</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> was being questioned</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> had been questioned</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> has been questioned</div>
+      </div>
+      <div class="fb ok">&#10003; Past Continuous Passive "was being questioned" &mdash; an ongoing past action ("when police arrived" = interruption). Formula: S + was/were + being + V3.</div>
+      <div class="fb no">&#10007; An ongoing past action interrupted by another event = Past Continuous Passive: was/were + being + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> All the tickets _____ before we arrived at the box office.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> were sold</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> had been sold</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> have been sold</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> are sold</div>
+      </div>
+      <div class="fb ok">&#10003; Past Perfect Passive "had been sold" &mdash; tickets sold BEFORE we arrived (earlier of two past events). Formula: S + had + been + V3.</div>
+      <div class="fb no">&#10007; Action completed BEFORE another past action = Past Perfect Passive: S + had + been + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">7</span> The winners _____ at the ceremony next Friday.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> will be announced</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> are announced</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> were announced</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> have been announced</div>
+      </div>
+      <div class="fb ok">&#10003; Future Simple Passive "will be announced" &mdash; "next Friday" = future. Formula: S + will + be + V3.</div>
+      <div class="fb no">&#10007; "Next Friday" = future = Future Simple Passive: S + will + be + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">8</span> Mobile phones _____ in this examination hall.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> are not allowed to use</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> must not be used</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> should not use</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> cannot used</div>
+      </div>
+      <div class="fb ok">&#10003; Modal Passive "must not be used" &mdash; rule/prohibition. Formula: S + modal + not + be + V3.</div>
+      <div class="fb no">&#10007; Modal Passive formula: S + modal + be + V3. Note: "cannot used" is wrong &mdash; must be "cannot be used."</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">9</span> _____ that the project will be delayed due to budget issues.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> People say</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> It is said</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> They are saying</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> It says</div>
+      </div>
+      <div class="fb ok">&#10003; Impersonal Passive "It is said" &mdash; reporting what people say. Formula: It + is + V3 + that + clause.</div>
+      <div class="fb no">&#10007; Impersonal passive: "It is said/believed/expected/reported + that + clause."</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">10</span> The medicine should _____ in a cool, dry place.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> store</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> be stored</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> be storing</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> have stored</div>
+      </div>
+      <div class="fb ok">&#10003; Modal Passive "should be stored" &mdash; instruction/advice. After a modal verb, always: be + V3 (not be + V-ing).</div>
+      <div class="fb no">&#10007; Modal + passive = modal + be + V3 (never modal + be + V-ing for passive).</div>
+    </div>
+  </div>
+
+  <!-- EX 2: Transform Active > Passive -->
+  <div class="exh"><div class="exn" style="background:var(--act);">2</div><div><h3>Active to Passive Transformation</h3><p>Rewrite each sentence in passive voice. Click Reveal to check.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Follow the 4 steps: (1) Move object to subject, (2) Add correct BE, (3) Change verb to V3, (4) Add "by + agent" (or omit).</div>
+
+    <div class="fi-item"><div class="tc-label">Active</div><div class="fi-sent">1. Shakespeare wrote Hamlet.</div>
+      <div class="tc-arrow">&#8594; Passive:</div>
+      <div class="fi-sent">Hamlet <span class="fi-blank" id="f1">was written by Shakespeare</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f1','a1')">Reveal</button>
+      <div class="fi-ans" id="a1">&#10003; <strong>was written by Shakespeare</strong> &mdash; Past Simple Passive (wrote &#8594; was written). "By Shakespeare" is kept as the agent is famous/important.</div>
+    </div>
+
+    <div class="fi-item"><div class="tc-label">Active</div><div class="fi-sent">2. They are building a new shopping mall.</div>
+      <div class="tc-arrow">&#8594; Passive:</div>
+      <div class="fi-sent">A new shopping mall <span class="fi-blank" id="f2">is being built</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f2','a2')">Reveal</button>
+      <div class="fi-ans" id="a2">&#10003; <strong>is being built</strong> &mdash; Present Continuous Passive. "They" is omitted as it's unimportant/vague.</div>
+    </div>
+
+    <div class="fi-item"><div class="tc-label">Active</div><div class="fi-sent">3. The government will introduce a new law next year.</div>
+      <div class="tc-arrow">&#8594; Passive:</div>
+      <div class="fi-sent">A new law <span class="fi-blank" id="f3">will be introduced by the government next year</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f3','a3')">Reveal</button>
+      <div class="fi-ans" id="a3">&#10003; <strong>will be introduced (by the government) next year</strong> &mdash; Future Simple Passive. Modal "will" + be + V3.</div>
+    </div>
+
+    <div class="fi-item"><div class="tc-label">Active</div><div class="fi-sent">4. Someone had stolen her bicycle before she noticed.</div>
+      <div class="tc-arrow">&#8594; Passive:</div>
+      <div class="fi-sent">Her bicycle <span class="fi-blank" id="f4">had been stolen before she noticed</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f4','a4')">Reveal</button>
+      <div class="fi-ans" id="a4">&#10003; <strong>had been stolen</strong> &mdash; Past Perfect Passive. "Someone" is omitted (unknown agent). Formula: had + been + V3.</div>
+    </div>
+
+    <div class="fi-item"><div class="tc-label">Active</div><div class="fi-sent">5. Scientists have discovered a new planet.</div>
+      <div class="tc-arrow">&#8594; Passive:</div>
+      <div class="fi-sent">A new planet <span class="fi-blank" id="f5">has been discovered by scientists</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f5','a5')">Reveal</button>
+      <div class="fi-ans" id="a5">&#10003; <strong>has been discovered (by scientists)</strong> &mdash; Present Perfect Passive. Formula: has/have + been + V3.</div>
+    </div>
+
+    <div class="fi-item"><div class="tc-label">Active</div><div class="fi-sent">6. You must complete this form in black ink.</div>
+      <div class="tc-arrow">&#8594; Passive:</div>
+      <div class="fi-sent">This form <span class="fi-blank" id="f6">must be completed in black ink</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f6','a6')">Reveal</button>
+      <div class="fi-ans" id="a6">&#10003; <strong>must be completed in black ink</strong> &mdash; Modal Passive. "You" is omitted (general instruction). Modal + be + V3.</div>
+    </div>
+
+    <div class="fi-item"><div class="tc-label">Active</div><div class="fi-sent">7. People believe that he is innocent.</div>
+      <div class="tc-arrow">&#8594; Passive (Impersonal):</div>
+      <div class="fi-sent"><span class="fi-blank" id="f7">It is believed that he is innocent</span> / He <span class="fi-blank" id="f7b">is believed to be innocent</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f7','a7');showFill('f7b','a7')">Reveal</button>
+      <div class="fi-ans" id="a7">&#10003; <strong>It is believed that he is innocent</strong> OR <strong>He is believed to be innocent</strong> &mdash; Both are correct impersonal passive forms.</div>
+    </div>
+
+    <div class="fi-item"><div class="tc-label">Active</div><div class="fi-sent">8. Workers were painting the walls when the manager arrived.</div>
+      <div class="tc-arrow">&#8594; Passive:</div>
+      <div class="fi-sent">The walls <span class="fi-blank" id="f8">were being painted when the manager arrived</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f8','a8')">Reveal</button>
+      <div class="fi-ans" id="a8">&#10003; <strong>were being painted</strong> &mdash; Past Continuous Passive. "Workers" omitted. Formula: was/were + being + V3.</div>
+    </div>
+  </div>
+
+  <!-- EX 3: Error Correction -->
+  <div class="exh"><div class="exn" style="background:var(--gold);">3</div><div><h3>Error Correction</h3><p>Each passive sentence has ONE error. Find and fix it.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Click "Show Correction" to see the fix and which rule was broken.</div>
+
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">1. The letters was sent by the secretary yesterday. <code style="color:var(--bad);">&#10007; was</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; The letters <strong>were</strong> sent by the secretary yesterday.<br><span style="color:var(--muted);font-size:13px;">"Letters" = plural &#8594; were (not was). S–V agreement in passive voice.</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">2. This bridge is build in 1890. <code style="color:var(--bad);">&#10007; is build</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; This bridge <strong>was built</strong> in 1890.<br><span style="color:var(--muted);font-size:13px;">"In 1890" = specific past time &#8594; Past Simple Passive (was/were + V3), not Present Simple. Also: "build" &#8594; V3 = "built".</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">3. The movie is being filmed by was directed by James Cameron. <code style="color:var(--bad);">&#10007; double verb</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; The movie <strong>is being filmed</strong> by James Cameron. OR The movie <strong>was directed</strong> by James Cameron.<br><span style="color:var(--muted);font-size:13px;">One passive verb per clause. Remove one verb form entirely.</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">4. She should be promoting to manager. <code style="color:var(--bad);">&#10007; promoting</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; She should <strong>be promoted</strong> to manager.<br><span style="color:var(--muted);font-size:13px;">Modal passive = modal + be + V3 (past participle), NEVER modal + be + V-ing.</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">5. It is believed that prices will be raise next month. <code style="color:var(--bad);">&#10007; raise</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; It is believed that prices will be <strong>raised</strong> next month.<br><span style="color:var(--muted);font-size:13px;">After "will be", always use V3 (past participle): "raised", not base verb "raise".</span></div>
+    </div>
+
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">6. The package had delivered before I got home. <code style="color:var(--bad);">&#10007; had delivered</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; The package <strong>had been delivered</strong> before I got home.<br><span style="color:var(--muted);font-size:13px;">Past Perfect Passive needs "been": had + been + V3. Cannot skip "been".</span></div>
+    </div>
+  </div>
+
+  <!-- EX 4: Exam MCQ -->
+  <div class="exh"><div class="exn" style="background:linear-gradient(135deg,var(--pas),var(--act));">4</div><div><h3>Exam-Style Multiple Choice (12 Questions)</h3><p>Full exam format &mdash; matches &#3617;.1 Advanced / EP entrance exam difficulty.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Choose the best answer. No notes allowed!</div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> The Amazon rainforest _____ "the lungs of the Earth."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> is often called</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> is often calling</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> often calls</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> has often called</div>
+      </div>
+      <div class="fb ok">&#10003; Present Simple Passive "is often called" &mdash; general, permanent fact about the Amazon. Formula: S + is + V3.</div>
+      <div class="fb no">&#10007; A general fact about the Amazon = Present Simple Passive: is + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> A: "Where is your car?" &nbsp; B: "It _____ at the garage right now."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> repairs</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> is being repaired</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> has repaired</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was repaired</div>
+      </div>
+      <div class="fb ok">&#10003; Present Continuous Passive "is being repaired" &mdash; "right now" = happening at this moment. Formula: is/are + being + V3.</div>
+      <div class="fb no">&#10007; "Right now" = Present Continuous Passive: is/are + being + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> The Pyramids of Giza _____ by ancient Egyptians over 4,000 years ago.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> are built</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> have been built</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> were built</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> had been built</div>
+      </div>
+      <div class="fb ok">&#10003; Past Simple Passive "were built" &mdash; "over 4,000 years ago" = specific past time. Plural subject &#8594; "were". Formula: S + were + V3.</div>
+      <div class="fb no">&#10007; "...years ago" = specific past = Past Simple Passive: was/were + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> By the time the doctor arrived, the patient _____ with the wrong medication.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> was treated</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> had been treated</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> has been treated</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was being treated</div>
+      </div>
+      <div class="fb ok">&#10003; Past Perfect Passive "had been treated" &mdash; "by the time the doctor arrived" = earlier of two past events. Formula: had + been + V3.</div>
+      <div class="fb no">&#10007; "By the time [past action]" = Past Perfect Passive: had + been + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> The new smartphone model _____ to the public next month.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> is released</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> will be released</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> has been released</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was released</div>
+      </div>
+      <div class="fb ok">&#10003; Future Simple Passive "will be released" &mdash; "next month" = future. Formula: will + be + V3.</div>
+      <div class="fb no">&#10007; "Next month" = future = Future Simple Passive: will + be + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> Helmets _____ by all motorcyclists for safety.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> should wear</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> should be worn</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> should be wearing</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> should have wear</div>
+      </div>
+      <div class="fb ok">&#10003; Modal Passive "should be worn" &mdash; recommendation/rule. Formula: modal + be + V3 (never be + V-ing for passive).</div>
+      <div class="fb no">&#10007; Modal Passive: modal + be + V3. Never "modal + be + V-ing" for passive voice.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">7</span> _____ that the meeting will start at 9 AM sharp.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> People are expecting</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> It is expected</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> It expected</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> We are expected</div>
+      </div>
+      <div class="fb ok">&#10003; Impersonal Passive "It is expected" &mdash; reporting a general expectation. Pattern: It + is + V3 + that + clause.</div>
+      <div class="fb no">&#10007; Impersonal Passive: "It is said/expected/believed/reported + that + clause."</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">8</span> The victim _____ to hospital when neighbours heard her screaming.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> was being rushed</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> has been rushed</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> was rushed</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> had been rushed</div>
+      </div>
+      <div class="fb ok">&#10003; Past Continuous Passive "was being rushed" &mdash; the rushing was in progress WHEN neighbours heard her (interruption). Formula: was/were + being + V3.</div>
+      <div class="fb no">&#10007; Ongoing past action + "when [interruption]" = Past Continuous Passive: was/were + being + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">9</span> The missing climbers _____ yet. The search continues.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> weren't found</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> haven't been found</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> aren't being found</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> won't be found</div>
+      </div>
+      <div class="fb ok">&#10003; Present Perfect Passive (negative) "haven't been found" &mdash; "yet" + "search continues" = ongoing situation up to now. Formula: haven't/hasn't + been + V3.</div>
+      <div class="fb no">&#10007; "Yet" + still ongoing = Present Perfect Passive (negative): haven't/hasn't + been + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">10</span> The ancient scroll _____ to be over 2,000 years old.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> is believed</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> believes</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> is believing</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was believed</div>
+      </div>
+      <div class="fb ok">&#10003; Impersonal Passive Pattern 2: "The scroll is believed to be..." = Subject + is + V3 + to + infinitive.</div>
+      <div class="fb no">&#10007; Impersonal passive pattern 2: [Subject] + is/are + V3 + to + infinitive.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">11</span> The construction of the new stadium _____ by next December.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> will complete</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> will have been completed</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> will be completing</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> has been completed</div>
+      </div>
+      <div class="fb ok">&#10003; Future Perfect Passive "will have been completed" &mdash; "by next December" = completed before a future deadline. Formula: will + have + been + V3.</div>
+      <div class="fb no">&#10007; "By + future time" = Future Perfect Passive: will + have + been + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">12</span> Thai silk _____ for thousands of years and is famous worldwide.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> is woven</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> has been woven</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> was woven</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> will be woven</div>
+      </div>
+      <div class="fb ok">&#10003; Present Perfect Passive "has been woven" &mdash; action that started in the past and continues to the present ("for thousands of years"). Formula: has/have + been + V3.</div>
+      <div class="fb no">&#10007; "For thousands of years" + still ongoing = Present Perfect Passive: has/have + been + V3.</div>
+    </div>
+  </div>
+
+  <!-- EX 5: Cloze -->
+  <div class="exh"><div class="exn" style="background:linear-gradient(135deg,var(--pas),var(--gold));">5</div><div><h3>Cloze Test &mdash; Mixed Passive (12 Blanks)</h3><p>Fill each blank with the correct passive verb form.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Read the whole passage first, then decide which passive tense belongs in each blank based on context clues.</div>
+    <div class="twrap" style="margin-bottom:20px;">
+      <div style="padding:28px;font-size:15px;line-height:2.5;">
+        <strong>Thailand's Famous Street Food</strong><br><br>
+        Thai street food (1) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">is enjoyed</span></strong> by millions of tourists every year. Many iconic dishes (2) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">are served</span></strong> on the streets of Bangkok, Chiang Mai, and Phuket. Pad Thai, for example, (3) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">is believed</span></strong> to have been introduced during the 1940s as a national dish.
+        <br><br>
+        Currently, many traditional recipes (4) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">are being documented</span></strong> by food historians before they (5) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">are forgotten</span></strong>. Some ancient cooking techniques (6) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">had been passed down</span></strong> through families for centuries before being written down.
+        <br><br>
+        Last year, Thai street food (7) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">was awarded</span></strong> a place on UNESCO's cultural heritage list. It (8) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">has been praised</span></strong> by food critics around the world. Several documentaries about it (9) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">have been produced</span></strong> recently.
+        <br><br>
+        More food festivals (10) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">will be organised</span></strong> next year. It (11) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">is expected</span></strong> that visitor numbers will increase significantly. By 2030, it (12) <strong><span style="border-bottom:2px dashed var(--pas);padding:0 6px;color:var(--pas);">will have been recognised</span></strong> as one of the world's greatest culinary traditions.
+      </div>
+    </div>
+    <button class="btn btn-pas" onclick="this.nextElementSibling.style.display='block';this.textContent='&#10003; Key Shown';this.disabled=true;this.style.opacity='.6';">&#10003; Show Answer Key</button>
+    <div style="display:none;margin-top:16px;">
+      <div class="twrap"><table>
+        <thead><tr><th>#</th><th>Answer</th><th>Passive Tense</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>is enjoyed</code></td><td>Present Simple Passive</td><td>General ongoing fact</td></tr>
+          <tr><td>2</td><td><code>are served</code></td><td>Present Simple Passive</td><td>Regular, habitual action</td></tr>
+          <tr><td>3</td><td><code>is believed</code></td><td>Impersonal Passive</td><td>Reporting what people believe (impersonal)</td></tr>
+          <tr><td>4</td><td><code>are being documented</code></td><td>Present Continuous Passive</td><td>"Currently" = in progress right now</td></tr>
+          <tr><td>5</td><td><code>are forgotten</code></td><td>Present Simple Passive</td><td>General possibility (before they...)</td></tr>
+          <tr><td>6</td><td><code>had been passed down</code></td><td>Past Perfect Passive</td><td>Action before another past action (before being written)</td></tr>
+          <tr><td>7</td><td><code>was awarded</code></td><td>Past Simple Passive</td><td>"Last year" = specific past time</td></tr>
+          <tr><td>8</td><td><code>has been praised</code></td><td>Present Perfect Passive</td><td>Action with present relevance, no specific time</td></tr>
+          <tr><td>9</td><td><code>have been produced</code></td><td>Present Perfect Passive</td><td>"Recently" = unspecified recent past</td></tr>
+          <tr><td>10</td><td><code>will be organised</code></td><td>Future Simple Passive</td><td>"Next year" = future plan</td></tr>
+          <tr><td>11</td><td><code>is expected</code></td><td>Impersonal Passive</td><td>Reporting a general expectation</td></tr>
+          <tr><td>12</td><td><code>will have been recognised</code></td><td>Future Perfect Passive</td><td>"By 2030" = completed before a future deadline</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION E: REVIEW ═══ -->
+<div class="page gap" id="review">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--good_lt);">&#11088;</div>
+    <div class="sh-text"><h2>Section E &mdash; Unit Review</h2><p>Master summary + self-evaluation checklist.</p></div>
+  </div>
+
+  <div class="ib bad fade"><span class="ico">&#128680;</span><div>
+    <strong>Top 8 Exam Traps (&#3586;&#3657;&#3629;&#3626;&#3629;&#3610;&#3594;&#3629;&#3610;&#3629;&#3629;&#3585;):</strong>
+    <ol style="margin-top:10px;padding-left:20px;font-size:14px;line-height:2.1;">
+      <li><code>was wrote</code> &#10007; &rarr; <code>was written</code> &#10003; &mdash; always V3 (past participle), never V2</li>
+      <li><code>The letters was</code> &#10007; &rarr; <code>The letters were</code> &#10003; &mdash; S&ndash;V agreement still applies in passive</li>
+      <li><code>is being build</code> &#10007; &rarr; <code>is being built</code> &#10003; &mdash; V3 after "being", not base verb</li>
+      <li><code>had delivered</code> (passive meaning) &#10007; &rarr; <code>had been delivered</code> &#10003; &mdash; don't skip "been"</li>
+      <li><code>should be wearing</code> (passive) &#10007; &rarr; <code>should be worn</code> &#10003; &mdash; modal passive never uses -ing</li>
+      <li><code>is been</code> &#10007; &rarr; <code>has been</code> &#10003; &mdash; Present Perfect Passive needs "has/have"</li>
+      <li><code>will been</code> &#10007; &rarr; <code>will have been</code> &#10003; &mdash; Future Perfect Passive needs "have"</li>
+      <li><code>It is expected to</code> (no subject) &#10007; &rarr; <code>It is expected that...</code> &#10003; &mdash; "It" is required as dummy subject</li>
+    </ol>
+  </div></div>
+
+  <div class="twrap fade" style="margin-top:24px;">
+    <table>
+      <thead><tr><th>Tense</th><th>Passive Formula</th><th>Signal Words</th></tr></thead>
+      <tbody>
+        <tr><td>Present Simple</td><td>S + am/is/are + V3</td><td>always, usually, every day, general facts</td></tr>
+        <tr><td>Present Continuous</td><td>S + am/is/are + being + V3</td><td>now, right now, at the moment, currently</td></tr>
+        <tr><td>Present Perfect</td><td>S + have/has + been + V3</td><td>already, yet, just, recently, since, for</td></tr>
+        <tr><td>Past Simple</td><td>S + was/were + V3</td><td>yesterday, last week, ago, in 2020</td></tr>
+        <tr><td>Past Continuous</td><td>S + was/were + being + V3</td><td>while, when (interrupted), at that moment</td></tr>
+        <tr><td>Past Perfect</td><td>S + had + been + V3</td><td>before, by the time, after, already (past)</td></tr>
+        <tr><td>Future Simple</td><td>S + will + be + V3</td><td>tomorrow, next week/month/year, soon</td></tr>
+        <tr><td>Future Perfect</td><td>S + will + have + been + V3</td><td>by + future time, by the end of...</td></tr>
+        <tr><td>Modal</td><td>S + modal + be + V3</td><td>can, could, may, might, must, should, would</td></tr>
+        <tr><td>Impersonal</td><td>It + is/was + V3 + that... / S + is + V3 + to...</td><td>say, believe, think, know, expect, report</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:32px;" class="fade">
+    <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:16px;">Self-Evaluation Checklist &mdash; "I Can&hellip;"</h3>
+    <ul class="chk">
+      <li><input type="checkbox"> Explain the difference between active and passive voice.</li>
+      <li><input type="checkbox"> State the golden formula: S + be (correct tense) + V3.</li>
+      <li><input type="checkbox"> List at least 4 situations when passive voice is preferred.</li>
+      <li><input type="checkbox"> Form all 10 passive tense structures correctly.</li>
+      <li><input type="checkbox"> Transform any active sentence to passive in 4 steps.</li>
+      <li><input type="checkbox"> Choose the correct form of BE for each tense (is/are/was/were/will be/has been...).</li>
+      <li><input type="checkbox"> Use V3 (past participle) correctly &mdash; never V2 or V-ing after BE.</li>
+      <li><input type="checkbox"> Form impersonal passive sentences (It is said that... / Subject is said to be...).</li>
+      <li><input type="checkbox"> Identify and correct the 8 most common passive voice errors.</li>
+      <li><input type="checkbox"> Complete a 12-blank mixed passive cloze passage.</li>
+      <li><input type="checkbox"> Score at least 10/12 on the exam-style MCQ section.</li>
+    </ul>
+  </div>
+
+  <div class="scoreboard fade" style="margin-top:32px;">
+    <div class="sc-num" id="scoreNum">&ndash;</div>
+    <div class="sc-txt"><h4>Your Live Score</h4><p>Click through the MCQ exercises above and your score updates here automatically.</p></div>
+    <div class="sc-bar-wrap"><div class="sc-bar-lbl">Accuracy</div><div class="sc-bar"><div class="sc-fill" id="scoreFill" style="width:0%"></div></div></div>
+  </div>
+
+  <div class="ib good fade" style="margin-top:24px;">
+    <span class="ico">&#8594;</span>
+    <div><strong>Next Unit: Unit 5 &mdash; Modal Verbs</strong><br>Learn all modal verbs (can, could, may, might, must, should, would, shall) with exam-format practice!</div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Unit 4 &middot; Passive Voice &middot; B1 English Course</span>
+  <span>10 Passive Forms &middot; 50 Practice Questions</span>
+</div>
+
+<script>
+window.addEventListener('scroll',function(){
+  var d=document.documentElement;
+  document.getElementById('prog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+var cor=0,tot=0;
+function chk(el,r){
+  var item=el.closest('.mcq');
+  if(item.dataset.done)return;
+  item.dataset.done='1'; tot++;
+  item.querySelectorAll('.opt').forEach(function(o){o.style.pointerEvents='none';});
+  var fbs=item.querySelectorAll('.fb');
+  if(r==='c'){el.classList.add('correct');fbs[0].classList.add('show');cor++;}
+  else{el.classList.add('wrong');fbs[1].classList.add('show');
+    item.querySelectorAll('.opt').forEach(function(o){if(o.getAttribute('onclick')&&o.getAttribute('onclick').indexOf("'c'")>-1)o.classList.add('correct');});}
+  var pct=Math.round(cor/Math.max(tot,1)*100);
+  var sn=document.getElementById('scoreNum'); var sf=document.getElementById('scoreFill');
+  if(sn)sn.textContent=cor+' / '+tot; if(sf)sf.style.width=pct+'%';
+}
+function showFill(id,aid){
+  var b=document.getElementById(id); var a=document.getElementById(aid);
+  if(b)b.classList.add('shown'); if(a)a.classList.add('show');
+}
+function showFix(btn){btn.nextElementSibling.style.display='block';btn.style.display='none';}
+</script>
+</body>
+</html>
