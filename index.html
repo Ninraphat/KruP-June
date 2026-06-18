@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Learning Hub 🌟</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff9f0;
+    --card: #ffffff;
+    --primary: #ff6b35;
+    --secondary: #4ecdc4;
+    --accent: #ffe66d;
+    --purple: #a855f7;
+    --green: #22c55e;
+    --red: #ef4444;
+    --text: #1e1b18;
+    --muted: #78716c;
+    --shadow: 0 4px 0 #e5d5c5;
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, #ff6b3511 0%, transparent 60%);
+    min-height: 100vh;
+    color: var(--text);
+    padding: 24px 16px 60px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(28px, 6vw, 48px);
+    color: var(--primary);
+    line-height: 1.1;
+  }
+
+  h1 span { color: var(--secondary); }
+
+  .subtitle {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .tab-btn {
+    background: white;
+    border: 2px solid #f0e8df;
+    box-shadow: var(--shadow);
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 18px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .tab-btn.active {
+    background: var(--secondary);
+    color: white;
+    border-color: var(--secondary);
+    box-shadow: 0 4px 0 #2db5ac;
+  }
+
+  /* Content Area */
+  .content-section {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .content-section.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Grid Layout for Topics */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  /* Topic Card */
+  .topic-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: 2px solid #f0e8df;
+    transition: transform 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topic-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+
+  .topic-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .topic-num {
+    background: var(--primary);
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .topic-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  /* Level Buttons */
+  .level-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .level-btn {
+    background: #faf5f0;
+    border: 2px solid #e5d5c5;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text);
+  }
+
+  .level-btn:hover {
+    background: #fff3e0;
+    border-color: var(--primary);
+    transform: translateY(-1px);
+  }
+
+  .level-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #e5d5c5;
+    color: var(--muted);
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  
+  .level-btn.primary:hover .level-tag { background: var(--green); color: white; }
+  .level-btn.junior:hover .level-tag { background: var(--secondary); color: white; }
+  .level-btn.high:hover .level-tag { background: var(--purple); color: white; }
+
+  /* Reading Section Placeholder */
+  .reading-banner {
+    background: linear-gradient(135deg, var(--purple), #c084fc);
+    color: white;
+    border-radius: var(--radius);
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 6px 0 #9333ea;
+  }
+
+  .reading-banner h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 480px) {
+    .topics-grid { grid-template-columns: 1fr; }
+    .tabs { flex-direction: column; padding: 0 20px; }
+    .tab-btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">English Learning</div>
+  <h1>Main <span>Menu</span> 🚀</h1>
+  <p class="subtitle">เลือกหมวดหมู่และระดับชั้นที่ต้องการเรียนรู้</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('grammar')">Grammar 📝</button>
+  <button class="tab-btn" onclick="switchTab('reading')">Reading 📖</button>
+</div>
+
+<div id="grammar-section" class="content-section active">
+  <div class="topics-grid" id="grammar-grid">
+    </div>
+</div>
+
+<div id="reading-section" class="content-section">
+  <div class="reading-banner">
+    <h2>Reading Comprehension 📚</h2>
+    <p style="font-weight: 600; font-size: 16px; opacity: 0.9;">บทความสนุกๆ สำหรับฝึกอ่าน กำลังจะมาเร็วๆ นี้!</p>
+  </div>
+</div>
+
+<script>
+// Data for Grammar Topics based on the provided image
+const grammarTopics = [
+  "Part of Speech",
+  "Noun",
+  "Article",
+  "Quantifier",
+  "Pronoun",
+  "Subject-Verb Agreement",
+  "Present Tenses",
+  "Past Tenses",
+  "Future Tenses",
+  "Passive Voice",
+  "Conditional Sentence",
+  "Non-Finite Verb",
+  "Modal Verb",
+  "Reported Speech",
+  "Adjective",
+  "Adverb",
+  "Comparison",
+  "Preposition",
+  "Conjunction",
+  "Question Tag"
+];
+
+// Generate Topic Cards
+const grid = document.getElementById('grammar-grid');
+
+grammarTopics.forEach((topic, index) => {
+  const card = document.createElement('div');
+  card.className = 'topic-card';
+  
+  card.innerHTML = `
+    <div class="topic-header">
+      <div class="topic-num">${index + 1}</div>
+      <div class="topic-title">${topic}</div>
+    </div>
+    <div class="level-group">
+      <button class="level-btn primary" onclick="goToLesson(${index + 1}, 'primary')">
+        Primary School <span class="level-tag">ประถม</span>
+      </button>
+      <button class="level-btn junior" onclick="goToLesson(${index + 1}, 'junior')">
+        Junior High <span class="level-tag">ม.ต้น</span>
+      </button>
+      <button class="level-btn high" onclick="goToLesson(${index + 1}, 'high')">
+        High School <span class="level-tag">ม.ปลาย</span>
+      </button>
+    </div>
+  `;
+  
+  grid.appendChild(card);
+});
+
+// Tab Switching Logic
+function switchTab(tabId) {
+  // Update Buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+
+  // Update Content
+  document.querySelectorAll('.content-section').forEach(sec => {
+    sec.classList.remove('active');
+  });
+  document.getElementById(`${tabId}-section`).classList.add('active');
+}
+
+// Function placeholder for navigation
+function goToLesson(topicId, level) {
+  // Example: window.location.href = `lesson.html?topic=${topicId}&level=${level}`;
+  alert(`กำลังไปที่บทเรียนหัวข้อที่ ${topicId} สำหรับระดับ ${level}`);
+}
+</script>
+
+</body>
+</html>
