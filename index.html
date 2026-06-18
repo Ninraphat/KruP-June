@@ -37,7 +37,7 @@
 
   header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
   .badge {
@@ -69,12 +69,47 @@
     font-weight: 600;
   }
 
+  /* Entrance Exam Button Container */
+  .entrance-container {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .btn-entrance {
+    background: linear-gradient(135deg, #ff6b35, #ffbe0b);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: var(--radius);
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(16px, 4vw, 22px);
+    cursor: pointer;
+    box-shadow: 0 6px 0 #d94e1f;
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-entrance:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 #d94e1f;
+  }
+
+  .btn-entrance:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #d94e1f;
+  }
+
   /* Tabs */
   .tabs {
     display: flex;
     justify-content: center;
     gap: 16px;
     margin-bottom: 32px;
+    border-top: 2px dashed #e5d5c5;
+    padding-top: 24px;
   }
 
   .tab-btn {
@@ -233,7 +268,7 @@
 
   @media (max-width: 480px) {
     .topics-grid { grid-template-columns: 1fr; }
-    .tabs { flex-direction: column; padding: 0 20px; }
+    .tabs { flex-direction: column; padding: 0 20px; gap: 10px; }
     .tab-btn { width: 100%; text-align: center; }
   }
 </style>
@@ -245,6 +280,12 @@
   <h1>Main <span>Menu</span> 🚀</h1>
   <p class="subtitle">เลือกหมวดหมู่และระดับชั้นที่ต้องการเรียนรู้</p>
 </header>
+
+<div class="entrance-container">
+  <button class="btn-entrance" onclick="goToEntrance()">
+    🎯 English for M.1 Entrance 🏆
+  </button>
+</div>
 
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('grammar')">Grammar 📝</button>
@@ -322,7 +363,10 @@ function switchTab(tabId) {
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.remove('active');
   });
-  event.target.classList.add('active');
+  // fallback if active by click directly on button element
+  if(event) {
+    event.target.classList.add('active');
+  }
 
   // Update Content
   document.querySelectorAll('.content-section').forEach(sec => {
@@ -331,9 +375,14 @@ function switchTab(tabId) {
   document.getElementById(`${tabId}-section`).classList.add('active');
 }
 
+// Function for Entrance Button
+function goToEntrance() {
+  // ตัวอย่าง: window.location.href = 'm1-entrance.html';
+  alert('กำลังเปิดหน้าคอร์ส/แบบฝึกหัดสำหรับ สอบเข้า ม.1 🏆');
+}
+
 // Function placeholder for navigation
 function goToLesson(topicId, level) {
-  // Example: window.location.href = `lesson.html?topic=${topicId}&level=${level}`;
   alert(`กำลังไปที่บทเรียนหัวข้อที่ ${topicId} สำหรับระดับ ${level}`);
 }
 </script>
