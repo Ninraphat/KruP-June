@@ -420,18 +420,17 @@ function goToEntrance() {
 
 function goToLesson(topicId, level) {
   if(event) event.stopPropagation(); 
-  alert(`กำลังไปที่บทเรียนหัวข้อที่ ${topicId} สำหรับระดับ ${level}`); 
 
   // ถ้าเป็นหัวข้อที่ 1 (Part of Speech)
   if (topicId === 1) { 
-    if (level === 'junior' || level === 'high') {
-      // ไปหน้ามัธยม
-      window.location.href = 'PartofSpeech(Secondary).html'; 
+    if (level === 'primary') {
+      // ให้ปุ่ม Primary ชี้ไปที่ไฟล์ที่คุณเตรียมไว้
+      window.location.href = 'PartofSpeech(Primary).html'; 
       return;
     } 
-    else if (level === 'primary') {
-      // ไปหน้าประถม
-      window.location.href = 'parts-of-speech-p6.html'; 
+    else if (level === 'junior' || level === 'high') {
+      // ส่วนของ ม.ต้น และ ม.ปลาย ให้แจ้งเตือนว่ายังไม่สร้าง
+      alert(`หน้าของหัวข้อที่ ${topicId} ระดับ ${level} ยังไม่ได้สร้างครับ 🚧`);
       return;
     }
   }
