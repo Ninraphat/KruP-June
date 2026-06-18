@@ -320,7 +320,7 @@
 </header>
 
 <div class="entrance-container">
-  <button class="EnglishforM.1Entrance" onclick="goToEntrance()">
+  <button class="btn-entrance" onclick="goToEntrance()">
     🎯 English for M.1 Entrance 🏆
   </button>
 </div>
@@ -413,16 +413,33 @@ function switchTab(tabId) {
   document.getElementById(`${tabId}-section`).classList.add('active');
 }
 
-// Button Functions
 function goToEntrance() {
-  alert('กำลังเปิดหน้าคอร์ส/แบบฝึกหัดสำหรับ สอบเข้า ม.1 🏆');
+  // เปลี่ยนหน้าไปที่ไฟล์ M.1 Entrance
+  window.location.href = 'EnglishforM.1Entrance.html';
 }
 
 function goToLesson(topicId, level) {
-  // ใส่ Event.stopPropagation() ป้องกันไม่ให้ไปกระตุ้นการพับการ์ดปิดเวลาคลิกปุ่ม
   if(event) event.stopPropagation(); 
-  alert(`กำลังไปที่บทเรียนหัวข้อที่ ${topicId} สำหรับระดับ ${level}`);
+  alert(`กำลังไปที่บทเรียนหัวข้อที่ ${topicId} สำหรับระดับ ${level}`); 
+
+  // ถ้าเป็นหัวข้อที่ 1 (Part of Speech)
+  if (topicId === 1) { 
+    if (level === 'junior' || level === 'high') {
+      // ไปหน้ามัธยม
+      window.location.href = 'PartofSpeech(Secondary).html'; 
+      return;
+    } 
+    else if (level === 'primary') {
+      // ไปหน้าประถม
+      window.location.href = 'parts-of-speech-p6.html'; 
+      return;
+    }
+  }
+
+  // ถ้าคลิกหัวข้ออื่นที่ยังไม่ได้สร้าง
+  alert(`หน้าของหัวข้อที่ ${topicId} ระดับ ${level} ยังไม่ได้สร้างครับ 🚧`);
 }
+
 </script>
 
 </body>
