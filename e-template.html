@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise | English Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fff9f0; --card: #ffffff; --primary: #ff6b35; --secondary: #4ecdc4;
+            --accent: #ffe66d; --green: #22c55e; --red: #ef4444; --text: #1e1b18;
+            --muted: #78716c; --shadow: 0 4px 0 #e5d5c5; --radius: 16px;
+        }
+        body { font-family: 'Nunito', sans-serif; background: var(--bg); padding: 24px 16px; max-width: 600px; margin: 0 auto; color: var(--text); }
+        .back-btn { display: inline-block; margin-bottom: 20px; font-weight: 800; color: var(--primary); text-decoration: none; }
+        
+        /* Quiz Elements */
+        .q-card { background: var(--card); border-radius: var(--radius); padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow); border: 2px solid #f0e8df; }
+        .q-text { font-weight: 700; margin-bottom: 15px; }
+        .options { display: grid; gap: 8px; }
+        .opt-btn { background: #faf5f0; border: 2px solid #e5d5c5; border-radius: 10px; padding: 10px; cursor: pointer; text-align: left; font-weight: 700; }
+        
+        .btn-submit { width: 100%; background: var(--primary); color: white; font-family: 'Fredoka One', cursive; font-size: 20px; border: none; border-radius: var(--radius); padding: 15px; margin-top: 20px; cursor: pointer; box-shadow: 0 5px 0 #c94e1e; }
+    </style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← ย้อนกลับไปหน้าหลัก</a>
+
+<div id="quiz-content">
+    </div>
+
+<button class="btn-submit" id="submitBtn">ตรวจคำตอบ ✅</button>
+
+<script>
+    // ก๊อปปี้ข้อมูลที่ AI เขียนให้ มาวางแทนที่บรรทัดนี้:
+    const allQuestions = [
+        { q: "โจทย์ตัวอย่างที่ 1?", ans: "เฉลย", opts: ["ตัวเลือก1", "ตัวเลือก2", "ตัวเลือก3", "ตัวเลือก4"] }
+    ];
+
+    // (ในอนาคต ผมจะเตรียมฟังก์ชัน JavaScript สำหรับตรวจคำตอบให้คุณครับ)
+</script>
+
+</body>
+</html>
