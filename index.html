@@ -236,9 +236,29 @@ const grammarDatabase = [
           { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-part-of-speech-j.html" }
         ]}
       ],
-      high: [] 
+      high: [
+        { name: "Advanced Parts of Speech", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-part-of-speech-h.html" }
+        ]}
+      ] 
   }},
-  { id: 2, title: "Noun", desc: "คำนาม", levels: { primary: [], junior: [], high: [] }},
+  { id: 2, title: "Noun", desc: "คำนาม", levels: { 
+      primary: [
+        { name: "Nouns: ชื่อเรียกสิ่งรอบตัว", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-noun-p.html" }
+        ]}
+      ], 
+      junior: [
+        { name: "Nouns & Quantifiers", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-noun-j.html" }
+        ]}
+      ], 
+      high: [
+        { name: "Advanced Nouns", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-noun-h.html" }
+        ]}
+      ] 
+  }},
   { id: 3, title: "Article", desc: "a, an, the", levels: { primary: [], junior: [], high: [] }},
   { id: 4, title: "Quantifier", desc: "some, any, much, many", levels: { primary: [], junior: [], high: [] }},
   { id: 5, title: "Pronoun", desc: "คำสรรพนาม", levels: { primary: [], junior: [], high: [] }},
