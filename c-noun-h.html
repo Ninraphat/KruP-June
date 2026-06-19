@@ -3,345 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson: Noun (High School) 🎓</title>
+    <title>Master Lesson: Noun (High School) 🎓</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fff9f0;
-            --card: #ffffff;
-            --primary: #ff6b35;
-            --secondary: #4ecdc4;
-            --accent: #ffe66d;
-            --purple: #a855f7;
-            --green: #22c55e;
-            --text: #1e1b18;
-            --muted: #78716c;
-            --shadow: 0 4px 0 #e5d5c5;
-            --radius: 20px;
+            --bg: #fff9f0; --card: #ffffff; --primary: #ff6b35; --secondary: #4ecdc4;
+            --accent: #ffe66d; --text: #1e1b18; --muted: #78716c; --red: #ef4444;
+            --shadow: 0 4px 0 #e5d5c5; --radius: 20px;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: var(--bg);
-            background-image:
-                radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, #ff6b3511 0%, transparent 60%);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 24px;
-        }
-
-        /* Top Bar for Back Button */
-        .top-bar {
-            max-width: 800px;
-            margin: 0 auto 20px auto;
-            display: flex;
-            justify-content: flex-start;
-        }
-
-        .btn-back {
-            background-color: var(--card);
-            border: 2px solid #e5d5c5;
-            padding: 10px 20px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: var(--muted);
-            font-family: 'Nunito', sans-serif;
-            font-weight: 800;
-            font-size: 16px;
-            box-shadow: var(--shadow);
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-back:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 6px 0 #d94e1f;
-        }
-
-        .btn-back:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #d94e1f;
-        }
-
-        /* Main Container */
-        .container {
-            background-color: var(--card);
-            padding: 40px 32px;
-            border-radius: 24px;
-            box-shadow: 0 12px 0 #e5d5c5;
-            border: 2px solid #f0e8df;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-family: 'Fredoka One', cursive;
-            font-size: clamp(28px, 6vw, 40px);
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--muted);
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 32px;
-        }
-
-        /* Mascot Box Kru June */
-        .mascot-box {
-            background-color: #fff3e0;
-            border: 2px dashed var(--primary);
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 32px;
-            font-size: 16px;
-            font-weight: 700;
-            color: #c2410c;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
-
-        .mascot-emoji { font-size: 40px; line-height: 1; }
-
-        /* Lesson Cards */
-        .lesson-card {
-            background: #ffffff;
-            border: 2px solid #f0e8df;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s;
-        }
-
-        .lesson-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--secondary);
-            box-shadow: 0 6px 0 #2db5ac;
-        }
-
-        .lesson-card h2 {
-            font-family: 'Fredoka One', cursive;
-            color: var(--secondary);
-            font-size: 24px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .structure-box {
-            background-color: #faf5f0;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 16px;
-            border-left: 4px solid var(--accent);
-            line-height: 1.5;
-        }
-
-        .example-box {
-            background-color: #f8fafc;
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px dashed #e2e8f0;
-        }
-
-        .word-list {
-            background-color: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            border: 1px solid #e2e8f0;
-            font-size: 15px;
-            color: var(--muted);
-        }
-
-        .word-list strong { color: var(--text); }
-
-        .example-box p {
-            margin-bottom: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-
-        .example-box p:last-child { margin-bottom: 0; }
-
-        .highlight {
-            background-color: #fff3e0;
-            color: var(--primary);
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-weight: 800;
-        }
-
-        .danger-text {
-            color: var(--red);
-            font-weight: 800;
-        }
-
-        /* Ted Says Box */
-        .ted-box {
-            background-color: #f0fdfa;
-            border: 2px dashed var(--secondary);
-            padding: 24px;
-            border-radius: 20px;
-            margin-top: 32px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .ted-emoji {
-            font-size: 48px;
-            line-height: 1;
-            filter: drop-shadow(0 4px 0 #ccfbf1);
-        }
-
-        .ted-content {
-            font-size: 16px;
-            font-weight: 700;
-            color: #0f766e;
-            line-height: 1.6;
-        }
-
-        .ted-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 20px;
-            color: var(--secondary);
-            margin-bottom: 4px;
-        }
-
-        @media (max-width: 600px) {
-            .container { padding: 30px 20px; }
-            .ted-box { flex-direction: column; text-align: center; }
-            .mascot-box { flex-direction: column; align-items: center; text-align: center; }
-        }
+        body { font-family: 'Nunito', sans-serif; background: var(--bg); min-height: 100vh; padding: 24px; }
+        .top-bar { max-width: 800px; margin: 0 auto 20px auto; }
+        .btn-back { background-color: var(--card); border: 2px solid #e5d5c5; padding: 10px 20px; border-radius: 16px; text-decoration: none; color: var(--muted); font-weight: 800; box-shadow: var(--shadow); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-back:hover { transform: translateY(-2px); border-color: var(--primary); color: var(--primary); box-shadow: 0 6px 0 #d94e1f; }
+        .container { background-color: var(--card); padding: 40px 32px; border-radius: 24px; box-shadow: 0 12px 0 #e5d5c5; border: 2px solid #f0e8df; max-width: 800px; margin: 0 auto; }
+        h1 { font-family: 'Fredoka One', cursive; color: var(--primary); text-align: center; margin-bottom: 8px; }
+        .subtitle { text-align: center; color: var(--muted); font-weight: 700; margin-bottom: 32px; }
+        .lesson-card { background: #ffffff; border: 2px solid #f0e8df; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: var(--shadow); }
+        .lesson-card h2 { font-family: 'Fredoka One', cursive; color: var(--secondary); margin-bottom: 12px; }
+        .structure-box { background-color: #faf5f0; padding: 12px 16px; border-radius: 12px; font-weight: 700; border-left: 4px solid var(--accent); margin-bottom: 16px; }
+        .example-box { background-color: #f8fafc; padding: 20px; border-radius: 12px; border: 2px dashed #e2e8f0; }
+        .highlight { background-color: #fff3e0; color: var(--primary); padding: 2px 8px; border-radius: 8px; font-weight: 800; }
+        .danger-text { color: var(--red); font-weight: 800; }
+        .ted-box { background-color: #f0fdfa; border: 2px dashed var(--secondary); padding: 24px; border-radius: 20px; margin-top: 32px; display: flex; align-items: center; gap: 20px; }
     </style>
 </head>
 <body>
-
-    <!-- Top Bar with Back Button -->
-    <div class="top-bar">
-        <a href="index.html" class="btn-back">⬅️ ย้อนกลับไปหน้าหลัก</a>
-    </div>
-
-    <!-- Main Content -->
+    <div class="top-bar"><a href="index.html" class="btn-back">⬅️ กลับหน้าหลัก</a></div>
     <div class="container">
-        <h1>Advanced Nouns 🎓</h1>
-        <p class="subtitle">เจาะลึกคำนามขั้นสูงและจุดหลอกในข้อสอบ (High School)</p>
+        <h1>Mastering Nouns 🎓</h1>
+        <p class="subtitle">สรุปจบในหน้าเดียว: ตั้งแต่พื้นฐานจนถึงระดับสอบเข้ามหาวิทยาลัย</p>
 
-        <div class="mascot-box">
-            <div class="mascot-emoji">👩🏻‍🏫</div>
-            <div>
-                <strong>Kru June:</strong> สำหรับระดับม.ปลาย ข้อสอบมักจะไม่ออกคำนามตรงไปตรงมาแล้วค่ะ แต่จะเล่นกับ <strong>"โครงสร้างที่ทำหน้าที่เสมือนนาม"</strong> หรือ <strong>"คำที่หน้าตาขัดแย้งกับความหมาย"</strong> เช่น หน้าตาเหมือนพหูพจน์แต่ดันเป็นเอกพจน์ เตรียมสมุดจดให้พร้อม แล้วมาดูกันเลยค่ะ!
-            </div>
-        </div>
-
-        <!-- Card 1: Noun Suffixes -->
         <div class="lesson-card">
-            <h2>1. Noun Suffixes (ปัจจัยท้ายคำนาม) 🧩</h2>
-            <div class="structure-box">
-                <strong>วิธีใช้:</strong> การรู้ Suffix (คำลงท้าย) จะช่วยให้เราเดา Part of Speech ได้ทันทีโดยไม่ต้องรู้ความหมาย ซึ่งมีประโยชน์มากในข้อสอบ Error Identification และ Cloze Test
-            </div>
-            <div class="example-box">
-                <div class="word-list">
-                    <strong>💡 Suffix ที่พบบ่อย:</strong> -tion, -ment, -ness, -ity, -ance/ence, -hood, -ship
-                </div>
-                <p>👉 <strong>-tion:</strong> prevent (v.) ➡️ <span class="highlight">prevention</span> (การป้องกัน)</p>
-                <p>👉 <strong>-ity:</strong> complex (adj.) ➡️ <span class="highlight">complexity</span> (ความซับซ้อน)</p>
-                <p>👉 <strong>-ance:</strong> signify (v.) ➡️ <span class="highlight">significance</span> (ความสำคัญ)</p>
-                <p>👉 The government must acknowledge the <span class="highlight">significance</span> of environmental <span class="highlight">protection</span>.</p>
-            </div>
+            <h2>1. ประเภทของคำนาม (Noun Types)</h2>
+            <div class="structure-box">เรียนรู้ตั้งแต่พื้นฐาน Proper Noun (ชื่อเฉพาะ) ไปจนถึงนามธรรม Abstract Noun</div>
+            <p>• <strong>Common Noun:</strong> นามทั่วไป (dog, city, teacher)<br>
+               • <strong>Proper Noun:</strong> ชื่อเฉพาะ (Snoopy, Bangkok, Kru June) - <span class="danger-text">ต้องขึ้นต้นด้วยพิมพ์ใหญ่เสมอ</span><br>
+               • <strong>Abstract Noun:</strong> นามธรรมที่จับต้องไม่ได้ (freedom, wisdom, happiness)</p>
         </div>
 
-        <!-- Card 2: Tricky Singular Nouns -->
         <div class="lesson-card">
-            <h2>2. หน้าตาพหูพจน์ แต่เป็น "เอกพจน์" 🎭</h2>
-            <div class="structure-box">
-                <strong>จุดระวัง:</strong> คำนามบางกลุ่มลงท้ายด้วย <strong>-s หรือ -ics</strong> ทำให้ดูเหมือนหลายสิ่ง แต่ความจริงเป็นชื่อวิชา, โรค, หรือสิ่งที่เป็นหนึ่งเดียว <span class="danger-text">(ต้องใช้กริยาเอกพจน์!)</span>
-            </div>
-            <div class="example-box">
-                <div class="word-list">
-                    <strong>💡 กลุ่มคำหลอกสอบ:</strong> news (ข่าว), physics (ฟิสิกส์), economics (เศรษฐศาสตร์), measles (โรคหัด), mathematics (คณิตศาสตร์)
-                </div>
-                <p>👉 The <span class="highlight">news</span> <strong>is</strong> surprisingly good today. (ข่าววันนี้ดีอย่างน่าประหลาดใจ - <span class="danger-text">ห้ามใช้ are</span>)</p>
-                <p>👉 <span class="highlight">Economics</span> <strong>plays</strong> a vital role in our daily lives. (เศรษฐศาสตร์มีบทบาทสำคัญในชีวิตประจำวันของเรา)</p>
-            </div>
+            <h2>2. การนับ: Countable vs Uncountable</h2>
+            <div class="structure-box">พื้นฐานที่ต้องแม่น: นับได้ (เติม s) vs นับไม่ได้ (ห้ามเติม s!)</div>
+            <p>• <strong>Countable:</strong> มีเอกพจน์/พหูพจน์ (a book, two books)<br>
+               • <strong>Uncountable:</strong> ของเหลว, ผง, เงิน, ข้อมูล (Advice, Information, Furniture, Luggage) ➡️ <span class="danger-text">ใช้ is/has เสมอ</span></p>
         </div>
 
-        <!-- Card 3: Tricky Plural Nouns -->
         <div class="lesson-card">
-            <h2>3. หน้าตาเอกพจน์ แต่เป็น "พหูพจน์" 👥</h2>
-            <div class="structure-box">
-                <strong>จุดระวัง:</strong> คำกลุ่มนี้ไม่เคยเติม -s เลย แต่ความหมายของมันคือ "คนหมู่มาก" เสมอ <span class="danger-text">(ต้องใช้กริยาพหูพจน์!)</span>
-            </div>
-            <div class="example-box">
-                <div class="word-list">
-                    <strong>💡 กลุ่มคำหลอกสอบ:</strong> police (ตำรวจ), cattle (ฝูงวัวควาย), people (ผู้คน), staff (พนักงาน), clergy (คณะนักบวช)
-                </div>
-                <p>👉 The <span class="highlight">police</span> <strong>are</strong> investigating the murder case. (ตำรวจกำลังสืบสวนคดีฆาตกรรม - <span class="danger-text">ห้ามใช้ is</span>)</p>
-                <p>👉 Those <span class="highlight">cattle</span> <strong>belong</strong> to the local farmer. (ฝูงวัวเหล่านั้นเป็นของชาวนาในท้องถิ่น)</p>
-            </div>
+            <h2>3. กฎพหูพจน์ และจุดหลอกสอบ</h2>
+            <div class="structure-box">กฎพื้นฐาน (s, es, ies) และกฎพิเศษที่ข้อสอบชอบเอามาออก!</div>
+            <p>• <strong>Irregular Plurals:</strong> man ➡️ men, child ➡️ children, mouse ➡️ mice<br>
+               • <strong>Look-alike Plurals (เอกพจน์เสมอ):</strong> News, Physics, Mathematics, Economics<br>
+               • <strong>Always Plurals (พหูพจน์เสมอ):</strong> Police, People, Cattle, Staff</p>
         </div>
 
-        <!-- Card 4: Compound Nouns & Pluralization -->
         <div class="lesson-card">
-            <h2>4. Compound Nouns (คำนามประสม) 🔗</h2>
-            <div class="structure-box">
-                <strong>วิธีใช้:</strong> การนำคำ 2 คำขึ้นไปมารวมกันเป็นนามใหม่ เวลาทำเป็นพหูพจน์ <strong>ให้เติม -s ที่คำนามหลัก (Head Noun)</strong> เท่านั้น
-            </div>
-            <div class="example-box">
-                <div class="word-list">
-                    <strong>💡 ตัวอย่างคำศัพท์:</strong> brother-in-law (พี่/น้องเขย), commander-in-chief (ผู้บัญชาการทหารสูงสุด), passer-by (ผู้สัญจรไปมา)
-                </div>
-                <p>👉 She has three <span class="highlight">brothers-in-law</span>. (เธอมีพี่เขยสามคน - เติม s ที่ brother)</p>
-                <p>👉 The <span class="highlight">commanders-in-chief</span> held a secret meeting. (เหล่าผู้บัญชาการทหารสูงสุดจัดการประชุมลับ)</p>
-            </div>
+            <h2>4. Advanced: การใช้ Partitives & Compound Nouns</h2>
+            <div class="structure-box">เปลี่ยนนามนับไม่ได้ให้เป็นนับได้ และการเติม s ในคำนามประสม</div>
+            <p>• <strong>Partitives:</strong> a slice of bread, a piece of news, a glass of water<br>
+               • <strong>Compound Nouns:</strong> เติม s ที่คำหลัก (Fathers-in-law, Passers-by)</p>
         </div>
 
-        <!-- Card 5: Noun Phrases & Noun Clauses -->
-        <div class="lesson-card">
-            <h2>5. Noun Phrases & Clauses (นามวลี และ นามานุประโยค) 📦</h2>
-            <div class="structure-box">
-                <strong>วิธีใช้:</strong> คำนามไม่จำเป็นต้องมาเป็น "คำเดียว" แต่สามารถมาเป็น "กลุ่มคำ (Phrase)" หรือ "ประโยคย่อย (Clause)" ที่ทำหน้าที่เสมือน Noun 1 ตัว (เป็นประธานหรือกรรมก็ได้)
-            </div>
-            <div class="example-box">
-                <p>👉 <strong>Noun Phrase (กลุ่มคำ):</strong> <span class="highlight">The extremely intelligent scientist</span> won the award. (นักวิทยาศาสตร์ที่ฉลาดหลักแหลมอย่างมาก...)</p>
-                <p>👉 <strong>Noun Clause (มีประธาน+กริยา ย่อย):</strong> <span class="highlight">What he said</span> is absolutely true. (<strong>สิ่งที่เขาพูด</strong> เป็นความจริงอย่างแน่นอน - What he said ทำหน้าที่เป็นประธานเอกพจน์ของ is)</p>
-                <p>👉 <strong>Noun Clause:</strong> I don't know <span class="highlight">where she lives</span>. (ฉันไม่รู้ว่า <strong>เธออาศัยอยู่ที่ไหน</strong> - ทำหน้าที่เป็นกรรมของ know)</p>
-            </div>
-        </div>
-
-        <!-- Ted Says Box -->
         <div class="ted-box">
-            <div class="ted-emoji">🦖</div>
-            <div class="ted-content">
-                <div class="ted-title">Ted Says 🦖</div>
-                โฮก! สรุปจุดตายในข้อสอบแกรมมาร์เรื่อง Noun ให้พี่ๆ ม.ปลายครับ:<br>
-                🚔 <strong>Police, Cattle, People</strong> = พหูพจน์เสมอ! (ใช้ are / have / V.ไม่เติม s)<br>
-                📰 <strong>News, Physics, Mathematics</strong> = เอกพจน์เสมอ! (ใช้ is / has / V.เติม s)<br>
-                💡 ถ้าเจอประโยคยาวๆ ให้ลองหา <strong>Noun Clause (เช่น What..., That...)</strong> ให้เจอ เพราะมันมักจะถูกนับเป็น <strong>ประธานเอกพจน์</strong> เสมอครับ!
+            <div>🦖</div>
+            <div>
+                <strong>Ted Says:</strong> โฮก! หน้านี้คือคัมภีร์ของพี่ ม.ปลาย ครับ! ถ้าเจอข้อสอบเรื่อง Noun ให้เช็ค 3 ขั้นตอน: 1. ดูว่าชื่อเฉพาะไหม 2. เช็คว่านับได้/ไม่ได้ 3. ดูประธานเป็นเอกพจน์หรือพหูพจน์ (ระวังพวก Police/News/People ให้ดี!) สู้ตายครับ!
             </div>
         </div>
-
     </div>
-
 </body>
 </html>
