@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson: Part of Speech (High School) 🎓</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fff9f0;
+            --card: #ffffff;
+            --primary: #ff6b35;
+            --secondary: #4ecdc4;
+            --accent: #ffe66d;
+            --purple: #a855f7;
+            --green: #22c55e;
+            --text: #1e1b18;
+            --muted: #78716c;
+            --shadow: 0 4px 0 #e5d5c5;
+            --radius: 20px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            background-image:
+                radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, #ff6b3511 0%, transparent 60%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        /* Top Bar for Back Button */
+        .top-bar {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .btn-back {
+            background-color: var(--card);
+            border: 2px solid #e5d5c5;
+            padding: 10px 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--muted);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 6px 0 #d94e1f;
+        }
+
+        .btn-back:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #d94e1f;
+        }
+
+        /* Main Container */
+        .container {
+            background-color: var(--card);
+            padding: 40px 32px;
+            border-radius: 24px;
+            box-shadow: 0 12px 0 #e5d5c5;
+            border: 2px solid #f0e8df;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(28px, 6vw, 40px);
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 32px;
+        }
+
+        /* Mascot Box Kru June */
+        .mascot-box {
+            background-color: #fff3e0;
+            border: 2px dashed var(--primary);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #c2410c;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .mascot-emoji { font-size: 40px; line-height: 1; }
+
+        /* Lesson Cards */
+        .lesson-card {
+            background: #ffffff;
+            border: 2px solid #f0e8df;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--secondary);
+            box-shadow: 0 6px 0 #2db5ac;
+        }
+
+        .lesson-card h2 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--secondary);
+            font-size: 24px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .structure-box {
+            background-color: #faf5f0;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 16px;
+            border-left: 4px solid var(--accent);
+            line-height: 1.5;
+        }
+
+        .example-box {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .word-list {
+            background-color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .word-list strong { color: var(--text); }
+
+        .example-box p {
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .example-box p:last-child { margin-bottom: 0; }
+
+        .highlight {
+            background-color: #fff3e0;
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        /* Ted Says Box */
+        .ted-box {
+            background-color: #f0fdfa;
+            border: 2px dashed var(--secondary);
+            padding: 24px;
+            border-radius: 20px;
+            margin-top: 32px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .ted-emoji {
+            font-size: 48px;
+            line-height: 1;
+            filter: drop-shadow(0 4px 0 #ccfbf1);
+        }
+
+        .ted-content {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f766e;
+            line-height: 1.6;
+        }
+
+        .ted-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 20px;
+            color: var(--secondary);
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 30px 20px; }
+            .ted-box { flex-direction: column; text-align: center; }
+            .mascot-box { flex-direction: column; align-items: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar with Back Button -->
+    <div class="top-bar">
+        <a href="index.html" class="btn-back">⬅️ ย้อนกลับไปหน้าหลัก</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Advanced Parts of Speech 🎓</h1>
+        <p class="subtitle">เจาะลึกชนิดของคำขั้นสูง (High School)</p>
+
+        <div class="mascot-box">
+            <div class="mascot-emoji">👩🏻‍🏫</div>
+            <div>
+                <strong>Kru June:</strong> สวัสดีพี่ๆ ม.ปลายทุกคนค่ะ! ในระดับนี้การรู้จักชนิดของคำธรรมดาอาจไม่พอ เราต้องรู้โครงสร้างที่ซับซ้อนขึ้น เช่น นามธรรม (Abstract Noun) กริยาช่วยขั้นสูง (Modals) หรือตัวเชื่อมระดับความเรียง (Conjunctive Adverbs) เพื่อเตรียมความพร้อมสู่สนามสอบ TGAT และ A-Level นะคะ!
+            </div>
+        </div>
+
+        <!-- Card 1: Noun -->
+        <div class="lesson-card">
+            <h2>1. Noun (คำนาม) 🏛️</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> ใช้เรียกชื่อ คน สัตว์ สิ่งของ สถานที่ และ "นามธรรม (Abstract Nouns)" เช่น แนวคิด ความรู้สึก หรือสภาวะต่างๆ
+            </div>
+            <div class="example-box">
+                <div class="word-list">
+                    <strong>💡 ตัวอย่างคำศัพท์น่ารู้:</strong> development (การพัฒนา), intelligence (ความฉลาด), breakthrough (การค้นพบที่ยิ่งใหญ่), democracy (ประชาธิปไตย), phenomenon (ปรากฏการณ์)
+                </div>
+                <p>👉 The new <span class="highlight">legislation</span> will have a huge impact on the <span class="highlight">economy</span>. (กฎหมายฉบับใหม่จะมีผลกระทบอย่างมากต่อเศรษฐกิจ)</p>
+                <p>👉 Her <span class="highlight">determination</span> and <span class="highlight">perseverance</span> led to her ultimate <span class="highlight">success</span>. (ความมุ่งมั่นและความอุตสาหะของเธอนำไปสู่ความสำเร็จในที่สุด)</p>
+                <p>👉 The <span class="highlight">committee</span> has reached a final <span class="highlight">decision</span>. (คณะกรรมการได้บรรลุการตัดสินใจขั้นสุดท้ายแล้ว)</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Pronoun -->
+        <div class="lesson-card">
+            <h2>2. Pronoun (คำสรรพนาม) 👤</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> ใช้แทนคำนาม ในม.ปลายมักเจอ "Relative Pronouns" (เชื่อมประโยคย่อย) และ "Indefinite Pronouns" (สรรพนามไม่เจาะจง)
+            </div>
+            <div class="example-box">
+                <div class="word-list">
+                    <strong>💡 ตัวอย่างคำศัพท์น่ารู้:</strong> whoever (ใครก็ตาม), themselves (พวกเขาเอง), nobody (ไม่มีใคร), whose (ของใคร), which (ซึ่ง/อันที่)
+                </div>
+                <p>👉 The scientist <span class="highlight">who</span> discovered the vaccine won an award. (นักวิทยาศาสตร์ <strong>ผู้ซึ่ง</strong> ค้นพบวัคซีนได้รับรางวัล)</p>
+                <p>👉 <span class="highlight">Everybody</span> is responsible for protecting the environment. (<strong>ทุกคน</strong> มีหน้าที่รับผิดชอบในการปกป้องสิ่งแวดล้อม)</p>
+                <p>👉 The company, <span class="highlight">whose</span> CEO recently resigned, is facing a crisis. (บริษัท <strong>ซึ่งมี</strong> CEO เพิ่งลาออกไป กำลังเผชิญวิกฤต)</p>
+            </div>
+        </div>
+
+        <!-- Card 3: Verb -->
+        <div class="lesson-card">
+            <h2>3. Verb (คำกริยา) ⚙️</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> แสดงการกระทำ ต้องแยกให้ออกระหว่าง Transitive (ต้องการกรรม), Intransitive (ไม่ต้องการกรรม) และ Linking Verbs (เชื่อมประธานกับส่วนเติมเต็ม)
+            </div>
+            <div class="example-box">
+                <div class="word-list">
+                    <strong>💡 ตัวอย่างคำศัพท์น่ารู้:</strong> implement (นำไปปฏิบัติ), distinguish (แยกแยะ), appear (ดูเหมือน/ปรากฏ - Linking), fluctuate (ผันผวน), necessitate (ทำให้จำเป็น)
+                </div>
+                <p>👉 The government plans to <span class="highlight">implement</span> new tax policies. (รัฐบาลวางแผนที่จะ <strong>นำ</strong> นโยบายภาษีใหม่ <strong>ไปปฏิบัติ</strong> - Transitive)</p>
+                <p>👉 The unemployment rate <span class="highlight">fluctuates</span> significantly during economic crises. (อัตราการว่างงาน <strong>ผันผวน</strong> อย่างมากในช่วงวิกฤตเศรษฐกิจ - Intransitive)</p>
+                <p>👉 The situation <span class="highlight">appears</span> increasingly complicated. (สถานการณ์ <strong>ดูเหมือนจะ</strong> ซับซ้อนมากยิ่งขึ้น - Linking Verb)</p>
+            </div>
+        </div>
+
+        <!-- Card 4: Adjective -->
+        <div class="lesson-card">
+            <h2>4. Adjective (คำคุณศัพท์) ✨</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> ขยายนามให้ชัดเจนขึ้น ในข้อสอบมักเจอ Adjectives ที่มาจากรูปกริยาเติม -ing (น่า...) และ -ed (รู้สึก...) หรือคำศัพท์ระดับสูง
+            </div>
+            <div class="example-box">
+                <div class="word-list">
+                    <strong>💡 ตัวอย่างคำศัพท์น่ารู้:</strong> crucial (สำคัญมาก), unprecedented (ไม่เคยเกิดขึ้นมาก่อน), overwhelming (ท่วมท้น), sophisticated (ซับซ้อน/ล้ำสมัย), inevitable (หลีกเลี่ยงไม่ได้)
+                </div>
+                <p>👉 Education plays a <span class="highlight">crucial</span> role in reducing poverty. (การศึกษามีบทบาทที่ <strong>สำคัญอย่างยิ่ง</strong> ในการลดความยากจน)</p>
+                <p>👉 The team developed a <span class="highlight">sophisticated</span> algorithm for the app. (ทีมงานได้พัฒนาอัลกอริทึมที่ <strong>ซับซ้อน/ล้ำสมัย</strong> สำหรับแอปนี้)</p>
+                <p>👉 We are facing an <span class="highlight">unprecedented</span> global challenge. (เรากำลังเผชิญกับความท้าทายระดับโลกที่ <strong>ไม่เคยเกิดขึ้นมาก่อน</strong>)</p>
+            </div>
+        </div>
+
+        <!-- Card 5: Adverb -->
+        <div class="lesson-card">
+            <h2>5. Adverb (คำกริยาวิเศษณ์) 📈</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> ขยาย Verb, Adjective, หรือ Adverb ด้วยกันเอง นอกจากนี้ยังมี "Conjunctive Adverbs" ที่ใช้เชื่อมความเชิงตรรกะในงานเขียน
+            </div>
+            <div class="example-box">
+                <div class="word-list">
+                    <strong>💡 ตัวอย่างคำศัพท์น่ารู้:</strong> significantly (อย่างมีนัยสำคัญ), consequently (ดังนั้น/ผลคือ), barely (แทบจะไม่), furthermore (ยิ่งไปกว่านั้น), inadvertently (โดยไม่ได้ตั้งใจ)
+                </div>
+                <p>👉 The profits increased <span class="highlight">significantly</span> this quarter. (ผลกำไรเพิ่มขึ้น <strong>อย่างมีนัยสำคัญ</strong> ในไตรมาสนี้)</p>
+                <p>👉 She was exhausted; <span class="highlight">consequently</span>, she went to bed early. (เธอเหนื่อยล้ามาก <strong>ผลคือ</strong> เธอจึงเข้านอนเร็ว)</p>
+                <p>👉 The patient could <span class="highlight">barely</span> speak after the surgery. (ผู้ป่วย <strong>แทบจะ</strong> พูดไม่ <strong>ได้</strong> หลังจากการผ่าตัด)</p>
+            </div>
+        </div>
+
+        <!-- Card 6: Preposition -->
+        <div class="lesson-card">
+            <h2>6. Preposition (คำบุพบท) 🔗</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> เชื่อมนาม/สรรพนามกับส่วนอื่นของประโยค ม.ปลายมักเจอ "Complex Prepositions" (บุพบทกลุ่มคำ) ที่ทำให้ประโยคดูเป็นทางการขึ้น
+            </div>
+            <div class="example-box">
+                <div class="word-list">
+                    <strong>💡 ตัวอย่างคำศัพท์น่ารู้:</strong> despite (แม้ว่า), throughout (ตลอดทั้ง), in accordance with (ตามที่), prior to (ก่อนหน้า), on behalf of (ในนามของ)
+                </div>
+                <p>👉 <span class="highlight">Despite</span> the heavy rain, the outdoor concert continued. (<strong>แม้ว่า</strong> จะมีฝนตกหนัก คอนเสิร์ตกลางแจ้งก็ยังดำเนินต่อไป)</p>
+                <p>👉 Students must submit their assignments <span class="highlight">prior to</span> the deadline. (นักศึกษาต้องส่งงาน <strong>ก่อนหน้า</strong> กำหนดเวลา)</p>
+                <p>👉 I am writing this email <span class="highlight">on behalf of</span> my manager. (ฉันเขียนอีเมลฉบับนี้ <strong>ในนามของ</strong> ผู้จัดการของฉัน)</p>
+            </div>
+        </div>
+
+        <!-- Card 7: Conjunction -->
+        <div class="lesson-card">
+            <h2>7. Conjunction (คำสันธาน) 🤝</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> ตัวเชื่อมประโยค มี 3 ประเภทหลัก: Coordinating (FANBOYS), Subordinating (เชื่อมประโยคหลักกับประโยคย่อย), และ Correlative (ตัวเชื่อมมาเป็นคู่)
+            </div>
+            <div class="example-box">
+                <div class="word-list">
+                    <strong>💡 ตัวอย่างคำศัพท์น่ารู้:</strong> although (ถึงแม้ว่า), whereas (ในขณะที่), not only... but also (ไม่เพียงแต่...แต่ยังอีกด้วย), provided that (โดยมีเงื่อนไขว่า), neither... nor (ไม่ทั้ง...และไม่)
+                </div>
+                <p>👉 <span class="highlight">Although</span> the product is expensive, it sells very well. (<strong>ถึงแม้ว่า</strong> สินค้าจะราคาแพง แต่มันก็ขายดีมาก)</p>
+                <p>👉 He is <span class="highlight">not only</span> a brilliant scientist <span class="highlight">but also</span> a talented musician. (เขา <strong>ไม่เพียงแต่</strong> เป็นนักวิทยาศาสตร์ที่เก่งกาจ <strong>แต่ยัง</strong> เป็นนักดนตรีที่มีพรสวรรค์ <strong>อีกด้วย</strong>)</p>
+                <p>👉 You can borrow my car <span class="highlight">provided that</span> you return it by tomorrow. (คุณสามารถยืมรถฉันได้ <strong>โดยมีเงื่อนไขว่า</strong> คุณต้องคืนมันภายในพรุ่งนี้)</p>
+            </div>
+        </div>
+
+        <!-- Card 8: Interjection -->
+        <div class="lesson-card">
+            <h2>8. Interjection (คำอุทาน) 💬</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> แสดงอารมณ์ความรู้สึก ในระดับสูงอาจเจอในวรรณกรรม หรือการสนทนาที่แสดงความรู้สึกซับซ้อนขึ้น
+            </div>
+            <div class="example-box">
+                <div class="word-list">
+                    <strong>💡 ตัวอย่างคำศัพท์น่ารู้:</strong> Alas (อนิจจา/โธ่เอ๋ย), Indeed (อย่างแท้จริง/เห็นด้วยอย่างยิ่ง), Bravo (เยี่ยมมาก), Heavens (คุณพระช่วย), Phew (เฮ้อ - โล่งอก)
+                </div>
+                <p>👉 <span class="highlight">Alas!</span> The ancient library was completely destroyed by the fire. (<strong>อนิจจา!</strong> ห้องสมุดโบราณถูกไฟไหม้ทำลายจนหมดสิ้น)</p>
+                <p>👉 <span class="highlight">Bravo!</span> That was an outstanding performance. (<strong>เยี่ยมมาก!</strong> นั่นเป็นการแสดงที่ยอดเยี่ยมจริงๆ)</p>
+                <p>👉 <span class="highlight">Indeed</span>, it is a matter of great importance. (<strong>เห็นด้วยอย่างยิ่ง</strong> มันเป็นเรื่องที่มีความสำคัญมาก)</p>
+            </div>
+        </div>
+
+        <!-- Ted Says Box -->
+        <div class="ted-box">
+            <div class="ted-emoji">🦖</div>
+            <div class="ted-content">
+                <div class="ted-title">Ted Says 🦖</div>
+                โฮก! กฎเหล็กของพี่ม.ปลายครับ:<br>
+                <strong>"อย่าตัดสินชนิดของคำ จากรูปร่างหน้าตาของมัน!"</strong><br>
+                คำๆ เดียวกัน อาจเป็นได้หลาย Part of Speech ขึ้นอยู่กับ "หน้าที่" ในประโยคครับ เช่น<br>
+                💧 I drink <span style="color:var(--primary); font-weight:800;">water</span>. (water เป็น <strong>Noun</strong> = น้ำ)<br>
+                🪴 I <span style="color:var(--primary); font-weight:800;">water</span> the plants. (water เป็น <strong>Verb</strong> = รดน้ำ)<br>
+                วิเคราะห์หน้าที่ในประโยคให้ดี ข้อสอบหลอกเราไม่ได้แน่นอนครับ!
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
