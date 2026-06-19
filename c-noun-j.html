@@ -2,34 +2,91 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>Noun Master Page: Junior High 🚀</title>
-    <!-- (ใส่ CSS ตาม Template เดิมของคุณ) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson: Noun (Junior High) 🚀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fff9f0; --card: #ffffff; --primary: #ff6b35; --secondary: #4ecdc4;
+            --accent: #ffe66d; --text: #1e1b18; --muted: #78716c; --red: #ef4444;
+            --shadow: 0 4px 0 #e5d5c5; --radius: 20px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Nunito', sans-serif; background: var(--bg); min-height: 100vh; padding: 24px; }
+        .top-bar { max-width: 800px; margin: 0 auto 20px auto; }
+        .btn-back { background-color: var(--card); border: 2px solid #e5d5c5; padding: 10px 20px; border-radius: 16px; text-decoration: none; color: var(--muted); font-weight: 800; box-shadow: var(--shadow); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-back:hover { transform: translateY(-2px); border-color: var(--primary); color: var(--primary); box-shadow: 0 6px 0 #d94e1f; }
+        .container { background-color: var(--card); padding: 40px 32px; border-radius: 24px; box-shadow: 0 12px 0 #e5d5c5; border: 2px solid #f0e8df; max-width: 800px; margin: 0 auto; }
+        h1 { font-family: 'Fredoka One', cursive; color: var(--primary); text-align: center; margin-bottom: 24px; }
+        .lesson-card { background: #ffffff; border: 2px solid #f0e8df; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: var(--shadow); }
+        .lesson-card h2 { font-family: 'Fredoka One', cursive; color: var(--secondary); margin-bottom: 12px; }
+        .structure-box { background-color: #faf5f0; padding: 12px 16px; border-radius: 12px; font-weight: 700; border-left: 4px solid var(--accent); margin-bottom: 16px; }
+        .example-box { background-color: #f8fafc; padding: 20px; border-radius: 12px; border: 2px dashed #e2e8f0; }
+        .highlight { background-color: #fff3e0; color: var(--primary); padding: 2px 8px; border-radius: 8px; font-weight: 800; }
+        .danger-text { color: var(--red); font-weight: 800; }
+    </style>
 </head>
 <body>
-    <div class="top-bar"><a href="index.html" class="btn-back">⬅️ กลับหน้าหลัก</a></div>
+
+    <div class="top-bar">
+        <a href="index.html" class="btn-back">⬅️ ย้อนกลับไปหน้าหลัก</a>
+    </div>
+
     <div class="container">
-        <h1>Nouns & Quantifiers 🚀</h1>
-        <p class="subtitle">เนื้อหาครอบคลุมพื้นฐาน + เจาะลึกการใช้ (ม.ต้น)</p>
+        <h1>Advanced Nouns 🚀</h1>
+        <p style="text-align:center; color:var(--muted); font-weight:700; margin-bottom:32px;">นามนับได้/ไม่ได้ และโครงสร้างขั้นสูง (Junior High School)</p>
 
+        <!-- 1. Partitives -->
         <div class="lesson-card">
-            <h2>1. พื้นฐานที่ควรรู้</h2>
-            <p>ทบทวน: คำนามคือชื่อเรียกคน/สัตว์/สิ่งของ/สถานที่ แบ่งเป็น Common และ Proper Noun</p>
+            <h2>1. Partitives (การทำให้ Uncountable เป็น Countable) 📦</h2>
+            <div class="structure-box">
+                <strong>หลักการ:</strong> คำนามนับไม่ได้ (Uncountable) ต้องการ "ตัวบอกจำนวน" มาช่วยเสมอ เพื่อระบุปริมาณ (Measurement)
+            </div>
+            <div class="example-box">
+                <p>👉 แทนที่จะพูดว่า "a water", เราต้องพูดว่า <strong>a glass of</strong> <span class="highlight">water</span></p>
+                <p>👉 <strong>a piece of</strong> <span class="highlight">information</span> / <span class="highlight">advice</span> / <span class="highlight">news</span></p>
+                <p>👉 <strong>a slice of</strong> <span class="highlight">bread</span> / <strong>a bar of</strong> <span class="highlight">chocolate</span></p>
+                <p>👉 Could you bring me <strong>two loaves of</strong> <span class="highlight">bread</span>? (ช่วยนำขนมปังมาให้ฉัน 2 แถวได้ไหม?)</p>
+            </div>
         </div>
 
+        <!-- 2. Collective Nouns -->
         <div class="lesson-card">
-            <h2>2. Countable vs Uncountable (เจาะลึก)</h2>
-            <p>• นามนับไม่ได้ (Advice, Information, Furniture, Luggage, Homework) ➡️ <span class="danger-text">ต้องถือเป็นเอกพจน์เสมอ!</span></p>
+            <h2>2. Collective Nouns (สมุหนาม) 👥</h2>
+            <div class="structure-box">
+                <strong>หลักการ:</strong> คำนามที่หมายถึงกลุ่ม ถ้ามองเป็น "หน่วยเดียว" ใช้กริยาเอกพจน์ (is/has/v.s) ถ้ามองเป็น "หลายบุคคล" ที่ทำกิจกรรมแยกกัน ใช้กริยาพหูพจน์
+            </div>
+            <div class="example-box">
+                <p>👉 The <span class="highlight">committee</span> <strong>is</strong> making a final decision. (คณะกรรมการมองเป็น 1 หน่วยงาน)</p>
+                <p>👉 The <span class="highlight">committee</span> <strong>are</strong> arguing among themselves. (กรรมการแต่ละคนกำลังเถียงกันเอง - มองเป็นคนหลายคน)</p>
+            </div>
         </div>
 
+        <!-- 3. Compound Nouns -->
         <div class="lesson-card">
-            <h2>3. Partitives (การวัดปริมาณ)</h2>
-            <p>ทำให้คำนามนับไม่ได้นับได้ด้วยตัวช่วย: a glass of water, a piece of advice, a loaf of bread</p>
+            <h2>3. Compound Nouns (นามประสม) 🧩</h2>
+            <div class="structure-box">
+                <strong>หลักการ:</strong> คำนามที่เกิดจากคำสองคำมารวมกัน เวลาทำเป็นพหูพจน์ต้องเติม s ที่ "คำหลัก" (Head Noun)
+            </div>
+            <div class="example-box">
+                <p>👉 <span class="highlight">Father-in-law</span> ➡️ <span class="highlight">Fathers-in-law</span> (เติมที่คำหลักคือ Father)</p>
+                <p>👉 <span class="highlight">Passer-by</span> ➡️ <span class="highlight">Passers-by</span> (เติมที่คำหลักคือ Passers)</p>
+            </div>
         </div>
 
+        <!-- 4. Noun Roles -->
         <div class="lesson-card">
-            <h2>4. Collective Nouns</h2>
-            <p>กลุ่มคำที่หมายถึงกลุ่ม (Team, Family, Committee): ถ้ามองเป็นก้อนเดียวใช้กริยาเอกพจน์ ถ้าแยกกันทำกิจกรรมใช้กริยาพหูพจน์</p>
+            <h2>4. หน้าที่ของคำนามในประโยค 🔍</h2>
+            <div class="structure-box">
+                <strong>หลักการ:</strong> คำนามสามารถทำหน้าที่ได้ 3 อย่างหลัก: เป็นประธาน (Subject), กรรมของกริยา (Object), และกรรมของบุพบท (Object of Preposition)
+            </div>
+            <div class="example-box">
+                <p>👉 <strong>Subject:</strong> <span class="highlight">The scientist</span> conducted the experiment.</p>
+                <p>👉 <strong>Object:</strong> He won <span class="highlight">the scholarship</span>.</p>
+                <p>👉 <strong>Object of Prep:</strong> She is interested in <span class="highlight">linguistics</span>.</p>
+            </div>
         </div>
+
     </div>
 </body>
 </html>
