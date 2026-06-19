@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forming Adverbs</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #13110e;
+  --surf:    #1c1914;
+  --surf2:   #242018;
+  --border:  #332e25;
+  --text:    #ede8de;
+  --muted:   #7a7060;
+  --gold:    #d4a843;
+  --amber:   #e07c3a;
+  --sage:    #7ab87a;
+  --sky:     #6db8d4;
+  --rose:    #d47a8a;
+  --lavender:#a892d4;
+
+  --r1: var(--gold);
+  --r2: var(--amber);
+  --r3: var(--sage);
+  --r4: var(--sky);
+  --r5: var(--rose);
+  --r6: var(--lavender);
+
+  --ok-bg:  rgba(50,100,50,.22);
+  --ok-col: #7dda7d;
+  --err-bg: rgba(120,40,40,.25);
+  --err-col:#e07a7a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Outfit',sans-serif;
+  font-weight:300;
+  min-height:100vh;
+  background-image: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(212,168,67,.055) 0%, transparent 65%);
+}
+
+/* ── HEADER ── */
+.header{
+  text-align:center;
+  padding:52px 24px 40px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+.header::after{
+  content:'';
+  position:absolute; bottom:0; left:50%;
+  transform:translateX(-50%);
+  width:320px; height:1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.eyebrow{
+  font-size:10.5px; font-weight:600;
+  letter-spacing:.28em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:16px;
+}
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,6vw,68px);
+  font-weight:700;
+  line-height:1;
+  letter-spacing:-.02em;
+}
+h1 em{ font-style:italic; color:var(--gold); }
+.subtitle{
+  margin-top:12px;
+  font-size:13px; color:var(--muted);
+  letter-spacing:.06em;
+}
+.pill-row{
+  display:flex; flex-wrap:wrap; gap:8px;
+  justify-content:center; margin-top:22px;
+}
+.pill{
+  font-size:10.5px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 14px; border-radius:999px;
+  border:1px solid; text-decoration:none;
+  transition:opacity .2s;
+}
+.pill:hover{opacity:.7;}
+.p1{color:var(--r1);border-color:var(--r1);}
+.p2{color:var(--r2);border-color:var(--r2);}
+.p3{color:var(--r3);border-color:var(--r3);}
+.p4{color:var(--r4);border-color:var(--r4);}
+.p5{color:var(--r5);border-color:var(--r5);}
+.p6{color:var(--r6);border-color:var(--r6);}
+
+/* ── CONTROLS ── */
+.sticky{
+  position:sticky; top:0; z-index:50;
+  background:rgba(19,17,14,.93);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:10px 20px;
+  display:flex; flex-wrap:wrap; gap:8px;
+  align-items:center; justify-content:center;
+}
+.btn{
+  font-family:'Outfit',sans-serif;
+  font-size:11.5px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:8px 20px; border-radius:3px;
+  border:1px solid; cursor:pointer;
+  transition:all .18s;
+}
+.btn-check{ background:var(--gold); color:var(--bg); border-color:var(--gold); }
+.btn-check:hover{ opacity:.82; }
+.btn-show{ background:transparent; color:var(--muted); border-color:var(--border); }
+.btn-show:hover{ color:var(--text); border-color:var(--muted); }
+.btn-reset{ background:transparent; color:var(--muted); border-color:var(--border); }
+.btn-reset:hover{ color:var(--err-col); border-color:var(--err-col); }
+.score-box{
+  display:none; font-size:12px; font-weight:600;
+  padding:8px 18px; border-radius:3px;
+  background:var(--surf2); border:1px solid var(--border);
+}
+
+/* ── SECTION ── */
+.wrap{ max-width:900px; margin:0 auto; padding:44px 20px 0; }
+.sec-head{
+  display:flex; align-items:flex-start; gap:16px;
+  padding-bottom:16px; border-bottom:1px solid var(--border);
+  margin-bottom:4px;
+}
+.sec-stripe{
+  width:3px; height:100%; min-height:48px;
+  border-radius:2px; flex-shrink:0; margin-top:3px;
+}
+.sec-meta{}
+.sec-no{
+  font-size:10px; font-weight:600;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:4px;
+}
+.sec-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px; font-weight:700; line-height:1.1;
+}
+
+/* ── RULE BOX ── */
+.rule-box{
+  margin:14px 0 6px;
+  padding:14px 18px;
+  background:var(--surf);
+  border:1px solid var(--border);
+  border-radius:6px;
+  font-size:13px;
+  line-height:1.9;
+}
+.rule-box .rule-title{
+  font-size:10px; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:8px;
+}
+.transform-row{
+  display:flex; flex-wrap:wrap; gap:18px;
+  align-items:center;
+}
+.tf{
+  display:flex; align-items:center; gap:10px;
+  font-size:13px;
+}
+.tf-adj{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:600; font-style:italic;
+  background:var(--surf2); padding:3px 10px;
+  border-radius:3px; font-size:14px;
+}
+.tf-arrow{ color:var(--muted); font-size:14px; }
+.tf-adv{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:700; font-size:14px;
+}
+.tf-note{
+  font-size:11px; color:var(--muted);
+  font-style:italic; margin-left:3px;
+}
+.rule-warning{
+  margin-top:8px; padding:8px 12px;
+  background:rgba(224,124,58,.08);
+  border-left:2px solid var(--amber);
+  border-radius:0 4px 4px 0;
+  font-size:12px; color:#b89060;
+  line-height:1.7;
+}
+.rule-warning strong{ color:var(--amber); }
+
+/* ── ITEMS ── */
+.item{
+  display:flex; gap:14px; padding:13px 0;
+  border-bottom:1px solid rgba(51,46,37,.55);
+  align-items:flex-start;
+}
+.item-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px; color:var(--border);
+  min-width:28px; text-align:right;
+  padding-top:4px; flex-shrink:0;
+}
+.item-b{ flex:1; font-size:15.5px; line-height:2; }
+.vh{ font-size:12px; color:var(--muted); font-style:italic; }
+
+/* ── BLANK ── */
+.blank{ display:inline-block; position:relative; vertical-align:middle; }
+.blank input{
+  font-family:'Outfit',sans-serif;
+  font-size:14.5px; font-weight:500;
+  background:var(--surf2);
+  border:1px solid var(--border); border-radius:4px;
+  color:#f0d080; outline:none; padding:2px 10px;
+  width:160px; transition:border-color .18s, background .18s;
+}
+.blank input:focus{ border-color:var(--muted); background:var(--surf); }
+.blank input.ok{  border-color:var(--ok-col);  background:var(--ok-bg);  color:var(--ok-col); }
+.blank input.err{ border-color:var(--err-col); background:var(--err-bg); color:var(--err-col); }
+.blank .hint{
+  display:none; position:absolute; bottom:110%; left:0;
+  background:var(--surf2); border:1px solid var(--err-col);
+  color:var(--err-col); font-size:11px; padding:3px 10px;
+  border-radius:4px; white-space:nowrap; z-index:10;
+  pointer-events:none; font-style:italic;
+}
+.blank input.err ~ .hint{ display:block; }
+
+/* show-mode */
+.show-mode .blank input{ display:none; }
+.blank .alabel{
+  display:none; font-weight:600; color:var(--ok-col);
+  font-size:14.5px; padding:2px 10px;
+  border-bottom:1px dashed var(--ok-col);
+  font-family:'Outfit',sans-serif;
+}
+.show-mode .blank .alabel{ display:inline; }
+
+/* ── STRIPE COLORS ── */
+.s1 .sec-stripe,.s1 .sec-name{ background:none; }
+.s1 .sec-stripe{ background:var(--r1); }
+.s1 .sec-name  { color:var(--r1); }
+.s2 .sec-stripe{ background:var(--r2); }
+.s2 .sec-name  { color:var(--r2); }
+.s3 .sec-stripe{ background:var(--r3); }
+.s3 .sec-name  { color:var(--r3); }
+.s4 .sec-stripe{ background:var(--r4); }
+.s4 .sec-name  { color:var(--r4); }
+.s5 .sec-stripe{ background:var(--r5); }
+.s5 .sec-name  { color:var(--r5); }
+.s6 .sec-stripe{ background:var(--r6); }
+.s6 .sec-name  { color:var(--r6); }
+
+/* tf-adv colors */
+.s1 .tf-adv{ color:var(--r1); }
+.s2 .tf-adv{ color:var(--r2); }
+.s3 .tf-adv{ color:var(--r3); }
+.s4 .tf-adv{ color:var(--r4); }
+.s5 .tf-adv{ color:var(--r5); }
+.s6 .tf-adv{ color:var(--r6); }
+
+/* ── FOOTER ── */
+.footer{
+  max-width:900px; margin:48px auto 0;
+  padding:18px 20px 60px;
+  text-align:center; font-size:11.5px; color:var(--muted);
+  border-top:1px solid var(--border); line-height:1.8;
+}
+
+@media(max-width:600px){
+  .blank input{ width:130px; font-size:13px; }
+  .item-b{ font-size:14px; }
+  .transform-row{ gap:12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <p class="eyebrow">English Grammar Workbook · M.3 · B1–B2</p>
+  <h1>Forming<br><em>Adverbs</em></h1>
+  <p class="subtitle">40 Exercises · 6 Rules · Fill in the Correct Adverb Form</p>
+  <div class="pill-row">
+    <a href="#r1" class="pill p1">Regular + -ly</a>
+    <a href="#r2" class="pill p2">-y → -ily</a>
+    <a href="#r3" class="pill p3">-le → -ly</a>
+    <a href="#r4" class="pill p4">-ic → -ically</a>
+    <a href="#r5" class="pill p5">Irregular / Same form</a>
+    <a href="#r6" class="pill p6">Mixed Challenge</a>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="sticky">
+  <button class="btn btn-check" onclick="checkAll()">✓ ตรวจคำตอบ</button>
+  <button class="btn btn-show"  onclick="toggleShow()">◎ ดู / ซ่อนเฉลย</button>
+  <button class="btn btn-reset" onclick="resetAll()">↺ เริ่มใหม่</button>
+  <div class="score-box" id="scoreBox"></div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 1 · Regular + -ly  (1–8)
+═══════════════════════════════════ -->
+<div class="wrap s1" id="r1">
+  <div class="sec-head">
+    <div class="sec-stripe"></div>
+    <div class="sec-meta">
+      <div class="sec-no">ข้อ 1–8 · Rule 1</div>
+      <div class="sec-name">Regular Adjective + <em>-ly</em></div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">กฎการสร้าง</div>
+    <div class="transform-row">
+      <div class="tf"><span class="tf-adj">quick</span><span class="tf-arrow">→</span><span class="tf-adv">quickly</span></div>
+      <div class="tf"><span class="tf-adj">careful</span><span class="tf-arrow">→</span><span class="tf-adv">carefully</span></div>
+      <div class="tf"><span class="tf-adj">significant</span><span class="tf-arrow">→</span><span class="tf-adv">significantly</span></div>
+      <div class="tf"><span class="tf-adj">gradual</span><span class="tf-arrow">→</span><span class="tf-adv">gradually</span></div>
+    </div>
+    <div class="rule-warning">
+      <strong>หมายเหตุ:</strong> adjective ที่ลงท้ายด้วย <strong>-ll</strong> เติมเพียง <strong>-y</strong> เช่น full → fully · dull → dully
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">1.</div>
+    <div class="item-b">She spoke <span class="blank"><input type="text" data-answer="confidently" placeholder="___"><span class="hint">→ confidently</span><span class="alabel">confidently</span></span> <span class="vh">(confident)</span> to the entire audience throughout her research presentation.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">2.</div>
+    <div class="item-b">The scientist <span class="blank"><input type="text" data-answer="carefully" placeholder="___"><span class="hint">→ carefully</span><span class="alabel">carefully</span></span> <span class="vh">(careful)</span> examined each sample under the high-powered microscope.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">3.</div>
+    <div class="item-b">The population of the coastal city has <span class="blank"><input type="text" data-answer="gradually" placeholder="___"><span class="hint">→ gradually</span><span class="alabel">gradually</span></span> <span class="vh">(gradual)</span> increased over the past decade.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">4.</div>
+    <div class="item-b">He <span class="blank"><input type="text" data-answer="efficiently" placeholder="___"><span class="hint">→ efficiently</span><span class="alabel">efficiently</span></span> <span class="vh">(efficient)</span> managed the project and delivered all results ahead of the original schedule.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">5.</div>
+    <div class="item-b">The new policy <span class="blank"><input type="text" data-answer="significantly" placeholder="___"><span class="hint">→ significantly</span><span class="alabel">significantly</span></span> <span class="vh">(significant)</span> reduced the level of air pollution across the entire region.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">6.</div>
+    <div class="item-b">She <span class="blank"><input type="text" data-answer="persistently" placeholder="___"><span class="hint">→ persistently</span><span class="alabel">persistently</span></span> <span class="vh">(persistent)</span> worked towards her academic goal despite facing many difficult obstacles.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">7.</div>
+    <div class="item-b">The team <span class="blank"><input type="text" data-answer="remarkably" placeholder="___"><span class="hint">→ remarkably</span><span class="alabel">remarkably</span></span> <span class="vh">(remarkable)</span> recovered from their early defeat to win the national championship.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">8.</div>
+    <div class="item-b">The new medical technology <span class="blank"><input type="text" data-answer="considerably" placeholder="___"><span class="hint">→ considerably</span><span class="alabel">considerably</span></span> <span class="vh">(considerable)</span> improved the quality of healthcare services in rural areas.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 2 · -y → -ily  (9–14)
+═══════════════════════════════════ -->
+<div class="wrap s2" id="r2">
+  <div class="sec-head">
+    <div class="sec-stripe"></div>
+    <div class="sec-meta">
+      <div class="sec-no">ข้อ 9–14 · Rule 2</div>
+      <div class="sec-name">Adjective ending <em>-y</em> → <em>-ily</em></div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">กฎการสร้าง — ตัด -y แล้วเติม -ily</div>
+    <div class="transform-row">
+      <div class="tf"><span class="tf-adj">happy</span><span class="tf-arrow">→</span><span class="tf-adv">happily</span></div>
+      <div class="tf"><span class="tf-adj">easy</span><span class="tf-arrow">→</span><span class="tf-adv">easily</span></div>
+      <div class="tf"><span class="tf-adj">heavy</span><span class="tf-arrow">→</span><span class="tf-adv">heavily</span></div>
+      <div class="tf"><span class="tf-adj">angry</span><span class="tf-arrow">→</span><span class="tf-adv">angrily</span></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">9.</div>
+    <div class="item-b">The advanced students <span class="blank"><input type="text" data-answer="easily" placeholder="___"><span class="hint">→ easily</span><span class="alabel">easily</span></span> <span class="vh">(easy)</span> solved the complex mathematical problem in just a few minutes.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">10.</div>
+    <div class="item-b">It <span class="blank"><input type="text" data-answer="heavily" placeholder="___"><span class="hint">→ heavily</span><span class="alabel">heavily</span></span> <span class="vh">(heavy)</span> rained throughout the night, which caused severe flooding across the city.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">11.</div>
+    <div class="item-b">He <span class="blank"><input type="text" data-answer="angrily" placeholder="___"><span class="hint">→ angrily</span><span class="alabel">angrily</span></span> <span class="vh">(angry)</span> responded to the journalist's unfair criticism about his latest research findings.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">12.</div>
+    <div class="item-b">She <span class="blank"><input type="text" data-answer="happily" placeholder="___"><span class="hint">→ happily</span><span class="alabel">happily</span></span> <span class="vh">(happy)</span> accepted the prestigious scholarship offered by the international university.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">13.</div>
+    <div class="item-b">The patient recovered <span class="blank"><input type="text" data-answer="steadily" placeholder="___"><span class="hint">→ steadily</span><span class="alabel">steadily</span></span> <span class="vh">(steady)</span> after the successful surgical operation performed by the specialist.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">14.</div>
+    <div class="item-b">The volunteers <span class="blank"><input type="text" data-answer="readily" placeholder="___"><span class="hint">→ readily</span><span class="alabel">readily</span></span> <span class="vh">(ready)</span> offered their assistance to the victims of the natural disaster.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 3 · -le → -ly  (15–20)
+═══════════════════════════════════ -->
+<div class="wrap s3" id="r3">
+  <div class="sec-head">
+    <div class="sec-stripe"></div>
+    <div class="sec-meta">
+      <div class="sec-no">ข้อ 15–20 · Rule 3</div>
+      <div class="sec-name">Adjective ending <em>-le</em> → drop <em>-e</em>, add <em>-y</em></div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">กฎการสร้าง — ตัด -le แล้วเติม -ly</div>
+    <div class="transform-row">
+      <div class="tf"><span class="tf-adj">comfortable</span><span class="tf-arrow">→</span><span class="tf-adv">comfortably</span></div>
+      <div class="tf"><span class="tf-adj">gentle</span><span class="tf-arrow">→</span><span class="tf-adv">gently</span></div>
+      <div class="tf"><span class="tf-adj">terrible</span><span class="tf-arrow">→</span><span class="tf-adv">terribly</span></div>
+      <div class="tf"><span class="tf-adj">simple</span><span class="tf-arrow">→</span><span class="tf-adv">simply</span></div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">15.</div>
+    <div class="item-b">She <span class="blank"><input type="text" data-answer="comfortably" placeholder="___"><span class="hint">→ comfortably</span><span class="alabel">comfortably</span></span> <span class="vh">(comfortable)</span> settled into her new role as the head of the research department.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">16.</div>
+    <div class="item-b">The earthquake <span class="blank"><input type="text" data-answer="terribly" placeholder="___"><span class="hint">→ terribly</span><span class="alabel">terribly</span></span> <span class="vh">(terrible)</span> devastated the local communities along the entire coastline.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">17.</div>
+    <div class="item-b">The experienced teacher <span class="blank"><input type="text" data-answer="gently" placeholder="___"><span class="hint">→ gently</span><span class="alabel">gently</span></span> <span class="vh">(gentle)</span> explained the complex scientific concept to the confused students.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">18.</div>
+    <div class="item-b">The committee <span class="blank"><input type="text" data-answer="responsibly" placeholder="___"><span class="hint">→ responsibly</span><span class="alabel">responsibly</span></span> <span class="vh">(responsible)</span> managed the funds donated by several international organisations.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">19.</div>
+    <div class="item-b">He argued his position <span class="blank"><input type="text" data-answer="capably" placeholder="___"><span class="hint">→ capably</span><span class="alabel">capably</span></span> <span class="vh">(capable)</span> in front of the review panel, addressing each point with strong evidence.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">20.</div>
+    <div class="item-b">The solution to the conflict was <span class="blank"><input type="text" data-answer="simply" placeholder="___"><span class="hint">→ simply</span><span class="alabel">simply</span></span> <span class="vh">(simple)</span> achieved through open and honest communication between both sides.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 4 · -ic → -ically  (21–25)
+═══════════════════════════════════ -->
+<div class="wrap s4" id="r4">
+  <div class="sec-head">
+    <div class="sec-stripe"></div>
+    <div class="sec-meta">
+      <div class="sec-no">ข้อ 21–25 · Rule 4</div>
+      <div class="sec-name">Adjective ending <em>-ic</em> → <em>-ically</em></div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">กฎการสร้าง — เติม -ally ต่อจาก -ic</div>
+    <div class="transform-row">
+      <div class="tf"><span class="tf-adj">dramatic</span><span class="tf-arrow">→</span><span class="tf-adv">dramatically</span></div>
+      <div class="tf"><span class="tf-adj">automatic</span><span class="tf-arrow">→</span><span class="tf-adv">automatically</span></div>
+      <div class="tf"><span class="tf-adj">drastic</span><span class="tf-arrow">→</span><span class="tf-adv">drastically</span></div>
+      <div class="tf"><span class="tf-adj">enthusiastic</span><span class="tf-arrow">→</span><span class="tf-adv">enthusiastically</span></div>
+    </div>
+    <div class="rule-warning">
+      <strong>ยกเว้น:</strong> public → <strong>publicly</strong> (ไม่ใช่ publically)
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">21.</div>
+    <div class="item-b">The political situation <span class="blank"><input type="text" data-answer="dramatically" placeholder="___"><span class="hint">→ dramatically</span><span class="alabel">dramatically</span></span> <span class="vh">(dramatic)</span> changed after the unexpected result of the national election.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">22.</div>
+    <div class="item-b">The security door locks <span class="blank"><input type="text" data-answer="automatically" placeholder="___"><span class="hint">→ automatically</span><span class="alabel">automatically</span></span> <span class="vh">(automatic)</span> when the last employee leaves the building each evening.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">23.</div>
+    <div class="item-b">She <span class="blank"><input type="text" data-answer="enthusiastically" placeholder="___"><span class="hint">→ enthusiastically</span><span class="alabel">enthusiastically</span></span> <span class="vh">(enthusiastic)</span> participated in every workshop and seminar during the intensive training programme.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">24.</div>
+    <div class="item-b">He <span class="blank"><input type="text" data-answer="realistically" placeholder="___"><span class="hint">→ realistically</span><span class="alabel">realistically</span></span> <span class="vh">(realistic)</span> assessed all the potential challenges before making his final strategic decision.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">25.</div>
+    <div class="item-b">The new water-saving technology <span class="blank"><input type="text" data-answer="drastically" placeholder="___"><span class="hint">→ drastically</span><span class="alabel">drastically</span></span> <span class="vh">(drastic)</span> reduced consumption levels in drought-affected communities.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 5 · Irregular / Same form  (26–32)
+═══════════════════════════════════ -->
+<div class="wrap s5" id="r5">
+  <div class="sec-head">
+    <div class="sec-stripe"></div>
+    <div class="sec-meta">
+      <div class="sec-no">ข้อ 26–32 · Rule 5</div>
+      <div class="sec-name">Irregular &amp; Same-Form Adverbs</div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">รูปแบบพิเศษ — ไม่ได้เติม -ly</div>
+    <div class="transform-row">
+      <div class="tf"><span class="tf-adj">good</span><span class="tf-arrow">→</span><span class="tf-adv">well</span><span class="tf-note">(irregular)</span></div>
+      <div class="tf"><span class="tf-adj">hard</span><span class="tf-arrow">→</span><span class="tf-adv">hard</span><span class="tf-note">(same)</span></div>
+      <div class="tf"><span class="tf-adj">fast</span><span class="tf-arrow">→</span><span class="tf-adv">fast</span><span class="tf-note">(same)</span></div>
+      <div class="tf"><span class="tf-adj">late</span><span class="tf-arrow">→</span><span class="tf-adv">late</span><span class="tf-note">(same)</span></div>
+      <div class="tf"><span class="tf-adj">early</span><span class="tf-arrow">→</span><span class="tf-adv">early</span><span class="tf-note">(same)</span></div>
+      <div class="tf"><span class="tf-adj">high</span><span class="tf-arrow">→</span><span class="tf-adv">high</span><span class="tf-note">(same)</span></div>
+      <div class="tf"><span class="tf-adj">deep</span><span class="tf-arrow">→</span><span class="tf-adv">deep</span><span class="tf-note">(same)</span></div>
+    </div>
+    <div class="rule-warning">
+      <strong>ระวัง:</strong> hard → hardly = "แทบจะไม่" · late → lately = "เมื่อเร็วๆ นี้" · high → highly = "อย่างมาก (นามธรรม)"
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">26.</div>
+    <div class="item-b">She performed <span class="blank"><input type="text" data-answer="well" placeholder="___"><span class="hint">→ well</span><span class="alabel">well</span></span> <span class="vh">(good)</span> in all her university entrance examinations and received the top scholarship.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">27.</div>
+    <div class="item-b">The athletes trained <span class="blank"><input type="text" data-answer="hard" placeholder="___"><span class="hint">→ hard</span><span class="alabel">hard</span></span> <span class="vh">(hard)</span> throughout the entire season to prepare for the national championship.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">28.</div>
+    <div class="item-b">He worked <span class="blank"><input type="text" data-answer="late" placeholder="___"><span class="hint">→ late</span><span class="alabel">late</span></span> <span class="vh">(late)</span> into the night to complete the critical sections of his research report.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">29.</div>
+    <div class="item-b">The new train departed <span class="blank"><input type="text" data-answer="early" placeholder="___"><span class="hint">→ early</span><span class="alabel">early</span></span> <span class="vh">(early)</span> because all passengers had already boarded ahead of the scheduled time.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">30.</div>
+    <div class="item-b">The eagle soared <span class="blank"><input type="text" data-answer="high" placeholder="___"><span class="hint">→ high</span><span class="alabel">high</span></span> <span class="vh">(high)</span> above the mountain range while searching for prey in the valley below.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">31.</div>
+    <div class="item-b">The electric sports car accelerated <span class="blank"><input type="text" data-answer="fast" placeholder="___"><span class="hint">→ fast</span><span class="alabel">fast</span></span> <span class="vh">(fast)</span> and disappeared beyond the horizon within seconds.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">32.</div>
+    <div class="item-b">The marine biologist dived <span class="blank"><input type="text" data-answer="deep" placeholder="___"><span class="hint">→ deep</span><span class="alabel">deep</span></span> <span class="vh">(deep)</span> into the ocean to photograph the rare coral formations on the seabed.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 6 · Mixed Challenge  (33–40)
+═══════════════════════════════════ -->
+<div class="wrap s6" id="r6">
+  <div class="sec-head">
+    <div class="sec-stripe"></div>
+    <div class="sec-meta">
+      <div class="sec-no">ข้อ 33–40 · Section 6</div>
+      <div class="sec-name">Mixed Challenge — ทุก Rule</div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <div class="rule-title">คำแนะนำ</div>
+    ดูคำ adjective ในวงเล็บแล้วตัดสินใจว่าต้องใช้กฎข้อใด ก่อนเติมรูป adverb ที่ถูกต้อง
+  </div>
+
+  <div class="item">
+    <div class="item-n">33.</div>
+    <div class="item-b">The senator <span class="blank"><input type="text" data-answer="bravely" placeholder="___"><span class="hint">→ bravely</span><span class="alabel">bravely</span></span> <span class="vh">(brave)</span> challenged the corrupt policy in front of the entire parliament.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">34.</div>
+    <div class="item-b">The rescue team <span class="blank"><input type="text" data-answer="immediately" placeholder="___"><span class="hint">→ immediately</span><span class="alabel">immediately</span></span> <span class="vh">(immediate)</span> responded to the emergency situation in the flooded district.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">35.</div>
+    <div class="item-b">The surgeon <span class="blank"><input type="text" data-answer="precisely" placeholder="___"><span class="hint">→ precisely</span><span class="alabel">precisely</span></span> <span class="vh">(precise)</span> performed the delicate procedure without making a single error.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">36.</div>
+    <div class="item-b">She <span class="blank"><input type="text" data-answer="absolutely" placeholder="___"><span class="hint">→ absolutely</span><span class="alabel">absolutely</span></span> <span class="vh">(absolute)</span> refused to accept the unjust conditions imposed by the organisation on its workers.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">37.</div>
+    <div class="item-b">The young architect <span class="blank"><input type="text" data-answer="creatively" placeholder="___"><span class="hint">→ creatively</span><span class="alabel">creatively</span></span> <span class="vh">(creative)</span> designed a public library that harmonised beautifully with its natural surroundings.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">38.</div>
+    <div class="item-b">The medical staff worked <span class="blank"><input type="text" data-answer="tirelessly" placeholder="___"><span class="hint">→ tirelessly</span><span class="alabel">tirelessly</span></span> <span class="vh">(tireless)</span> throughout the night to treat all the injured accident victims.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">39.</div>
+    <div class="item-b">The final results turned out <span class="blank"><input type="text" data-answer="surprisingly" placeholder="___"><span class="hint">→ surprisingly</span><span class="alabel">surprisingly</span></span> <span class="vh">(surprising)</span> positive, far exceeding all of the researchers' original expectations.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-n">40.</div>
+    <div class="item-b">The restoration project was <span class="blank"><input type="text" data-answer="nearly" placeholder="___"><span class="hint">→ nearly</span><span class="alabel">nearly</span></span> <span class="vh">(near)</span> complete when the funding was unexpectedly withdrawn by the government.
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Forming Adverbs · M.3 · B1–B2 · 40 Exercises<br>
+  Rule 1: + ly &nbsp;·&nbsp; Rule 2: -y → -ily &nbsp;·&nbsp; Rule 3: -le → -ly &nbsp;·&nbsp; Rule 4: -ic → -ically &nbsp;·&nbsp; Rule 5: Irregular / Same form
+</div>
+
+<script>
+function norm(s){ return s.trim().toLowerCase().replace(/\s+/g,' '); }
+function isOk(u,a){ return norm(u)===norm(a); }
+
+function checkAll(){
+  const inputs=document.querySelectorAll('.blank input');
+  let ok=0, ans=0;
+  inputs.forEach(i=>{
+    i.classList.remove('ok','err');
+    if(!i.value.trim()) return;
+    ans++;
+    if(isOk(i.value,i.dataset.answer)){i.classList.add('ok');ok++;}
+    else i.classList.add('err');
+  });
+  const box=document.getElementById('scoreBox');
+  box.style.display=ans?'inline-block':'none';
+  box.textContent=`คะแนน ${ok} / ${ans} ข้อที่ตอบ  (จากทั้งหมด 40 ข้อ)`;
+}
+
+let showing=false;
+function toggleShow(){
+  showing=!showing;
+  document.body.classList.toggle('show-mode',showing);
+  document.querySelector('.btn-show').textContent=showing?'◉ ซ่อนเฉลย':'◎ ดู / ซ่อนเฉลย';
+}
+
+function resetAll(){
+  document.querySelectorAll('.blank input').forEach(i=>{
+    i.value='';i.classList.remove('ok','err');
+  });
+  document.getElementById('scoreBox').style.display='none';
+  if(showing) toggleShow();
+}
+
+document.querySelectorAll('.blank input').forEach(i=>{
+  i.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){
+      i.classList.remove('ok','err');
+      if(i.value.trim())
+        isOk(i.value,i.dataset.answer)?i.classList.add('ok'):i.classList.add('err');
+    }
+  });
+});
+</script>
+</body>
+</html>

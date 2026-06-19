@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5 — Modal Verbs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7ff; --surface:#fff; --ink:#1e1b2e; --muted:#6b6683;
+  --rule:#e4e0f5; --grey_lt:#f3f2fb;
+  --can:#2563eb;   --can_lt:#eff6ff;
+  --must:#dc2626;  --must_lt:#fef2f2;
+  --may:#16a34a;   --may_lt:#f0fdf4;
+  --should:#d97706;--should_lt:#fffbeb;
+  --would:#7c3aed; --would_lt:#f5f3ff;
+  --perf:#0f766e;  --perf_lt:#f0fdfa;
+  --good:#15803d;  --good_lt:#f0fdf4;
+  --bad:#dc2626;   --bad_lt:#fef2f2;
+  --r:14px; --sh:0 4px 24px rgba(30,27,46,.07);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);font-size:15.5px;line-height:1.75;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fade{animation:fadeUp .5s ease both;}
+.fade:nth-child(1){animation-delay:.04s}.fade:nth-child(2){animation-delay:.10s}
+.fade:nth-child(3){animation-delay:.16s}.fade:nth-child(4){animation-delay:.22s}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--can),var(--would),var(--must));z-index:9999;width:0%;}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--surface);display:flex;flex-direction:column;justify-content:center;padding:80px 6%;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.07) 0%,transparent 60%);top:-250px;right:-200px;}
+.cover::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.07) 0%,transparent 60%);bottom:-200px;left:-150px;}
+.cover-inner{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+.utag{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);padding:7px 18px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:30px;font-family:'Space Mono',monospace;}
+.utag i{width:8px;height:8px;border-radius:50%;background:var(--would);display:inline-block;}
+.cover h1{font-family:'Fraunces',serif;font-size:clamp(44px,7vw,86px);font-weight:900;line-height:1.05;margin-bottom:22px;}
+.cover h1 .hl{font-style:italic;color:var(--would);}
+.cover-sub{font-size:17px;color:var(--muted);max-width:560px;margin-bottom:44px;line-height:1.7;}
+
+/* modal pill grid */
+.modal-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;}
+.mpill{padding:10px 20px;border-radius:100px;font-weight:800;font-size:14px;font-family:'Space Mono',monospace;cursor:default;}
+.mp-can   {background:var(--can_lt);   color:var(--can);}
+.mp-must  {background:var(--must_lt);  color:var(--must);}
+.mp-may   {background:var(--may_lt);   color:var(--may);}
+.mp-should{background:var(--should_lt);color:var(--should);}
+.mp-would {background:var(--would_lt); color:var(--would);}
+
+.cstats{display:flex;gap:2px;flex-wrap:wrap;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;max-width:600px;}
+.cstat{flex:1;min-width:110px;padding:18px 20px;background:var(--surface);text-align:center;border-right:1px solid var(--rule);}
+.cstat:last-child{border-right:none;}
+.cstat-n{font-family:'Fraunces',serif;font-size:32px;font-weight:900;line-height:1;color:var(--would);}
+.cstat-l{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(248,247,255,.94);border-bottom:1px solid var(--rule);backdrop-filter:blur(10px);padding:0 6%;display:flex;gap:0;overflow-x:auto;}
+.nav a{color:var(--muted);text-decoration:none;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:15px 16px;white-space:nowrap;border-bottom:2px solid transparent;transition:.18s;font-family:'Space Mono',monospace;}
+.nav a:hover{color:var(--would);border-bottom-color:var(--would);}
+
+.page{max-width:920px;margin:0 auto;padding:60px 24px;}
+.gap{margin-bottom:72px;}
+.sh{display:flex;align-items:flex-start;gap:18px;margin-bottom:36px;}
+.sh-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.sh-text h2{font-family:'Fraunces',serif;font-size:27px;font-weight:700;line-height:1.2;}
+.sh-text p{font-size:14px;color:var(--muted);margin-top:3px;}
+
+/* MODAL CARDS */
+.modal-section{margin-bottom:8px;}
+.modal-card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);}
+.mc-head{padding:20px 24px;display:flex;align-items:center;gap:16px;cursor:pointer;border-bottom:1px solid transparent;transition:background .18s;}
+.mc-head:hover{background:var(--grey_lt);}
+.mc-head.open{border-bottom-color:var(--rule);}
+.mc-badge{padding:6px 16px;border-radius:100px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;}
+.mc-title{flex:1;}
+.mc-title h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;}
+.mc-title p{font-size:13px;color:var(--muted);margin-top:2px;}
+.mc-chevron{color:var(--muted);font-size:20px;transition:transform .2s;flex-shrink:0;}
+.mc-head.open .mc-chevron{transform:rotate(90deg);}
+.mc-body{padding:0 24px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;}
+.mc-body.open{max-height:2000px;padding:0 24px 24px;}
+
+/* usage rows inside modal card */
+.usage-row{display:flex;gap:14px;padding:12px 16px;border-radius:10px;margin-bottom:8px;font-size:14px;align-items:flex-start;}
+.usage-label{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;flex-shrink:0;margin-top:2px;}
+.usage-content{flex:1;}
+.usage-content .example{font-style:italic;margin-top:4px;color:var(--muted);}
+.usage-content .thai{font-size:13px;color:var(--muted);margin-top:2px;}
+
+/* formula strip */
+.formula-strip{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--grey_lt);border-radius:10px;padding:14px 18px;margin:12px 0;font-family:'Space Mono',monospace;font-size:13.5px;}
+.f-chip{padding:5px 12px;border-radius:8px;font-weight:700;}
+
+/* INFO BOX */
+.ib{border-radius:var(--r);padding:16px 20px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.6;}
+.ib .ico{font-size:18px;flex-shrink:0;}
+.ib.gold{background:var(--should_lt);border-left:3px solid var(--should);}
+.ib.bad {background:var(--bad_lt);   border-left:3px solid var(--bad);}
+.ib.good{background:var(--good_lt);  border-left:3px solid var(--good);}
+.ib.blue{background:var(--can_lt);   border-left:3px solid var(--can);}
+.ib.purp{background:var(--would_lt); border-left:3px solid var(--would);}
+.ib.red {background:var(--must_lt);  border-left:3px solid var(--must);}
+.ib.teal{background:var(--perf_lt);  border-left:3px solid var(--perf);}
+
+/* TABLE */
+.twrap{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin:18px 0;overflow-x:auto;box-shadow:var(--sh);}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead tr{background:var(--ink);}
+thead th{padding:12px 14px;text-align:left;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tbody tr:nth-child(even){background:var(--grey_lt);}
+tbody tr:last-child td{border-bottom:none;}
+code{font-family:'Space Mono',monospace;font-size:13px;background:rgba(0,0,0,.05);padding:2px 6px;border-radius:5px;}
+
+/* READING */
+.rbox{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:24px;box-shadow:var(--sh);}
+.rhead{background:var(--ink);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.rhead h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.rhead span{font-family:'Space Mono',monospace;font-size:11px;opacity:.6;}
+.rbody{padding:28px;font-size:15.5px;line-height:2.1;}
+.rbody p{margin-bottom:16px;}.rbody p:last-child{margin-bottom:0;}
+.hm{font-weight:700;padding:1px 5px;border-radius:4px;}
+.hcan{background:var(--can_lt);color:var(--can);}
+.hmust{background:var(--must_lt);color:var(--must);}
+.hmay{background:var(--may_lt);color:var(--may);}
+.hshould{background:var(--should_lt);color:var(--should);}
+.hwould{background:var(--would_lt);color:var(--would);}
+
+/* EXERCISES */
+.exh{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r) var(--r) 0 0;padding:18px 24px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule);box-shadow:var(--sh);}
+.exn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:17px;font-weight:900;flex-shrink:0;color:#fff;}
+.exh h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.exh p{font-size:13px;color:var(--muted);margin-top:2px;}
+.exb{background:var(--grey_lt);border:1px solid var(--rule);border-top:none;border-radius:0 0 var(--r) var(--r);padding:28px;margin-bottom:28px;}
+.ex-inst{font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--would);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:22px;}
+
+/* MCQ */
+.mcq{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--rule);}
+.mcq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-q{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;}
+.qn{width:28px;height:28px;border-radius:8px;background:var(--would_lt);color:var(--would);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.opts{display:flex;flex-direction:column;gap:8px;padding-left:38px;}
+.opt{display:flex;align-items:center;gap:11px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--rule);font-size:14px;cursor:pointer;transition:.16s;background:var(--surface);}
+.opt:hover{border-color:var(--would);background:var(--would_lt);}
+.opt.correct{border-color:var(--good);background:var(--good_lt);color:var(--good);font-weight:600;}
+.opt.wrong{border-color:var(--bad);background:var(--bad_lt);color:var(--bad);}
+.ob{width:26px;height:26px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;transition:.16s;}
+.opt:hover .ob{border-color:var(--would);background:var(--would);color:#fff;}
+.opt.correct .ob{border-color:var(--good);background:var(--good);color:#fff;}
+.opt.wrong .ob{border-color:var(--bad);background:var(--bad);color:#fff;}
+.fb{display:none;margin-top:10px;padding:11px 16px;border-radius:10px;font-size:13.5px;font-weight:500;padding-left:38px;line-height:1.55;}
+.fb.show{display:block;}
+.fb.ok{background:var(--good_lt);color:var(--good);}
+.fb.no{background:var(--bad_lt);color:var(--bad);}
+
+.fi-item{margin-bottom:16px;background:var(--surface);border-radius:10px;padding:14px 18px;border:1px solid var(--rule);}
+.fi-sent{font-size:15px;line-height:1.9;}
+.fi-blank{display:inline-block;min-width:100px;border-bottom:2px solid var(--would);text-align:center;margin:0 4px;font-family:'Space Mono',monospace;font-size:13px;color:transparent;transition:color .25s;}
+.fi-blank.shown{color:var(--would);font-weight:700;}
+.fi-ans{display:none;font-size:13px;color:var(--muted);padding-top:6px;border-top:1px solid var(--rule);margin-top:6px;}
+.fi-ans.show{display:block;}
+
+.ec-wrong{background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;}
+.ec-fix{display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-bottom:4px;}
+.ec-fix.show{display:block;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:100px;font-size:13.5px;font-weight:700;cursor:pointer;border:none;font-family:'Manrope',sans-serif;transition:.18s;}
+.btn-would{background:var(--would);color:#fff;}
+.btn-would:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn-ghost{background:var(--surface);color:var(--ink);border:1.5px solid var(--rule);}
+.btn-ghost:hover{border-color:var(--would);color:var(--would);}
+.btn-sm{padding:8px 16px;font-size:12.5px;}
+
+.scoreboard{background:linear-gradient(135deg,#1e1b2e,#2d2a45);color:#fff;border-radius:var(--r);padding:28px 30px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
+.sc-num{font-family:'Fraunces',serif;font-size:56px;font-weight:900;color:#c4b5fd;line-height:1;}
+.sc-txt{flex:1;}.sc-txt h4{font-family:'Fraunces',serif;font-size:19px;font-weight:700;margin-bottom:4px;}.sc-txt p{font-size:13px;opacity:.7;}
+.sc-bar-wrap{flex:1;min-width:180px;}.sc-bar-lbl{font-size:12px;opacity:.7;margin-bottom:6px;}
+.sc-bar{height:10px;background:rgba(255,255,255,.2);border-radius:5px;overflow:hidden;}
+.sc-fill{height:100%;background:linear-gradient(90deg,#c4b5fd,#86efac);border-radius:5px;transition:width .7s ease;}
+
+.chk{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;}
+.chk li{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--rule);padding:13px 16px;border-radius:10px;font-size:14px;}
+.chk li input{width:18px;height:18px;accent-color:var(--would);cursor:pointer;flex-shrink:0;margin-top:2px;}
+
+.footer{background:var(--surface);border-top:1px solid var(--rule);padding:32px 6%;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;}
+@media(max-width:640px){.page{padding:40px 18px;}.cover{padding:60px 5%;}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="utag fade"><i></i> B1 English &middot; Grammar Series &middot; Unit 5</div>
+    <h1 class="fade"><span class="hl">Modal</span><br>Verbs</h1>
+    <p class="cover-sub fade">Master all modal verbs &mdash; can, could, may, might, must, should, would, shall, ought to &mdash; and their perfect forms. The most-tested grammar topic in Thai English exams.</p>
+    <div class="modal-grid fade">
+      <span class="mpill mp-can">can / could</span>
+      <span class="mpill mp-must">must / have to</span>
+      <span class="mpill mp-may">may / might</span>
+      <span class="mpill mp-should">should / ought to</span>
+      <span class="mpill mp-would">would / shall</span>
+      <span class="mpill mp-would" style="background:var(--perf_lt);color:var(--perf);">Perfect Modals</span>
+    </div>
+    <div class="cstats fade">
+      <div class="cstat"><div class="cstat-n">10</div><div class="cstat-l">Modal Groups</div></div>
+      <div class="cstat"><div class="cstat-n">15</div><div class="cstat-l">Vocab Words</div></div>
+      <div class="cstat"><div class="cstat-n">5</div><div class="cstat-l">Exercises</div></div>
+      <div class="cstat"><div class="cstat-n">50</div><div class="cstat-l">Exam Questions</div></div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <a href="#vocab">&#128218; Vocab</a>
+  <a href="#reading">&#128214; Reading</a>
+  <a href="#grammar">&#9889; Modals</a>
+  <a href="#perfect">&#10024; Perfect Modals</a>
+  <a href="#exercises">&#9999; Exercises</a>
+  <a href="#review">&#11088; Review</a>
+</nav>
+
+<!-- SECTION A: VOCAB -->
+<div class="page gap" id="vocab">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--would_lt);">&#128218;</div>
+    <div class="sh-text"><h2>Section A &mdash; Vocabulary Builder</h2><p>15 key words used in modal verb contexts &mdash; rules, advice, ability, and possibility.</p></div>
+  </div>
+  <div class="ib blue fade"><span class="ico">&#128161;</span><div><strong>Study tip:</strong> These words often appear alongside modal verbs in sentences. Understanding their meaning helps you choose the correct modal for each context.</div></div>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Word</th><th>Type</th><th>Thai</th><th>Example with Modal</th></tr></thead>
+      <tbody>
+        <tr><td><strong>compulsory</strong></td><td>adjective</td><td>&#3610;&#3633;&#3591;&#3588;&#3633;&#3610;</td><td>Wearing a seatbelt is compulsory &mdash; you <em>must</em> wear one.</td></tr>
+        <tr><td><strong>forbidden</strong></td><td>adjective</td><td>&#3605;&#3657;&#3629;&#3591;&#3627;&#3657;&#3634;&#3617;</td><td>Smoking is forbidden here &mdash; you <em>must not</em> smoke.</td></tr>
+        <tr><td><strong>permission</strong></td><td>noun</td><td>&#3585;&#3634;&#3619;&#3629;&#3609;&#3640;&#3597;&#3634;&#3605;</td><td><em>May</em> I have permission to leave early?</td></tr>
+        <tr><td><strong>obligation</strong></td><td>noun</td><td>&#3586;&#3657;&#3629;&#3621;&#3657;&#3634;&#3626;&#3633;&#3591;&#3588;&#3617;</td><td>It is an obligation &mdash; you <em>must</em> pay your taxes.</td></tr>
+        <tr><td><strong>recommend</strong></td><td>verb</td><td>&#3649;&#3609;&#3632;&#3609;&#3635;</td><td>Doctors <em>recommend</em> that you <em>should</em> exercise daily.</td></tr>
+        <tr><td><strong>capable</strong></td><td>adjective</td><td>&#3617;&#3637;&#3588;&#3623;&#3634;&#3617;&#3626;&#3634;&#3617;&#3634;&#3619;&#3606;</td><td>She is <em>capable</em> &mdash; she <em>can</em> solve any problem.</td></tr>
+        <tr><td><strong>possibility</strong></td><td>noun</td><td>&#3588;&#3623;&#3634;&#3617;&#3648;&#3611;&#3655;&#3609;&#3652;&#3611;&#3652;&#3604;&#3657;</td><td>There is a <em>possibility</em> it <em>may</em> rain today.</td></tr>
+        <tr><td><strong>regret</strong></td><td>noun/verb</td><td>&#3648;&#3626;&#3637;&#3618;&#3651;&#3592;</td><td>I <em>regret</em> my choice &mdash; I <em>should have studied</em> harder.</td></tr>
+        <tr><td><strong>polite</strong></td><td>adjective</td><td>&#3624;&#3638;&#3616;&#3634;&#3614;&#3604;&#3637;</td><td>It is more <em>polite</em> to say "<em>Could</em> you help me?"</td></tr>
+        <tr><td><strong>unnecessary</strong></td><td>adjective</td><td>&#3652;&#3617;&#3656;&#3592;&#3635;&#3648;&#3611;&#3655;&#3609;</td><td>That was <em>unnecessary</em> &mdash; you <em>needn't have done</em> it.</td></tr>
+        <tr><td><strong>certainty</strong></td><td>noun</td><td>&#3588;&#3623;&#3634;&#3617;&#3649;&#3609;&#3656;&#3609;&#3629;&#3609;</td><td>With <em>certainty</em>: she <em>must be</em> the manager.</td></tr>
+        <tr><td><strong>advice</strong></td><td>noun</td><td>&#3588;&#3635;&#3649;&#3609;&#3632;&#3609;&#3635;</td><td>My <em>advice</em>: you <em>should</em> see a doctor.</td></tr>
+        <tr><td><strong>assume</strong></td><td>verb</td><td>&#3626;&#3617;&#3617;&#3605;&#3636;&#3605;&#3633;&#3657;&#3591;</td><td>We <em>assume</em> he is late &mdash; he <em>might</em> be stuck in traffic.</td></tr>
+        <tr><td><strong>prefer</strong></td><td>verb</td><td>&#3594;&#3629;&#3610;</td><td>I <em>prefer</em> tea &mdash; I <em>would rather</em> have tea than coffee.</td></tr>
+        <tr><td><strong>deduce</strong></td><td>verb</td><td>&#3629;&#3609;&#3640;&#3617;&#3634;&#3609;</td><td>We can <em>deduce</em> from clues &mdash; she <em>must have left</em> already.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION B: READING -->
+<div class="page gap" id="reading">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--may_lt);">&#128214;</div>
+    <div class="sh-text"><h2>Section B &mdash; Reading Passage</h2><p>A conversation and short article using 8+ different modal verbs. Spot each one!</p></div>
+  </div>
+  <div class="ib purp fade"><span class="ico">&#127912;</span><div>
+    <span class="hm hcan">BLUE = can/could</span> &nbsp;&middot;&nbsp;
+    <span class="hm hmust">RED = must/have to</span> &nbsp;&middot;&nbsp;
+    <span class="hm hmay">GREEN = may/might</span> &nbsp;&middot;&nbsp;
+    <span class="hm hshould">AMBER = should/ought to</span> &nbsp;&middot;&nbsp;
+    <span class="hm hwould">PURPLE = would/shall</span>
+  </div></div>
+
+  <div class="rbox fade">
+    <div class="rhead"><h3>Career Advice — A Student's Dilemma</h3><span>~200 words &middot; Dialogue + Article &middot; B1</span></div>
+    <div class="rbody">
+      <p><strong>Dialogue:</strong></p>
+      <p>
+        "I have an interview tomorrow and I don't know what to wear," said Nana.
+        "You <span class="hm hshould">should</span> wear something professional," replied her friend Kai.
+        "<span class="hm hcan">Can</span> I borrow your blue jacket?" asked Nana.
+        "Of course! You <span class="hm hcan">can</span> take it. But you <span class="hm hmust">must</span> return it by Friday," said Kai.
+        "Don't worry, I <span class="hm hwould">will</span>. Do you think I <span class="hm hmay">might</span> get the job?" Nana asked nervously.
+        "You <span class="hm hmust">must</span> be very qualified — they <span class="hm hwould">would</span> be lucky to have you!"
+      </p>
+      <p><strong>Article &mdash; Tips for Job Interviews:</strong></p>
+      <p>
+        Candidates <span class="hm hshould">should</span> arrive at least ten minutes early.
+        You <span class="hm hmust">must not</span> use your phone during the interview.
+        You <span class="hm hshould">ought to</span> research the company beforehand &mdash; this <span class="hm hmay">may</span> impress the interviewer.
+        If you are unsure about a question, you <span class="hm hcan">can</span> ask for clarification.
+        Candidates <span class="hm hshould">should</span> also prepare questions to ask.
+        Remember: you <span class="hm hmay">might</span> feel nervous, but confidence <span class="hm hcan">can</span> be learned and practised.
+        After the interview, you <span class="hm hshould">should</span> send a thank-you email within 24 hours.
+      </p>
+    </div>
+  </div>
+
+  <div class="exh" style="margin-top:4px;"><div class="exn" style="background:var(--would);">Q</div><div><h3>Reading Comprehension</h3><p>Click an option to check your answer.</p></div></div>
+  <div class="exb">
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">1</span> "You must be very qualified" &mdash; what does "must" express here?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Obligation (you have to)</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Permission</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> Logical deduction / strong certainty</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Prohibition</div>
+      </div>
+      <div class="fb ok">&#10003; "Must" here expresses strong logical deduction &mdash; Kai is concluding from evidence that Nana is very qualified. Not an order!</div>
+      <div class="fb no">&#10007; Context matters! "You must be..." (deduction) is different from "You must do..." (obligation).</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">2</span> "You ought to research the company" &mdash; "ought to" is closest in meaning to which modal?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> must</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> can</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> should</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> may</div>
+      </div>
+      <div class="fb ok">&#10003; "Ought to" = "should" &mdash; both express advice or recommendation. "Ought to" is slightly more formal.</div>
+      <div class="fb no">&#10007; "Ought to" gives advice/recommendation, just like "should".</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">3</span> "You must not use your phone during the interview" &mdash; what does "must not" express?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> You don't need to use it.</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> It is prohibited / not allowed.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> It is impossible to use it.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> You are unlikely to use it.</div>
+      </div>
+      <div class="fb ok">&#10003; "Must not" = prohibition (it is not allowed). Do NOT confuse with "don't have to" which means "not necessary".</div>
+      <div class="fb no">&#10007; "Must not" = PROHIBITION (forbidden). "Don't have to" = NOT NECESSARY. These are completely different!</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION C: GRAMMAR -->
+<div class="page gap" id="grammar">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--would_lt);">&#9889;</div>
+    <div class="sh-text"><h2>Section C &mdash; Grammar Spotlight: Modal Verbs</h2><p>All modal verbs, their meanings, uses, and formulas. Click each group to expand.</p></div>
+  </div>
+
+  <div class="ib purp fade"><span class="ico">&#128295;</span><div>
+    <strong>Key Rules for ALL Modal Verbs:</strong><br>
+    1. Modal + base verb (V1) — NEVER add -s, -ing, or -ed to the modal itself.<br>
+    2. To make negative: modal + <strong>not</strong> + V1 (e.g. cannot, should not, will not)<br>
+    3. To make question: Modal + Subject + V1? (e.g. Can you...? Must I...?)<br>
+    4. Modal verbs have NO infinitive, gerund, or past form — use alternatives when needed.
+  </div></div>
+
+  <!-- CAN / COULD -->
+  <div class="modal-section">
+    <div class="modal-card fade">
+      <div class="mc-head" onclick="toggleModal(this)">
+        <span class="mc-badge" style="background:var(--can_lt);color:var(--can);">can / could</span>
+        <div class="mc-title"><h3>Can &amp; Could</h3><p>Ability, permission, possibility, polite requests</p></div>
+        <span class="mc-chevron">&#8250;</span>
+      </div>
+      <div class="mc-body">
+        <div class="formula-strip">
+          <span class="f-chip" style="background:var(--can_lt);color:var(--can);">S + can/could + V1</span>
+          <span style="color:var(--muted)">negative:</span>
+          <span class="f-chip" style="background:var(--bad_lt);color:var(--bad);">cannot (can't) / could not (couldn't)</span>
+        </div>
+        <div class="usage-row" style="background:var(--can_lt);">
+          <span class="usage-label" style="background:var(--can);color:#fff;">ABILITY</span>
+          <div class="usage-content">
+            <strong>can</strong> = present ability &nbsp;|&nbsp; <strong>could</strong> = past ability
+            <div class="example">"She <strong>can</strong> speak three languages." &nbsp;/&nbsp; "He <strong>could</strong> swim when he was five."</div>
+            <div class="thai">&#3648;&#3618;&#3655;&#3609;&#3649;&#3621;&#3632;&#3604;&#3657;&#3623;&#3618; (&#3611;&#3633;&#3592;&#3592;&#3640;&#3610;&#3633;&#3609;) / &#3648;&#3588;&#3618;&#3607;&#3635;&#3652;&#3604;&#3657; (&#3629;&#3604;&#3637;&#3605;)</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--can_lt);">
+          <span class="usage-label" style="background:var(--can);color:#fff;">PERMISSION</span>
+          <div class="usage-content">
+            <strong>can</strong> = informal permission &nbsp;|&nbsp; <strong>could</strong> = more polite request
+            <div class="example">"<strong>Can</strong> I use your phone?" (informal) &nbsp;/&nbsp; "<strong>Could</strong> I borrow your pen?" (polite)</div>
+            <div class="thai">&#3585;&#3634;&#3619;&#3586;&#3629;&#3629;&#3609;&#3640;&#3597;&#3634;&#3605; (could &#3648;&#3614;&#3639;&#3656;&#3629;&#3588;&#3623;&#3634;&#3617;&#3624;&#3638;&#3616;&#3634;&#3614;&#3604;&#3637;&#3618;&#3636;&#3656;&#3591;&#3586;&#3638;&#3657;&#3609;)</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--can_lt);">
+          <span class="usage-label" style="background:var(--can);color:#fff;">POSSIBILITY</span>
+          <div class="usage-content">
+            <strong>could</strong> = theoretical possibility
+            <div class="example">"This plan <strong>could</strong> work." &nbsp;/&nbsp; "It <strong>could</strong> be dangerous."</div>
+            <div class="thai">&#3588;&#3623;&#3634;&#3617;&#3648;&#3611;&#3655;&#3609;&#3652;&#3611;&#3652;&#3604;&#3657;&#3651;&#3609;&#3607;&#3634;&#3591;&#3607;&#3600;&#3625;&#3598;&#3637;</div>
+          </div>
+        </div>
+        <div class="ib bad"><span class="ico">&#10060;</span><div><strong>Error:</strong> <s>"She can speaks French."</s> &#10007; &#8594; "She <strong>can speak</strong> French." &#10003; &mdash; NEVER add -s after a modal.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUST / HAVE TO -->
+  <div class="modal-section">
+    <div class="modal-card fade">
+      <div class="mc-head" onclick="toggleModal(this)">
+        <span class="mc-badge" style="background:var(--must_lt);color:var(--must);">must / have to</span>
+        <div class="mc-title"><h3>Must &amp; Have to</h3><p>Obligation, necessity, prohibition, deduction</p></div>
+        <span class="mc-chevron">&#8250;</span>
+      </div>
+      <div class="mc-body">
+        <div class="formula-strip">
+          <span class="f-chip" style="background:var(--must_lt);color:var(--must);">S + must + V1</span>
+          <span style="color:var(--muted)">or</span>
+          <span class="f-chip" style="background:var(--must_lt);color:var(--must);">S + have/has to + V1</span>
+        </div>
+        <div class="usage-row" style="background:var(--must_lt);">
+          <span class="usage-label" style="background:var(--must);color:#fff;">OBLIGATION</span>
+          <div class="usage-content">
+            <strong>must</strong> = internal/personal obligation &nbsp;|&nbsp; <strong>have to</strong> = external rule/requirement
+            <div class="example">"I <strong>must</strong> study tonight." (my own decision) &nbsp;/&nbsp; "Students <strong>have to</strong> wear uniforms." (school rule)</div>
+            <div class="thai">must = &#3605;&#3633;&#3604;&#3626;&#3636;&#3609;&#3651;&#3592;&#3648;&#3629;&#3591; / have to = &#3585;&#3635;&#3627;&#3609;&#3604;&#3592;&#3634;&#3585;&#3616;&#3634;&#3618;&#3609;&#3629;&#3585;</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--must_lt);">
+          <span class="usage-label" style="background:var(--must);color:#fff;">PROHIBITION</span>
+          <div class="usage-content">
+            <strong>must not / mustn't</strong> = it is NOT allowed (strong prohibition)
+            <div class="example">"You <strong>must not</strong> enter this area." &nbsp;/&nbsp; "Students <strong>mustn't</strong> cheat on exams."</div>
+            <div class="thai">&#3627;&#3657;&#3634;&#3617;&#3650;&#3604;&#3618;&#3648;&#3604;&#3655;&#3604;&#3586;&#3634;&#3604;</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--must_lt);">
+          <span class="usage-label" style="background:var(--must);color:#fff;">DEDUCTION</span>
+          <div class="usage-content">
+            <strong>must</strong> = logical conclusion (almost certain) from evidence
+            <div class="example">"She knows everyone here &mdash; she <strong>must be</strong> the manager."</div>
+            <div class="thai">&#3629;&#3609;&#3640;&#3617;&#3634;&#3609;&#3651;&#3609;&#3588;&#3623;&#3634;&#3617;&#3649;&#3609;&#3656;&#3609;&#3629;&#3609;&#3626;&#3641;&#3591;</div>
+          </div>
+        </div>
+        <div class="ib gold"><span class="ico">&#9889;</span><div>
+          <strong>must not vs. don't have to:</strong><br>
+          "You <strong>must not</strong> smoke here." = FORBIDDEN (not allowed) &#10007;<br>
+          "You <strong>don't have to</strong> come early." = NOT NECESSARY (but you can if you want) &#10003;<br>
+          <em>&#3605;&#3657;&#3629;&#3591;&#3627;&#3657;&#3634;&#3617; &#10007; &nbsp; vs. &nbsp; &#3652;&#3617;&#3656;&#3592;&#3635;&#3648;&#3611;&#3655;&#3609;&#3605;&#3657;&#3629;&#3591;&#3607;&#3635; &#10003;</em>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAY / MIGHT -->
+  <div class="modal-section">
+    <div class="modal-card fade">
+      <div class="mc-head" onclick="toggleModal(this)">
+        <span class="mc-badge" style="background:var(--may_lt);color:var(--may);">may / might</span>
+        <div class="mc-title"><h3>May &amp; Might</h3><p>Possibility, permission (formal), uncertainty</p></div>
+        <span class="mc-chevron">&#8250;</span>
+      </div>
+      <div class="mc-body">
+        <div class="formula-strip">
+          <span class="f-chip" style="background:var(--may_lt);color:var(--may);">S + may/might + V1</span>
+          <span style="color:var(--muted)">negative:</span>
+          <span class="f-chip" style="background:var(--bad_lt);color:var(--bad);">may not / might not (mightn't)</span>
+        </div>
+        <div class="usage-row" style="background:var(--may_lt);">
+          <span class="usage-label" style="background:var(--may);color:#fff;">POSSIBILITY</span>
+          <div class="usage-content">
+            <strong>may</strong> = 50% chance &nbsp;|&nbsp; <strong>might</strong> = less certain (&lt;50%)
+            <div class="example">"It <strong>may</strong> rain today." (fairly possible) &nbsp;/&nbsp; "She <strong>might</strong> come, but I'm not sure." (less likely)</div>
+            <div class="thai">may = &#3650;&#3629;&#3585;&#3634;&#3626;&#3614;&#3629;&#3626;&#3617;&#3588;&#3623;&#3619; / might = &#3650;&#3629;&#3585;&#3634;&#3626;&#3609;&#3657;&#3629;&#3618;&#3585;&#3623;&#3656;&#3634;</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--may_lt);">
+          <span class="usage-label" style="background:var(--may);color:#fff;">PERMISSION</span>
+          <div class="usage-content">
+            <strong>may</strong> = formal permission (more polite than "can")
+            <div class="example">"<strong>May</strong> I come in?" &nbsp;/&nbsp; "You <strong>may</strong> leave when you finish."</div>
+            <div class="thai">&#3585;&#3634;&#3619;&#3586;&#3629;&#3629;&#3609;&#3640;&#3597;&#3634;&#3605;&#3649;&#3610;&#3610;&#3607;&#3634;&#3591;&#3585;&#3634;&#3619;</div>
+          </div>
+        </div>
+        <div class="ib gold"><span class="ico">&#128161;</span><div>
+          <strong>Degrees of certainty (present):</strong><br>
+          <code>must be</code> (95% sure) &gt; <code>should be</code> (80%) &gt; <code>may be</code> (50%) &gt; <code>might be</code> (30%) &gt; <code>can't be</code> (0% &mdash; impossible)
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOULD / OUGHT TO -->
+  <div class="modal-section">
+    <div class="modal-card fade">
+      <div class="mc-head" onclick="toggleModal(this)">
+        <span class="mc-badge" style="background:var(--should_lt);color:var(--should);">should / ought to</span>
+        <div class="mc-title"><h3>Should &amp; Ought to</h3><p>Advice, recommendation, expectation, criticism</p></div>
+        <span class="mc-chevron">&#8250;</span>
+      </div>
+      <div class="mc-body">
+        <div class="formula-strip">
+          <span class="f-chip" style="background:var(--should_lt);color:var(--should);">S + should + V1</span>
+          <span style="color:var(--muted)">or</span>
+          <span class="f-chip" style="background:var(--should_lt);color:var(--should);">S + ought to + V1</span>
+        </div>
+        <div class="usage-row" style="background:var(--should_lt);">
+          <span class="usage-label" style="background:var(--should);color:#fff;">ADVICE</span>
+          <div class="usage-content">
+            Recommendation or suggestion (weaker than "must")
+            <div class="example">"You <strong>should</strong> see a doctor." &nbsp;/&nbsp; "We <strong>ought to</strong> leave now."</div>
+            <div class="thai">&#3588;&#3635;&#3649;&#3609;&#3632;&#3609;&#3635; / &#3586;&#3657;&#3629;&#3649;&#3609;&#3632;&#3609;&#3635;</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--should_lt);">
+          <span class="usage-label" style="background:var(--should);color:#fff;">EXPECTATION</span>
+          <div class="usage-content">
+            Something that is expected to happen
+            <div class="example">"The train <strong>should</strong> arrive at 9." &nbsp;/&nbsp; "This <strong>should</strong> be easy."</div>
+            <div class="thai">&#3626;&#3636;&#3656;&#3591;&#3607;&#3637;&#3656;&#3588;&#3634;&#3604;&#3623;&#3656;&#3634;&#3592;&#3632;&#3648;&#3585;&#3636;&#3604;&#3586;&#3638;&#3657;&#3609;</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--should_lt);">
+          <span class="usage-label" style="background:var(--should);color:#fff;">CRITICISM</span>
+          <div class="usage-content">
+            Mild criticism about what someone does or doesn't do
+            <div class="example">"You <strong>shouldn't</strong> eat so much fast food."</div>
+            <div class="thai">&#3588;&#3635;&#3605;&#3636;&#3648;&#3605;&#3637;&#3618;&#3609;&#3648;&#3621;&#3655;&#3585;&#3609;&#3657;&#3629;&#3618;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WOULD / SHALL / WILL -->
+  <div class="modal-section">
+    <div class="modal-card fade">
+      <div class="mc-head" onclick="toggleModal(this)">
+        <span class="mc-badge" style="background:var(--would_lt);color:var(--would);">would / shall / will</span>
+        <div class="mc-title"><h3>Would, Shall &amp; Will</h3><p>Requests, offers, preferences, conditionals, future</p></div>
+        <span class="mc-chevron">&#8250;</span>
+      </div>
+      <div class="mc-body">
+        <div class="formula-strip">
+          <span class="f-chip" style="background:var(--would_lt);color:var(--would);">S + would + V1</span>
+          <span style="color:var(--muted)">|</span>
+          <span class="f-chip" style="background:var(--would_lt);color:var(--would);">S + shall + V1</span>
+          <span style="color:var(--muted)">|</span>
+          <span class="f-chip" style="background:var(--would_lt);color:var(--would);">S + will + V1</span>
+        </div>
+        <div class="usage-row" style="background:var(--would_lt);">
+          <span class="usage-label" style="background:var(--would);color:#fff;">POLITE REQUEST</span>
+          <div class="usage-content">
+            <strong>would</strong> = very polite request
+            <div class="example">"<strong>Would</strong> you mind helping me?" &nbsp;/&nbsp; "<strong>Would</strong> you like some tea?"</div>
+            <div class="thai">&#3585;&#3634;&#3619;&#3586;&#3629;&#3619;&#3657;&#3629;&#3591;&#3624;&#3629;&#3588;&#3623;&#3634;&#3617;&#3594;&#3656;&#3623;&#3618;&#3648;&#3627;&#3621;&#3639;&#3629;&#3649;&#3610;&#3610;&#3626;&#3640;&#3616;&#3634;&#3614;</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--would_lt);">
+          <span class="usage-label" style="background:var(--would);color:#fff;">PREFERENCE</span>
+          <div class="usage-content">
+            <strong>would rather</strong> = prefer one thing over another
+            <div class="example">"I <strong>would rather</strong> stay home than go out." &nbsp;/&nbsp; "<strong>Would</strong> you rather have tea or coffee?"</div>
+            <div class="thai">&#3594;&#3629;&#3610;&#3617;&#3634;&#3585;&#3585;&#3623;&#3656;&#3634; / &#3648;&#3621;&#3639;&#3629;&#3585;&#3617;&#3634;&#3585;&#3585;&#3623;&#3656;&#3634;</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--would_lt);">
+          <span class="usage-label" style="background:var(--would);color:#fff;">CONDITIONAL</span>
+          <div class="usage-content">
+            <strong>would</strong> = imaginary/hypothetical situations (Type 2 conditional)
+            <div class="example">"If I were rich, I <strong>would</strong> travel the world."</div>
+            <div class="thai">&#3648;&#3609;&#3639;&#3657;&#3629;&#3627;&#3634;&#3626;&#3617;&#3617;&#3605;&#3636; (&#3648;&#3607;&#3588;&#3609;&#3636;&#3588;&#3649;&#3610;&#3610;&#3607;&#3637;&#3656; 2)</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--would_lt);">
+          <span class="usage-label" style="background:var(--would);color:#fff;">OFFER/SUGGEST</span>
+          <div class="usage-content">
+            <strong>shall</strong> = offer or suggestion (with I/we)
+            <div class="example">"<strong>Shall</strong> I open the window?" &nbsp;/&nbsp; "<strong>Shall</strong> we go now?"</div>
+            <div class="thai">&#3648;&#3626;&#3609;&#3629; / &#3626;&#3634;&#3609;&#3652;&#3614;&#3606;&#3634;&#3617;&#3ความ</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--would_lt);">
+          <span class="usage-label" style="background:var(--would);color:#fff;">USED TO</span>
+          <div class="usage-content">
+            <strong>would</strong> = past habits or repeated past actions
+            <div class="example">"When I was young, I <strong>would</strong> play in the park every day."</div>
+            <div class="thai">&#3609;&#3636;&#3626;&#3633;&#3618;&#3651;&#3609;&#3629;&#3604;&#3637;&#3605;&#3607;&#3637;&#3656;&#3607;&#3635;&#3595;&#3657;&#3635;&#3617;&#3634;&#3585; (= used to)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEEDN'T -->
+  <div class="modal-section">
+    <div class="modal-card fade">
+      <div class="mc-head" onclick="toggleModal(this)">
+        <span class="mc-badge" style="background:var(--perf_lt);color:var(--perf);">need not / dare not</span>
+        <div class="mc-title"><h3>Needn't &amp; Dare not</h3><p>Lack of necessity, lack of courage</p></div>
+        <span class="mc-chevron">&#8250;</span>
+      </div>
+      <div class="mc-body">
+        <div class="usage-row" style="background:var(--perf_lt);">
+          <span class="usage-label" style="background:var(--perf);color:#fff;">NO NECESSITY</span>
+          <div class="usage-content">
+            <strong>need not / needn't</strong> = it is NOT necessary (do not need to do it)
+            <div class="example">"You <strong>needn't</strong> bring food — it will be provided." &nbsp;/&nbsp; "She <strong>need not</strong> come early."</div>
+            <div class="thai">&#3652;&#3617;&#3656;&#3592;&#3635;&#3648;&#3611;&#3655;&#3609;&#3605;&#3657;&#3629;&#3591;&#3607;&#3635;</div>
+          </div>
+        </div>
+        <div class="usage-row" style="background:var(--perf_lt);">
+          <span class="usage-label" style="background:var(--perf);color:#fff;">DARE NOT</span>
+          <div class="usage-content">
+            <strong>dare not / daren't</strong> = not brave enough to do something
+            <div class="example">"He <strong>dare not</strong> tell his parents the truth."</div>
+            <div class="thai">&#3652;&#3617;&#3656;&#3585;&#3621;&#3657;&#3634;&#3607;&#3635;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REF TABLE -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:36px 0 16px;">Quick Reference &mdash; All Modals at a Glance</h3>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Meaning</th><th>Present/Future</th><th>Past (Perfect Modal)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ability</strong></td><td>can / is able to</td><td>could / was able to / could have + V3</td></tr>
+        <tr><td><strong>Permission</strong></td><td>can / may / could</td><td>could (polite past request)</td></tr>
+        <tr><td><strong>Obligation</strong></td><td>must / have to</td><td>had to (past obligation)</td></tr>
+        <tr><td><strong>Prohibition</strong></td><td>must not / cannot</td><td>&mdash;</td></tr>
+        <tr><td><strong>No necessity</strong></td><td>don't have to / needn't</td><td>needn't have / didn't have to</td></tr>
+        <tr><td><strong>Advice</strong></td><td>should / ought to</td><td>should have + V3 (past advice/criticism)</td></tr>
+        <tr><td><strong>Possibility (strong)</strong></td><td>must (deduction)</td><td>must have + V3</td></tr>
+        <tr><td><strong>Possibility (medium)</strong></td><td>may / should</td><td>may have + V3 / should have + V3</td></tr>
+        <tr><td><strong>Possibility (weak)</strong></td><td>might / could</td><td>might have + V3 / could have + V3</td></tr>
+        <tr><td><strong>Impossibility</strong></td><td>can't / couldn't</td><td>can't have + V3 / couldn't have + V3</td></tr>
+        <tr><td><strong>Preference</strong></td><td>would rather</td><td>would rather have + V3</td></tr>
+        <tr><td><strong>Offer/Suggestion</strong></td><td>shall / will</td><td>&mdash;</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION D: PERFECT MODALS -->
+<div class="page gap" id="perfect">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--perf_lt);">&#10024;</div>
+    <div class="sh-text"><h2>Section D &mdash; Perfect Modal Verbs</h2><p>Modal + have + V3 &mdash; talking about the past with modals. A very common exam topic!</p></div>
+  </div>
+
+  <div class="ib teal fade"><span class="ico">&#128295;</span><div>
+    <strong>Formula: &nbsp; Modal + have + V3 (past participle)</strong><br>
+    Perfect modals are used to talk about situations in the PAST — expressing deduction, criticism, regret, or possibility about a past event.
+  </div></div>
+
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Perfect Modal</th><th>Meaning</th><th>Thai</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><code>must have + V3</code></td><td>Strong deduction about the past (almost certain)</td><td>&#3605;&#3657;&#3629;&#3591;&#3648;&#3611;&#3655;&#3609;&#3649;&#3609;&#3656;&#3609;&#3629;&#3609;&#3623;&#3656;&#3634;&#3648;&#3585;&#3636;&#3604;&#3586;&#3638;&#3657;&#3609;&#3649;&#3621;&#3657;&#3623;</td><td>"She is not here &mdash; she <strong>must have left</strong> already."</td></tr>
+        <tr><td><code>can't have + V3</code></td><td>Strong negative deduction (impossible)</td><td>&#3652;&#3617;&#3656;&#3617;&#3637;&#3607;&#3634;&#3591;&#3648;&#3611;&#3655;&#3609;&#3652;&#3611;&#3652;&#3604;&#3657;</td><td>"He <strong>can't have stolen</strong> it &mdash; he was with me all day."</td></tr>
+        <tr><td><code>should have + V3</code></td><td>Past advice/criticism &mdash; the right thing to do (but didn't)</td><td>&#3588;&#3623;&#3619;&#3592;&#3632;&#3607;&#3635;&#3649;&#3605;&#3656;&#3652;&#3617;&#3656;&#3652;&#3604;&#3657;&#3607;&#3635; (&#3648;&#3626;&#3637;&#3618;&#3604;&#3634;&#3618;)</td><td>"You <strong>should have studied</strong> harder." (but you didn't)</td></tr>
+        <tr><td><code>shouldn't have + V3</code></td><td>Past criticism &mdash; the wrong thing was done</td><td>&#3652;&#3617;&#3656;&#3588;&#3623;&#3619;&#3607;&#3635; (&#3649;&#3605;&#3656;&#3607;&#3635;&#3652;&#3611;&#3649;&#3621;&#3657;&#3623;)</td><td>"You <strong>shouldn't have eaten</strong> all the cake!" (but you did)</td></tr>
+        <tr><td><code>might have + V3</code></td><td>Weak past possibility (unsure)</td><td>&#3629;&#3634;&#3592;&#3648;&#3611;&#3655;&#3609;&#3652;&#3611;&#3652;&#3604;&#3657;&#3651;&#3609;&#3629;&#3604;&#3637;&#3605;</td><td>"She <strong>might have missed</strong> the bus." (not sure)</td></tr>
+        <tr><td><code>may have + V3</code></td><td>Medium past possibility</td><td>&#3650;&#3629;&#3585;&#3634;&#3626;&#3614;&#3629;&#3626;&#3617;&#3588;&#3623;&#3619;&#3651;&#3609;&#3629;&#3604;&#3637;&#3605;</td><td>"He <strong>may have forgotten</strong> about the meeting."</td></tr>
+        <tr><td><code>could have + V3</code></td><td>Past ability/possibility that didn't happen</td><td>&#3607;&#3635;&#3652;&#3604;&#3657;&#3649;&#3605;&#3656;&#3652;&#3617;&#3656;&#3652;&#3604;&#3657;&#3607;&#3635;</td><td>"I <strong>could have won</strong> if I had tried harder."</td></tr>
+        <tr><td><code>would have + V3</code></td><td>Hypothetical past (Type 3 conditional)</td><td>&#3588;&#3591;&#3592;&#3632;&#3648;&#3585;&#3636;&#3604;&#3586;&#3638;&#3657;&#3609; &#3606;&#3657;&#3634;...(&#3649;&#3605;&#3656;&#3652;&#3617;&#3656;&#3648;&#3585;&#3636;&#3604;)</td><td>"If I had studied, I <strong>would have passed</strong>."</td></tr>
+        <tr><td><code>needn't have + V3</code></td><td>Did something that was NOT necessary</td><td>&#3607;&#3635;&#3652;&#3611;&#3649;&#3621;&#3657;&#3623;&#3650;&#3604;&#3618;&#3652;&#3617;&#3656;&#3592;&#3635;&#3648;&#3611;&#3655;&#3609;</td><td>"You <strong>needn't have cooked</strong> so much food." (you did but it wasn't needed)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ib bad fade"><span class="ico">&#10060;</span><div>
+    <strong>Common Error &mdash; "should have went" vs "should have gone":</strong><br>
+    After <code>modal + have</code>, ALWAYS use <strong>V3 (past participle)</strong> &mdash; never V2.<br>
+    <s>"You should have went."</s> &#10007; &nbsp;&#8594;&nbsp; "You <strong>should have gone</strong>." &#10003;<br>
+    <s>"She must have took it."</s> &#10007; &nbsp;&#8594;&nbsp; "She <strong>must have taken</strong> it." &#10003;
+  </div></div>
+
+  <div class="ib gold fade"><span class="ico">&#9889;</span><div>
+    <strong>didn't have to vs. needn't have:</strong><br>
+    "I <strong>didn't have to</strong> go." = It was not necessary, so I didn't go. (I made the right choice)<br>
+    "I <strong>needn't have gone</strong>." = I went, but it turned out to be unnecessary. (I wasted my time)
+  </div></div>
+</div>
+
+<!-- SECTION E: EXERCISES -->
+<div class="page gap" id="exercises">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--bad_lt);">&#9999;</div>
+    <div class="sh-text"><h2>Section E &mdash; Exercises</h2><p>Five activities covering all modal verbs and perfect modals.</p></div>
+  </div>
+
+  <!-- EX 1 -->
+  <div class="exh"><div class="exn" style="background:var(--would);">1</div><div><h3>Choose the Correct Modal</h3><p>Select the best modal for the meaning given in brackets.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; The meaning in brackets tells you which modal to use.</div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> You _____ wear a seatbelt when driving. [obligation — it's the law]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> should</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> must</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> might</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> would</div>
+      </div>
+      <div class="fb ok">&#10003; "Must" = strong obligation (law/rule). "Should" is weaker (advice only).</div>
+      <div class="fb no">&#10007; Strong legal obligation = "must". "Should" is for advice, not law.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> _____ I use your phone? [polite request for permission]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Should</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Must</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> Could</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Would</div>
+      </div>
+      <div class="fb ok">&#10003; "Could I...?" = polite request for permission. "Can I?" is more informal. "Would" needs "you" (Would you...?).</div>
+      <div class="fb no">&#10007; Polite permission request = "Could I...?" or "May I...?"</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> You _____ tell anyone this secret! [strong prohibition]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> don't have to</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> must not</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> might not</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> should not</div>
+      </div>
+      <div class="fb ok">&#10003; "Must not" = strong prohibition (not allowed). "Don't have to" means not necessary (very different!).</div>
+      <div class="fb no">&#10007; PROHIBITION = "must not". "Don't have to" = not necessary (NOT prohibited).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> Look at those dark clouds — it _____ rain soon. [medium possibility]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> must</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> may</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> should</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> would</div>
+      </div>
+      <div class="fb ok">&#10003; "May" = medium possibility (~50%). "Might" is also acceptable (less certain). "Must" = near-certainty deduction.</div>
+      <div class="fb no">&#10007; Medium possibility = "may" (50%) or "might" (less than 50%). "Must" = almost certain deduction.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> The keys are on the table — they _____ be in your bag. [impossibility / negative deduction]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> can't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> might not</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> shouldn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> wouldn't</div>
+      </div>
+      <div class="fb ok">&#10003; "Can't be" = logical impossibility/negative deduction (almost certain something is NOT true).</div>
+      <div class="fb no">&#10007; "Can't be" = strong negative deduction (impossible). "Might not" shows less certainty.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> You _____ bring anything — food and drinks will be provided. [no necessity]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> must not</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> don't have to</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> cannot</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> might not</div>
+      </div>
+      <div class="fb ok">&#10003; "Don't have to" = not necessary (but you can if you want). "Must not" = forbidden. These are opposite meanings!</div>
+      <div class="fb no">&#10007; No necessity = "don't have to" / "needn't". "Must not" = PROHIBITED (forbidden).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">7</span> I _____ rather drink water than soda. [preference]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> would</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> should</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> may</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> must</div>
+      </div>
+      <div class="fb ok">&#10003; "Would rather" = preference between two choices. Pattern: would rather + V1 + than + V1.</div>
+      <div class="fb no">&#10007; Preference = "would rather". "I would rather... than..."</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">8</span> _____ I help you carry those bags? [offer]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> Shall</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Would</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Must</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> May</div>
+      </div>
+      <div class="fb ok">&#10003; "Shall I...?" = offering to do something (with I/we). "Shall we...?" = suggesting to do something together.</div>
+      <div class="fb no">&#10007; Offering help with "I" = "Shall I...?" Suggesting together = "Shall we...?"</div>
+    </div>
+  </div>
+
+  <!-- EX 2: Perfect Modals -->
+  <div class="exh"><div class="exn" style="background:var(--perf);">2</div><div><h3>Perfect Modal Verbs</h3><p>Choose the correct perfect modal for each situation.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Remember: modal + have + V3 (past participle).</div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> She is not answering her phone. She _____ already left the office.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> must have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> should have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> would have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> could have</div>
+      </div>
+      <div class="fb ok">&#10003; "Must have left" = strong past deduction. We're almost certain she left already (based on evidence: not answering).</div>
+      <div class="fb no">&#10007; Strong past deduction (near certainty) = "must have + V3".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> You _____ told me about the party! I didn't know about it. [past criticism — you did the wrong thing]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> must have</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> should have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> might have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> could have</div>
+      </div>
+      <div class="fb ok">&#10003; "Should have told" = past criticism about something that SHOULD have been done but wasn't. "You should have told me" = it was wrong not to tell me.</div>
+      <div class="fb no">&#10007; Past criticism (right thing not done) = "should have + V3".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> I _____ won the competition if I hadn't been so nervous. [past hypothetical]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> must have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> should have</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> could have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> may have</div>
+      </div>
+      <div class="fb ok">&#10003; "Could have won" = past ability that didn't happen (I had the ability but it didn't occur). Used in Type 3 conditional situations.</div>
+      <div class="fb no">&#10007; Past ability that didn't happen = "could have + V3".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> He _____ eaten all the food — there was enough for everyone! [past criticism — he did the wrong thing]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> must have</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> shouldn't have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> couldn't have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> needn't have</div>
+      </div>
+      <div class="fb ok">&#10003; "Shouldn't have eaten" = past criticism — he DID eat all the food but it was the wrong thing to do.</div>
+      <div class="fb no">&#10007; "Shouldn't have + V3" = past criticism (wrong action was done).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> You _____ bought so much food — we have a lot left over. [did something unnecessary]</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> shouldn't have</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> needn't have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> mustn't have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> couldn't have</div>
+      </div>
+      <div class="fb ok">&#10003; "Needn't have bought" = you bought the food but it was unnecessary (we have leftovers). Contrast: "shouldn't have" = it was morally wrong.</div>
+      <div class="fb no">&#10007; "Needn't have + V3" = the action was done but was unnecessary. Compare: "shouldn't have" = it was wrong to do it.</div>
+    </div>
+  </div>
+
+  <!-- EX 3: Fill-in -->
+  <div class="exh"><div class="exn" style="background:var(--should);">3</div><div><h3>Fill in the Correct Modal</h3><p>Use the context clue to choose the right modal verb.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Click Reveal to see the answer and explanation.</div>
+
+    <div class="fi-item"><div class="fi-sent">1. You look exhausted. You <span class="fi-blank" id="f1">should</span> get some rest tonight.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f1','a1')">Reveal</button>
+      <div class="fi-ans" id="a1">&#10003; <strong>should</strong> &mdash; advice/recommendation. "Should" = I think this is the right thing to do.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">2. The exam starts in 5 minutes — we <span class="fi-blank" id="f2">must</span> hurry!</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f2','a2')">Reveal</button>
+      <div class="fi-ans" id="a2">&#10003; <strong>must</strong> &mdash; strong internal obligation/urgency felt by the speaker.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">3. A: "Whose bag is this?" B: "I don't know. It <span class="fi-blank" id="f3">might</span> belong to Sara."</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f3','a3')">Reveal</button>
+      <div class="fi-ans" id="a3">&#10003; <strong>might</strong> or <strong>may</strong> &mdash; weak to medium possibility (not certain). "Might" suggests slightly less certainty than "may".</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">4. This restaurant is amazing — you really <span class="fi-blank" id="f4">should</span> try the tom yum soup!</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f4','a4')">Reveal</button>
+      <div class="fi-ans" id="a4">&#10003; <strong>should</strong> &mdash; strong recommendation based on positive experience.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">5. I _____ speak English very well when I was younger, but I've forgotten a lot. <span class="fi-blank" id="f5">could</span></div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f5','a5')">Reveal</button>
+      <div class="fi-ans" id="a5">&#10003; <strong>could</strong> &mdash; past ability (I was able to do it in the past). "Could" is the past form of "can" for general ability.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">6. She has been studying all day — she <span class="fi-blank" id="f6">must</span> be very tired now.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f6','a6')">Reveal</button>
+      <div class="fi-ans" id="a6">&#10003; <strong>must</strong> &mdash; logical deduction (near certainty) from evidence (she's been studying all day).</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">7. You <span class="fi-blank" id="f7">shouldn't have waited</span> for me — I told you I would be late.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f7','a7')">Reveal</button>
+      <div class="fi-ans" id="a7">&#10003; <strong>shouldn't have waited</strong> &mdash; past criticism. You waited (you did it) but it was the wrong thing to do.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">8. I would rather <span class="fi-blank" id="f8">stay</span> home than go to that noisy party.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f8','a8')">Reveal</button>
+      <div class="fi-ans" id="a8">&#10003; <strong>stay</strong> &mdash; "would rather + base verb (V1) + than + base verb". Never use "to" after "would rather".</div>
+    </div>
+  </div>
+
+  <!-- EX 4: Error Correction -->
+  <div class="exh"><div class="exn" style="background:var(--must);">4</div><div><h3>Error Correction</h3><p>Each sentence has ONE modal verb error. Find and fix it.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Click "Show Correction" to see the fix and the rule.</div>
+
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">1. She can speaks three languages fluently. <code style="color:var(--bad);">&#10007; speaks</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; She can <strong>speak</strong> three languages fluently.<br><span style="color:var(--muted);font-size:13px;">Modal verbs are ALWAYS followed by the base verb (V1). Never add -s, -ing, or -ed.</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">2. You don't have to smoke in this building — it's forbidden. <code style="color:var(--bad);">&#10007; don't have to</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; You <strong>must not</strong> smoke in this building.<br><span style="color:var(--muted);font-size:13px;">"Forbidden" = prohibition = "must not". "Don't have to" = not necessary (totally different meaning).</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">3. He should have went to the doctor sooner. <code style="color:var(--bad);">&#10007; went</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; He should have <strong>gone</strong> to the doctor sooner.<br><span style="color:var(--muted);font-size:13px;">After "modal + have", always use V3 (past participle). "Gone" is V3 of "go", not "went" (V2).</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">4. I would rather to stay home tonight. <code style="color:var(--bad);">&#10007; to stay</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; I would rather <strong>stay</strong> home tonight.<br><span style="color:var(--muted);font-size:13px;">"Would rather" is followed directly by the base verb (V1), NOT "to + V1". No "to" needed!</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">5. You must to finish your homework before watching TV. <code style="color:var(--bad);">&#10007; to finish</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; You must <strong>finish</strong> your homework before watching TV.<br><span style="color:var(--muted);font-size:13px;">Modal verbs are NEVER followed by "to + V1". Just: modal + base verb. (Exception: "ought to" and "have to" do use "to")</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">6. It is being very cold today — you should wear a jacket. <code style="color:var(--bad);">&#10007; is being</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; It <strong>must be</strong> very cold today &mdash; you should wear a jacket.<br><span style="color:var(--muted);font-size:13px;">"Must be" expresses logical deduction (strong certainty). "Is being" suggests temporary behaviour &mdash; wrong for weather/temperature.</span></div>
+    </div>
+  </div>
+
+  <!-- EX 5: Exam MCQ -->
+  <div class="exh"><div class="exn" style="background:linear-gradient(135deg,var(--would),var(--must));">5</div><div><h3>Exam-Style Multiple Choice (14 Questions)</h3><p>Full exam format &mdash; matches &#3617;.1 Advanced / EP / Gifted entrance exam difficulty.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Choose the best answer. No notes allowed!</div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> My advice is that you _____ take more exercise and eat healthier food.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> must</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> should</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> can</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> would</div>
+      </div>
+      <div class="fb ok">&#10003; "Should" = advice/recommendation. "Must" is too strong for personal advice.</div>
+      <div class="fb no">&#10007; Personal advice = "should". "Must" is for strong obligation or law.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> I have lost my wallet. Someone _____ stolen it on the bus.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> might steal</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> must have stolen</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> should have stolen</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> would steal</div>
+      </div>
+      <div class="fb ok">&#10003; "Must have stolen" = strong past deduction (almost certain conclusion based on evidence). Perfect modal = modal + have + V3.</div>
+      <div class="fb no">&#10007; Strong deduction about a past event = "must have + V3".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> A: "Was the exam difficult?" &nbsp; B: "It _____ have been easy &mdash; everyone looked worried coming out."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> can't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> must</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> should</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> might</div>
+      </div>
+      <div class="fb ok">&#10003; "Can't have been easy" = strong negative past deduction (it's impossible that it was easy, given the evidence).</div>
+      <div class="fb no">&#10007; Strong negative past deduction = "can't have + V3" (it's impossible).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> In Thailand, you _____ drive on the left side of the road.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> can</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> must not</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> don't have to</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> might not</div>
+      </div>
+      <div class="fb ok">&#10003; "Must not" = legal prohibition. In Thailand you drive on the LEFT, so driving on the right is FORBIDDEN.</div>
+      <div class="fb no">&#10007; Traffic law prohibition = "must not".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> You look pale. You _____ be feeling well.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> can't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> mustn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> shouldn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> wouldn't</div>
+      </div>
+      <div class="fb ok">&#10003; "Can't be feeling well" = negative deduction (it's impossible that you feel well, based on looking pale).</div>
+      <div class="fb no">&#10007; Negative deduction from visible evidence = "can't be" (it's impossible).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> _____ you mind turning down the music? I'm trying to sleep.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Could</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Would</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Should</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Must</div>
+      </div>
+      <div class="fb ok">&#10003; "Would you mind...?" is a fixed polite request pattern. "Would" is used here because the pattern is "Would you mind + V-ing?"</div>
+      <div class="fb no">&#10007; "Would you mind...?" is a fixed polite expression. "Would" is always used in this structure.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">7</span> When I was young, my family _____ go to the beach every summer.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> would</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> will</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> should</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> must</div>
+      </div>
+      <div class="fb ok">&#10003; "Would" = repeated past habit (= used to). "When I was young" confirms we're talking about the past.</div>
+      <div class="fb no">&#10007; Repeated past habit = "would" or "used to". "Will" is for future, not past habits.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">8</span> The food is so salty. The chef _____ added too much salt by mistake.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> should have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> could have</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> must have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> might have</div>
+      </div>
+      <div class="fb ok">&#10003; "Must have added" = strong past deduction (the evidence: the food is salty, so the chef almost certainly added too much salt).</div>
+      <div class="fb no">&#10007; Strong deduction from evidence (the salty food) = "must have + V3".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">9</span> You _____ have told me about the surprise party! Now I've ruined it.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> shouldn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> mustn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> couldn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> needn't</div>
+      </div>
+      <div class="fb ok">&#10003; "Shouldn't have told" = past criticism. You DID tell, but it was wrong to do so (the party is ruined).</div>
+      <div class="fb no">&#10007; Past criticism (the wrong thing was done) = "shouldn't have + V3".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">10</span> I'd rather you _____ speak so loudly in the library.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> don't</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> didn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> wouldn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> shouldn't</div>
+      </div>
+      <div class="fb ok">&#10003; "I'd rather you + past tense verb" = polite way of telling someone NOT to do something. "Didn't" (past tense) is used even though we mean present/future.</div>
+      <div class="fb no">&#10007; "I'd rather you + past tense" is a special pattern for polite requests. "I'd rather you didn't..." (not "don't").</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">11</span> _____ we ask for directions? I think we're lost.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> Shall</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Will</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Should</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Would</div>
+      </div>
+      <div class="fb ok">&#10003; "Shall we...?" = suggesting to do something together. This is a collaborative suggestion pattern.</div>
+      <div class="fb no">&#10007; "Shall we...?" = suggestion for both of us to do something together.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">12</span> That man in the corner _____ be the famous chef — he's wearing a tall white hat.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> must</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> can</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> shall</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> would</div>
+      </div>
+      <div class="fb ok">&#10003; "Must be" = strong logical deduction from visible evidence (he's wearing a chef's hat).</div>
+      <div class="fb no">&#10007; Strong deduction from visible evidence = "must be" (present deduction).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">13</span> If you had arrived on time, you _____ met the director.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> could meet</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> could have met</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> would meet</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> must have met</div>
+      </div>
+      <div class="fb ok">&#10003; Type 3 Conditional: "If + past perfect, would/could/might + have + V3". "Could have met" = had the opportunity but it didn't happen.</div>
+      <div class="fb no">&#10007; Type 3 Conditional (past unreal) result clause = would/could/might + have + V3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">14</span> You _____ have brought flowers &mdash; it wasn't necessary, but thank you!</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> shouldn't</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> needn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> mustn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> couldn't</div>
+      </div>
+      <div class="fb ok">&#10003; "Needn't have brought" = you brought flowers (you did it) but it was unnecessary. The speaker is grateful but says it wasn't needed. (Compare: "shouldn't have" = it was wrong to do it.)</div>
+      <div class="fb no">&#10007; "Needn't have + V3" = action was done but was unnecessary. "Shouldn't have" = action was done but morally wrong.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION F: REVIEW -->
+<div class="page gap" id="review">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--good_lt);">&#11088;</div>
+    <div class="sh-text"><h2>Section F &mdash; Unit Review</h2><p>Summary of all modal meanings + self-evaluation checklist.</p></div>
+  </div>
+
+  <div class="ib bad fade"><span class="ico">&#128680;</span><div>
+    <strong>Top 8 Exam Traps:</strong>
+    <ol style="margin-top:10px;padding-left:20px;font-size:14px;line-height:2.1;">
+      <li><code>can speaks</code> &#10007; &#8594; <code>can speak</code> &#10003; &mdash; modal + base verb (V1), never -s/-ing/-ed</li>
+      <li><code>must not</code> (not necessary) &#10007; &#8594; <code>don't have to</code> &#10003; &mdash; "must not" = forbidden</li>
+      <li><code>should have went</code> &#10007; &#8594; <code>should have gone</code> &#10003; &mdash; modal + have + V3, never V2</li>
+      <li><code>would rather to stay</code> &#10007; &#8594; <code>would rather stay</code> &#10003; &mdash; no "to" after "would rather"</li>
+      <li><code>must to finish</code> &#10007; &#8594; <code>must finish</code> &#10003; &mdash; no "to" after most modals</li>
+      <li>Confusing <code>needn't have</code> and <code>shouldn't have</code> &mdash; needn't = unnecessary; shouldn't = wrong</li>
+      <li>Confusing <code>could</code> (ability/possibility) and <code>was able to</code> (specific past achievement)</li>
+      <li><code>I'd rather you don't</code> &#10007; &#8594; <code>I'd rather you didn't</code> &#10003; &mdash; use past tense after "I'd rather you"</li>
+    </ol>
+  </div></div>
+
+  <div class="twrap fade" style="margin-top:24px;">
+    <table>
+      <thead><tr><th>Modal</th><th>Main Meanings</th><th>Key Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong>can</strong></td><td>Ability (present), permission (informal), possibility</td><td>"She can swim." / "Can I go now?"</td></tr>
+        <tr><td><strong>could</strong></td><td>Ability (past), polite request, theoretical possibility</td><td>"He could swim at age 5." / "Could you help?"</td></tr>
+        <tr><td><strong>must</strong></td><td>Strong obligation, logical deduction</td><td>"You must wear a belt." / "She must be tired."</td></tr>
+        <tr><td><strong>must not</strong></td><td>Prohibition (not allowed)</td><td>"You must not enter here."</td></tr>
+        <tr><td><strong>have to</strong></td><td>External obligation (rule/requirement)</td><td>"Students have to wear uniforms."</td></tr>
+        <tr><td><strong>don't have to</strong></td><td>No necessity (not required, but can if wanted)</td><td>"You don't have to come early."</td></tr>
+        <tr><td><strong>should</strong></td><td>Advice, recommendation, expectation</td><td>"You should see a doctor."</td></tr>
+        <tr><td><strong>ought to</strong></td><td>Advice (= should, more formal)</td><td>"You ought to apologise."</td></tr>
+        <tr><td><strong>may</strong></td><td>Possibility (~50%), formal permission</td><td>"It may rain." / "May I come in?"</td></tr>
+        <tr><td><strong>might</strong></td><td>Possibility (less than 50%)</td><td>"She might come, but I'm not sure."</td></tr>
+        <tr><td><strong>would</strong></td><td>Polite request, preference, past habit, conditional</td><td>"Would you help?" / "I'd rather stay home."</td></tr>
+        <tr><td><strong>shall</strong></td><td>Offer (shall I?), suggestion (shall we?)</td><td>"Shall I open the window?"</td></tr>
+        <tr><td><strong>needn't</strong></td><td>No necessity</td><td>"You needn't bring anything."</td></tr>
+        <tr><td><strong>must have + V3</strong></td><td>Strong past deduction</td><td>"She must have left already."</td></tr>
+        <tr><td><strong>should have + V3</strong></td><td>Past advice — right thing not done</td><td>"You should have studied harder."</td></tr>
+        <tr><td><strong>shouldn't have + V3</strong></td><td>Past criticism — wrong thing was done</td><td>"You shouldn't have eaten all the cake."</td></tr>
+        <tr><td><strong>could have + V3</strong></td><td>Past ability/opportunity not used</td><td>"I could have won if I'd tried harder."</td></tr>
+        <tr><td><strong>needn't have + V3</strong></td><td>Action done, but was unnecessary</td><td>"You needn't have cooked so much."</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:32px;" class="fade">
+    <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:16px;">Self-Evaluation Checklist &mdash; "I Can&hellip;"</h3>
+    <ul class="chk">
+      <li><input type="checkbox"> Name all 9 modal verbs and their main meanings.</li>
+      <li><input type="checkbox"> Explain the difference between "must not" and "don't have to".</li>
+      <li><input type="checkbox"> Use "can" vs "could" correctly for present and past ability.</li>
+      <li><input type="checkbox"> Use "may", "might", "must", and "can't" for different degrees of certainty.</li>
+      <li><input type="checkbox"> Use "should" vs "must" correctly for advice vs. strong obligation.</li>
+      <li><input type="checkbox"> Form all perfect modals correctly (modal + have + V3).</li>
+      <li><input type="checkbox"> Explain the difference between "should have" and "shouldn't have".</li>
+      <li><input type="checkbox"> Explain the difference between "needn't have" and "shouldn't have".</li>
+      <li><input type="checkbox"> Use "would rather + V1" correctly without "to".</li>
+      <li><input type="checkbox"> Use "I'd rather you + past tense" for polite requests.</li>
+      <li><input type="checkbox"> Score at least 12/14 on the exam-style MCQ section.</li>
+    </ul>
+  </div>
+
+  <div class="scoreboard fade" style="margin-top:32px;">
+    <div class="sc-num" id="scoreNum">&ndash;</div>
+    <div class="sc-txt"><h4>Your Live Score</h4><p>Click through the MCQ exercises above and your score updates here automatically.</p></div>
+    <div class="sc-bar-wrap"><div class="sc-bar-lbl">Accuracy</div><div class="sc-bar"><div class="sc-fill" id="scoreFill" style="width:0%"></div></div></div>
+  </div>
+
+  <div class="ib good fade" style="margin-top:24px;">
+    <span class="ico">&#8594;</span>
+    <div><strong>Next Unit: Unit 6 &mdash; If-Clauses / Conditionals</strong><br>Master all four conditional types (0, 1, 2, 3) plus mixed conditionals with exam-format practice!</div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Unit 5 &middot; Modal Verbs &middot; B1 English Course</span>
+  <span>10 Modal Groups &middot; 50 Practice Questions</span>
+</div>
+
+<script>
+window.addEventListener('scroll',function(){
+  var d=document.documentElement;
+  document.getElementById('prog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+function toggleModal(head){
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+}
+var cor=0,tot=0;
+function chk(el,r){
+  var item=el.closest('.mcq');
+  if(item.dataset.done)return;
+  item.dataset.done='1';tot++;
+  item.querySelectorAll('.opt').forEach(function(o){o.style.pointerEvents='none';});
+  var fbs=item.querySelectorAll('.fb');
+  if(r==='c'){el.classList.add('correct');fbs[0].classList.add('show');cor++;}
+  else{el.classList.add('wrong');fbs[1].classList.add('show');
+    item.querySelectorAll('.opt').forEach(function(o){
+      if(o.getAttribute('onclick')&&o.getAttribute('onclick').indexOf("'c'")>-1)o.classList.add('correct');
+    });}
+  var pct=Math.round(cor/Math.max(tot,1)*100);
+  var sn=document.getElementById('scoreNum');var sf=document.getElementById('scoreFill');
+  if(sn)sn.textContent=cor+' / '+tot;if(sf)sf.style.width=pct+'%';
+}
+function showFill(id,aid){
+  var b=document.getElementById(id);var a=document.getElementById(aid);
+  if(b)b.classList.add('shown');if(a)a.classList.add('show');
+}
+function showFix(btn){btn.nextElementSibling.style.display='block';btn.style.display='none';}
+</script>
+</body>
+</html>

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Perfect – Detailed Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0e14;
+  --surf:#12161f;
+  --surf2:#181d29;
+  --surf3:#1e2433;
+  --bord:#252d40;
+  --text:#dde3f0;
+  --muted:#5a6485;
+  --dim:#3a4260;
+
+  --s1:#38bdf8;   /* sky    – Affirmative */
+  --s2:#fb7185;   /* rose   – Negative */
+  --s3:#fb923c;   /* orange – Questions */
+  --s4:#4ade80;   /* green  – ever/never */
+  --s5:#c084fc;   /* purple – for/since */
+  --s6:#fbbf24;   /* amber  – before */
+  --s7:#94a3b8;   /* slate  – mixed */
+
+  --ok-bg:rgba(30,80,50,.3);
+  --ok-c:#4ade80;
+  --err-bg:rgba(100,30,40,.3);
+  --err-c:#fb7185;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:300;
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse 60% 35% at 20% 0%, rgba(56,189,248,.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 80% 100%, rgba(192,132,252,.04) 0%, transparent 60%);
+}
+
+/* ── HEADER ── */
+.hdr{
+  padding:54px 24px 44px;
+  border-bottom:1px solid var(--bord);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hdr::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 50% -10%, rgba(56,189,248,.07) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hdr-badge{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:10px; font-weight:700;
+  letter-spacing:.24em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:18px;
+}
+.hdr-badge::before,.hdr-badge::after{
+  content:''; display:block; width:28px; height:1px;
+  background:var(--dim);
+}
+h1{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(38px,6vw,70px);
+  font-weight:400; line-height:1;
+  letter-spacing:-.025em;
+  position:relative;
+}
+h1 em{ font-style:italic; color:var(--s1); }
+.hdr-sub{
+  margin-top:12px; font-size:13px;
+  color:var(--muted); letter-spacing:.05em;
+}
+.nav-row{
+  display:flex; flex-wrap:wrap; gap:8px;
+  justify-content:center; margin-top:24px;
+  position:relative;
+}
+.np{
+  font-size:10px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  padding:5px 14px; border-radius:999px;
+  border:1px solid; text-decoration:none;
+  transition:opacity .2s;
+}
+.np:hover{opacity:.65;}
+.np1{color:var(--s1);border-color:var(--s1);}
+.np2{color:var(--s2);border-color:var(--s2);}
+.np3{color:var(--s3);border-color:var(--s3);}
+.np4{color:var(--s4);border-color:var(--s4);}
+.np5{color:var(--s5);border-color:var(--s5);}
+.np6{color:var(--s6);border-color:var(--s6);}
+.np7{color:var(--s7);border-color:var(--s7);}
+
+/* ── STICKY ── */
+.sticky{
+  position:sticky;top:0;z-index:50;
+  background:rgba(11,14,20,.94);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--bord);
+  padding:10px 20px;
+  display:flex;flex-wrap:wrap;gap:8px;
+  align-items:center;justify-content:center;
+}
+.btn{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:11px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:8px 20px;border-radius:4px;
+  border:1px solid;cursor:pointer;
+  transition:all .18s;
+}
+.b-check{background:var(--s1);color:var(--bg);border-color:var(--s1);}
+.b-check:hover{opacity:.82;}
+.b-show{background:transparent;color:var(--muted);border-color:var(--bord);}
+.b-show:hover{color:var(--text);border-color:var(--muted);}
+.b-reset{background:transparent;color:var(--muted);border-color:var(--bord);}
+.b-reset:hover{color:var(--err-c);border-color:var(--err-c);}
+#scoreBox{
+  display:none;font-size:12px;font-weight:600;
+  padding:8px 18px;border-radius:4px;
+  background:var(--surf2);border:1px solid var(--bord);
+}
+
+/* ── SECTION WRAPPER ── */
+.wrap{max-width:920px;margin:0 auto;padding:44px 20px 0;}
+
+.sec-hdr{
+  display:flex;align-items:flex-start;gap:14px;
+  padding-bottom:18px;border-bottom:1px solid var(--bord);
+  margin-bottom:6px;
+}
+.stripe{
+  width:3px;min-height:52px;border-radius:2px;
+  flex-shrink:0;margin-top:3px;
+}
+.sec-num{
+  font-size:10px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:5px;
+}
+.sec-title{
+  font-family:'Instrument Serif',serif;
+  font-size:26px;font-weight:400;line-height:1.1;
+}
+.sec-title em{font-style:italic;}
+
+/* ── INFO BOX ── */
+.infobox{
+  margin:14px 0 4px;
+  padding:16px 18px;
+  background:var(--surf);
+  border:1px solid var(--bord);
+  border-radius:6px;
+  font-size:13px;line-height:1.8;
+}
+.infobox-title{
+  font-size:9.5px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;
+}
+.formula{
+  display:inline-block;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:600;
+  background:var(--surf2);
+  padding:3px 12px;border-radius:4px;
+  border:1px solid var(--bord);
+  color:var(--text);
+  letter-spacing:.02em;
+  margin:2px 4px;
+}
+.infobox-note{
+  margin-top:10px;
+  padding:9px 12px;
+  border-radius:4px;
+  font-size:12px;line-height:1.7;
+}
+
+/* usage table for for/since */
+.usage-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  margin-top:10px;
+}
+.ug-cell{
+  padding:12px 14px;
+  border-radius:5px;
+  font-size:12.5px;line-height:1.75;
+}
+.ug-head{
+  font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:6px;
+}
+.ug-ex{
+  font-style:italic;color:var(--muted);
+  font-size:11.5px;
+}
+@media(max-width:560px){.usage-grid{grid-template-columns:1fr;}}
+
+/* ── ITEMS ── */
+.grp-lbl{
+  font-size:10px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);padding:16px 0 4px 42px;
+}
+.item{
+  display:flex;gap:14px;padding:13px 0;
+  border-bottom:1px solid rgba(37,45,64,.65);
+  align-items:flex-start;
+}
+.inum{
+  font-family:'Instrument Serif',serif;
+  font-size:13px;color:var(--dim);
+  min-width:28px;text-align:right;
+  padding-top:4px;flex-shrink:0;
+}
+.ibody{font-size:15.5px;line-height:2;flex:1;}
+.vh{font-size:12px;color:var(--muted);font-style:italic;}
+
+/* ── BLANK ── */
+.blank{display:inline-block;position:relative;vertical-align:middle;}
+.blank input{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;font-weight:500;
+  background:var(--surf2);
+  border:1px solid var(--bord);border-radius:4px;
+  color:#93c5fd;outline:none;
+  padding:2px 10px;
+  transition:border-color .18s,background .18s;
+}
+.blank input:focus{border-color:var(--muted);background:var(--surf3);}
+.blank input.ok { border-color:var(--ok-c);background:var(--ok-bg);color:var(--ok-c); }
+.blank input.err{ border-color:var(--err-c);background:var(--err-bg);color:var(--err-c); }
+/* widths */
+.blank input.xs{width:62px;}
+.blank input.sm{width:90px;}
+.blank input.md{width:150px;}
+.blank input.lg{width:200px;}
+.blank input.xl{width:240px;}
+
+.blank .hint{
+  display:none;position:absolute;bottom:110%;left:0;
+  background:var(--surf2);border:1px solid var(--err-c);
+  color:var(--err-c);font-size:11px;
+  padding:3px 10px;border-radius:4px;
+  white-space:nowrap;z-index:10;
+  pointer-events:none;font-style:italic;
+}
+.blank input.err ~ .hint{display:block;}
+
+/* show mode */
+.show-mode .blank input{display:none;}
+.blank .al{
+  display:none;font-weight:600;
+  font-size:14px;padding:2px 10px;
+  border-bottom:1px dashed var(--ok-c);
+  color:var(--ok-c);font-family:'Plus Jakarta Sans',sans-serif;
+}
+.show-mode .blank .al{display:inline;}
+
+/* ── STRIPE COLORS ── */
+.c1 .stripe,.c1 .sec-title em{background:none;}
+.c1 .stripe{background:var(--s1);}  .c1 .sec-title{color:var(--s1);}
+.c2 .stripe{background:var(--s2);}  .c2 .sec-title{color:var(--s2);}
+.c3 .stripe{background:var(--s3);}  .c3 .sec-title{color:var(--s3);}
+.c4 .stripe{background:var(--s4);}  .c4 .sec-title{color:var(--s4);}
+.c5 .stripe{background:var(--s5);}  .c5 .sec-title{color:var(--s5);}
+.c6 .stripe{background:var(--s6);}  .c6 .sec-title{color:var(--s6);}
+.c7 .stripe{background:var(--s7);}  .c7 .sec-title{color:var(--s7);}
+
+/* note colors */
+.note1{background:rgba(56,189,248,.07);border-left:2px solid var(--s1);border-radius:0 4px 4px 0;color:#7dd3fc;}
+.note2{background:rgba(251,113,133,.07);border-left:2px solid var(--s2);border-radius:0 4px 4px 0;color:#fda4af;}
+.note4{background:rgba(74,222,128,.07);border-left:2px solid var(--s4);border-radius:0 4px 4px 0;color:#86efac;}
+.note5a{background:rgba(56,189,248,.06);border-radius:5px;}
+.note5b{background:rgba(192,132,252,.06);border-radius:5px;}
+
+/* ── FOOTER ── */
+.footer{
+  max-width:920px;margin:48px auto 0;
+  padding:18px 20px 60px;
+  text-align:center;font-size:11.5px;color:var(--muted);
+  border-top:1px solid var(--bord);line-height:1.9;
+}
+
+@media(max-width:600px){
+  .blank input.md{width:125px;}
+  .blank input.lg{width:165px;}
+  .blank input.xl{width:200px;}
+  .ibody{font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-badge">English Grammar · M.3 · B1–B2</div>
+  <h1>Present<br><em>Perfect</em></h1>
+  <p class="hdr-sub">50 Exercises · ทุกประเภทประโยค · ever · never · before · since · for</p>
+  <div class="nav-row">
+    <a href="#s1" class="np np1">Affirmative</a>
+    <a href="#s2" class="np np2">Negative</a>
+    <a href="#s3" class="np np3">Questions</a>
+    <a href="#s4" class="np np4">ever / never</a>
+    <a href="#s5" class="np np5">since / for</a>
+    <a href="#s6" class="np np6">before</a>
+    <a href="#s7" class="np np7">Mixed</a>
+  </div>
+</div>
+
+<!-- STICKY CONTROLS -->
+<div class="sticky">
+  <button class="btn b-check" onclick="checkAll()">✓ ตรวจคำตอบ</button>
+  <button class="btn b-show"  onclick="toggleShow()">◎ ดู / ซ่อนเฉลย</button>
+  <button class="btn b-reset" onclick="resetAll()">↺ เริ่มใหม่</button>
+  <div id="scoreBox"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1 · AFFIRMATIVE  (1–8)
+═══════════════════════════════════════════ -->
+<div class="wrap c1" id="s1">
+  <div class="sec-hdr">
+    <div class="stripe"></div>
+    <div>
+      <div class="sec-num">ข้อ 1–8 · Section 1</div>
+      <div class="sec-title"><em>Affirmative</em> — ประโยคบอกเล่า</div>
+    </div>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">โครงสร้าง</div>
+    <span class="formula">S + have / has + past participle</span>
+    <div class="infobox-note note1">
+      <strong>have</strong> ใช้กับ I · You · We · They &nbsp;|&nbsp; <strong>has</strong> ใช้กับ He · She · It · ชื่อเดียว
+    </div>
+  </div>
+
+  <div class="item"><div class="inum">1.</div><div class="ibody">
+    Scientists <span class="blank"><input type="text" class="lg" data-answer="have discovered" placeholder="___"><span class="hint">→ have discovered</span><span class="al">have discovered</span></span> <span class="vh">(discover)</span> a potential treatment for one of the most challenging autoimmune diseases in recent years.
+  </div></div>
+
+  <div class="item"><div class="inum">2.</div><div class="ibody">
+    The government <span class="blank"><input type="text" class="lg" data-answer="has introduced" placeholder="___"><span class="hint">→ has introduced</span><span class="al">has introduced</span></span> <span class="vh">(introduce)</span> several innovative policies to improve public transportation across the country.
+  </div></div>
+
+  <div class="item"><div class="inum">3.</div><div class="ibody">
+    She <span class="blank"><input type="text" class="lg" data-answer="has achieved" placeholder="___"><span class="hint">→ has achieved</span><span class="al">has achieved</span></span> <span class="vh">(achieve)</span> remarkable results in her academic research throughout this academic year.
+  </div></div>
+
+  <div class="item"><div class="inum">4.</div><div class="ibody">
+    They <span class="blank"><input type="text" class="lg" data-answer="have raised" placeholder="___"><span class="hint">→ have raised</span><span class="al">have raised</span></span> <span class="vh">(raise)</span> millions of dollars to support vital environmental conservation projects around the world.
+  </div></div>
+
+  <div class="item"><div class="inum">5.</div><div class="ibody">
+    He <span class="blank"><input type="text" class="lg" data-answer="has published" placeholder="___"><span class="hint">→ has published</span><span class="al">has published</span></span> <span class="vh">(publish)</span> three highly influential books on sustainable development so far in his career.
+  </div></div>
+
+  <div class="item"><div class="inum">6.</div><div class="ibody">
+    The organisation <span class="blank"><input type="text" class="lg" data-answer="has supported" placeholder="___"><span class="hint">→ has supported</span><span class="al">has supported</span></span> <span class="vh">(support)</span> hundreds of disadvantaged families in remote rural communities over the years.
+  </div></div>
+
+  <div class="item"><div class="inum">7.</div><div class="ibody">
+    We <span class="blank"><input type="text" class="lg" data-answer="have witnessed" placeholder="___"><span class="hint">→ have witnessed</span><span class="al">have witnessed</span></span> <span class="vh">(witness)</span> a significant shift in public attitudes towards mental health awareness in recent times.
+  </div></div>
+
+  <div class="item"><div class="inum">8.</div><div class="ibody">
+    The committee <span class="blank"><input type="text" class="lg" data-answer="has approved" placeholder="___"><span class="hint">→ has approved</span><span class="al">has approved</span></span> <span class="vh">(approve)</span> the new proposal for sustainable urban planning and development in the region.
+  </div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2 · NEGATIVE  (9–16)
+═══════════════════════════════════════════ -->
+<div class="wrap c2" id="s2">
+  <div class="sec-hdr">
+    <div class="stripe"></div>
+    <div>
+      <div class="sec-num">ข้อ 9–16 · Section 2</div>
+      <div class="sec-title"><em>Negative</em> — ประโยคปฏิเสธ</div>
+    </div>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">โครงสร้าง</div>
+    <span class="formula">S + have not / has not + past participle</span>
+    <span class="formula">S + haven't / hasn't + past participle</span>
+    <div class="infobox-note note2">
+      ทั้ง <strong>have not</strong> และ <strong>haven't</strong> ถูกทั้งคู่ &nbsp;|&nbsp; มักใช้คู่กับ <em>yet</em> (เช่น I haven't finished yet.)
+    </div>
+  </div>
+
+  <div class="item"><div class="inum">9.</div><div class="ibody">
+    The authorities <span class="blank"><input type="text" class="xl" data-answer="have not solved" placeholder="___"><span class="hint">→ have not solved</span><span class="al">have not solved</span></span> <span class="vh">(not/solve)</span> the housing crisis despite making numerous public promises.
+  </div></div>
+
+  <div class="item"><div class="inum">10.</div><div class="ibody">
+    She <span class="blank"><input type="text" class="xl" data-answer="has not received" placeholder="___"><span class="hint">→ has not received</span><span class="al">has not received</span></span> <span class="vh">(not/receive)</span> a formal response to her research grant application yet.
+  </div></div>
+
+  <div class="item"><div class="inum">11.</div><div class="ibody">
+    The company <span class="blank"><input type="text" class="xl" data-answer="has not fulfilled" placeholder="___"><span class="hint">→ has not fulfilled</span><span class="al">has not fulfilled</span></span> <span class="vh">(not/fulfil)</span> its obligations regarding employee welfare and equal pay.
+  </div></div>
+
+  <div class="item"><div class="inum">12.</div><div class="ibody">
+    They <span class="blank"><input type="text" class="xl" data-answer="have not addressed" placeholder="___"><span class="hint">→ have not addressed</span><span class="al">have not addressed</span></span> <span class="vh">(not/address)</span> the root causes of poverty and inequality in the region adequately.
+  </div></div>
+
+  <div class="item"><div class="inum">13.</div><div class="ibody">
+    He <span class="blank"><input type="text" class="xl" data-answer="has not visited" placeholder="___"><span class="hint">→ has not visited</span><span class="al">has not visited</span></span> <span class="vh">(not/visit)</span> the new research facility since it officially opened its doors last year.
+  </div></div>
+
+  <div class="item"><div class="inum">14.</div><div class="ibody">
+    The council <span class="blank"><input type="text" class="xl" data-answer="has not implemented" placeholder="___"><span class="hint">→ has not implemented</span><span class="al">has not implemented</span></span> <span class="vh">(not/implement)</span> the environmental regulations in an effective or consistent manner.
+  </div></div>
+
+  <div class="item"><div class="inum">15.</div><div class="ibody">
+    We <span class="blank"><input type="text" class="xl" data-answer="have not heard" placeholder="___"><span class="hint">→ have not heard</span><span class="al">have not heard</span></span> <span class="vh">(not/hear)</span> from the selection committee regarding their final decision on the proposal.
+  </div></div>
+
+  <div class="item"><div class="inum">16.</div><div class="ibody">
+    The economic situation <span class="blank"><input type="text" class="xl" data-answer="has not improved" placeholder="___"><span class="hint">→ has not improved</span><span class="al">has not improved</span></span> <span class="vh">(not/improve)</span> significantly despite the various measures the government has taken.
+  </div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3 · QUESTIONS  (17–23)
+═══════════════════════════════════════════ -->
+<div class="wrap c3" id="s3">
+  <div class="sec-hdr">
+    <div class="stripe"></div>
+    <div>
+      <div class="sec-num">ข้อ 17–23 · Section 3</div>
+      <div class="sec-title"><em>Questions</em> — ประโยคคำถาม</div>
+    </div>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">โครงสร้าง</div>
+    <span class="formula">Have / Has + S + past participle …?</span>
+    <div style="margin-top:10px;font-size:13px;color:var(--muted);">
+      ตอบรับ: <strong style="color:var(--text);">Yes, S + have/has.</strong> &nbsp;|&nbsp; ตอบปฏิเสธ: <strong style="color:var(--text);">No, S + haven't/hasn't.</strong>
+    </div>
+  </div>
+
+  <div class="item"><div class="inum">17.</div><div class="ibody">
+    <span class="blank"><input type="text" class="xs" data-answer="Has" placeholder="___"><span class="hint">→ Has</span><span class="al">Has</span></span> the committee announced the official results of the lengthy investigation yet?
+  </div></div>
+
+  <div class="item"><div class="inum">18.</div><div class="ibody">
+    <span class="blank"><input type="text" class="xs" data-answer="Have" placeholder="___"><span class="hint">→ Have</span><span class="al">Have</span></span> they taken any meaningful action to reduce harmful carbon emissions this year?
+  </div></div>
+
+  <div class="item"><div class="inum">19.</div><div class="ibody">
+    <span class="blank"><input type="text" class="xs" data-answer="Has" placeholder="___"><span class="hint">→ Has</span><span class="al">Has</span></span> she completed her doctoral research on biodiversity and tropical conservation?
+  </div></div>
+
+  <div class="item"><div class="inum">20.</div><div class="ibody">
+    <span class="blank"><input type="text" class="xs" data-answer="Has" placeholder="___"><span class="hint">→ Has</span><span class="al">Has</span></span> the government introduced sufficient measures to support small and medium businesses?
+  </div></div>
+
+  <div class="item"><div class="inum">21.</div><div class="ibody">
+    <span class="blank"><input type="text" class="xs" data-answer="Have" placeholder="___"><span class="hint">→ Have</span><span class="al">Have</span></span> you considered applying for the prestigious international academic scholarship?
+  </div></div>
+
+  <div class="item"><div class="inum">22.</div><div class="ibody">
+    <span class="blank"><input type="text" class="xs" data-answer="Has" placeholder="___"><span class="hint">→ Has</span><span class="al">Has</span></span> he spoken to the director about the proposed changes to the school curriculum?
+  </div></div>
+
+  <div class="item"><div class="inum">23.</div><div class="ibody">
+    <span class="blank"><input type="text" class="xs" data-answer="Have" placeholder="___"><span class="hint">→ Have</span><span class="al">Have</span></span> the researchers found any compelling evidence to support their central hypothesis?
+  </div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 4 · EVER & NEVER  (24–31)
+═══════════════════════════════════════════ -->
+<div class="wrap c4" id="s4">
+  <div class="sec-hdr">
+    <div class="stripe"></div>
+    <div>
+      <div class="sec-num">ข้อ 24–31 · Section 4</div>
+      <div class="sec-title"><em>ever</em> &amp; <em>never</em></div>
+    </div>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">การใช้ ever และ never</div>
+    <div class="usage-grid">
+      <div class="ug-cell note4">
+        <div class="ug-head" style="color:var(--s4);">ever — ใช้ในประโยคคำถาม</div>
+        ใช้กับ Present Perfect เพื่อถามถึงประสบการณ์ที่เคยเกิดขึ้นในชีวิต ตำแหน่ง: หลัง have/has และก่อน V3
+        <div class="ug-ex">Have you <u>ever</u> visited Japan?<br>Has she <u>ever</u> won an award?</div>
+      </div>
+      <div class="ug-cell" style="background:rgba(251,113,133,.06);border-radius:5px;">
+        <div class="ug-head" style="color:var(--s2);">never — ใช้ในประโยคบอกเล่า (ความหมายปฏิเสธ)</div>
+        ความหมาย "ไม่เคยเลยสักครั้ง" โครงสร้างเป็นบอกเล่า แต่มีความหมายปฏิเสธ ไม่ต้องใช้ not
+        <div class="ug-ex">I have <u>never</u> tried bungee jumping.<br>He has <u>never</u> broken a promise.</div>
+      </div>
+    </div>
+    <div class="infobox-note note4" style="margin-top:10px;">
+      ตำแหน่งของทั้งคู่: <strong>S + have/has + ever/never + past participle</strong>
+    </div>
+  </div>
+
+  <div class="item"><div class="inum">24.</div><div class="ibody">
+    Have you <span class="blank"><input type="text" class="sm" data-answer="ever" placeholder="___"><span class="hint">→ ever</span><span class="al">ever</span></span> visited a country where you were unable to speak the local language at all?
+  </div></div>
+
+  <div class="item"><div class="inum">25.</div><div class="ibody">
+    She has <span class="blank"><input type="text" class="sm" data-answer="never" placeholder="___"><span class="hint">→ never</span><span class="al">never</span></span> failed to meet a deadline throughout her entire professional career.
+  </div></div>
+
+  <div class="item"><div class="inum">26.</div><div class="ibody">
+    Have you <span class="blank"><input type="text" class="sm" data-answer="ever" placeholder="___"><span class="hint">→ ever</span><span class="al">ever</span></span> participated in an international community volunteering programme abroad?
+  </div></div>
+
+  <div class="item"><div class="inum">27.</div><div class="ibody">
+    He has <span class="blank"><input type="text" class="sm" data-answer="never" placeholder="___"><span class="hint">→ never</span><span class="al">never</span></span> experienced any form of discrimination based on his cultural or ethnic background.
+  </div></div>
+
+  <div class="item"><div class="inum">28.</div><div class="ibody">
+    Has the committee <span class="blank"><input type="text" class="sm" data-answer="ever" placeholder="___"><span class="hint">→ ever</span><span class="al">ever</span></span> rejected a funding proposal unanimously in the entire history of the institution?
+  </div></div>
+
+  <div class="item"><div class="inum">29.</div><div class="ibody">
+    They have <span class="blank"><input type="text" class="sm" data-answer="never" placeholder="___"><span class="hint">→ never</span><span class="al">never</span></span> considered abandoning the project despite facing serious financial and logistical difficulties.
+  </div></div>
+
+  <div class="item"><div class="inum">30.</div><div class="ibody">
+    Have scientists <span class="blank"><input type="text" class="sm" data-answer="ever" placeholder="___"><span class="hint">→ ever</span><span class="al">ever</span></span> encountered a species this biologically complex in any previous expedition?
+  </div></div>
+
+  <div class="item"><div class="inum">31.</div><div class="ibody">
+    She has <span class="blank"><input type="text" class="sm" data-answer="never" placeholder="___"><span class="hint">→ never</span><span class="al">never</span></span> broken a promise to any of her students in over twenty years of dedicated teaching.
+  </div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 5 · SINCE & FOR  (32–43)
+═══════════════════════════════════════════ -->
+<div class="wrap c5" id="s5">
+  <div class="sec-hdr">
+    <div class="stripe"></div>
+    <div>
+      <div class="sec-num">ข้อ 32–43 · Section 5</div>
+      <div class="sec-title"><em>since</em> &amp; <em>for</em></div>
+    </div>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">การใช้ since และ for</div>
+    <div class="usage-grid">
+      <div class="ug-cell note5a">
+        <div class="ug-head" style="color:var(--s1);">since — จุดเริ่มต้นของเวลา</div>
+        ใช้บอกว่าสิ่งนั้นเริ่มต้น<strong>เมื่อไหร่</strong> ตามด้วยจุดเวลาที่ระบุได้
+        <div class="ug-ex">since 2018 · since she was a child<br>since last Monday · since the project began</div>
+      </div>
+      <div class="ug-cell note5b">
+        <div class="ug-head" style="color:var(--s5);">for — ระยะเวลาที่ผ่านไป</div>
+        ใช้บอก<strong>ระยะเวลา</strong>ที่กินไป ตามด้วยช่วงเวลา
+        <div class="ug-ex">for three years · for a decade<br>for several months · for a long time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="item"><div class="inum">32.</div><div class="ibody">
+    He has worked for the organisation <span class="blank"><input type="text" class="sm" data-answer="for" placeholder="___"><span class="hint">→ for</span><span class="al">for</span></span> over twenty years without ever taking extended leave.
+  </div></div>
+
+  <div class="item"><div class="inum">33.</div><div class="ibody">
+    She has been passionate about environmental issues <span class="blank"><input type="text" class="sm" data-answer="since" placeholder="___"><span class="hint">→ since</span><span class="al">since</span></span> she was a young child growing up near a polluted river.
+  </div></div>
+
+  <div class="item"><div class="inum">34.</div><div class="ibody">
+    The government has been implementing the new education policy <span class="blank"><input type="text" class="sm" data-answer="for" placeholder="___"><span class="hint">→ for</span><span class="al">for</span></span> three academic terms with mixed results.
+  </div></div>
+
+  <div class="item"><div class="inum">35.</div><div class="ibody">
+    They have not communicated formally with the international committee <span class="blank"><input type="text" class="sm" data-answer="since" placeholder="___"><span class="hint">→ since</span><span class="al">since</span></span> last December.
+  </div></div>
+
+  <div class="item"><div class="inum">36.</div><div class="ibody">
+    The researcher has dedicated her entire professional career to this field <span class="blank"><input type="text" class="sm" data-answer="for" placeholder="___"><span class="hint">→ for</span><span class="al">for</span></span> nearly a decade.
+  </div></div>
+
+  <div class="item"><div class="inum">37.</div><div class="ibody">
+    He has not returned to his hometown <span class="blank"><input type="text" class="sm" data-answer="since" placeholder="___"><span class="hint">→ since</span><span class="al">since</span></span> he graduated from university and moved abroad.
+  </div></div>
+
+  <div class="item"><div class="inum">38.</div><div class="ibody">
+    The organisation has supported underprivileged communities <span class="blank"><input type="text" class="sm" data-answer="since" placeholder="___"><span class="hint">→ since</span><span class="al">since</span></span> its establishment in 2001.
+  </div></div>
+
+  <div class="item"><div class="inum">39.</div><div class="ibody">
+    She has been studying three foreign languages simultaneously <span class="blank"><input type="text" class="sm" data-answer="for" placeholder="___"><span class="hint">→ for</span><span class="al">for</span></span> more than six years.
+  </div></div>
+
+  <div class="item"><div class="inum">40.</div><div class="ibody">
+    The infrastructure project has been completely on hold <span class="blank"><input type="text" class="sm" data-answer="since" placeholder="___"><span class="hint">→ since</span><span class="al">since</span></span> the funding was unexpectedly withdrawn by the ministry.
+  </div></div>
+
+  <div class="item"><div class="inum">41.</div><div class="ibody">
+    They have successfully collaborated on joint research <span class="blank"><input type="text" class="sm" data-answer="for" placeholder="___"><span class="hint">→ for</span><span class="al">for</span></span> a considerable period of time and produced impressive results.
+  </div></div>
+
+  <div class="item"><div class="inum">42.</div><div class="ibody">
+    The patient has shown no significant signs of recovery <span class="blank"><input type="text" class="sm" data-answer="since" placeholder="___"><span class="hint">→ since</span><span class="al">since</span></span> the new treatment regimen began last month.
+  </div></div>
+
+  <div class="item"><div class="inum">43.</div><div class="ibody">
+    The conflict between the two neighbouring communities has continued <span class="blank"><input type="text" class="sm" data-answer="for" placeholder="___"><span class="hint">→ for</span><span class="al">for</span></span> several generations without resolution.
+  </div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 6 · BEFORE  (44–48)
+═══════════════════════════════════════════ -->
+<div class="wrap c6" id="s6">
+  <div class="sec-hdr">
+    <div class="stripe"></div>
+    <div>
+      <div class="sec-num">ข้อ 44–48 · Section 6</div>
+      <div class="sec-title"><em>before</em></div>
+    </div>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">การใช้ before กับ Present Perfect</div>
+    <div style="font-size:13px;line-height:1.9;">
+      <strong style="color:var(--s6);">before</strong> ใช้กับ Present Perfect เพื่อบอกว่าสิ่งนั้นเคยเกิดขึ้นหรือไม่เคยเกิดขึ้น "ในอดีตก่อนนี้" โดยไม่ระบุเวลาที่ชัดเจน
+    </div>
+    <div class="usage-grid" style="margin-top:10px;">
+      <div class="ug-cell" style="background:rgba(251,191,36,.06);border-radius:5px;">
+        <div class="ug-head" style="color:var(--s6);">ตำแหน่งของ before</div>
+        มักวางไว้<strong>ท้ายประโยค</strong>
+        <div class="ug-ex">I have seen this film <u>before</u>.<br>She has never done this <u>before</u>.<br>Have you been here <u>before</u>?</div>
+      </div>
+      <div class="ug-cell" style="background:rgba(251,191,36,.06);border-radius:5px;">
+        <div class="ug-head" style="color:var(--s6);">ข้อ 44–45: เติม V3</div>
+        ใส่ past participle ที่ถูกต้องในประโยคที่มี before อยู่แล้ว
+        <div class="ug-head" style="color:var(--s6);margin-top:8px;">ข้อ 46–48: เติม before</div>
+        เลือกใส่ "before" ให้ถูกตำแหน่ง
+      </div>
+    </div>
+  </div>
+
+  <div class="item"><div class="inum">44.</div><div class="ibody">
+    Have you ever <span class="blank"><input type="text" class="md" data-answer="read" placeholder="___"><span class="hint">→ read</span><span class="al">read</span></span> <span class="vh">(read)</span> a scientific report as detailed and comprehensive as this one before?
+  </div></div>
+
+  <div class="item"><div class="inum">45.</div><div class="ibody">
+    Has the committee <span class="blank"><input type="text" class="lg" data-answer="considered" placeholder="___"><span class="hint">→ considered</span><span class="al">considered</span></span> <span class="vh">(consider)</span> this unconventional and innovative approach to the environmental problem before?
+  </div></div>
+
+  <div class="item"><div class="inum">46.</div><div class="ibody">
+    He has never delivered a formal speech to such a large international audience <span class="blank"><input type="text" class="md" data-answer="before" placeholder="___"><span class="hint">→ before</span><span class="al">before</span></span> and was understandably nervous.
+  </div></div>
+
+  <div class="item"><div class="inum">47.</div><div class="ibody">
+    I have never encountered an ethical dilemma this complex or challenging <span class="blank"><input type="text" class="md" data-answer="before" placeholder="___"><span class="hint">→ before</span><span class="al">before</span></span> in my professional life.
+  </div></div>
+
+  <div class="item"><div class="inum">48.</div><div class="ibody">
+    She has faced similar professional criticism and obstacles <span class="blank"><input type="text" class="md" data-answer="before" placeholder="___"><span class="hint">→ before</span><span class="al">before</span></span> and has always managed to overcome them with great resilience.
+  </div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 7 · MIXED CHALLENGE  (49–50)
+═══════════════════════════════════════════ -->
+<div class="wrap c7" id="s7">
+  <div class="sec-hdr">
+    <div class="stripe"></div>
+    <div>
+      <div class="sec-num">ข้อ 49–50 · Section 7</div>
+      <div class="sec-title"><em>Mixed</em> Challenge</div>
+    </div>
+  </div>
+
+  <div class="infobox">
+    <div class="infobox-title">คำแนะนำ</div>
+    แต่ละข้อมีหลายช่องว่าง ใช้ความรู้จากทุก section เพื่อเติมให้ครบและถูกต้อง
+  </div>
+
+  <div class="item"><div class="inum">49.</div><div class="ibody">
+    <span class="blank"><input type="text" class="xs" data-answer="Have" placeholder="___"><span class="hint">→ Have</span><span class="al">Have</span></span> you <span class="blank"><input type="text" class="sm" data-answer="ever" placeholder="___"><span class="hint">→ ever</span><span class="al">ever</span></span> considered the long-term consequences that your daily environmental choices have on the planet? We <span class="blank"><input type="text" class="xl" data-answer="have never thought" placeholder="___"><span class="hint">→ have never thought</span><span class="al">have never thought</span></span> <span class="vh">(never/think)</span> about this deeply enough as a society.
+  </div></div>
+
+  <div class="item"><div class="inum">50.</div><div class="ibody">
+    The team <span class="blank"><input type="text" class="xl" data-answer="has not made" placeholder="___"><span class="hint">→ has not made</span><span class="al">has not made</span></span> <span class="vh">(not/make)</span> any significant progress <span class="blank"><input type="text" class="sm" data-answer="since" placeholder="___"><span class="hint">→ since</span><span class="al">since</span></span> the new director took charge, and this <span class="blank"><input type="text" class="sm" data-answer="never" placeholder="___"><span class="hint">→ never</span><span class="al">never</span></span> happened <span class="blank"><input type="text" class="md" data-answer="before" placeholder="___"><span class="hint">→ before</span><span class="al">before</span></span> under previous leadership.
+  </div></div>
+</div>
+
+<div class="footer">
+  Present Perfect · M.3 · B1–B2 · 50 Exercises<br>
+  รับทั้ง <em>have not / haven't</em> · <em>has not / hasn't</em> · <em>has not fulfilled / hasn't fulfilled</em>
+</div>
+
+<script>
+const ACCEPT={
+  "have not solved":       ["have not solved","haven't solved"],
+  "has not received":      ["has not received","hasn't received"],
+  "has not fulfilled":     ["has not fulfilled","hasn't fulfilled","has not fulfiled","hasn't fulfiled"],
+  "have not addressed":    ["have not addressed","haven't addressed"],
+  "has not visited":       ["has not visited","hasn't visited"],
+  "has not implemented":   ["has not implemented","hasn't implemented"],
+  "have not heard":        ["have not heard","haven't heard"],
+  "has not improved":      ["has not improved","hasn't improved"],
+  "has not made":          ["has not made","hasn't made"],
+  "have never thought":    ["have never thought"],
+};
+
+function norm(s){return s.trim().toLowerCase().replace(/\s+/g,' ');}
+function isOk(u,a){
+  const un=norm(u),an=norm(a);
+  return ACCEPT[an]?ACCEPT[an].map(norm).includes(un):un===an;
+}
+
+function checkAll(){
+  const inp=document.querySelectorAll('.blank input');
+  let ok=0,ans=0;
+  inp.forEach(i=>{
+    i.classList.remove('ok','err');
+    if(!i.value.trim())return;
+    ans++;
+    if(isOk(i.value,i.dataset.answer)){i.classList.add('ok');ok++;}
+    else i.classList.add('err');
+  });
+  const b=document.getElementById('scoreBox');
+  b.style.display=ans?'inline-block':'none';
+  b.textContent=`คะแนน ${ok} / ${ans} ข้อที่ตอบ (จาก 50 ข้อ)`;
+}
+
+let showing=false;
+function toggleShow(){
+  showing=!showing;
+  document.body.classList.toggle('show-mode',showing);
+  document.querySelector('.b-show').textContent=showing?'◉ ซ่อนเฉลย':'◎ ดู / ซ่อนเฉลย';
+}
+
+function resetAll(){
+  document.querySelectorAll('.blank input').forEach(i=>{i.value='';i.classList.remove('ok','err');});
+  document.getElementById('scoreBox').style.display='none';
+  if(showing)toggleShow();
+}
+
+document.querySelectorAll('.blank input').forEach(i=>{
+  i.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){
+      i.classList.remove('ok','err');
+      if(i.value.trim())
+        isOk(i.value,i.dataset.answer)?i.classList.add('ok'):i.classList.add('err');
+    }
+  });
+});
+</script>
+</body>
+</html>

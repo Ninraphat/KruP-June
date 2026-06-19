@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Tenses – Fill in the Blanks</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #181c27;
+  --surface2: #1e2330;
+  --border: #2a3045;
+  --text: #e8eaf0;
+  --muted: #7a84a0;
+  --ps:  #4ec9b0; /* teal – Present Simple */
+  --pc:  #f0a04e; /* amber – Present Continuous */
+  --pp:  #e06b8b; /* rose – Present Perfect */
+  --ppc: #a78bfa; /* violet – Present Perfect Continuous */
+  --aff: #4ec9b0;
+  --neg: #f87171;
+  --q:   #60a5fa;
+  --correct: #14532d;
+  --correct-b: #4ade80;
+  --wrong: #450a0a;
+  --wrong-b: #f87171;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 24px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(78,201,176,.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.header-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(30px,5vw,54px);
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  position: relative;
+}
+.header h1 em { font-style: italic; color: var(--ps); }
+.header-desc {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+.tense-pills {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center;
+  margin-top: 22px;
+}
+.tense-pill {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+}
+.tense-pill:hover { opacity:.8; }
+.pill-ps  { color: var(--ps);  border-color: var(--ps);  }
+.pill-pc  { color: var(--pc);  border-color: var(--pc);  }
+.pill-pp  { color: var(--pp);  border-color: var(--pp);  }
+.pill-ppc { color: var(--ppc); border-color: var(--ppc); }
+
+/* ── STICKY BAR ── */
+.sticky {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(15,17,23,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
+  display: flex; gap: 8px; flex-wrap: wrap;
+  align-items: center; justify-content: center;
+}
+.btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 8px 20px; border-radius: 4px;
+  border: 1px solid; cursor: pointer;
+  transition: all .18s;
+}
+.btn-check { background: var(--ps); color: #0f1117; border-color: var(--ps); }
+.btn-check:hover { opacity:.85; }
+.btn-show  { background: transparent; color: var(--muted); border-color: var(--border); }
+.btn-show:hover { color: var(--text); border-color: var(--muted); }
+.btn-reset { background: transparent; color: var(--muted); border-color: var(--border); }
+.btn-reset:hover { color: var(--neg); border-color: var(--neg); }
+.score-display {
+  font-size: 12px; font-weight: 600;
+  padding: 8px 16px; border-radius: 4px;
+  background: var(--surface2); border: 1px solid var(--border);
+  display: none;
+}
+
+/* ── SECTION ── */
+.section { max-width: 900px; margin: 0 auto; padding: 40px 20px 0; }
+.section-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.section-color-bar { width: 4px; height: 52px; border-radius: 2px; flex-shrink: 0; }
+.section-info {}
+.section-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 3px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px; line-height: 1.2;
+}
+.section-rule {
+  font-size: 11.5px; color: var(--muted);
+  margin-top: 10px; padding: 10px 14px;
+  background: var(--surface); border-left: 3px solid var(--border);
+  border-radius: 0 4px 4px 0;
+  line-height: 1.7;
+}
+.section-rule code {
+  font-family: 'Courier New', monospace;
+  background: var(--surface2); padding: 1px 6px;
+  border-radius: 3px; font-size: 11px;
+  color: var(--text);
+}
+
+/* ── ITEM ── */
+.item {
+  display: flex; gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(42,48,69,.6);
+  align-items: flex-start;
+}
+.item-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 13px; color: var(--border);
+  min-width: 30px; text-align: right;
+  padding-top: 3px; flex-shrink: 0;
+}
+.item-body { flex: 1; font-size: 15px; line-height: 2; }
+.tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 2px; }
+.tag {
+  font-size: 9.5px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 3px;
+  border: 1px solid;
+}
+.tag-aff { color: var(--aff); border-color: var(--aff); background: rgba(78,201,176,.07); }
+.tag-neg { color: var(--neg); border-color: var(--neg); background: rgba(248,113,113,.07); }
+.tag-q   { color: var(--q);   border-color: var(--q);   background: rgba(96,165,250,.07);  }
+
+/* ── INPUT ── */
+.blank { display: inline-block; position: relative; vertical-align: middle; }
+.blank input {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 500;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: #a5d8ff;
+  outline: none;
+  padding: 2px 10px;
+  width: 170px;
+  transition: border-color .18s, background .18s;
+}
+.blank input.sm { width: 70px; }
+.blank input.md { width: 130px; }
+.blank input.lg { width: 220px; }
+.blank input:focus { border-color: var(--muted); background: var(--surface); }
+.blank input.correct { border-color: var(--correct-b); background: rgba(20,83,45,.25); color: var(--correct-b); }
+.blank input.wrong   { border-color: var(--wrong-b);   background: rgba(69,10,10,.3);  color: var(--wrong-b); }
+
+.blank .hint {
+  display: none;
+  position: absolute; bottom: 110%; left: 0;
+  background: var(--surface2); border: 1px solid var(--wrong-b);
+  color: var(--wrong-b); font-size: 11px;
+  padding: 3px 10px; border-radius: 4px;
+  white-space: nowrap; z-index: 10;
+  pointer-events: none;
+  font-style: italic;
+}
+.blank input.wrong ~ .hint { display: block; }
+
+/* show-answer mode */
+.show-mode .blank input { display: none; }
+.blank .ans-label {
+  display: none;
+  font-weight: 600; color: var(--correct-b);
+  font-size: 14px; padding: 2px 10px;
+  border-bottom: 1px dashed var(--correct-b);
+}
+.show-mode .blank .ans-label { display: inline; }
+
+.verb-hint { font-size: 12px; color: var(--muted); font-style: italic; margin-left: 2px; }
+
+/* ── COLOR BARS PER TENSE ── */
+.bar-ps  { background: var(--ps);  }
+.bar-pc  { background: var(--pc);  }
+.bar-pp  { background: var(--pp);  }
+.bar-ppc { background: var(--ppc); }
+.col-ps  { color: var(--ps);  }
+.col-pc  { color: var(--pc);  }
+.col-pp  { color: var(--pp);  }
+.col-ppc { color: var(--ppc); }
+
+/* ── DIVIDER ── */
+.group-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); padding: 16px 0 4px 44px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  max-width: 900px; margin: 50px auto 0;
+  padding: 20px 20px 60px;
+  font-size: 11.5px; color: var(--muted);
+  border-top: 1px solid var(--border);
+  text-align: center; line-height: 1.8;
+}
+footer a { color: inherit; }
+
+@media(max-width:600px){
+  .blank input { width:130px; }
+  .blank input.lg { width:180px; }
+  .item-body { font-size:14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <p class="header-eyebrow">English Grammar Workbook · M.3 · B1–B2</p>
+  <h1>Present<br><em>Tenses</em></h1>
+  <p class="header-desc">60 Exercises · บอกเล่า · ปฏิเสธ · คำถาม · ทุก Tense</p>
+  <div class="tense-pills">
+    <a href="#ps"  class="tense-pill pill-ps" >Present Simple</a>
+    <a href="#pc"  class="tense-pill pill-pc" >Present Continuous</a>
+    <a href="#pp"  class="tense-pill pill-pp" >Present Perfect</a>
+    <a href="#ppc" class="tense-pill pill-ppc">Present Perfect Continuous</a>
+  </div>
+</div>
+
+<!-- STICKY CONTROLS -->
+<div class="sticky">
+  <button class="btn btn-check" onclick="checkAll()">✓ ตรวจคำตอบ</button>
+  <button class="btn btn-show"  onclick="toggleShow()">◎ ดู / ซ่อนเฉลย</button>
+  <button class="btn btn-reset" onclick="resetAll()">↺ เริ่มใหม่</button>
+  <div class="score-display" id="scoreBox"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 · PRESENT SIMPLE  (1–15)
+══════════════════════════════════════════ -->
+<div class="section" id="ps">
+  <div class="section-header">
+    <div class="section-color-bar bar-ps"></div>
+    <div class="section-info">
+      <div class="section-label">ข้อ 1–15</div>
+      <div class="section-title col-ps">Present Simple</div>
+    </div>
+  </div>
+  <div class="section-rule">
+    โครงสร้าง: &nbsp;
+    <code>S + V1 / V1+s/es</code> &nbsp;|&nbsp;
+    <code>S + do/does + not + V1</code> &nbsp;|&nbsp;
+    <code>Do/Does + S + V1 …?</code>
+  </div>
+
+  <!-- AFFIRMATIVE -->
+  <div class="group-label">✦ บอกเล่า (Affirmative)</div>
+
+  <div class="item">
+    <div class="item-num">1.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      Scientists <span class="blank"><input type="text" class="md" data-answer="claim" placeholder="___"><span class="hint">→ claim</span><span class="ans-label">claim</span></span> <span class="verb-hint">(claim)</span> that regular physical exercise significantly improves mental health.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">2.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      The government <span class="blank"><input type="text" class="md" data-answer="implements" placeholder="___"><span class="hint">→ implements</span><span class="ans-label">implements</span></span> <span class="verb-hint">(implement)</span> new economic policies to reduce poverty every few years.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">3.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      She <span class="blank"><input type="text" class="md" data-answer="demonstrates" placeholder="___"><span class="hint">→ demonstrates</span><span class="ans-label">demonstrates</span></span> <span class="verb-hint">(demonstrate)</span> remarkable leadership skills in every project she undertakes.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">4.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      Renewable energy <span class="blank"><input type="text" class="md" data-answer="reduces" placeholder="___"><span class="hint">→ reduces</span><span class="ans-label">reduces</span></span> <span class="verb-hint">(reduce)</span> our dependence on harmful fossil fuels considerably.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">5.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      He <span class="blank"><input type="text" class="md" data-answer="dedicates" placeholder="___"><span class="hint">→ dedicates</span><span class="ans-label">dedicates</span></span> <span class="verb-hint">(dedicate)</span> several hours each week to volunteering at a local community shelter.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">6.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      The organisation <span class="blank"><input type="text" class="md" data-answer="provides" placeholder="___"><span class="hint">→ provides</span><span class="ans-label">provides</span></span> <span class="verb-hint">(provide)</span> financial support to underprivileged communities around the world.
+    </div>
+  </div>
+
+  <!-- NEGATIVE -->
+  <div class="group-label">✦ ปฏิเสธ (Negative)</div>
+
+  <div class="item">
+    <div class="item-num">7.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      She <span class="blank"><input type="text" class="lg" data-answer="does not approve" placeholder="___"><span class="hint">→ does not approve</span><span class="ans-label">does not approve</span></span> <span class="verb-hint">(not/approve)</span> of the new environmental policy proposed by the local council.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">8.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The company <span class="blank"><input type="text" class="lg" data-answer="does not manufacture" placeholder="___"><span class="hint">→ does not manufacture</span><span class="ans-label">does not manufacture</span></span> <span class="verb-hint">(not/manufacture)</span> its products using sustainable materials.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">9.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      They <span class="blank"><input type="text" class="lg" data-answer="do not participate" placeholder="___"><span class="hint">→ do not participate</span><span class="ans-label">do not participate</span></span> <span class="verb-hint">(not/participate)</span> in any activities that damage the natural environment.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">10.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      He <span class="blank"><input type="text" class="lg" data-answer="does not acknowledge" placeholder="___"><span class="hint">→ does not acknowledge</span><span class="ans-label">does not acknowledge</span></span> <span class="verb-hint">(not/acknowledge)</span> the importance of digital literacy in today's society.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">11.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The council <span class="blank"><input type="text" class="lg" data-answer="does not consider" placeholder="___"><span class="hint">→ does not consider</span><span class="ans-label">does not consider</span></span> <span class="verb-hint">(not/consider)</span> the long-term consequences of rapid urban expansion.
+    </div>
+  </div>
+
+  <!-- QUESTION -->
+  <div class="group-label">✦ คำถาม (Question)</div>
+
+  <div class="item">
+    <div class="item-num">12.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Does" placeholder="___"><span class="hint">→ Does</span><span class="ans-label">Does</span></span> the committee meet regularly to evaluate the progress of the programme?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">13.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Do" placeholder="___"><span class="hint">→ Do</span><span class="ans-label">Do</span></span> students develop critical thinking skills through project-based learning?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">14.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Does" placeholder="___"><span class="hint">→ Does</span><span class="ans-label">Does</span></span> she contribute to any environmental campaigns in her local community?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">15.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Does" placeholder="___"><span class="hint">→ Does</span><span class="ans-label">Does</span></span> the government publish an annual report on its sustainability goals?
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 · PRESENT CONTINUOUS  (16–30)
+══════════════════════════════════════════ -->
+<div class="section" id="pc">
+  <div class="section-header">
+    <div class="section-color-bar bar-pc"></div>
+    <div class="section-info">
+      <div class="section-label">ข้อ 16–30</div>
+      <div class="section-title col-pc">Present Continuous</div>
+    </div>
+  </div>
+  <div class="section-rule">
+    โครงสร้าง: &nbsp;
+    <code>S + is/am/are + V-ing</code> &nbsp;|&nbsp;
+    <code>S + is/am/are + not + V-ing</code> &nbsp;|&nbsp;
+    <code>Is/Am/Are + S + V-ing …?</code>
+  </div>
+
+  <div class="group-label">✦ บอกเล่า (Affirmative)</div>
+
+  <div class="item">
+    <div class="item-num">16.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      Scientists <span class="blank"><input type="text" class="lg" data-answer="are investigating" placeholder="___"><span class="hint">→ are investigating</span><span class="ans-label">are investigating</span></span> <span class="verb-hint">(investigate)</span> the long-term effects of microplastic pollution on marine ecosystems.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">17.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      The government <span class="blank"><input type="text" class="lg" data-answer="is introducing" placeholder="___"><span class="hint">→ is introducing</span><span class="ans-label">is introducing</span></span> <span class="verb-hint">(introduce)</span> a range of new policies to combat rising social inequality this year.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">18.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      She <span class="blank"><input type="text" class="lg" data-answer="is working" placeholder="___"><span class="hint">→ is working</span><span class="ans-label">is working</span></span> <span class="verb-hint">(work)</span> on a research project focusing on affordable renewable energy solutions this semester.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">19.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      Many communities around the world <span class="blank"><input type="text" class="lg" data-answer="are facing" placeholder="___"><span class="hint">→ are facing</span><span class="ans-label">are facing</span></span> <span class="verb-hint">(face)</span> serious challenges due to the effects of climate change right now.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">20.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      He <span class="blank"><input type="text" class="lg" data-answer="is collaborating" placeholder="___"><span class="hint">→ is collaborating</span><span class="ans-label">is collaborating</span></span> <span class="verb-hint">(collaborate)</span> with international experts to develop a more effective vaccine at the moment.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">21.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      The organisation <span class="blank"><input type="text" class="lg" data-answer="is expanding" placeholder="___"><span class="hint">→ is expanding</span><span class="ans-label">is expanding</span></span> <span class="verb-hint">(expand)</span> its operations into several developing countries this year.
+    </div>
+  </div>
+
+  <div class="group-label">✦ ปฏิเสธ (Negative)</div>
+
+  <div class="item">
+    <div class="item-num">22.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The authorities <span class="blank"><input type="text" class="lg" data-answer="are not taking" placeholder="___"><span class="hint">→ are not taking</span><span class="ans-label">are not taking</span></span> <span class="verb-hint">(not/take)</span> sufficient action to address the growing housing crisis at the moment.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">23.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The company <span class="blank"><input type="text" class="lg" data-answer="is not fulfilling" placeholder="___"><span class="hint">→ is not fulfilling</span><span class="ans-label">is not fulfilling</span></span> <span class="verb-hint">(not/fulfil)</span> its promises regarding environmental sustainability currently.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">24.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      They <span class="blank"><input type="text" class="lg" data-answer="are not making" placeholder="___"><span class="hint">→ are not making</span><span class="ans-label">are not making</span></span> <span class="verb-hint">(not/make)</span> enough progress on reducing harmful carbon emissions this year.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">25.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      She <span class="blank"><input type="text" class="lg" data-answer="is not considering" placeholder="___"><span class="hint">→ is not considering</span><span class="ans-label">is not considering</span></span> <span class="verb-hint">(not/consider)</span> withdrawing from the competition despite the difficult circumstances.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">26.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The local council <span class="blank"><input type="text" class="lg" data-answer="is not responding" placeholder="___"><span class="hint">→ is not responding</span><span class="ans-label">is not responding</span></span> <span class="verb-hint">(not/respond)</span> effectively to residents' concerns about air pollution at the moment.
+    </div>
+  </div>
+
+  <div class="group-label">✦ คำถาม (Question)</div>
+
+  <div class="item">
+    <div class="item-num">27.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Is" placeholder="___"><span class="hint">→ Is</span><span class="ans-label">Is</span></span> the committee reviewing the current healthcare policies at the moment?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">28.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Are" placeholder="___"><span class="hint">→ Are</span><span class="ans-label">Are</span></span> researchers developing more effective treatments for the disease currently?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">29.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Is" placeholder="___"><span class="hint">→ Is</span><span class="ans-label">Is</span></span> the government investing adequately in public education this academic year?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">30.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Are" placeholder="___"><span class="hint">→ Are</span><span class="ans-label">Are</span></span> they cooperating with local authorities to improve waste management systems?
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 · PRESENT PERFECT  (31–45)
+══════════════════════════════════════════ -->
+<div class="section" id="pp">
+  <div class="section-header">
+    <div class="section-color-bar bar-pp"></div>
+    <div class="section-info">
+      <div class="section-label">ข้อ 31–45</div>
+      <div class="section-title col-pp">Present Perfect</div>
+    </div>
+  </div>
+  <div class="section-rule">
+    โครงสร้าง: &nbsp;
+    <code>S + have/has + V3</code> &nbsp;|&nbsp;
+    <code>S + have/has + not + V3</code> &nbsp;|&nbsp;
+    <code>Have/Has + S + V3 …?</code>
+  </div>
+
+  <div class="group-label">✦ บอกเล่า (Affirmative)</div>
+
+  <div class="item">
+    <div class="item-num">31.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      Scientists <span class="blank"><input type="text" class="lg" data-answer="have discovered" placeholder="___"><span class="hint">→ have discovered</span><span class="ans-label">have discovered</span></span> <span class="verb-hint">(discover)</span> several new species in the Amazon rainforest in recent years.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">32.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      The government <span class="blank"><input type="text" class="lg" data-answer="has implemented" placeholder="___"><span class="hint">→ has implemented</span><span class="ans-label">has implemented</span></span> <span class="verb-hint">(implement)</span> a number of economic initiatives to support small businesses recently.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">33.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      She <span class="blank"><input type="text" class="lg" data-answer="has achieved" placeholder="___"><span class="hint">→ has achieved</span><span class="ans-label">has achieved</span></span> <span class="verb-hint">(achieve)</span> remarkable success in her academic career so far.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">34.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      They <span class="blank"><input type="text" class="lg" data-answer="have raised" placeholder="___"><span class="hint">→ have raised</span><span class="ans-label">have raised</span></span> <span class="verb-hint">(raise)</span> significant awareness about mental health issues in recent years.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">35.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      He <span class="blank"><input type="text" class="lg" data-answer="has contributed" placeholder="___"><span class="hint">→ has contributed</span><span class="ans-label">has contributed</span></span> <span class="verb-hint">(contribute)</span> extensively to the field of environmental conservation research.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">36.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      The organisation <span class="blank"><input type="text" class="lg" data-answer="has supported" placeholder="___"><span class="hint">→ has supported</span><span class="ans-label">has supported</span></span> <span class="verb-hint">(support)</span> disadvantaged communities around the world for over two decades.
+    </div>
+  </div>
+
+  <div class="group-label">✦ ปฏิเสธ (Negative)</div>
+
+  <div class="item">
+    <div class="item-num">37.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The authorities <span class="blank"><input type="text" class="lg" data-answer="have not found" placeholder="___"><span class="hint">→ have not found</span><span class="ans-label">have not found</span></span> <span class="verb-hint">(not/find)</span> an effective solution to the urban traffic congestion problem yet.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">38.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      She <span class="blank"><input type="text" class="lg" data-answer="has not received" placeholder="___"><span class="hint">→ has not received</span><span class="ans-label">has not received</span></span> <span class="verb-hint">(not/receive)</span> any official recognition for her outstanding contributions so far.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">39.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The company <span class="blank"><input type="text" class="lg" data-answer="has not fulfilled" placeholder="___"><span class="hint">→ has not fulfilled</span><span class="ans-label">has not fulfilled</span></span> <span class="verb-hint">(not/fulfil)</span> all its commitments to reducing carbon emissions so far.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">40.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      They <span class="blank"><input type="text" class="lg" data-answer="have not addressed" placeholder="___"><span class="hint">→ have not addressed</span><span class="ans-label">have not addressed</span></span> <span class="verb-hint">(not/address)</span> the underlying causes of poverty in the region adequately yet.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">41.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The council <span class="blank"><input type="text" class="lg" data-answer="has not approved" placeholder="___"><span class="hint">→ has not approved</span><span class="ans-label">has not approved</span></span> <span class="verb-hint">(not/approve)</span> the new development plan despite months of negotiation.
+    </div>
+  </div>
+
+  <div class="group-label">✦ คำถาม (Question)</div>
+
+  <div class="item">
+    <div class="item-num">42.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Has" placeholder="___"><span class="hint">→ Has</span><span class="ans-label">Has</span></span> the committee approved the new proposal for sustainable urban development?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">43.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Have" placeholder="___"><span class="hint">→ Have</span><span class="ans-label">Have</span></span> researchers made any significant breakthroughs in cancer treatment recently?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">44.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Has" placeholder="___"><span class="hint">→ Has</span><span class="ans-label">Has</span></span> the government ever introduced policies specifically designed to support mental health services?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">45.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Have" placeholder="___"><span class="hint">→ Have</span><span class="ans-label">Have</span></span> they fully considered the environmental impact of the proposed construction project?
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 · PRESENT PERFECT CONTINUOUS  (46–60)
+══════════════════════════════════════════ -->
+<div class="section" id="ppc">
+  <div class="section-header">
+    <div class="section-color-bar bar-ppc"></div>
+    <div class="section-info">
+      <div class="section-label">ข้อ 46–60</div>
+      <div class="section-title col-ppc">Present Perfect Continuous</div>
+    </div>
+  </div>
+  <div class="section-rule">
+    โครงสร้าง: &nbsp;
+    <code>S + have/has + been + V-ing</code> &nbsp;|&nbsp;
+    <code>S + have/has + not + been + V-ing</code> &nbsp;|&nbsp;
+    <code>Have/Has + S + been + V-ing …?</code>
+  </div>
+
+  <div class="group-label">✦ บอกเล่า (Affirmative)</div>
+
+  <div class="item">
+    <div class="item-num">46.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      Scientists <span class="blank"><input type="text" class="lg" data-answer="have been studying" placeholder="___"><span class="hint">→ have been studying</span><span class="ans-label">have been studying</span></span> <span class="verb-hint">(study)</span> the impact of deforestation on global biodiversity for several decades.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">47.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      She <span class="blank"><input type="text" class="lg" data-answer="has been working" placeholder="___"><span class="hint">→ has been working</span><span class="ans-label">has been working</span></span> <span class="verb-hint">(work)</span> tirelessly to improve access to quality education in rural areas since 2018.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">48.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      The organisation <span class="blank"><input type="text" class="lg" data-answer="has been campaigning" placeholder="___"><span class="hint">→ has been campaigning</span><span class="ans-label">has been campaigning</span></span> <span class="verb-hint">(campaign)</span> for greater gender equality in the workplace for many years.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">49.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      He <span class="blank"><input type="text" class="lg" data-answer="has been developing" placeholder="___"><span class="hint">→ has been developing</span><span class="ans-label">has been developing</span></span> <span class="verb-hint">(develop)</span> innovative solutions to address water scarcity in arid regions for several years.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">50.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      They <span class="blank"><input type="text" class="lg" data-answer="have been collaborating" placeholder="___"><span class="hint">→ have been collaborating</span><span class="ans-label">have been collaborating</span></span> <span class="verb-hint">(collaborate)</span> with international partners to address the global climate emergency for years.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">51.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-aff">บอกเล่า</span></div>
+      The government <span class="blank"><input type="text" class="lg" data-answer="has been monitoring" placeholder="___"><span class="hint">→ has been monitoring</span><span class="ans-label">has been monitoring</span></span> <span class="verb-hint">(monitor)</span> air quality levels in major cities since the new environmental legislation passed.
+    </div>
+  </div>
+
+  <div class="group-label">✦ ปฏิเสธ (Negative)</div>
+
+  <div class="item">
+    <div class="item-num">52.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The company <span class="blank"><input type="text" class="lg" data-answer="has not been investing" placeholder="___"><span class="hint">→ has not been investing</span><span class="ans-label">has not been investing</span></span> <span class="verb-hint">(not/invest)</span> enough resources in employee training and professional development.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">53.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      She <span class="blank"><input type="text" class="lg" data-answer="has not been receiving" placeholder="___"><span class="hint">→ has not been receiving</span><span class="ans-label">has not been receiving</span></span> <span class="verb-hint">(not/receive)</span> adequate support from the institution throughout her research project.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">54.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      They <span class="blank"><input type="text" class="lg" data-answer="have not been making" placeholder="___"><span class="hint">→ have not been making</span><span class="ans-label">have not been making</span></span> <span class="verb-hint">(not/make)</span> sufficient effort to reduce their overall environmental impact recently.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">55.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      He <span class="blank"><input type="text" class="lg" data-answer="has not been taking" placeholder="___"><span class="hint">→ has not been taking</span><span class="ans-label">has not been taking</span></span> <span class="verb-hint">(not/take)</span> proper care of his physical and mental wellbeing for some time now.
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">56.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-neg">ปฏิเสธ</span></div>
+      The local authority <span class="blank"><input type="text" class="lg" data-answer="has not been addressing" placeholder="___"><span class="hint">→ has not been addressing</span><span class="ans-label">has not been addressing</span></span> <span class="verb-hint">(not/address)</span> residents' complaints about the deteriorating public infrastructure.
+    </div>
+  </div>
+
+  <div class="group-label">✦ คำถาม (Question)</div>
+
+  <div class="item">
+    <div class="item-num">57.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Has" placeholder="___"><span class="hint">→ Has</span><span class="ans-label">Has</span></span> the committee been discussing strategies to tackle the inequality issue effectively recently?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">58.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Have" placeholder="___"><span class="hint">→ Have</span><span class="ans-label">Have</span></span> researchers been conducting clinical trials for the new medication for long?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">59.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Has" placeholder="___"><span class="hint">→ Has</span><span class="ans-label">Has</span></span> the government been implementing the new education reforms effectively since they were introduced?
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-num">60.</div>
+    <div class="item-body">
+      <div class="tags"><span class="tag tag-q">คำถาม</span></div>
+      <span class="blank"><input type="text" class="sm" data-answer="Have" placeholder="___"><span class="hint">→ Have</span><span class="ans-label">Have</span></span> they been making steady progress on resolving the conflict between the two communities?
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Present Tenses · M.3 · B1–B2 · 60 Exercises<br>
+  รับทั้ง <em>do not / don't</em> · <em>does not / doesn't</em> · <em>is not / isn't</em> · <em>are not / aren't</em> · <em>has not / hasn't</em> · <em>have not / haven't</em>
+</div>
+
+<script>
+const ACCEPT = {
+  "does not approve":       ["does not approve","doesn't approve"],
+  "does not manufacture":   ["does not manufacture","doesn't manufacture"],
+  "do not participate":     ["do not participate","don't participate"],
+  "does not acknowledge":   ["does not acknowledge","doesn't acknowledge"],
+  "does not consider":      ["does not consider","doesn't consider"],
+  "are not taking":         ["are not taking","aren't taking"],
+  "is not fulfilling":      ["is not fulfilling","isn't fulfilling","is not fulfiling","isn't fulfiling"],
+  "are not making":         ["are not making","aren't making"],
+  "is not considering":     ["is not considering","isn't considering"],
+  "is not responding":      ["is not responding","isn't responding"],
+  "have not found":         ["have not found","haven't found"],
+  "has not received":       ["has not received","hasn't received"],
+  "has not fulfilled":      ["has not fulfilled","hasn't fulfilled","has not fulfiled","hasn't fulfiled"],
+  "have not addressed":     ["have not addressed","haven't addressed"],
+  "has not approved":       ["has not approved","hasn't approved"],
+  "has not been investing":  ["has not been investing","hasn't been investing"],
+  "has not been receiving":  ["has not been receiving","hasn't been receiving"],
+  "have not been making":    ["have not been making","haven't been making"],
+  "has not been taking":     ["has not been taking","hasn't been taking"],
+  "has not been addressing": ["has not been addressing","hasn't been addressing"],
+};
+
+function norm(s){ return s.trim().toLowerCase().replace(/\s+/g,' '); }
+function isOk(userVal, answer){
+  const u = norm(userVal), a = norm(answer);
+  return ACCEPT[a] ? ACCEPT[a].map(norm).includes(u) : u === a;
+}
+
+function checkAll(){
+  const inputs = document.querySelectorAll('.blank input');
+  let correct=0, answered=0;
+  inputs.forEach(inp=>{
+    inp.classList.remove('correct','wrong');
+    if(!inp.value.trim()) return;
+    answered++;
+    if(isOk(inp.value, inp.dataset.answer)){ inp.classList.add('correct'); correct++; }
+    else inp.classList.add('wrong');
+  });
+  const box = document.getElementById('scoreBox');
+  box.style.display = answered ? 'inline-block' : 'none';
+  box.textContent = `คะแนน ${correct} / ${answered} ข้อที่ตอบ  (จากทั้งหมด 60 ข้อ)`;
+}
+
+let showing = false;
+function toggleShow(){
+  showing = !showing;
+  document.body.classList.toggle('show-mode', showing);
+  document.querySelector('.btn-show').textContent = showing ? '◉ ซ่อนเฉลย' : '◎ ดู / ซ่อนเฉลย';
+}
+
+function resetAll(){
+  document.querySelectorAll('.blank input').forEach(i=>{
+    i.value=''; i.classList.remove('correct','wrong');
+  });
+  document.getElementById('scoreBox').style.display='none';
+  if(showing) toggleShow();
+}
+
+document.querySelectorAll('.blank input').forEach(inp=>{
+  inp.addEventListener('keydown', e=>{
+    if(e.key==='Enter'){
+      inp.classList.remove('correct','wrong');
+      if(inp.value.trim())
+        isOk(inp.value, inp.dataset.answer) ? inp.classList.add('correct') : inp.classList.add('wrong');
+    }
+  });
+});
+</script>
+</body>
+</html>

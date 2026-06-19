@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Past Simple – Fill in the Blanks</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1209;
+    --paper: #f5f0e8;
+    --cream: #ede7d5;
+    --rule: #c8b99a;
+    --accent: #8b3a1a;
+    --gold: #c8951a;
+    --blue: #1a3a5c;
+    --green: #1a4a2e;
+    --muted: #6b5c44;
+    --correct-bg: #e8f5e9;
+    --wrong-bg: #fdecea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--paper);
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 27px,
+        rgba(200,185,154,0.35) 27px,
+        rgba(200,185,154,0.35) 28px
+      );
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 36px 24px 28px;
+    border-bottom: 5px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg,
+      transparent, transparent 12px,
+      rgba(200,149,26,0.06) 12px, rgba(200,149,26,0.06) 13px);
+  }
+  .header-badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    font-family: 'Source Serif 4', serif;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 50px);
+    font-weight: 900;
+    letter-spacing: -.01em;
+    line-height: 1.1;
+    position: relative;
+  }
+  .header h1 span { color: var(--gold); }
+  .header-sub {
+    margin-top: 10px;
+    font-size: 14px;
+    color: rgba(245,240,232,.65);
+    letter-spacing: .06em;
+    position: relative;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--cream);
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+  .badge-aff  { background:#fff8ee; color:var(--gold); border-color:var(--gold); }
+  .badge-neg  { background:#fff4f2; color:var(--accent); border-color:var(--accent); }
+  .badge-q    { background:#eef4ff; color:var(--blue); border-color:var(--blue); }
+  .badge-reg  { background:#f0f8f4; color:var(--green); border-color:var(--green); }
+  .badge-irr  { background:#f5eeff; color:#6040a0; border-color:#9070c8; }
+  .badge-be   { background:#fff9ee; color:#8b6000; border-color:#c8951a; }
+
+  /* ── CONTROLS ── */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 16px 24px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .btn {
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    padding: 9px 22px;
+    border: 2px solid;
+    cursor: pointer;
+    transition: all .18s;
+    border-radius: 2px;
+  }
+  .btn-check  { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .btn-check:hover { background:#3a2a19; }
+  .btn-show   { background:transparent; color:var(--accent); border-color:var(--accent); }
+  .btn-show:hover { background:var(--accent); color:#fff; }
+  .btn-reset  { background:transparent; color:var(--muted); border-color:var(--rule); }
+  .btn-reset:hover { background:var(--cream); }
+  .score-box {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 18px;
+    background: var(--cream);
+    border: 2px solid var(--rule);
+    border-radius: 2px;
+    color: var(--ink);
+    display: none;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    max-width: 860px;
+    margin: 32px auto 0;
+    padding: 0 20px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--rule);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .line-no {
+    font-size: 11px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2px 8px;
+    letter-spacing: .1em;
+  }
+
+  /* ── ITEM ── */
+  .item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--rule);
+    align-items: flex-start;
+    animation: fadeIn .3s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; } }
+  .item-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--rule);
+    min-width: 28px;
+    padding-top: 2px;
+    text-align: right;
+  }
+  .item-body {
+    flex: 1;
+    font-size: 15.5px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 4px; }
+
+  /* ── INPUT ── */
+  .blank {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+  }
+  .blank input {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    border: none;
+    border-bottom: 2px solid var(--ink);
+    background: transparent;
+    outline: none;
+    width: 120px;
+    padding: 1px 4px;
+    color: var(--blue);
+    font-weight: 600;
+    transition: border-color .18s;
+  }
+  .blank input:focus { border-bottom-color: var(--gold); }
+  .blank input.correct { border-bottom-color: var(--green); background: var(--correct-bg); }
+  .blank input.wrong   { border-bottom-color: var(--accent); background: var(--wrong-bg); }
+  .blank .hint {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: var(--ink);
+    color: var(--gold);
+    font-size: 11px;
+    white-space: nowrap;
+    padding: 3px 8px;
+    letter-spacing: .06em;
+    font-style: italic;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .blank input.wrong ~ .hint { display: block; }
+  .blank input.correct ~ .hint { display: none; }
+  /* show answer mode */
+  .show-mode .blank input { display:none; }
+  .blank .answer-label {
+    display: none;
+    font-weight: 700;
+    color: var(--green);
+    border-bottom: 2px solid var(--green);
+    min-width: 80px;
+    padding: 1px 4px;
+    font-size: 15px;
+  }
+  .show-mode .blank .answer-label { display: inline-block; }
+
+  /* ── VERB BOX ── */
+  .verb-box {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    margin-left: 3px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 20px;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+    letter-spacing: .06em;
+  }
+
+  @media (max-width: 600px) {
+    .item-body { font-size: 14px; }
+    .blank input { width: 90px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">English Grammar Workbook · M.3</div>
+  <h1>Past Simple<br><span>Fill in the Blanks</span></h1>
+  <p class="header-sub">40 Exercises · B1–B2 Vocabulary · Regular · Irregular · Verb to Be</p>
+</div>
+
+<div class="legend">
+  <span class="badge badge-aff">✦ บอกเล่า</span>
+  <span class="badge badge-neg">✦ ปฏิเสธ</span>
+  <span class="badge badge-q">✦ คำถาม</span>
+  <span class="badge badge-reg">Regular</span>
+  <span class="badge badge-irr">Irregular</span>
+  <span class="badge badge-be">Verb to Be</span>
+</div>
+
+<div class="controls">
+  <button class="btn btn-check" onclick="checkAll()">✓ ตรวจคำตอบ</button>
+  <button class="btn btn-show"  onclick="toggleShow()">◎ ดู/ซ่อนเฉลย</button>
+  <button class="btn btn-reset" onclick="resetAll()">↺ เริ่มใหม่</button>
+  <div class="score-box" id="scoreBox"></div>
+</div>
+
+<!-- ======================== SECTION 1 ======================== -->
+<div class="section">
+  <div class="section-title">
+    <span class="line-no">ข้อ 1–8</span>
+    Verb to Be (was / were)
+  </div>
+
+  <!-- 1 -->
+  <div class="item">
+    <div class="item-num">1.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-be">Verb to Be</span></div>
+      The weather <span class="blank"><input type="text" data-answer="was" placeholder="___"><span class="hint">✗ → was</span><span class="answer-label">was</span></span> <span class="verb-box">(be)</span> cold and windy when we arrived at the campsite.
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="item">
+    <div class="item-num">2.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-be">Verb to Be</span></div>
+      The students <span class="blank"><input type="text" data-answer="were" placeholder="___"><span class="hint">✗ → were</span><span class="answer-label">were</span></span> <span class="verb-box">(be)</span> extremely nervous before the national examination.
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="item">
+    <div class="item-num">3.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-be">Verb to Be</span></div>
+      My parents <span class="blank"><input type="text" data-answer="were not" placeholder="___"><span class="hint">✗ → were not</span><span class="answer-label">were not</span></span> <span class="verb-box">(be)</span> at home when I returned from school.
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="item">
+    <div class="item-num">4.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-be">Verb to Be</span></div>
+      The museum <span class="blank"><input type="text" data-answer="was not" placeholder="___"><span class="hint">✗ → was not</span><span class="answer-label">was not</span></span> <span class="verb-box">(be)</span> open on public holidays last year.
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="item">
+    <div class="item-num">5.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-q">คำถาม</span><span class="badge badge-be">Verb to Be</span></div>
+      <span class="blank"><input type="text" data-answer="Was" placeholder="___"><span class="hint">✗ → Was</span><span class="answer-label">Was</span></span> <span class="verb-box">(be)</span> your teacher satisfied with your presentation last week?
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="item">
+    <div class="item-num">6.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-q">คำถาม</span><span class="badge badge-be">Verb to Be</span></div>
+      <span class="blank"><input type="text" data-answer="Were" placeholder="___"><span class="hint">✗ → Were</span><span class="answer-label">Were</span></span> <span class="verb-box">(be)</span> you and your classmates satisfied with the final results?
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="item">
+    <div class="item-num">7.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-be">Verb to Be</span></div>
+      The documentary about ocean pollution <span class="blank"><input type="text" data-answer="was" placeholder="___"><span class="hint">✗ → was</span><span class="answer-label">was</span></span> <span class="verb-box">(be)</span> absolutely eye-opening.
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="item">
+    <div class="item-num">8.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-be">Verb to Be</span></div>
+      The conditions in the remote village <span class="blank"><input type="text" data-answer="were not" placeholder="___"><span class="hint">✗ → were not</span><span class="answer-label">were not</span></span> <span class="verb-box">(be)</span> suitable for farming last season.
+    </div>
+  </div>
+</div>
+
+<!-- ======================== SECTION 2 ======================== -->
+<div class="section">
+  <div class="section-title">
+    <span class="line-no">ข้อ 9–22</span>
+    Regular Verbs
+  </div>
+
+  <!-- 9 -->
+  <div class="item">
+    <div class="item-num">9.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-reg">Regular</span></div>
+      She <span class="blank"><input type="text" data-answer="studied" placeholder="___"><span class="hint">✗ → studied</span><span class="answer-label">studied</span></span> <span class="verb-box">(study)</span> for her final examinations all night long.
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="item">
+    <div class="item-num">10.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-reg">Regular</span></div>
+      They <span class="blank"><input type="text" data-answer="travelled" placeholder="___"><span class="hint">✗ → travelled</span><span class="answer-label">travelled</span></span> <span class="verb-box">(travel)</span> across Southeast Asia during the summer holidays.
+    </div>
+  </div>
+
+  <!-- 11 -->
+  <div class="item">
+    <div class="item-num">11.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-reg">Regular</span></div>
+      He <span class="blank"><input type="text" data-answer="decided" placeholder="___"><span class="hint">✗ → decided</span><span class="answer-label">decided</span></span> <span class="verb-box">(decide)</span> to apply for a government scholarship last year.
+    </div>
+  </div>
+
+  <!-- 12 -->
+  <div class="item">
+    <div class="item-num">12.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-reg">Regular</span></div>
+      The committee <span class="blank"><input type="text" data-answer="discussed" placeholder="___"><span class="hint">✗ → discussed</span><span class="answer-label">discussed</span></span> <span class="verb-box">(discuss)</span> the environmental issue for several hours.
+    </div>
+  </div>
+
+  <!-- 13 -->
+  <div class="item">
+    <div class="item-num">13.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-reg">Regular</span></div>
+      She <span class="blank"><input type="text" data-answer="managed" placeholder="___"><span class="hint">✗ → managed</span><span class="answer-label">managed</span></span> <span class="verb-box">(manage)</span> to complete the challenging project before the deadline.
+    </div>
+  </div>
+
+  <!-- 14 -->
+  <div class="item">
+    <div class="item-num">14.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-reg">Regular</span></div>
+      The volunteers <span class="blank"><input type="text" data-answer="participated" placeholder="___"><span class="hint">✗ → participated</span><span class="answer-label">participated</span></span> <span class="verb-box">(participate)</span> in a community clean-up campaign last weekend.
+    </div>
+  </div>
+
+  <!-- 15 -->
+  <div class="item">
+    <div class="item-num">15.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-reg">Regular</span></div>
+      She <span class="blank"><input type="text" data-answer="did not enjoy" placeholder="___"><span class="hint">✗ → did not enjoy</span><span class="answer-label">did not enjoy</span></span> <span class="verb-box">(not/enjoy)</span> the horror film at all because it was too violent.
+    </div>
+  </div>
+
+  <!-- 16 -->
+  <div class="item">
+    <div class="item-num">16.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-reg">Regular</span></div>
+      They <span class="blank"><input type="text" data-answer="did not manage" placeholder="___"><span class="hint">✗ → did not manage</span><span class="answer-label">did not manage</span></span> <span class="verb-box">(not/manage)</span> to raise enough funds for the project.
+    </div>
+  </div>
+
+  <!-- 17 -->
+  <div class="item">
+    <div class="item-num">17.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-reg">Regular</span></div>
+      He <span class="blank"><input type="text" data-answer="did not realise" placeholder="___"><span class="hint">✗ → did not realise</span><span class="answer-label">did not realise</span></span> <span class="verb-box">(not/realise)</span> his mistake until his teacher pointed it out.
+    </div>
+  </div>
+
+  <!-- 18 -->
+  <div class="item">
+    <div class="item-num">18.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-reg">Regular</span></div>
+      The audience <span class="blank"><input type="text" data-answer="did not expect" placeholder="___"><span class="hint">✗ → did not expect</span><span class="answer-label">did not expect</span></span> <span class="verb-box">(not/expect)</span> such a dramatic ending to the performance.
+    </div>
+  </div>
+
+  <!-- 19 -->
+  <div class="item">
+    <div class="item-num">19.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-q">คำถาม</span><span class="badge badge-reg">Regular</span></div>
+      <span class="blank"><input type="text" data-answer="Did" placeholder="___"><span class="hint">✗ → Did</span><span class="answer-label">Did</span></span> she finish her assignment before dinner last night?
+    </div>
+  </div>
+
+  <!-- 20 -->
+  <div class="item">
+    <div class="item-num">20.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-q">คำถาม</span><span class="badge badge-reg">Regular</span></div>
+      <span class="blank"><input type="text" data-answer="Did" placeholder="___"><span class="hint">✗ → Did</span><span class="answer-label">Did</span></span> they attempt to solve the problem in a different way?
+    </div>
+  </div>
+
+  <!-- 21 -->
+  <div class="item">
+    <div class="item-num">21.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-q">คำถาม</span><span class="badge badge-reg">Regular</span></div>
+      <span class="blank"><input type="text" data-answer="Did" placeholder="___"><span class="hint">✗ → Did</span><span class="answer-label">Did</span></span> the scientist publish her research results last month?
+    </div>
+  </div>
+
+  <!-- 22 -->
+  <div class="item">
+    <div class="item-num">22.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-reg">Regular</span></div>
+      The government <span class="blank"><input type="text" data-answer="introduced" placeholder="___"><span class="hint">✗ → introduced</span><span class="answer-label">introduced</span></span> <span class="verb-box">(introduce)</span> strict regulations to reduce air pollution last year.
+    </div>
+  </div>
+</div>
+
+<!-- ======================== SECTION 3 ======================== -->
+<div class="section">
+  <div class="section-title">
+    <span class="line-no">ข้อ 23–38</span>
+    Irregular Verbs
+  </div>
+
+  <!-- 23 -->
+  <div class="item">
+    <div class="item-num">23.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-irr">Irregular</span></div>
+      She <span class="blank"><input type="text" data-answer="wrote" placeholder="___"><span class="hint">✗ → wrote</span><span class="answer-label">wrote</span></span> <span class="verb-box">(write)</span> an impressive essay about the effects of climate change.
+    </div>
+  </div>
+
+  <!-- 24 -->
+  <div class="item">
+    <div class="item-num">24.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-irr">Irregular</span></div>
+      He <span class="blank"><input type="text" data-answer="spoke" placeholder="___"><span class="hint">✗ → spoke</span><span class="answer-label">spoke</span></span> <span class="verb-box">(speak)</span> confidently in front of the entire audience during the debate.
+    </div>
+  </div>
+
+  <!-- 25 -->
+  <div class="item">
+    <div class="item-num">25.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-irr">Irregular</span></div>
+      We <span class="blank"><input type="text" data-answer="felt" placeholder="___"><span class="hint">✗ → felt</span><span class="answer-label">felt</span></span> <span class="verb-box">(feel)</span> extremely proud when our school team won the regional competition.
+    </div>
+  </div>
+
+  <!-- 26 -->
+  <div class="item">
+    <div class="item-num">26.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-irr">Irregular</span></div>
+      She <span class="blank"><input type="text" data-answer="became" placeholder="___"><span class="hint">✗ → became</span><span class="answer-label">became</span></span> <span class="verb-box">(become)</span> the most influential leader in her community within two years.
+    </div>
+  </div>
+
+  <!-- 27 -->
+  <div class="item">
+    <div class="item-num">27.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-irr">Irregular</span></div>
+      They <span class="blank"><input type="text" data-answer="understood" placeholder="___"><span class="hint">✗ → understood</span><span class="answer-label">understood</span></span> <span class="verb-box">(understand)</span> the concept only after the teacher explained it three times.
+    </div>
+  </div>
+
+  <!-- 28 -->
+  <div class="item">
+    <div class="item-num">28.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-irr">Irregular</span></div>
+      He <span class="blank"><input type="text" data-answer="chose" placeholder="___"><span class="hint">✗ → chose</span><span class="answer-label">chose</span></span> <span class="verb-box">(choose)</span> to pursue a career in environmental science after graduation.
+    </div>
+  </div>
+
+  <!-- 29 -->
+  <div class="item">
+    <div class="item-num">29.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-irr">Irregular</span></div>
+      The scientist <span class="blank"><input type="text" data-answer="brought" placeholder="___"><span class="hint">✗ → brought</span><span class="answer-label">brought</span></span> <span class="verb-box">(bring)</span> several crucial documents to the international conference.
+    </div>
+  </div>
+
+  <!-- 30 -->
+  <div class="item">
+    <div class="item-num">30.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-irr">Irregular</span></div>
+      The organisation <span class="blank"><input type="text" data-answer="built" placeholder="___"><span class="hint">✗ → built</span><span class="answer-label">built</span></span> <span class="verb-box">(build)</span> a new community centre in the rural area last year.
+    </div>
+  </div>
+
+  <!-- 31 -->
+  <div class="item">
+    <div class="item-num">31.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-irr">Irregular</span></div>
+      He <span class="blank"><input type="text" data-answer="did not know" placeholder="___"><span class="hint">✗ → did not know</span><span class="answer-label">did not know</span></span> <span class="verb-box">(not/know)</span> the correct answer to the final examination question.
+    </div>
+  </div>
+
+  <!-- 32 -->
+  <div class="item">
+    <div class="item-num">32.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-irr">Irregular</span></div>
+      They <span class="blank"><input type="text" data-answer="did not think" placeholder="___"><span class="hint">✗ → did not think</span><span class="answer-label">did not think</span></span> <span class="verb-box">(not/think)</span> the proposed plan would succeed under those circumstances.
+    </div>
+  </div>
+
+  <!-- 33 -->
+  <div class="item">
+    <div class="item-num">33.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-irr">Irregular</span></div>
+      She <span class="blank"><input type="text" data-answer="did not find" placeholder="___"><span class="hint">✗ → did not find</span><span class="answer-label">did not find</span></span> <span class="verb-box">(not/find)</span> an effective solution to the problem despite working all night.
+    </div>
+  </div>
+
+  <!-- 34 -->
+  <div class="item">
+    <div class="item-num">34.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-irr">Irregular</span></div>
+      The team <span class="blank"><input type="text" data-answer="did not get" placeholder="___"><span class="hint">✗ → did not get</span><span class="answer-label">did not get</span></span> <span class="verb-box">(not/get)</span> enough support from the local authorities.
+    </div>
+  </div>
+
+  <!-- 35 -->
+  <div class="item">
+    <div class="item-num">35.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-q">คำถาม</span><span class="badge badge-irr">Irregular</span></div>
+      <span class="blank"><input type="text" data-answer="Did" placeholder="___"><span class="hint">✗ → Did</span><span class="answer-label">Did</span></span> she give a memorable speech at the graduation ceremony?
+    </div>
+  </div>
+
+  <!-- 36 -->
+  <div class="item">
+    <div class="item-num">36.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-q">คำถาม</span><span class="badge badge-irr">Irregular</span></div>
+      <span class="blank"><input type="text" data-answer="Did" placeholder="___"><span class="hint">✗ → Did</span><span class="answer-label">Did</span></span> they see the documentary about climate change last semester?
+    </div>
+  </div>
+
+  <!-- 37 -->
+  <div class="item">
+    <div class="item-num">37.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-q">คำถาม</span><span class="badge badge-irr">Irregular</span></div>
+      <span class="blank"><input type="text" data-answer="Did" placeholder="___"><span class="hint">✗ → Did</span><span class="answer-label">Did</span></span> he go abroad to attend an international science conference?
+    </div>
+  </div>
+
+  <!-- 38 -->
+  <div class="item">
+    <div class="item-num">38.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-q">คำถาม</span><span class="badge badge-irr">Irregular</span></div>
+      <span class="blank"><input type="text" data-answer="Did" placeholder="___"><span class="hint">✗ → Did</span><span class="answer-label">Did</span></span> you buy anything useful at the technology exhibition last Saturday?
+    </div>
+  </div>
+</div>
+
+<!-- ======================== SECTION 4 ======================== -->
+<div class="section">
+  <div class="section-title">
+    <span class="line-no">ข้อ 39–40</span>
+    Mixed Challenge
+  </div>
+
+  <!-- 39 -->
+  <div class="item">
+    <div class="item-num">39.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-neg">ปฏิเสธ</span><span class="badge badge-irr">Irregular</span><span class="badge badge-reg">Regular</span></div>
+      Although it <span class="blank"><input type="text" data-answer="rained" placeholder="___"><span class="hint">✗ → rained</span><span class="answer-label">rained</span></span> <span class="verb-box">(rain)</span> heavily all morning, the organisers <span class="blank"><input type="text" data-answer="did not cancel" placeholder="___"><span class="hint">✗ → did not cancel</span><span class="answer-label">did not cancel</span></span> <span class="verb-box">(not/cancel)</span> the outdoor charity event.
+    </div>
+  </div>
+
+  <!-- 40 -->
+  <div class="item">
+    <div class="item-num">40.</div>
+    <div class="item-body">
+      <div class="tags"><span class="badge badge-aff">บอกเล่า</span><span class="badge badge-irr">Irregular</span><span class="badge badge-reg">Regular</span></div>
+      The researcher <span class="blank"><input type="text" data-answer="discovered" placeholder="___"><span class="hint">✗ → discovered</span><span class="answer-label">discovered</span></span> <span class="verb-box">(discover)</span> a rare species of plant while she <span class="blank"><input type="text" data-answer="explored" placeholder="___"><span class="hint">✗ → explored</span><span class="answer-label">explored</span></span> <span class="verb-box">(explore)</span> the rainforest in Borneo.
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Past Simple · M.3 · B1–B2 · 40 Exercises &nbsp;|&nbsp;
+  สำหรับ Regular Verbs: ยอมรับทั้ง -ed/-ied &nbsp;|&nbsp;
+  สำหรับ Negative: ยอมรับทั้ง "did not" และ "didn't"
+</div>
+
+<script>
+  const ACCEPT = {
+    "travelled": ["traveled","travelled"],
+    "did not enjoy": ["did not enjoy","didn't enjoy"],
+    "did not manage": ["did not manage","didn't manage"],
+    "did not realise": ["did not realise","didn't realise","did not realize","didn't realize"],
+    "did not expect": ["did not expect","didn't expect"],
+    "did not know": ["did not know","didn't know"],
+    "did not think": ["did not think","didn't think"],
+    "did not find": ["did not find","didn't find"],
+    "did not get": ["did not get","didn't get"],
+    "did not cancel": ["did not cancel","didn't cancel"],
+    "were not": ["were not","weren't"],
+    "was not": ["was not","wasn't"],
+  };
+
+  function normalize(s) {
+    return s.trim().toLowerCase().replace(/\s+/g,' ');
+  }
+
+  function isCorrect(userVal, answer) {
+    const u = normalize(userVal);
+    const a = normalize(answer);
+    if (ACCEPT[a]) return ACCEPT[a].map(normalize).includes(u);
+    return u === a;
+  }
+
+  function checkAll() {
+    const inputs = document.querySelectorAll('.blank input');
+    let correct = 0, total = 0;
+    inputs.forEach(inp => {
+      const ans = inp.dataset.answer;
+      inp.classList.remove('correct','wrong');
+      if (inp.value.trim() === '') return;
+      total++;
+      if (isCorrect(inp.value, ans)) {
+        inp.classList.add('correct'); correct++;
+      } else {
+        inp.classList.add('wrong');
+      }
+    });
+    const answered = document.querySelectorAll('.blank input[value!=""]').length ||
+      [...inputs].filter(i=>i.value.trim()!=='').length;
+    const box = document.getElementById('scoreBox');
+    box.style.display = 'inline-block';
+    box.textContent = `คะแนน: ${correct} / ${answered} ข้อที่ตอบ`;
+  }
+
+  let showing = false;
+  function toggleShow() {
+    showing = !showing;
+    document.body.classList.toggle('show-mode', showing);
+    document.querySelector('.btn-show').textContent = showing ? '◉ ซ่อนเฉลย' : '◎ ดูเฉลย';
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.blank input').forEach(inp => {
+      inp.value = ''; inp.classList.remove('correct','wrong');
+    });
+    document.getElementById('scoreBox').style.display = 'none';
+    if (showing) toggleShow();
+  }
+
+  // Live check on enter
+  document.querySelectorAll('.blank input').forEach(inp => {
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        inp.classList.remove('correct','wrong');
+        if (inp.value.trim()) {
+          isCorrect(inp.value, inp.dataset.answer)
+            ? inp.classList.add('correct')
+            : inp.classList.add('wrong');
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
