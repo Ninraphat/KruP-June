@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson: Part of Speech (Primary) 🌟</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fff9f0;
+            --card: #ffffff;
+            --primary: #ff6b35;
+            --secondary: #4ecdc4;
+            --accent: #ffe66d;
+            --purple: #a855f7;
+            --green: #22c55e;
+            --text: #1e1b18;
+            --muted: #78716c;
+            --shadow: 0 4px 0 #e5d5c5;
+            --radius: 20px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            background-image:
+                radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, #ff6b3511 0%, transparent 60%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        /* Top Bar for Back Button */
+        .top-bar {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .btn-back {
+            background-color: var(--card);
+            border: 2px solid #e5d5c5;
+            padding: 10px 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--muted);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 6px 0 #d94e1f;
+        }
+
+        .btn-back:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #d94e1f;
+        }
+
+        /* Main Container */
+        .container {
+            background-color: var(--card);
+            padding: 40px 32px;
+            border-radius: 24px;
+            box-shadow: 0 12px 0 #e5d5c5;
+            border: 2px solid #f0e8df;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(28px, 6vw, 40px);
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 32px;
+        }
+
+        /* Lesson Cards */
+        .lesson-card {
+            background: #ffffff;
+            border: 2px solid #f0e8df;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--secondary);
+            box-shadow: 0 6px 0 #2db5ac;
+        }
+
+        .lesson-card h2 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--secondary);
+            font-size: 24px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .structure-box {
+            background-color: #faf5f0;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 16px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .example-box {
+            background-color: #f8fafc;
+            padding: 16px;
+            border-radius: 12px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .example-box p {
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .example-box p:last-child { margin-bottom: 0; }
+
+        .highlight {
+            background-color: #fff3e0;
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: 800;
+        }
+
+        /* Ted Says Box */
+        .ted-box {
+            background-color: #f0fdfa;
+            border: 2px dashed var(--secondary);
+            padding: 24px;
+            border-radius: 20px;
+            margin-top: 32px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .ted-emoji {
+            font-size: 48px;
+            line-height: 1;
+            filter: drop-shadow(0 4px 0 #ccfbf1);
+        }
+
+        .ted-content {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f766e;
+            line-height: 1.6;
+        }
+
+        .ted-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 20px;
+            color: var(--secondary);
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 30px 20px; }
+            .ted-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar with Back Button -->
+    <div class="top-bar">
+        <a href="index.html" class="btn-back">⬅️ ย้อนกลับไปหน้าหลัก</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Part of Speech 🧩</h1>
+        <p class="subtitle">ชนิดของคำ (Primary School)</p>
+
+        <!-- Card 1: Noun -->
+        <div class="lesson-card">
+            <h2>1. Noun (คำนาม) 🍎</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> ใช้เรียกชื่อ คน, สัตว์, สิ่งของ, และสถานที่
+            </div>
+            <div class="example-box">
+                <p>👉 <strong>คน:</strong> <span class="highlight">teacher</span> (คุณครู), <span class="highlight">boy</span> (เด็กผู้ชาย)</p>
+                <p>👉 <strong>สัตว์:</strong> <span class="highlight">cat</span> (แมว), <span class="highlight">elephant</span> (ช้าง)</p>
+                <p>👉 <strong>สิ่งของ:</strong> <span class="highlight">book</span> (หนังสือ), <span class="highlight">pen</span> (ปากกา)</p>
+                <p>👉 <strong>สถานที่:</strong> <span class="highlight">school</span> (โรงเรียน), <span class="highlight">hospital</span> (โรงพยาบาล)</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Pronoun -->
+        <div class="lesson-card">
+            <h2>2. Pronoun (คำสรรพนาม) 👦🏻</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> ใช้เรียก "แทนคำนาม" เพื่อที่เราจะได้ไม่ต้องพูดชื่อเดิมซ้ำๆ
+            </div>
+            <div class="example-box">
+                <p>👉 <span class="highlight">He</span> is my friend. (<strong>เขา</strong> เป็นเพื่อนของฉัน) - <em>ใช้แทนผู้ชาย</em></p>
+                <p>👉 <span class="highlight">It</span> is a cute dog. (<strong>มัน</strong> คือหมาที่น่ารัก) - <em>ใช้แทนสัตว์/สิ่งของ</em></p>
+                <p>👉 <span class="highlight">They</span> are playing. (<strong>พวกเขา</strong> กำลังเล่นอยู่) - <em>ใช้แทนหลายคน/หลายตัว</em></p>
+            </div>
+        </div>
+
+        <!-- Card 3: Verb -->
+        <div class="lesson-card">
+            <h2>3. Verb (คำกริยา) 🏃‍♂️</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> ใช้บอก "การกระทำ" หรือบอกว่าประธานกำลังทำอะไรอยู่
+            </div>
+            <div class="example-box">
+                <p>👉 I <span class="highlight">run</span> to school. (ฉัน <strong>วิ่ง</strong> ไปโรงเรียน)</p>
+                <p>👉 She <span class="highlight">eats</span> an apple. (เธอ <strong>กิน</strong> แอปเปิ้ล)</p>
+                <p>👉 We <span class="highlight">play</span> football. (พวกเรา <strong>เล่น</strong> ฟุตบอล)</p>
+            </div>
+        </div>
+
+        <!-- Card 4: Adjective -->
+        <div class="lesson-card">
+            <h2>4. Adjective (คำคุณศัพท์) ✨</h2>
+            <div class="structure-box">
+                <strong>วิธีใช้:</strong> ใช้ "ขยายคำนาม" เพื่อบอกลักษณะ สี ขนาด หรือความรู้สึก (มักวางหน้าคำนาม หรือหลัง is/am/are)
+            </div>
+            <div class="example-box">
+                <p>👉 I have a <span class="highlight">red</span> bag. (ฉันมีกระเป๋า <strong>สีแดง</strong>)</p>
+                <p>👉 The elephant is <span class="highlight">big</span>. (ช้างตัวนี้ <strong>ใหญ่</strong>)</p>
+                <p>👉 She is a <span class="highlight">happy</span> girl. (เธอเป็นเด็กผู้หญิงที่ <strong>มีความสุข</strong>)</p>
+            </div>
+        </div>
+
+        <!-- Ted Says Box -->
+        <div class="ted-box">
+            <div class="ted-emoji">🦖</div>
+            <div class="ted-content">
+                <div class="ted-title">Ted Says 🦖</div>
+                โฮก! จำง่ายๆ สไตล์ Ted นะครับเด็กๆ:<br>
+                <strong>Noun</strong> = ชื่อ<br>
+                <strong>Pronoun</strong> = แทน<br>
+                <strong>Verb</strong> = ทำ<br>
+                <strong>Adjective</strong> = ขยาย!<br>
+                ท่องแค่นี้ก็เกราะแข็งแกร่งพร้อมลุยด่านต่อไปแล้วครับ!
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
