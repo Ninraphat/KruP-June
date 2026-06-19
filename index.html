@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Learning Hub 🌟</title>
+<title>English Learning Platform 🌟</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -35,11 +35,8 @@
     padding: 24px 16px 60px;
   }
 
-  header {
-    text-align: center;
-    margin-bottom: 24px;
-  }
-
+  header { text-align: center; margin-bottom: 24px; }
+  
   .badge {
     display: inline-block;
     background: var(--primary);
@@ -53,418 +50,332 @@
     text-transform: uppercase;
   }
 
-  h1 {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(28px, 6vw, 48px);
-    color: var(--primary);
-    line-height: 1.1;
-  }
-
+  h1 { font-family: 'Fredoka One', cursive; font-size: clamp(28px, 6vw, 42px); color: var(--primary); line-height: 1.2; }
   h1 span { color: var(--secondary); }
+  .subtitle { margin-top: 6px; color: var(--muted); font-size: 15px; font-weight: 600; }
 
-  .subtitle {
-    margin-top: 6px;
-    color: var(--muted);
-    font-size: 15px;
-    font-weight: 600;
-  }
-
-  /* Entrance Exam Button Container */
-  .entrance-container {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-
-  .btn-entrance {
-    background: linear-gradient(135deg, #ff6b35, #ffbe0b);
-    color: white;
-    border: none;
-    padding: 14px 36px;
-    border-radius: var(--radius);
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(16px, 4vw, 22px);
-    cursor: pointer;
-    box-shadow: 0 6px 0 #d94e1f;
-    transition: transform 0.1s, box-shadow 0.1s;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .btn-entrance:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 0 #d94e1f;
-  }
-
-  .btn-entrance:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #d94e1f;
-  }
-
-  /* Tabs */
-  .tabs {
+  /* 1. Global Level Selector (ตัวกรองระดับชั้นสูงสุด) */
+  .level-selector {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    margin-bottom: 32px;
-    border-top: 2px dashed #e5d5c5;
-    padding-top: 24px;
+    gap: 8px;
+    margin: 0 auto 24px;
+    background: white;
+    padding: 8px;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    border: 2px solid #f0e8df;
+    max-width: 500px;
   }
 
-  .tab-btn {
-    background: white;
-    border: 2px solid #f0e8df;
-    box-shadow: var(--shadow);
-    padding: 12px 28px;
+  .lvl-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 10px 16px;
     border-radius: 999px;
-    font-family: 'Fredoka One', cursive;
-    font-size: 18px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
     color: var(--muted);
     cursor: pointer;
     transition: all 0.2s;
   }
 
-  .tab-btn:hover {
-    transform: translateY(-2px);
+  .lvl-btn[data-active="true"] { background: var(--secondary); color: white; box-shadow: 0 2px 0 #2db5ac; }
+
+  /* 2. Category Tabs */
+  .tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 32px; }
+  
+  .tab-btn {
+    background: white; border: 2px solid #f0e8df; box-shadow: 0 3px 0 #e5d5c5;
+    padding: 10px 24px; border-radius: 12px; font-family: 'Fredoka One', cursive;
+    font-size: 16px; color: var(--muted); cursor: pointer; transition: all 0.2s;
   }
 
-  .tab-btn.active {
-    background: var(--secondary);
-    color: white;
-    border-color: var(--secondary);
-    box-shadow: 0 4px 0 #2db5ac;
-  }
+  .tab-btn:hover { transform: translateY(-2px); }
+  .tab-btn[data-active="true"] { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 0 #d94e1f; }
 
-  /* Content Area */
-  .content-section {
-    display: none;
-    max-width: 1200px;
-    margin: 0 auto;
+  /* M.1 Entrance Special Banner */
+  .entrance-banner {
+    background: linear-gradient(135deg, #ffbe0b, #ff6b35);
+    border-radius: var(--radius); padding: 20px; text-align: center;
+    color: white; font-family: 'Fredoka One', cursive; font-size: 20px;
+    box-shadow: 0 6px 0 #d94e1f; cursor: pointer; margin-bottom: 32px;
+    transition: transform 0.2s; display: none; /* จะโชว์เฉพาะตอนเลือกระดับประถม */
   }
+  .entrance-banner:hover { transform: translateY(-2px); }
+  .entrance-banner p { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; margin-top: 4px; opacity: 0.9; }
 
-  .content-section.active {
-    display: block;
-    animation: fadeIn 0.4s ease;
-  }
+  /* Content Area & Grid */
+  .content-section { display: none; max-width: 900px; margin: 0 auto; }
+  .content-section[data-active="true"] { display: block; animation: fadeIn 0.4s ease; }
+  
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .topics-list { display: flex; flex-direction: column; gap: 16px; }
 
-  /* Grid Layout for Topics */
-  .topics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
-  }
-
-  /* Topic Card (Accordion Style) */
+  /* 3. New Topic Card (Accordion Style) */
   .topic-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    border: 2px solid #f0e8df;
-    transition: transform 0.2s, border-color 0.2s;
-    overflow: hidden;
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); border: 2px solid #f0e8df;
+    overflow: hidden; transition: border-color 0.2s;
   }
 
-  .topic-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-  }
+  .topic-card:hover { border-color: var(--accent); }
 
   .topic-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    cursor: pointer;
-    background: transparent;
-    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; cursor: pointer; background: transparent; transition: background 0.2s;
   }
+  .topic-header:hover { background: #faf5f0; }
 
-  .topic-header:hover {
-    background: #faf5f0;
-  }
-
-  .topic-header-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
+  .topic-info { display: flex; align-items: center; gap: 16px; }
   .topic-num {
-    background: var(--primary);
-    color: white;
-    font-family: 'Fredoka One', cursive;
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
+    background: var(--primary); color: white; font-family: 'Fredoka One', cursive;
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
   }
+  .topic-title { font-size: 18px; font-weight: 800; color: var(--text); }
+  .topic-meta { font-size: 13px; color: var(--muted); font-weight: 600; margin-top: 2px; }
 
-  .topic-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--text);
-    line-height: 1.2;
-  }
-
-  .toggle-icon {
-    font-size: 14px;
-    color: var(--muted);
-    transition: transform 0.3s ease;
-  }
-
-  /* Card Open State */
-  .topic-card.open .toggle-icon {
-    transform: rotate(180deg);
-    color: var(--primary);
-  }
-
-  .topic-card.open .topic-header {
-    background: #faf5f0;
-    border-bottom: 2px solid #f0e8df;
-  }
-
-  /* Level Buttons (Hidden by default) */
-  .level-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 0 20px;
-    max-height: 0;
-    opacity: 0;
-    transition: all 0.3s ease;
-  }
-
-  .topic-card.open .level-group {
-    padding: 20px;
-    max-height: 400px; /* มากพอที่จะแสดงเนื้อหา */
-    opacity: 1;
-  }
-
-  .level-btn {
-    background: #ffffff;
-    border: 2px solid #e5d5c5;
-    border-radius: 10px;
-    padding: 12px 14px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    text-align: left;
-    transition: all 0.15s;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--text);
-  }
-
-  .level-btn:hover {
-    background: #fff3e0;
-    border-color: var(--primary);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 0 #e5d5c5;
-  }
-
-  .level-tag {
-    font-size: 11px;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: #e5d5c5;
-    color: var(--muted);
-    font-weight: 800;
-    text-transform: uppercase;
-  }
+  .toggle-icon { font-size: 14px; color: var(--muted); transition: transform 0.3s ease; }
   
-  .level-btn.primary:hover .level-tag { background: var(--green); color: white; }
-  .level-btn.junior:hover .level-tag { background: var(--secondary); color: white; }
-  .level-btn.high:hover .level-tag { background: var(--purple); color: white; }
+  /* Open State */
+  .topic-card.open .toggle-icon { transform: rotate(180deg); color: var(--primary); }
+  .topic-card.open .topic-header { background: #faf5f0; border-bottom: 2px solid #f0e8df; }
 
-  /* Reading Section Placeholder */
-  .reading-banner {
-    background: linear-gradient(135deg, var(--purple), #c084fc);
-    color: white;
-    border-radius: var(--radius);
-    padding: 40px 20px;
-    text-align: center;
-    box-shadow: 0 6px 0 #9333ea;
+  /* 4. Subtopics & Exercises Structure */
+  .subtopics-container {
+    padding: 0; max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease;
+  }
+  .topic-card.open .subtopics-container {
+    padding: 20px; max-height: 2000px; opacity: 1; overflow: visible;
   }
 
-  .reading-banner h2 {
-    font-family: 'Fredoka One', cursive;
-    font-size: 32px;
-    margin-bottom: 10px;
+  .subtopic-item {
+    margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px dashed #f0e8df;
+  }
+  .subtopic-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+  .subtopic-title { font-size: 16px; font-weight: 800; color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .subtopic-title::before { content: '👉'; font-size: 14px; }
+
+  .action-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px;
   }
 
-  @media (max-width: 480px) {
-    .topics-grid { grid-template-columns: 1fr; }
-    .tabs { flex-direction: column; padding: 0 20px; gap: 10px; }
-    .tab-btn { width: 100%; text-align: center; }
+  .btn-action {
+    background: #ffffff; border: 2px solid #e5d5c5; border-radius: 10px;
+    padding: 10px; font-family: 'Nunito', sans-serif; font-size: 14px;
+    font-weight: 700; color: var(--text); cursor: pointer; text-align: center;
+    transition: all 0.15s; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .btn-action span.icon { font-size: 18px; }
+  
+  .btn-action.lesson:hover { border-color: var(--secondary); background: #f0fdfa; color: #0d9488; }
+  .btn-action.exercise:hover { border-color: var(--primary); background: #fff3e0; color: #c2410c; }
+  .btn-action.test:hover { border-color: var(--purple); background: #faf5ff; color: #7e22ce; }
+
+  @media (max-width: 600px) {
+    .level-selector { flex-direction: column; border-radius: 16px; }
+    .lvl-btn { border-radius: 8px; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="badge">English Learning</div>
-  <h1>Main <span>Menu</span> 🚀</h1>
-  <p class="subtitle">เลือกหมวดหมู่และระดับชั้นที่ต้องการเรียนรู้</p>
+  <div class="badge">English Learning Dashboard</div>
+  <h1>Select <span>Module</span> 🚀</h1>
+  <p class="subtitle">ระบบจัดการเนื้อหาและแบบฝึกหัด</p>
 </header>
 
-<div class="entrance-container">
-  <button class="btn-entrance" onclick="goToEntrance()">
-    🎯 English for M.1 Entrance 🏆
-  </button>
+<div class="level-selector" id="levelSelector">
+  <button class="lvl-btn" data-active="true" onclick="setLevel('primary')">👶 Primary (ประถม)</button>
+  <button class="lvl-btn" data-active="false" onclick="setLevel('junior')">👦 Junior High (ม.ต้น)</button>
+  <button class="lvl-btn" data-active="false" onclick="setLevel('high')">🧑 High School (ม.ปลาย)</button>
+</div>
+
+<div class="entrance-banner" id="entranceBanner" onclick="window.location.href='EnglishforM.1Entrance.html'">
+  🎯 English for M.1 Entrance 🏆
+  <p>คอร์สติวเข้มและข้อสอบเข้า ม.1 ตะลุยโจทย์จัดเต็ม!</p>
 </div>
 
 <div class="tabs">
-  <button class="tab-btn active" onclick="switchTab('grammar')">Grammar 📝</button>
-  <button class="tab-btn" onclick="switchTab('reading')">Reading 📖</button>
+  <button class="tab-btn" data-active="true" onclick="switchTab('grammar')">📝 Grammar</button>
+  <button class="tab-btn" data-active="false" onclick="switchTab('reading')">📖 Reading</button>
 </div>
 
-<div id="grammar-section" class="content-section active">
-  <div class="topics-grid" id="grammar-grid">
+<div id="grammar-section" class="content-section" data-active="true">
+  <div class="topics-list" id="grammar-list">
     </div>
 </div>
 
-<div id="reading-section" class="content-section">
-  <div class="reading-banner">
-    <h2>Reading Comprehension 📚</h2>
-    <p style="font-weight: 600; font-size: 16px; opacity: 0.9;">บทความสนุกๆ สำหรับฝึกอ่าน กำลังจะมาเร็วๆ นี้!</p>
+<div id="reading-section" class="content-section" data-active="false">
+  <div style="text-align:center; padding: 40px; background: white; border-radius: 16px; border: 2px dashed #e5d5c5;">
+    <h2 style="font-family:'Fredoka One'; color:var(--purple); margin-bottom: 10px;">Reading Comprehension 📚</h2>
+    <p style="color:var(--muted); font-weight:700;">บทความแยกตามระดับชั้น กำลังจะมาเร็วๆ นี้!</p>
   </div>
 </div>
 
 <script>
-// Data for Grammar Topics
-const grammarTopics = [
-  "Part of Speech", "Noun", "Article", "Quantifier", "Pronoun",
-  "Subject-Verb Agreement", "Present Tenses", "Past Tenses", "Future Tenses",
-  "Passive Voice", "Conditional Sentence", "Non-Finite Verb", "Modal Verb",
-  "Reported Speech", "Adjective", "Adverb", "Comparison", "Preposition",
-  "Conjunction", "Question Tag"
-];
+// ==========================================
+// THE DATABASE (Mockup)
+// การจัด Data Structure แบบนี้ ทำให้คุณเพิ่มลดแบบฝึกหัดได้อิสระ
+// ==========================================
+let currentLevel = 'primary'; // ค่าเริ่มต้น
 
-// Generate Topic Cards
-const grid = document.getElementById('grammar-grid');
+const db = {
+  grammar: [
+    {
+      id: 1, title: "Parts of Speech",
+      description: "ชนิดของคำ นาม สรรพนาม กริยา ฯลฯ",
+      subtopics: [
+        {
+          name: "Overview & Nouns",
+          actions: [
+            { type: "lesson", icon: "📖", label: "เรียนเนื้อหา", url: "pos-lesson.html" },
+            { type: "exercise", icon: "✏️", label: "แบบฝึกหัด 1", url: "parts-of-speech-p6.html" } // ไฟล์เดิมของคุณ
+          ]
+        }
+      ]
+    },
+    {
+      id: 7, title: "Present Tenses",
+      description: "โครงสร้างเหตุการณ์ปัจจุบัน",
+      subtopics: [
+        {
+          name: "Present Simple Tense",
+          actions: [
+            { type: "lesson", icon: "📖", label: "สรุปโครงสร้าง", url: "pres-sim-lesson.html" },
+            { type: "exercise", icon: "✏️", label: "แบบฝึกหัด 1 (Basic)", url: "pres-sim-ex1.html" },
+            { type: "exercise", icon: "✏️", label: "แบบฝึกหัด 2 (Advanced)", url: "pres-sim-ex2.html" }
+          ]
+        },
+        {
+          name: "Present Continuous Tense",
+          actions: [
+            { type: "lesson", icon: "📖", label: "สรุปโครงสร้าง", url: "pres-cont-lesson.html" },
+            { type: "exercise", icon: "✏️", label: "แบบฝึกหัด 1", url: "pres-cont-ex1.html" }
+          ]
+        },
+        {
+          name: "Present Perfect Tense",
+          actions: [
+            { type: "lesson", icon: "📖", label: "สรุปโครงสร้าง", url: "pres-perf-lesson.html" },
+            { type: "test", icon: "🔥", label: "ทดสอบจับเวลา", url: "present-perfect-jh.html" } // ไฟล์ของคุณ
+          ]
+        }
+      ]
+    }
+  ]
+};
 
-grammarTopics.forEach((topic, index) => {
-  const card = document.createElement('div');
-  card.className = 'topic-card';
-  card.id = `card-${index}`;
+// ==========================================
+// RENDERING LOGIC (The UI Designer part)
+// ==========================================
+
+function setLevel(level) {
+  currentLevel = level;
   
-  card.innerHTML = `
-    <div class="topic-header" onclick="toggleCard(${index})">
-      <div class="topic-header-left">
-        <div class="topic-num">${index + 1}</div>
-        <div class="topic-title">${topic}</div>
-      </div>
-      <div class="toggle-icon">▼</div>
-    </div>
-    <div class="level-group">
-      <button class="level-btn primary" onclick="goToLesson(${index + 1}, 'primary')">
-        Primary School <span class="level-tag">ประถม</span>
-      </button>
-      <button class="level-btn junior" onclick="goToLesson(${index + 1}, 'junior')">
-        Junior High <span class="level-tag">ม.ต้น</span>
-      </button>
-      <button class="level-btn high" onclick="goToLesson(${index + 1}, 'high')">
-        High School <span class="level-tag">ม.ปลาย</span>
-      </button>
-    </div>
-  `;
-  
-  grid.appendChild(card);
-});
-
-// Function to Toggle Card Accordion
-function toggleCard(index) {
-  const cardToToggle = document.getElementById(`card-${index}`);
-  const isCurrentlyOpen = cardToToggle.classList.contains('open');
-
-  // ปิดการ์ดใบอื่นทั้งหมดก่อน (ลบส่วนนี้ออกได้ถ้าอยากให้เปิดพร้อมกันได้หลายอัน)
-  document.querySelectorAll('.topic-card').forEach(card => {
-    card.classList.remove('open');
+  // อัปเดตปุ่ม
+  document.querySelectorAll('.lvl-btn').forEach(btn => {
+    btn.setAttribute('data-active', btn.innerText.toLowerCase().includes(level));
   });
 
-  // ถ้ามันไม่ได้เปิดอยู่แต่แรก ให้เปิดมันขึ้นมา
-  if (!isCurrentlyOpen) {
-    cardToToggle.classList.add('open');
-  }
+  // จัดการแบนเนอร์ M.1 Entrance (โชว์เฉพาะตอนเลือกประถม)
+  const banner = document.getElementById('entranceBanner');
+  banner.style.display = (level === 'primary') ? 'block' : 'none';
+
+  // โหลดเนื้อหาใหม่
+  renderGrammarList();
 }
 
-// Tab Switching Logic
 function switchTab(tabId) {
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.classList.remove('active');
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.setAttribute('data-active', 'false'));
+  event.target.setAttribute('data-active', 'true');
+
+  document.querySelectorAll('.content-section').forEach(sec => sec.setAttribute('data-active', 'false'));
+  document.getElementById(`${tabId}-section`).setAttribute('data-active', 'true');
+}
+
+function renderGrammarList() {
+  const container = document.getElementById('grammar-list');
+  container.innerHTML = ''; // Clear old
+
+  // ดึงข้อมูลจำลองจาก DB
+  const topics = db.grammar;
+
+  topics.forEach(topic => {
+    // สร้าง Card
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.id = `topic-${topic.id}`;
+
+    // สร้าง HTML สำหรับ Subtopics แบบไดนามิก
+    let subtopicsHTML = '';
+    topic.subtopics.forEach(sub => {
+      
+      let actionsHTML = '';
+      sub.actions.forEach(act => {
+        actionsHTML += `
+          <button class="btn-action ${act.type}" onclick="go('${act.url}', '${currentLevel}')">
+            <span class="icon">${act.icon}</span>
+            <span>${act.label}</span>
+          </button>
+        `;
+      });
+
+      subtopicsHTML += `
+        <div class="subtopic-item">
+          <div class="subtopic-title">${sub.name}</div>
+          <div class="action-grid">${actionsHTML}</div>
+        </div>
+      `;
+    });
+
+    // ประกอบร่าง Card
+    card.innerHTML = `
+      <div class="topic-header" onclick="toggleCard(${topic.id})">
+        <div class="topic-info">
+          <div class="topic-num">${topic.id}</div>
+          <div>
+            <div class="topic-title">${topic.title}</div>
+            <div class="topic-meta">${topic.description} • ${topic.subtopics.length} หัวข้อย่อย</div>
+          </div>
+        </div>
+        <div class="toggle-icon">▼</div>
+      </div>
+      <div class="subtopics-container">
+        ${subtopicsHTML}
+      </div>
+    `;
+
+    container.appendChild(card);
   });
-  if(event) event.target.classList.add('active');
-
-  document.querySelectorAll('.content-section').forEach(sec => {
-    sec.classList.remove('active');
-  });
-  document.getElementById(`${tabId}-section`).classList.add('active');
 }
 
-function goToEntrance() {
-  // เปลี่ยนหน้าไปที่ไฟล์ M.1 Entrance
-  window.location.href = 'EnglishforM.1Entrance.html';
+function toggleCard(id) {
+  const card = document.getElementById(`topic-${id}`);
+  const isOpen = card.classList.contains('open');
+  
+  // ปิดทุกการ์ด (ถ้าอยากให้เปิดค้างหลายอันได้ ให้ลบส่วนนี้ออก)
+  document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('open'));
+  
+  if (!isOpen) card.classList.add('open');
 }
 
-function goToLesson(topicId, level) {
-  if(event) event.stopPropagation(); 
-
-  // ถ้าเป็นหัวข้อที่ 1 (Part of Speech)
-  if (topicId === 1) { 
-    if (level === 'primary') {
-      // ให้ปุ่ม Primary ชี้ไปที่ไฟล์ที่คุณเตรียมไว้
-      window.location.href = 'part-of-speech-p.html'; 
-      return;
-    } 
-    else if (level === 'junior' || level === 'high') {
-      // ส่วนของ ม.ต้น และ ม.ปลาย ให้แจ้งเตือนว่ายังไม่สร้าง
-      alert(`หน้าของหัวข้อที่ ${topicId} ระดับ ${level} ยังไม่ได้สร้างครับ 🚧`);
-      return;
-    }
-  }
-  // --- หัวข้อที่ 7: Present Tenses ---
-  else if (topicId === 7) {
-    if (level === 'junior') {
-      // ลิงก์ไปหน้า Present Tenses สำหรับ ม.ต้น
-      window.location.href = 'present-tenses-jh.html';
-      return;
-    }
-  }
-
-  // --- หัวข้อที่ 8: Past Tenses ---
-  else if (topicId === 8) {
-    if (level === 'junior') {
-      // ลิงก์ไปหน้า Past Simple สำหรับ ม.ต้น
-      window.location.href = 'past-simple-jh.html';
-      return;
-    }
-  }
-
-  // --- หัวข้อที่ 16: Adverb ---
-  else if (topicId === 16) {
-    if (level === 'junior') {
-      // ลิงก์ไปหน้า Forming Adverb สำหรับ ม.ต้น
-      window.location.href = 'forming-adverbs-jh.html';
-      return;
-    }
-  }
-
-  // ถ้าคลิกหัวข้ออื่นที่ยังไม่ได้สร้าง
-  alert(`หน้าของหัวข้อที่ ${topicId} ระดับ ${level} ยังไม่ได้สร้างครับ 🚧`);
+function go(url, level) {
+  event.stopPropagation();
+  // ในระบบจริง คุณอาจจะส่ง Parameter url?level=primary ไปด้วย
+  console.log(`Navigating to ${url} for level: ${level}`);
+  alert(`กำลังเปิดไฟล์: ${url}\nสำหรับระดับชั้น: ${level.toUpperCase()}`);
+  // window.location.href = url;
 }
 
+// Initial render
+setLevel('primary');
 </script>
 
 </body>
