@@ -54,7 +54,7 @@
   h1 span { color: var(--secondary); }
   .subtitle { margin-top: 6px; color: var(--muted); font-size: 15px; font-weight: 600; }
 
-  /* 1. Global Level Selector (ตัวกรองระดับชั้นสูงสุด) */
+  /* 1. Global Level Selector */
   .level-selector {
     display: flex;
     justify-content: center;
@@ -102,7 +102,7 @@
     border-radius: var(--radius); padding: 20px; text-align: center;
     color: white; font-family: 'Fredoka One', cursive; font-size: 20px;
     box-shadow: 0 6px 0 #d94e1f; cursor: pointer; margin-bottom: 32px;
-    transition: transform 0.2s; display: none; /* จะโชว์เฉพาะตอนเลือกระดับประถม */
+    transition: transform 0.2s; display: none;
   }
   .entrance-banner:hover { transform: translateY(-2px); }
   .entrance-banner p { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; margin-top: 4px; opacity: 0.9; }
@@ -115,7 +115,7 @@
 
   .topics-list { display: flex; flex-direction: column; gap: 16px; }
 
-  /* 3. New Topic Card (Accordion Style) */
+  /* 3. New Topic Card */
   .topic-card {
     background: var(--card); border-radius: var(--radius);
     box-shadow: var(--shadow); border: 2px solid #f0e8df;
@@ -123,12 +123,14 @@
   }
 
   .topic-card:hover { border-color: var(--accent); }
+  .topic-card.empty-topic { opacity: 0.7; }
+  .topic-card.empty-topic:hover { border-color: #f0e8df; }
 
   .topic-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 20px; cursor: pointer; background: transparent; transition: background 0.2s;
   }
-  .topic-header:hover { background: #faf5f0; }
+  .topic-card:not(.empty-topic) .topic-header:hover { background: #faf5f0; }
 
   .topic-info { display: flex; align-items: center; gap: 16px; }
   .topic-num {
@@ -136,16 +138,16 @@
     width: 40px; height: 40px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center; font-size: 18px;
   }
+  .topic-card.empty-topic .topic-num { background: #d6d3d1; }
+  
   .topic-title { font-size: 18px; font-weight: 800; color: var(--text); }
   .topic-meta { font-size: 13px; color: var(--muted); font-weight: 600; margin-top: 2px; }
 
   .toggle-icon { font-size: 14px; color: var(--muted); transition: transform 0.3s ease; }
-  
-  /* Open State */
   .topic-card.open .toggle-icon { transform: rotate(180deg); color: var(--primary); }
   .topic-card.open .topic-header { background: #faf5f0; border-bottom: 2px solid #f0e8df; }
 
-  /* 4. Subtopics & Exercises Structure */
+  /* 4. Subtopics Structure */
   .subtopics-container {
     padding: 0; max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease;
   }
@@ -153,17 +155,13 @@
     padding: 20px; max-height: 2000px; opacity: 1; overflow: visible;
   }
 
-  .subtopic-item {
-    margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px dashed #f0e8df;
-  }
+  .subtopic-item { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px dashed #f0e8df; }
   .subtopic-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
 
   .subtopic-title { font-size: 16px; font-weight: 800; color: var(--secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
   .subtopic-title::before { content: '👉'; font-size: 14px; }
 
-  .action-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px;
-  }
+  .action-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
 
   .btn-action {
     background: #ffffff; border: 2px solid #e5d5c5; border-radius: 10px;
@@ -208,8 +206,7 @@
 </div>
 
 <div id="grammar-section" class="content-section" data-active="true">
-  <div class="topics-list" id="grammar-list">
-    </div>
+  <div class="topics-list" id="grammar-list"></div>
 </div>
 
 <div id="reading-section" class="content-section" data-active="false">
@@ -220,140 +217,151 @@
 </div>
 
 <script>
-// ==========================================
-// THE DATABASE (Mockup)
-// การจัด Data Structure แบบนี้ ทำให้คุณเพิ่มลดแบบฝึกหัดได้อิสระ
-// ==========================================
-let currentLevel = 'primary'; // ค่าเริ่มต้น
-
-const db = {
-  grammar: [
-    {
-      id: 1, title: "Parts of Speech",
-      description: "ชนิดของคำ นาม สรรพนาม กริยา ฯลฯ",
-      subtopics: [
-        {
-          name: "Overview & Nouns",
-          actions: [
-            { type: "lesson", icon: "📖", label: "เรียนเนื้อหา", url: "pos-lesson.html" },
-            { type: "exercise", icon: "✏️", label: "แบบฝึกหัด 1", url: "parts-of-speech-p.html" } // ไฟล์เดิมของคุณ
-          ]
-        }
-      ]
-    },
-    {
-      id: 7, title: "Present Tenses",
-      description: "โครงสร้างเหตุการณ์ปัจจุบัน",
-      subtopics: [
-        {
-          name: "Present Simple Tense",
-          actions: [
-            { type: "lesson", icon: "📖", label: "สรุปโครงสร้าง", url: "pres-sim-lesson.html" },
-            { type: "exercise", icon: "✏️", label: "แบบฝึกหัด 1 (Basic)", url: "pres-sim-ex1.html" },
-            { type: "exercise", icon: "✏️", label: "แบบฝึกหัด 2 (Advanced)", url: "pres-sim-ex2.html" }
-          ]
-        },
-        {
-          name: "Present Continuous Tense",
-          actions: [
-            { type: "lesson", icon: "📖", label: "สรุปโครงสร้าง", url: "pres-cont-lesson.html" },
-            { type: "exercise", icon: "✏️", label: "แบบฝึกหัด 1", url: "pres-cont-ex1.html" }
-          ]
-        },
-        {
-          name: "Present Perfect Tense",
-          actions: [
-            { type: "lesson", icon: "📖", label: "สรุปโครงสร้าง", url: "pres-perf-lesson.html" },
-            { type: "test", icon: "✏️", label: "แบบฝึกหัด 1", url: "present-perfect-jh.html" } // ไฟล์ของคุณ
-          ]
-        }
-      ]
-    }
-  ]
-};
+let currentLevel = 'primary';
 
 // ==========================================
-// RENDERING LOGIC (The UI Designer part)
+// 🗄️ DATABASE: พื้นที่สำหรับอัปเดตข้อมูลของคุณ
+// วิธีเพิ่มปุ่ม: ก๊อปปี้ปีกกา { type: "...", icon: "...", label: "...", url: "..." } วางต่อกันโดยมีลูกน้ำ (,) คั่น
 // ==========================================
+const grammarDatabase = [
+  { id: 1, title: "Part of Speech", desc: "นาม สรรพนาม กริยา ฯลฯ", levels: {
+      primary: [
+        { name: "พื้นฐาน Part of Speech", actions: [
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด ป.6", url: "parts-of-speech-p6.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Part of Speech (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "PartofSpeech(Secondary).html" }
+        ]}
+      ],
+      high: [] 
+  }},
+  { id: 2, title: "Noun", desc: "คำนาม", levels: { primary: [], junior: [], high: [] }},
+  { id: 3, title: "Article", desc: "a, an, the", levels: { primary: [], junior: [], high: [] }},
+  { id: 4, title: "Quantifier", desc: "some, any, much, many", levels: { primary: [], junior: [], high: [] }},
+  { id: 5, title: "Pronoun", desc: "คำสรรพนาม", levels: { primary: [], junior: [], high: [] }},
+  { id: 6, title: "Subject-Verb Agreement", desc: "ความสอดคล้องประธานกริยา", levels: { primary: [], junior: [], high: [] }},
+  
+  { id: 7, title: "Present Tenses", desc: "เหตุการณ์ปัจจุบัน", levels: {
+      primary: [],
+      junior: [
+        { name: "Present Simple", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาและแบบฝึก", url: "present-tenses-jh.html" }
+        ]},
+        { name: "Present Perfect", actions: [
+          { type: "exercise", icon: "🔥", label: "ทดสอบ Perfect", url: "present-perfect-jh.html" }
+        ]}
+      ],
+      high: []
+  }},
+  { id: 8, title: "Past Tenses", desc: "เหตุการณ์ในอดีต", levels: {
+      primary: [],
+      junior: [
+        { name: "Past Simple", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาและแบบฝึก", url: "past-simple-jh.html" }
+        ]}
+      ],
+      high: []
+  }},
+  
+  { id: 9, title: "Future Tenses", desc: "เหตุการณ์ในอนาคต", levels: { primary: [], junior: [], high: [] }},
+  { id: 10, title: "Passive Voice", desc: "ประธานถูกกระทำ", levels: { primary: [], junior: [], high: [] }},
+  { id: 11, title: "Conditional Sentence", desc: "ประโยคเงื่อนไข (If-clause)", levels: { primary: [], junior: [], high: [] }},
+  { id: 12, title: "Non-Finite Verb", desc: "กริยาไม่แท้ (Gerund, Infinitive)", levels: { primary: [], junior: [], high: [] }},
+  { id: 13, title: "Modal Verb", desc: "กริยาช่วย", levels: { primary: [], junior: [], high: [] }},
+  { id: 14, title: "Reported Speech", desc: "การนำคำพูดไปเล่าต่อ", levels: { primary: [], junior: [], high: [] }},
+  { id: 15, title: "Adjective", desc: "คำคุณศัพท์", levels: { primary: [], junior: [], high: [] }},
+  
+  { id: 16, title: "Adverb", desc: "คำกริยาวิเศษณ์", levels: {
+      primary: [],
+      junior: [
+        { name: "Forming Adverb", actions: [
+          { type: "lesson", icon: "📖", label: "การสร้าง Adverb", url: "forming-adverb-jh.html" }
+        ]}
+      ],
+      high: []
+  }},
+  
+  { id: 17, title: "Comparison", desc: "การเปรียบเทียบขั้นกว่า/สุด", levels: { primary: [], junior: [], high: [] }},
+  { id: 18, title: "Preposition", desc: "คำบุพบทบอกตำแหน่ง/เวลา", levels: { primary: [], junior: [], high: [] }},
+  { id: 19, title: "Conjunction", desc: "คำเชื่อมประโยค", levels: { primary: [], junior: [], high: [] }},
+  { id: 20, title: "Question Tag", desc: "ประโยคคำถามท้ายห้อย", levels: { primary: [], junior: [], high: [] }}
+];
+
+// ==========================================
+// SYSTEM LOGIC (ห้ามแก้โค้ดด้านล่างนี้ ระบบจัดการให้อัตโนมัติ)
+// ==========================================
+
 function setLevel(level) {
   currentLevel = level;
-  
-  // อัปเดตปุ่ม (แก้ไขบัคแล้ว: เช็คจากค่า level ตรงๆ แทนการอ่านข้อความ)
   document.querySelectorAll('.lvl-btn').forEach(btn => {
-    const isActive = btn.getAttribute('onclick').includes(`'${level}'`);
-    btn.setAttribute('data-active', isActive);
+    btn.setAttribute('data-active', btn.getAttribute('onclick').includes(`'${level}'`));
   });
-
-  // จัดการแบนเนอร์ M.1 Entrance (โชว์เฉพาะตอนเลือกประถม)
+  
   const banner = document.getElementById('entranceBanner');
-  if (banner) {
-    banner.style.display = (level === 'primary') ? 'block' : 'none';
-  }
-
-  // โหลดเนื้อหาใหม่
+  if (banner) banner.style.display = (level === 'primary') ? 'block' : 'none';
+  
   renderGrammarList();
 }
 
 function switchTab(tabId) {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.setAttribute('data-active', 'false'));
   event.target.setAttribute('data-active', 'true');
-
   document.querySelectorAll('.content-section').forEach(sec => sec.setAttribute('data-active', 'false'));
   document.getElementById(`${tabId}-section`).setAttribute('data-active', 'true');
 }
 
 function renderGrammarList() {
   const container = document.getElementById('grammar-list');
-  container.innerHTML = ''; // Clear old
+  container.innerHTML = ''; 
 
-  // ดึงข้อมูลจำลองจาก DB
-  const topics = db.grammar;
-
-  topics.forEach(topic => {
-    // สร้าง Card
+  grammarDatabase.forEach(topic => {
     const card = document.createElement('div');
-    card.className = 'topic-card';
+    const levelData = topic.levels[currentLevel];
+    const hasContent = levelData && levelData.length > 0;
+    
+    card.className = `topic-card ${hasContent ? '' : 'empty-topic'}`;
     card.id = `topic-${topic.id}`;
 
-    // สร้าง HTML สำหรับ Subtopics แบบไดนามิก
     let subtopicsHTML = '';
-    topic.subtopics.forEach(sub => {
-      
-      let actionsHTML = '';
-      sub.actions.forEach(act => {
-        actionsHTML += `
-          <button class="btn-action ${act.type}" onclick="go('${act.url}', '${currentLevel}')">
-            <span class="icon">${act.icon}</span>
-            <span>${act.label}</span>
-          </button>
+    let metaText = hasContent ? `${levelData.length} หมวดหมู่ย่อย` : 'รออัปเดตเนื้อหา 🚧';
+
+    if (hasContent) {
+      levelData.forEach(sub => {
+        let actionsHTML = '';
+        sub.actions.forEach(act => {
+          actionsHTML += `
+            <button class="btn-action ${act.type}" onclick="go('${act.url}')">
+              <span class="icon">${act.icon}</span>
+              <span>${act.label}</span>
+            </button>
+          `;
+        });
+        subtopicsHTML += `
+          <div class="subtopic-item">
+            <div class="subtopic-title">${sub.name}</div>
+            <div class="action-grid">${actionsHTML}</div>
+          </div>
         `;
       });
+    }
 
-      subtopicsHTML += `
-        <div class="subtopic-item">
-          <div class="subtopic-title">${sub.name}</div>
-          <div class="action-grid">${actionsHTML}</div>
-        </div>
-      `;
-    });
-
-    // ประกอบร่าง Card
     card.innerHTML = `
-      <div class="topic-header" onclick="toggleCard(${topic.id})">
+      <div class="topic-header" ${hasContent ? `onclick="toggleCard(${topic.id})"` : ''}>
         <div class="topic-info">
           <div class="topic-num">${topic.id}</div>
           <div>
             <div class="topic-title">${topic.title}</div>
-            <div class="topic-meta">${topic.description} • ${topic.subtopics.length} หัวข้อย่อย</div>
+            <div class="topic-meta">${topic.desc} • ${metaText}</div>
           </div>
         </div>
-        <div class="toggle-icon">▼</div>
+        ${hasContent ? `<div class="toggle-icon">▼</div>` : ''}
       </div>
       <div class="subtopics-container">
         ${subtopicsHTML}
       </div>
     `;
-
     container.appendChild(card);
   });
 }
@@ -361,22 +369,15 @@ function renderGrammarList() {
 function toggleCard(id) {
   const card = document.getElementById(`topic-${id}`);
   const isOpen = card.classList.contains('open');
-  
-  // ปิดทุกการ์ด (ถ้าอยากให้เปิดค้างหลายอันได้ ให้ลบส่วนนี้ออก)
   document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('open'));
-  
   if (!isOpen) card.classList.add('open');
 }
 
-function go(url, level) {
+function go(url) {
   event.stopPropagation();
-  // ในระบบจริง คุณอาจจะส่ง Parameter url?level=primary ไปด้วย
-  console.log(`Navigating to ${url} for level: ${level}`);
-  alert(`กำลังเปิดไฟล์: ${url}\nสำหรับระดับชั้น: ${level.toUpperCase()}`);
-  // window.location.href = url;
+  window.location.href = url;
 }
 
-// Initial render
 setLevel('primary');
 </script>
 
