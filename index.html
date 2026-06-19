@@ -434,6 +434,32 @@ function goToLesson(topicId, level) {
       return;
     }
   }
+  // --- หัวข้อที่ 7: Present Tenses ---
+  else if (topicId === 7) {
+    if (level === 'junior') {
+      // ลิงก์ไปหน้า Present Tenses สำหรับ ม.ต้น
+      window.location.href = 'present-tenses-jh.html';
+      return;
+    }
+  }
+
+  // --- หัวข้อที่ 8: Past Tenses ---
+  else if (topicId === 8) {
+    if (level === 'junior') {
+      // ลิงก์ไปหน้า Past Simple สำหรับ ม.ต้น
+      window.location.href = 'past-simple-jh.html';
+      return;
+    }
+  }
+
+  // --- หัวข้อที่ 16: Adverb ---
+  else if (topicId === 16) {
+    if (level === 'junior') {
+      // ลิงก์ไปหน้า Forming Adverb สำหรับ ม.ต้น
+      window.location.href = 'forming-adverb-jh.html';
+      return;
+    }
+  }
 
   // ถ้าคลิกหัวข้ออื่นที่ยังไม่ได้สร้าง
   alert(`หน้าของหัวข้อที่ ${topicId} ระดับ ${level} ยังไม่ได้สร้างครับ 🚧`);
