@@ -7,326 +7,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fff9f0;
-            --card: #ffffff;
-            --primary: #ff6b35;
-            --secondary: #4ecdc4;
-            --accent: #ffe66d;
-            --purple: #a855f7;
-            --green: #22c55e;
-            --text: #1e1b18;
-            --muted: #78716c;
-            --shadow: 0 4px 0 #e5d5c5;
-            --radius: 20px;
+            --bg: #fff9f0; --card: #ffffff; --primary: #ff6b35; --secondary: #4ecdc4;
+            --accent: #ffe66d; --text: #1e1b18; --muted: #78716c; --red: #ef4444;
+            --shadow: 0 4px 0 #e5d5c5; --radius: 20px;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: var(--bg);
-            background-image:
-                radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, #ff6b3511 0%, transparent 60%);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 24px;
-        }
-
-        /* Top Bar for Back Button */
-        .top-bar {
-            max-width: 800px;
-            margin: 0 auto 20px auto;
-            display: flex;
-            justify-content: flex-start;
-        }
-
-        .btn-back {
-            background-color: var(--card);
-            border: 2px solid #e5d5c5;
-            padding: 10px 20px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: var(--muted);
-            font-family: 'Nunito', sans-serif;
-            font-weight: 800;
-            font-size: 16px;
-            box-shadow: var(--shadow);
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-back:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 6px 0 #d94e1f;
-        }
-
-        .btn-back:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #d94e1f;
-        }
-
-        /* Main Container */
-        .container {
-            background-color: var(--card);
-            padding: 40px 32px;
-            border-radius: 24px;
-            box-shadow: 0 12px 0 #e5d5c5;
-            border: 2px solid #f0e8df;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-family: 'Fredoka One', cursive;
-            font-size: clamp(28px, 6vw, 40px);
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--muted);
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 32px;
-        }
-
-        /* Mascot Box Kru June */
-        .mascot-box {
-            background-color: #fff3e0;
-            border: 2px dashed var(--primary);
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 32px;
-            font-size: 16px;
-            font-weight: 700;
-            color: #c2410c;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
-
-        .mascot-emoji { font-size: 40px; line-height: 1; }
-
-        /* Lesson Cards */
-        .lesson-card {
-            background: #ffffff;
-            border: 2px solid #f0e8df;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s;
-        }
-
-        .lesson-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--secondary);
-            box-shadow: 0 6px 0 #2db5ac;
-        }
-
-        .lesson-card h2 {
-            font-family: 'Fredoka One', cursive;
-            color: var(--secondary);
-            font-size: 24px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .structure-box {
-            background-color: #faf5f0;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 16px;
-            border-left: 4px solid var(--accent);
-            line-height: 1.5;
-        }
-
-        .example-box {
-            background-color: #f8fafc;
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px dashed #e2e8f0;
-        }
-
-        .word-list {
-            background-color: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            border: 1px solid #e2e8f0;
-            font-size: 15px;
-            color: var(--muted);
-        }
-
-        .word-list strong { color: var(--text); }
-
-        .example-box p {
-            margin-bottom: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-
-        .example-box p:last-child { margin-bottom: 0; }
-
-        .highlight {
-            background-color: #fff3e0;
-            color: var(--primary);
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-weight: 800;
-        }
-
-        /* Ted Says Box */
-        .ted-box {
-            background-color: #f0fdfa;
-            border: 2px dashed var(--secondary);
-            padding: 24px;
-            border-radius: 20px;
-            margin-top: 32px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .ted-emoji {
-            font-size: 48px;
-            line-height: 1;
-            filter: drop-shadow(0 4px 0 #ccfbf1);
-        }
-
-        .ted-content {
-            font-size: 16px;
-            font-weight: 700;
-            color: #0f766e;
-            line-height: 1.6;
-        }
-
-        .ted-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 20px;
-            color: var(--secondary);
-            margin-bottom: 4px;
-        }
-
-        @media (max-width: 600px) {
-            .container { padding: 30px 20px; }
-            .ted-box { flex-direction: column; text-align: center; }
-            .mascot-box { flex-direction: column; align-items: center; text-align: center; }
-        }
+        body { font-family: 'Nunito', sans-serif; background: var(--bg); min-height: 100vh; padding: 24px; }
+        .top-bar { max-width: 800px; margin: 0 auto 20px auto; }
+        .btn-back { background-color: var(--card); border: 2px solid #e5d5c5; padding: 10px 20px; border-radius: 16px; text-decoration: none; color: var(--muted); font-weight: 800; box-shadow: var(--shadow); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-back:hover { transform: translateY(-2px); border-color: var(--primary); color: var(--primary); box-shadow: 0 6px 0 #d94e1f; }
+        .container { background-color: var(--card); padding: 40px 32px; border-radius: 24px; box-shadow: 0 12px 0 #e5d5c5; border: 2px solid #f0e8df; max-width: 800px; margin: 0 auto; }
+        h1 { font-family: 'Fredoka One', cursive; color: var(--primary); text-align: center; margin-bottom: 24px; }
+        .lesson-card { background: #ffffff; border: 2px solid #f0e8df; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: var(--shadow); }
+        .lesson-card h2 { font-family: 'Fredoka One', cursive; color: var(--secondary); margin-bottom: 12px; }
+        .structure-box { background-color: #faf5f0; padding: 12px 16px; border-radius: 12px; font-weight: 700; border-left: 4px solid var(--accent); margin-bottom: 16px; }
+        .example-box { background-color: #f8fafc; padding: 20px; border-radius: 12px; border: 2px dashed #e2e8f0; }
+        .highlight { background-color: #fff3e0; color: var(--primary); padding: 2px 8px; border-radius: 8px; font-weight: 800; }
+        .danger-text { color: var(--red); font-weight: 800; }
     </style>
 </head>
 <body>
 
-    <!-- Top Bar with Back Button -->
     <div class="top-bar">
         <a href="index.html" class="btn-back">⬅️ ย้อนกลับไปหน้าหลัก</a>
     </div>
 
-    <!-- Main Content -->
     <div class="container">
-        <h1>Nouns & Quantifiers 📚</h1>
-        <p class="subtitle">เจาะลึกคำนาม เอกพจน์ พหูพจน์ (Junior High School)</p>
+        <h1>Advanced Nouns 🚀</h1>
+        <p style="text-align:center; color:var(--muted); font-weight:700; margin-bottom:32px;">นามนับได้/ไม่ได้ และโครงสร้างขั้นสูง (Junior High School)</p>
 
-        <div class="mascot-box">
-            <div class="mascot-emoji">👩🏻‍🏫</div>
-            <div>
-                <strong>Kru June:</strong> สวัสดีค่ะวัยรุ่น! ในระดับมัธยมต้น เราจะไม่แค่มองหาสิ่งของแล้วนะคะ แต่เราต้องรู้ว่านามนั้น <strong>"นับได้"</strong> หรือ <strong>"นับไม่ได้"</strong> และถ้ามันมีหลายชิ้น เราจะเปลี่ยนรูปมันยังไง กฎพวกนี้สำคัญมากในการเขียนประโยคให้ถูกต้องค่ะ!
-            </div>
-        </div>
-
-        <!-- Card 1: Countable Nouns -->
+        <!-- 1. Partitives -->
         <div class="lesson-card">
-            <h2>1. Countable Nouns (นามนับได้) 🍎</h2>
+            <h2>1. Partitives (การทำให้ Uncountable เป็น Countable) 📦</h2>
             <div class="structure-box">
-                <strong>ลักษณะ:</strong> สามารถนับเป็นชิ้น/ตัว/คนได้ชัดเจน สามารถทำเป็นพหูพจน์ (เติม s/es) ได้ และใช้ a/an นำหน้าได้เมื่อมีหนึ่งเดียว
+                <strong>หลักการ:</strong> คำนามนับไม่ได้ (Uncountable) ต้องการ "ตัวบอกจำนวน" มาช่วยเสมอ เพื่อระบุปริมาณ (Measurement)
             </div>
             <div class="example-box">
-                <div class="word-list">
-                    <strong>💡 ตัวอย่างคำศัพท์:</strong> student (นักเรียน), laptop (แล็ปท็อป), country (ประเทศ), suggestion (ข้อเสนอแนะ)
-                </div>
-                <p>👉 I bought <strong>a</strong> new <span class="highlight">laptop</span> yesterday. (ฉันซื้อแล็ปท็อปเครื่องใหม่เมื่อวาน - เอกพจน์)</p>
-                <p>👉 There are thirty <span class="highlight">students</span> in my class. (มีนักเรียน 30 คนในชั้นเรียนของฉัน - พหูพจน์)</p>
+                <p>👉 แทนที่จะพูดว่า "a water", เราต้องพูดว่า <strong>a glass of</strong> <span class="highlight">water</span></p>
+                <p>👉 <strong>a piece of</strong> <span class="highlight">information</span> / <span class="highlight">advice</span> / <span class="highlight">news</span></p>
+                <p>👉 <strong>a slice of</strong> <span class="highlight">bread</span> / <strong>a bar of</strong> <span class="highlight">chocolate</span></p>
+                <p>👉 Could you bring me <strong>two loaves of</strong> <span class="highlight">bread</span>? (ช่วยนำขนมปังมาให้ฉัน 2 แถวได้ไหม?)</p>
             </div>
         </div>
 
-        <!-- Card 2: Uncountable Nouns -->
+        <!-- 2. Collective Nouns -->
         <div class="lesson-card">
-            <h2>2. Uncountable Nouns (นามนับไม่ได้) 💧</h2>
+            <h2>2. Collective Nouns (สมุหนาม) 👥</h2>
             <div class="structure-box">
-                <strong>ลักษณะ:</strong> เป็นของเหลว ผง ก๊าซ ความรู้สึก หรือนามธรรม <strong>ห้ามเติม a/an และ ห้ามเติม s/es เด็ดขาด!</strong> (ถือเป็นเอกพจน์เสมอ)
+                <strong>หลักการ:</strong> คำนามที่หมายถึงกลุ่ม ถ้ามองเป็น "หน่วยเดียว" ใช้กริยาเอกพจน์ (is/has/v.s) ถ้ามองเป็น "หลายบุคคล" ที่ทำกิจกรรมแยกกัน ใช้กริยาพหูพจน์
             </div>
             <div class="example-box">
-                <div class="word-list">
-                    <strong>💡 คำศัพท์ที่มักออกสอบ (จำไว้ว่านับไม่ได้!):</strong> advice (คำแนะนำ), information (ข้อมูล), furniture (เฟอร์นิเจอร์), luggage (สัมภาระ), homework (การบ้าน)
-                </div>
-                <p>👉 Can you give me some <span class="highlight">advice</span>? (คุณช่วยให้คำแนะนำฉันหน่อยได้ไหม? - ห้ามใช้ advices)</p>
-                <p>👉 We need more <span class="highlight">information</span> about the project. (พวกเราต้องการข้อมูลเพิ่มเติมเกี่ยวกับโปรเจกต์)</p>
-                <p>👉 The <span class="highlight">furniture</span> in this room is very expensive. (เฟอร์นิเจอร์ในห้องนี้แพงมาก - ใช้ is เพราะถือเป็นเอกพจน์)</p>
+                <p>👉 The <span class="highlight">committee</span> <strong>is</strong> making a final decision. (คณะกรรมการมองเป็น 1 หน่วยงาน)</p>
+                <p>👉 The <span class="highlight">committee</span> <strong>are</strong> arguing among themselves. (กรรมการแต่ละคนกำลังเถียงกันเอง - มองเป็นคนหลายคน)</p>
             </div>
         </div>
 
-        <!-- Card 3: Plural Rules -->
+        <!-- 3. Compound Nouns -->
         <div class="lesson-card">
-            <h2>3. Rules for Plurals (กฎการเปลี่ยนเป็นพหูพจน์) 🔄</h2>
+            <h2>3. Compound Nouns (นามประสม) 🧩</h2>
             <div class="structure-box">
-                <strong>วิธีใช้:</strong> การเปลี่ยนนามนับได้เอกพจน์ให้เป็นพหูพจน์ มีกฎที่ต้องระวังหลายข้อ
+                <strong>หลักการ:</strong> คำนามที่เกิดจากคำสองคำมารวมกัน เวลาทำเป็นพหูพจน์ต้องเติม s ที่ "คำหลัก" (Head Noun)
             </div>
             <div class="example-box">
-                <p>👉 <strong>กฎทั่วไป:</strong> เติม <strong>-s</strong> (car ➡️ <span class="highlight">cars</span>, dog ➡️ <span class="highlight">dogs</span>)</p>
-                <p>👉 <strong>ลงท้ายด้วย s, sh, ch, x, z:</strong> เติม <strong>-es</strong> (bus ➡️ <span class="highlight">buses</span>, watch ➡️ <span class="highlight">watches</span>, box ➡️ <span class="highlight">boxes</span>)</p>
-                <p>👉 <strong>ลงท้ายด้วย y (หน้า y เป็นพยัญชนะ):</strong> เปลี่ยน y เป็น i แล้วเติม <strong>-es</strong> (baby ➡️ <span class="highlight">babies</span>, story ➡️ <span class="highlight">stories</span>)</p>
-                <p>👉 <strong>เปลี่ยนรูปไปเลย (Irregular):</strong> (man ➡️ <span class="highlight">men</span>, child ➡️ <span class="highlight">children</span>, tooth ➡️ <span class="highlight">teeth</span>, mouse ➡️ <span class="highlight">mice</span>)</p>
-                <p>👉 <strong>รูปเดิมไม่เปลี่ยน:</strong> (fish ➡️ <span class="highlight">fish</span>, sheep ➡️ <span class="highlight">sheep</span>, deer ➡️ <span class="highlight">deer</span>)</p>
+                <p>👉 <span class="highlight">Father-in-law</span> ➡️ <span class="highlight">Fathers-in-law</span> (เติมที่คำหลักคือ Father)</p>
+                <p>👉 <span class="highlight">Passer-by</span> ➡️ <span class="highlight">Passers-by</span> (เติมที่คำหลักคือ Passers)</p>
             </div>
         </div>
 
-        <!-- Card 4: Collective Nouns -->
+        <!-- 4. Noun Roles -->
         <div class="lesson-card">
-            <h2>4. Collective Nouns (สมุหนาม) 👥</h2>
+            <h2>4. หน้าที่ของคำนามในประโยค 🔍</h2>
             <div class="structure-box">
-                <strong>วิธีใช้:</strong> คำนามที่ใช้เรียก "กลุ่มคน, สัตว์, หรือสิ่งของ" หากมองเป็นก้อนเดียวกันจะใช้กริยาเอกพจน์
+                <strong>หลักการ:</strong> คำนามสามารถทำหน้าที่ได้ 3 อย่างหลัก: เป็นประธาน (Subject), กรรมของกริยา (Object), และกรรมของบุพบท (Object of Preposition)
             </div>
             <div class="example-box">
-                <div class="word-list">
-                    <strong>💡 ตัวอย่างคำศัพท์:</strong> team (ทีม), family (ครอบครัว), class (ชั้นเรียน), audience (ผู้ชม), committee (คณะกรรมการ)
-                </div>
-                <p>👉 My <span class="highlight">family</span> goes on vacation every year. (ครอบครัวของฉันไปเที่ยวพักผ่อนทุกปี - มองเป็นกลุ่มก้อนเดียว)</p>
-                <p>👉 The <span class="highlight">team</span> is practicing for the match. (ทีมกำลังฝึกซ้อมสำหรับการแข่งขัน)</p>
-            </div>
-        </div>
-
-        <!-- Ted Says Box -->
-        <div class="ted-box">
-            <div class="ted-emoji">🦖</div>
-            <div class="ted-content">
-                <div class="ted-title">Ted Says 🦖</div>
-                โฮก! ทริคเอาตัวรอดจากข้อสอบเรื่องนามนับไม่ได้ครับ:<br>
-                ให้จำแก๊งคำศัพท์ <strong>"A-F-I-L-M"</strong> พวกนี้หลอกเราบ่อยมาก! มันนับไม่ได้ ห้ามเติม s เด็ดขาด:<br>
-                <strong>A</strong>dvice (คำแนะนำ)<br>
-                <strong>F</strong>urniture (เฟอร์นิเจอร์)<br>
-                <strong>I</strong>nformation (ข้อมูล)<br>
-                <strong>L</strong>uggage (สัมภาระ)<br>
-                <strong>M</strong>oney / Music (เงิน / ดนตรี)<br>
-                ท่องไว้ให้แม่น เกราะเราจะไม่มีวันทะลุแน่นอนครับ!
+                <p>👉 <strong>Subject:</strong> <span class="highlight">The scientist</span> conducted the experiment.</p>
+                <p>👉 <strong>Object:</strong> He won <span class="highlight">the scholarship</span>.</p>
+                <p>👉 <strong>Object of Prep:</strong> She is interested in <span class="highlight">linguistics</span>.</p>
             </div>
         </div>
 
     </div>
-
 </body>
 </html>
