@@ -275,18 +275,20 @@ const db = {
 // ==========================================
 // RENDERING LOGIC (The UI Designer part)
 // ==========================================
-
 function setLevel(level) {
   currentLevel = level;
   
-  // อัปเดตปุ่ม
+  // อัปเดตปุ่ม (แก้ไขบัคแล้ว: เช็คจากค่า level ตรงๆ แทนการอ่านข้อความ)
   document.querySelectorAll('.lvl-btn').forEach(btn => {
-    btn.setAttribute('data-active', btn.innerText.toLowerCase().includes(level));
+    const isActive = btn.getAttribute('onclick').includes(`'${level}'`);
+    btn.setAttribute('data-active', isActive);
   });
 
   // จัดการแบนเนอร์ M.1 Entrance (โชว์เฉพาะตอนเลือกประถม)
   const banner = document.getElementById('entranceBanner');
-  banner.style.display = (level === 'primary') ? 'block' : 'none';
+  if (banner) {
+    banner.style.display = (level === 'primary') ? 'block' : 'none';
+  }
 
   // โหลดเนื้อหาใหม่
   renderGrammarList();
