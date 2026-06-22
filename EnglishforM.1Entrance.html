@@ -638,6 +638,17 @@ body {
   <button onclick="closeModal()" style="margin-top:24px;padding:12px 28px;border:none;border-radius:100px;background:var(--rule);color:var(--ink);font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Close</button>
 </div>
 
+<section class="mock-cta" style="padding: 60px 6%; text-align: center; background: var(--surface2); border-top: 1px solid var(--rule);">
+  <div style="max-width: 600px; margin: 0 auto;" class="fade-up">
+    <div class="section-eyebrow">Ready for the real thing?</div>
+    <h2 class="section-title">Test Your Knowledge</h2>
+    <p class="section-sub" style="margin-bottom: 32px;">Apply what you've learned across all 8 units. Simulate the real exam environment with our timed mock exams.</p>
+    <a href="mock_exam_hub.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 16px 36px; border-radius: 100px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--ink); text-decoration: none; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 16px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 10px 30px rgba(229, 49, 112, 0.25);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 40px rgba(229, 49, 112, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(229, 49, 112, 0.25)';">
+      Go to Mock Exams Hub 🚀
+    </a>
+  </div>
+</section>
+  
 <!-- ── FOOTER ── -->
 <footer class="footer">
   <div class="footer-logo">B1 English <span>Grammar Hub</span></div>
@@ -781,17 +792,6 @@ var obs = new IntersectionObserver(function(entries){
   });
 },{threshold:0.1});
 cards.forEach(function(c){ obs.observe(c); });
-
-<section class="mock-cta" style="padding: 60px 6%; text-align: center; background: var(--surface2); border-top: 1px solid var(--rule);">
-  <div style="max-width: 600px; margin: 0 auto;" class="fade-up">
-    <div class="section-eyebrow">Ready for the real thing?</div>
-    <h2 class="section-title">Test Your Knowledge</h2>
-    <p class="section-sub" style="margin-bottom: 32px;">Apply what you've learned across all 8 units. Simulate the real exam environment with our timed mock exams.</p>
-    <a href="mock_exam_hub.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 16px 36px; border-radius: 100px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--ink); text-decoration: none; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 16px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 10px 30px rgba(229, 49, 112, 0.25);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 40px rgba(229, 49, 112, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(229, 49, 112, 0.25)';">
-      Go to Mock Exams Hub 🚀
-    </a>
-  </div>
-</section>
 
 </script>
 </body>
