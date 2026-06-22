@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Exams — B1 English Grammar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e17;
+  --surface: #1a1825;
+  --surface2: #221f33;
+  --ink: #fffffe;
+  --muted: #a7a3c2;
+  --rule: #2e2a45;
+  --accent: #ff8906;
+  --accent2: #e53170;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER / HERO ── */
+.hub-header {
+  padding: 80px 6% 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hub-header::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(229,49,112,.1) 0%, transparent 70%);
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--muted); text-decoration: none;
+  font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  margin-bottom: 32px; transition: color .2s;
+}
+.back-link:hover { color: var(--ink); }
+.title {
+  font-family: 'Fraunces', serif; font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900; line-height: 1.1; margin-bottom: 16px;
+}
+.title span { font-style: italic; color: var(--accent2); }
+.subtitle { color: var(--muted); max-width: 500px; margin: 0 auto; }
+
+/* ── EXAM GRID ── */
+.exam-section {
+  flex: 1;
+  padding: 0 6% 80px;
+  max-width: 900px; margin: 0 auto; width: 100%;
+}
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+.exam-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+  text-decoration: none; color: var(--ink);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+  display: flex; flex-direction: column; align-items: center;
+  position: relative; overflow: hidden;
+}
+.exam-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.3);
+}
+.ec-1:hover { border-color: var(--accent); }
+.ec-2:hover { border-color: var(--accent2); }
+
+.ec-icon { font-size: 48px; margin-bottom: 20px; }
+.ec-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+.ec-desc { font-size: 14px; color: var(--muted); margin-bottom: 32px; flex: 1; }
+.ec-btn {
+  padding: 12px 28px; border-radius: 100px;
+  font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 14px;
+  transition: .2s;
+}
+.ec-1 .ec-btn { background: rgba(255,137,6,.1); color: var(--accent); border: 1px solid rgba(255,137,6,.2); }
+.ec-1:hover .ec-btn { background: var(--accent); color: var(--bg); }
+.ec-2 .ec-btn { background: rgba(229,49,112,.1); color: var(--accent2); border: 1px solid rgba(229,49,112,.2); }
+.ec-2:hover .ec-btn { background: var(--accent2); color: var(--ink); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.fade-up { animation: fadeUp .6s ease both; }
+.delay-1 { animation-delay: .1s; }
+.delay-2 { animation-delay: .2s; }
+</style>
+</head>
+<body>
+
+  <header class="hub-header">
+    <a href="index.html" class="back-link fade-up">← Back to Course Hub</a>
+    <h1 class="title fade-up delay-1">Mock Exam <span>Hub</span></h1>
+    <p class="subtitle fade-up delay-2">Test your grammar readiness before the real ม.1 entrance exam. Choose a paper below to begin.</p>
+  </header>
+
+  <main class="exam-section">
+    <div class="exam-grid">
+      
+      <a href="mock_exam_1.html" class="exam-card ec-1 fade-up delay-1">
+        <div class="ec-icon">📝</div>
+        <h2 class="ec-title">Mock Exam 1</h2>
+        <p class="ec-desc">Comprehensive test covering Units 1-4. Focus on Sentence Structure, Subject-Verb Agreement, Tenses, and Passive Voice.</p>
+        <div class="ec-btn">Start Exam 1</div>
+      </a>
+
+      <a href="mock_exam_2.html" class="exam-card ec-2 fade-up delay-2">
+        <div class="ec-icon">⏱️</div>
+        <h2 class="ec-title">Mock Exam 2</h2>
+        <p class="ec-desc">Advanced test covering Units 5-8. Focus on Modals, Conditionals, Relative Clauses, and Reported Speech.</p>
+        <div class="ec-btn">Start Exam 2</div>
+      </a>
+
+    </div>
+  </main>
+
+</body>
+</html>
