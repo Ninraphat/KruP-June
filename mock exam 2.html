@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B1 Grammar Mock Exam 2 — ม.1 Advanced / EP / Gifted</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f0e17;--surface:#1a1825;--surface2:#221f33;
+  --ink:#fffffe;--muted:#a7a3c2;--rule:#2e2a45;
+  --acc:#7c3aed;--acc2:#0ea5e9;
+  --good:#22c55e;--good_lt:rgba(34,197,94,.12);
+  --bad:#ef4444;--bad_lt:rgba(239,68,68,.12);
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.75;min-height:100vh;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:var(--rule);border-radius:2px;}
+
+#cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative;overflow:hidden;}
+#cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 30% 40%,rgba(124,58,237,.12) 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 70% 60%,rgba(14,165,233,.10) 0%,transparent 60%);}
+.cover-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);padding:6px 18px;border-radius:100px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;position:relative;}
+.cover-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.cover h1{font-family:'Fraunces',serif;font-size:clamp(38px,6vw,80px);font-weight:900;line-height:1.05;margin-bottom:16px;position:relative;}
+.cover h1 em{font-style:italic;color:var(--acc);}
+.cover-sub{font-size:15px;color:var(--muted);max-width:520px;margin:0 auto 40px;line-height:1.8;position:relative;}
+.info-grid{display:flex;gap:2px;flex-wrap:wrap;border:1px solid var(--rule);border-radius:14px;overflow:hidden;max-width:640px;width:100%;margin-bottom:40px;position:relative;}
+.info-cell{flex:1;min-width:120px;padding:18px 14px;text-align:center;border-right:1px solid var(--rule);background:var(--surface);}
+.info-cell:last-child{border-right:none;}
+.info-n{font-family:'Fraunces',serif;font-size:30px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.info-l{font-size:11px;color:var(--muted);margin-top:3px;font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.08em;}
+.unit-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:44px;position:relative;}
+.upill{padding:6px 16px;border-radius:100px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;border:1px solid;letter-spacing:.04em;}
+.start-btn{display:inline-flex;align-items:center;gap:12px;padding:18px 48px;border-radius:100px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-size:17px;font-weight:800;font-family:'Manrope',sans-serif;cursor:pointer;border:none;transition:.2s;position:relative;box-shadow:0 8px 40px rgba(124,58,237,.3);}
+.start-btn:hover{transform:translateY(-3px);box-shadow:0 14px 60px rgba(124,58,237,.4);}
+
+#exam-ui{display:none;}
+.exam-bar{position:sticky;top:0;z-index:100;background:rgba(15,14,23,.92);border-bottom:1px solid var(--rule);backdrop-filter:blur(12px);padding:14px 5%;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.bar-title{font-family:'Fraunces',serif;font-size:16px;font-weight:700;}
+.bar-progress{flex:1;min-width:160px;}
+.bar-track{height:5px;background:var(--rule);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:3px;transition:width .4s;}
+.bar-count{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;}
+.timer-box{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--rule);padding:8px 16px;border-radius:100px;font-family:'Space Mono',monospace;font-size:14px;font-weight:700;white-space:nowrap;}
+.timer-box.warn{border-color:#f59e0b;color:#f59e0b;}
+.timer-box.danger{border-color:var(--bad);color:var(--bad);animation:blink .8s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+
+.sec-break{max-width:800px;margin:60px auto 0;padding:0 24px;display:flex;align-items:center;gap:16px;}
+.sec-num{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:22px;font-weight:900;flex-shrink:0;color:#fff;}
+.sec-info h3{font-family:'Fraunces',serif;font-size:19px;font-weight:700;}
+.sec-info p{font-size:13px;color:var(--muted);margin-top:2px;}
+
+.q-wrap{max-width:800px;margin:20px auto;padding:0 24px;}
+.q-card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:28px;margin-bottom:16px;}
+.q-num-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.q-badge{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;background:var(--surface2);color:var(--muted);flex-shrink:0;}
+.q-unit-tag{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:3px 10px;border-radius:100px;border:1px solid;}
+.q-text{font-size:15.5px;font-weight:600;line-height:1.7;margin-bottom:18px;}
+.q-text .blank{display:inline-block;min-width:90px;border-bottom:2px solid var(--muted);text-align:center;margin:0 4px;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:11px;border:1.5px solid var(--rule);cursor:pointer;transition:.16s;background:var(--surface2);font-size:14px;}
+.opt:hover{border-color:var(--acc);background:rgba(124,58,237,.08);}
+.opt.chosen{border-color:var(--acc);background:rgba(124,58,237,.08);color:#c4b5fd;}
+.opt.correct{border-color:var(--good);background:var(--good_lt);color:var(--good);font-weight:600;pointer-events:none;}
+.opt.wrong{border-color:var(--bad);background:var(--bad_lt);color:var(--bad);pointer-events:none;}
+.opt.reveal-correct{border-color:var(--good);background:var(--good_lt);color:var(--good);pointer-events:none;}
+.opt-letter{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;background:rgba(255,255,255,.06);flex-shrink:0;border:1px solid var(--rule);transition:.16s;}
+.opt:hover .opt-letter{background:var(--acc);border-color:var(--acc);color:#fff;}
+.opt.chosen .opt-letter{background:var(--acc);border-color:var(--acc);color:#fff;}
+.opt.correct .opt-letter{background:var(--good);border-color:var(--good);color:#fff;}
+.opt.wrong .opt-letter{background:var(--bad);border-color:var(--bad);color:#fff;}
+.opt.reveal-correct .opt-letter{background:var(--good);border-color:var(--good);color:#fff;}
+.q-feedback{display:none;margin-top:12px;padding:12px 16px;border-radius:10px;font-size:13.5px;line-height:1.6;}
+.q-feedback.show{display:block;}
+.q-feedback.ok{background:var(--good_lt);border-left:3px solid var(--good);color:var(--good);}
+.q-feedback.no{background:var(--bad_lt);border-left:3px solid var(--bad);color:var(--bad);}
+
+.exam-nav{max-width:800px;margin:0 auto;padding:20px 24px 60px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.nav-btn{padding:13px 30px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Manrope',sans-serif;cursor:pointer;border:none;transition:.18s;}
+.nav-prev{background:var(--surface2);color:var(--muted);border:1px solid var(--rule);}
+.nav-prev:hover{border-color:var(--acc);color:var(--acc);}
+.nav-submit{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;box-shadow:0 4px 24px rgba(124,58,237,.3);}
+.nav-submit:hover{transform:translateY(-2px);}
+.nav-next{background:var(--surface2);color:var(--ink);border:1px solid var(--rule);}
+.nav-next:hover{border-color:var(--acc);color:var(--acc);}
+
+#results{display:none;padding:60px 24px;max-width:800px;margin:0 auto;}
+.result-hero{text-align:center;padding:48px 0 36px;}
+.result-score{font-family:'Fraunces',serif;font-size:clamp(60px,12vw,120px);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.result-denom{font-family:'Fraunces',serif;font-size:28px;color:var(--muted);margin-bottom:16px;}
+.result-pct{font-size:18px;color:var(--muted);margin-bottom:8px;}
+.result-grade{display:inline-block;padding:10px 32px;border-radius:100px;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;margin-bottom:24px;}
+.result-msg{font-size:16px;color:var(--muted);max-width:500px;margin:0 auto 40px;line-height:1.8;}
+.breakdown-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:20px;}
+.unit-row{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px 20px;margin-bottom:10px;}
+.ur-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;flex-wrap:wrap;}
+.ur-label{font-size:14px;font-weight:600;}
+.ur-score{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;}
+.ur-bar{height:5px;background:var(--rule);border-radius:3px;overflow:hidden;}
+.ur-fill{height:100%;border-radius:3px;}
+.review-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin:44px 0 20px;}
+.rev-card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px 20px;margin-bottom:10px;}
+.rev-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.rev-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.rev-q{font-size:14px;font-weight:600;line-height:1.6;}
+.rev-answers{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.rev-ans{padding:5px 14px;border-radius:8px;font-size:13px;font-weight:600;font-family:'Space Mono',monospace;}
+.rev-ans.correct{background:var(--good_lt);color:var(--good);}
+.rev-ans.wrong{background:var(--bad_lt);color:var(--bad);}
+.rev-exp{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.6;}
+.retry-btn{display:block;width:100%;margin-top:36px;padding:18px;border-radius:100px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-size:16px;font-weight:800;font-family:'Manrope',sans-serif;cursor:pointer;border:none;text-align:center;box-shadow:0 8px 40px rgba(124,58,237,.3);transition:.2s;}
+.retry-btn:hover{transform:translateY(-2px);}
+.q-overview{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px;}
+.qo-dot{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;cursor:pointer;transition:.16s;border:1.5px solid var(--rule);color:var(--muted);}
+.qo-dot.answered{border-color:var(--acc);background:rgba(124,58,237,.12);color:#c4b5fd;}
+.qo-dot.current{border-color:var(--acc);background:var(--acc);color:#fff;}
+@media(max-width:600px){.exam-bar{gap:10px;}.info-grid{flex-direction:column;}.info-cell{border-right:none;border-bottom:1px solid var(--rule);}.info-cell:last-child{border-bottom:none;}}
+</style>
+</head>
+<body>
+
+<div id="cover">
+  <div class="cover-tag"><span class="dot"></span> Paper 2 &middot; ม.1 Advanced / EP / Gifted</div>
+  <h1>B1 Grammar<br><em>Mock Exam 2</em></h1>
+  <p class="cover-sub">A fresh set of 60 questions — all different from Mock Exam 1 — covering the same 8 grammar units. 75-minute timer. Full answer review on completion.</p>
+  <div class="info-grid">
+    <div class="info-cell"><div class="info-n">60</div><div class="info-l">Questions</div></div>
+    <div class="info-cell"><div class="info-n">75</div><div class="info-l">Minutes</div></div>
+    <div class="info-cell"><div class="info-n">8</div><div class="info-l">Units</div></div>
+    <div class="info-cell"><div class="info-n">Paper 2</div><div class="info-l">New Questions</div></div>
+  </div>
+  <div class="unit-pills">
+    <span class="upill" style="color:#f72585;border-color:#f72585;">Unit 1 Sentences</span>
+    <span class="upill" style="color:#7209b7;border-color:#7209b7;">Unit 2 SVA</span>
+    <span class="upill" style="color:#4361ee;border-color:#4361ee;">Unit 3 Tenses</span>
+    <span class="upill" style="color:#4cc9f0;border-color:#4cc9f0;">Unit 4 Passive</span>
+    <span class="upill" style="color:#06d6a0;border-color:#06d6a0;">Unit 5 Modals</span>
+    <span class="upill" style="color:#f4d35e;border-color:#f4d35e;">Unit 6 Conditionals</span>
+    <span class="upill" style="color:#f95738;border-color:#f95738;">Unit 7 Relatives</span>
+    <span class="upill" style="color:#7c3aed;border-color:#7c3aed;">Unit 8 Reported</span>
+  </div>
+  <button class="start-btn" onclick="startExam()">&#9654; Start Mock Exam 2</button>
+</div>
+
+<div id="exam-ui">
+  <div class="exam-bar">
+    <div class="bar-title">B1 Mock Exam 2</div>
+    <div class="bar-progress">
+      <div class="bar-track"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
+      <div class="bar-count" id="barCount">Question 1 of 60</div>
+    </div>
+    <div class="timer-box" id="timerBox">&#9203; <span id="timerDisp">75:00</span></div>
+  </div>
+  <div class="q-wrap" style="margin-top:20px;"><div class="q-overview" id="qOverview"></div></div>
+  <div id="qContainer"></div>
+  <div class="exam-nav">
+    <button class="nav-btn nav-prev" onclick="prevQ()">&#8592; Previous</button>
+    <button class="nav-btn nav-submit" id="submitBtn" onclick="confirmSubmit()" style="display:none;">Submit Exam</button>
+    <button class="nav-btn nav-next" id="nextBtn" onclick="nextQ()">Next &#8594;</button>
+  </div>
+</div>
+
+<div id="results"></div>
+
+<script>
+var UNITS=[
+  {id:1,label:'Unit 1: Sentence Structure',color:'#f72585'},
+  {id:2,label:'Unit 2: Subject–Verb Agreement',color:'#7209b7'},
+  {id:3,label:'Unit 3: Tenses',color:'#4361ee'},
+  {id:4,label:'Unit 4: Passive Voice',color:'#4cc9f0'},
+  {id:5,label:'Unit 5: Modal Verbs',color:'#06d6a0'},
+  {id:6,label:'Unit 6: Conditionals',color:'#f4d35e'},
+  {id:7,label:'Unit 7: Relative Clauses',color:'#f95738'},
+  {id:8,label:'Unit 8: Reported Speech',color:'#7c3aed'},
+];
+
+var QS=[
+// ── UNIT 1: Sentence Structure (Q1-7) ──
+{u:1,q:'Which sentence follows the S + V + A pattern (adverbial)?',o:['She gave me a book.','They studied in the library all evening.','He became a doctor.','She made the soup hot.'],a:1,e:'"They studied in the library all evening." = Subject + Verb + Adverbial (tells where/when). No object or complement.'},
+{u:1,q:'What is the COMPLEMENT in: "The coffee smells wonderful."?',o:['The coffee','smells','wonderful','(none — no complement)'],a:2,e:'"Wonderful" is a subject complement. It follows a linking verb ("smells") and describes the subject.'},
+{u:1,q:'Which part of the sentence is the INDIRECT OBJECT in: "The teacher gave the students a test."?',o:['The teacher','gave','the students','a test'],a:2,e:'"The students" is the indirect object — it tells us WHO received the direct object (the test). Indirect objects come before direct objects.'},
+{u:1,q:'"They painted the wall white." — what pattern is this?',o:['S + V + O','S + V + C','S + V + O + O','S + V + O + C'],a:3,e:'S + V + O + C: They (S) painted (V) the wall (O) white (C — object complement, describes "the wall").'},
+{u:1,q:'Which sentence is grammatically INCORRECT in terms of sentence structure?',o:['He became very successful.','They gave her a promotion.','She put the book.','The food tastes delicious.'],a:2,e:'"She put the book." is incomplete. "Put" requires a place adverbial: "She put the book ON THE TABLE." It cannot stand without an adverbial.'},
+{u:1,q:'"She considers him very talented." — identify the OBJECT COMPLEMENT.',o:['She','considers','him','very talented'],a:3,e:'"Very talented" is the object complement — it describes the object "him". Pattern: S + V + O + C.'},
+{u:1,q:'Which sentence uses a LINKING VERB correctly?',o:['She seemed happily.','The food tastes well.','He appears to be exhausted.','They looked angrily.'],a:2,e:'"He appears to be exhausted." — "appears" is a linking verb correctly followed by an adjective phrase. Linking verbs take adjectives (not adverbs): "happily" ✗ → "happy" ✓; "well" ✗ → "good" ✓; "angrily" ✗ → "angry" ✓.'},
+// ── UNIT 2: SVA (Q8-14) ──
+{u:2,q:'Choose the correct verb: "Neither the manager nor the employees _____ aware of the new policy."',o:['was','is','were','has been'],a:2,e:'Neither…nor: verb agrees with the NEAREST subject. "Employees" (plural) is nearest → "were".'},
+{u:2,q:'"A number of students _____ absent today." Choose the correct verb.',o:['is','was','are','has been'],a:2,e:'"A number of" = plural → "are". (Contrast: "The number of" = singular → "is")'},
+{u:2,q:'Choose the correct verb: "Every student and teacher _____ required to attend."',o:['is','are','were','have been'],a:0,e:'"Every + singular noun + and + singular noun" takes a SINGULAR verb. "Every" makes each noun singular individually.'},
+{u:2,q:'"Politics _____ always been a controversial topic." Choose the verb.',o:['have','are','has','were'],a:2,e:'"Politics" as a subject of study (like mathematics, economics) takes a SINGULAR verb: "has".'},
+{u:2,q:'"There _____ a book and two pens on the desk." Choose the correct verb.',o:['are','is','were','have been'],a:1,e:'With "There is/are", the verb agrees with the FIRST subject listed. "A book" (singular) comes first → "is".'},
+{u:2,q:'Choose the correct verb: "The jury _____ still deliberating after three days."',o:['are','is','were','have'],a:1,e:'Collective nouns (jury, team, staff, committee) take a singular verb when acting as one unit: "is deliberating".'},
+{u:2,q:'"Three kilometres _____ not a long distance for a runner." Choose the verb.',o:['are','were','is','have been'],a:2,e:'Distances, sums of money, and time periods are treated as single amounts → singular verb "is".'},
+// ── UNIT 3: Tenses (Q15-21) ──
+{u:3,q:'"She _____ to three different countries before she turned 20." Choose the correct form.',o:['went','has gone','had been','was going'],a:2,e:'Past Perfect: "had been" — an action completed BEFORE a past point in time ("before she turned 20").'},
+{u:3,q:'Choose the correct form: "Don\'t call me at 8 PM — I _____ dinner then."',o:['will have','will be having','am having','have had'],a:1,e:'Future Continuous: "will be having" — an action that will be in progress at a specific future time (at 8 PM).'},
+{u:3,q:'"Look! The sun _____!" Choose the correct form.',o:['rises','is rising','rose','has risen'],a:1,e:'Present Continuous: "is rising" — an action happening RIGHT NOW (we can see it). "Look!" confirms it is immediate.'},
+{u:3,q:'Choose the correct form: "By next Monday, I _____ this project for a whole month."',o:['will work','will be working','will have been working','have been working'],a:2,e:'Future Perfect Continuous: "will have been working" — emphasises the DURATION of an action that will have been in progress up to a future point.'},
+{u:3,q:'"She _____ English for ten years and speaks it fluently." Choose the correct form.',o:['learned','learns','has been learning','was learning'],a:2,e:'Present Perfect Continuous: "has been learning" — an ongoing activity that started in the past and continues now, with a visible result (she speaks fluently).'},
+{u:3,q:'"He _____ in this house since he was born." Choose the correct form.',o:['lives','is living','has lived','was living'],a:2,e:'Present Perfect: "has lived" — a state that began in the past and continues to the present (since he was born).'},
+{u:3,q:'Which sentence uses the PAST PERFECT correctly?',o:['She had left before he had arrived.','By the time he arrived, she had already left.','She has left before he arrived.','When he arrived, she was already leaving.'],a:1,e:'"By the time he arrived, she had already left." — Past Perfect ("had left") for the earlier action; Past Simple ("arrived") for the later one. Both past actions in sequence.'},
+// ── UNIT 4: Passive Voice (Q22-28) ──
+{u:4,q:'Choose the correct passive: "This temple _____ over 500 years ago."',o:['was built','is built','has been built','built'],a:0,e:'Past Simple passive: "was built" — "over 500 years ago" is a definite past time signal → Past Simple, not Present Perfect.'},
+{u:4,q:'Choose the correct passive: "The results _____ tomorrow morning."',o:['announce','will announce','will be announced','are announcing'],a:2,e:'Future passive: "will be announced" — the results (subject) receive the action. "Tomorrow morning" signals future.'},
+{u:4,q:'"It is believed _____ the oldest temple in Thailand."',o:['it to be','that it is','that to be','for it'],a:1,e:'Impersonal passive: "It is believed that + S + V". "It is believed that it is the oldest temple."'},
+{u:4,q:'"The man was heard _____ in the next room." Choose the correct form.',o:['cry','crying','to cry','cried'],a:1,e:'Passive + participle: perception verbs (see, hear, feel, watch) in passive take V-ing: "was heard crying". (Note: in active, both V-ing and to-V1 are possible.)'},
+{u:4,q:'"The problem _____ by the time the manager arrived." Choose the correct passive.',o:['was solved','has been solved','had been solved','is being solved'],a:2,e:'Past Perfect passive: "had been solved" — the problem was solved BEFORE the manager arrived.'},
+{u:4,q:'Which sentence is in the CORRECT passive form?',o:['The book was written by she.','The books are sell in every shop.','He was given a medal by the president.','The letter has wrote by my mother.'],a:2,e:'"He was given a medal by the president." — correct passive with indirect object. After a preposition, use object pronoun: "by the president" ✓. "She" ✗ → "her"; "sell" ✗ → "sold"; "wrote" ✗ → "written".'},
+{u:4,q:'Change to passive: "People say that she is the best teacher in the school."',o:['She is said to be the best teacher in the school.','She is told to be the best teacher.','It is said she is being the best teacher.','She was said to be the best teacher.'],a:0,e:'Impersonal passive with to-infinitive: "She is said to be the best teacher." The tense of the reporting verb (say = present) determines "is said".'},
+// ── UNIT 5: Modal Verbs (Q29-35) ──
+{u:5,q:'"She _____ been the winner — she scored the highest!" Choose the correct form.',o:['must have','should have','could have','might have'],a:0,e:'"Must have been" = strong past deduction (almost certain conclusion from evidence). She scored highest → she must be the winner.'},
+{u:5,q:'"You _____ have told me about the party — I would have come!" Choose the correct form.',o:['must','could','should','would'],a:2,e:'"Should have told" = past criticism/regret. The right thing (telling) was NOT done.'},
+{u:5,q:'Choose the sentence that correctly uses "need not have".',o:['You needn\'t have bought so much food — we have plenty.','You needn\'t have went there.','She needn\'t has worried.','He needn\'t to come so early.'],a:0,e:'"Needn\'t have bought" = action was done but was unnecessary. After "needn\'t have", always use V3 (past participle): "bought" ✓.'},
+{u:5,q:'"I would rather _____ tea than coffee." Choose the correct form.',o:['to drink','drinking','drink','drank'],a:2,e:'"Would rather" + base verb (V1). No "to". "I would rather drink" is correct.'},
+{u:5,q:'Which modal best completes: "_____ you mind opening the window? It\'s quite hot."',o:['Could','Would','Should','Must'],a:1,e:'"Would you mind...?" is a fixed polite request. "Would" is always used in this pattern, not "could".'},
+{u:5,q:'"He _____ be the new manager — he\'s only been here two months." Choose the best modal.',o:['must','should','can\'t','might'],a:2,e:'"Can\'t be" = strong negative deduction (it\'s impossible/very unlikely based on the evidence).'},
+{u:5,q:'"She _____ speak four languages when she was twelve." Choose the correct form.',o:['can','could','is able to','may'],a:1,e:'"Could" = general past ability. "Could speak" refers to a general ability she had in the past.'},
+// ── UNIT 6: Conditionals (Q36-42) ──
+{u:6,q:'"If you freeze water, it _____ into ice." Choose the correct form.',o:['will turn','would turn','turns','had turned'],a:2,e:'Type 0 conditional (scientific fact): If + Present Simple, Present Simple. "Turns" is correct.'},
+{u:6,q:'"If I _____ the lottery, I would travel the world." Choose the correct form.',o:['win','won','had won','will win'],a:1,e:'Type 2 conditional: If + Past Simple ("won"), would + V1. Imaginary present/future — unlikely.'},
+{u:6,q:'"If she hadn\'t left her phone at home, she _____ the message." Choose the correct form.',o:['would receive','will receive','would have received','had received'],a:2,e:'Type 3 conditional: If + Past Perfect, would/could/might + have + V3. "Would have received" is correct.'},
+{u:6,q:'Choose the CORRECT conditional sentence.',o:['If I would study, I will pass.','If I study, I will pass.','If I will study, I would pass.','If I studied, I will pass.'],a:1,e:'Type 1: "If I study, I will pass." — If-clause: Present Simple; main clause: will + V1. Never "will" in if-clause.'},
+{u:6,q:'"If he had learned to drive earlier, he _____ a car now." This is a _____ conditional.',o:['would have / Type 3','would be able to drive / Mixed M1','will be able to drive / Type 1','would be able to drive / Type 2'],a:1,e:'Mixed M1: Past condition (had learned) → Present result (would be able to drive now). "Now" signals present result.'},
+{u:6,q:'"You can borrow my car _____ you drive carefully." Choose the best connector.',o:['unless','in case','as long as','even if'],a:2,e:'"As long as" = on the condition that. You can borrow it ONLY IF you drive carefully — a condition for permission.'},
+{u:6,q:'"Even if she _____ very hard, she would not have passed." Choose the correct form.',o:['studied','would study','had studied','was studying'],a:2,e:'"Even if" + Type 3: "wouldn\'t have passed" (Type 3 result) → if-clause = Past Perfect "had studied".'},
+// ── UNIT 7: Relative Clauses (Q43-49) ──
+{u:7,q:'"This is the school _____ my mother used to teach." Choose the correct pronoun.',o:['which','that','where','when'],a:2,e:'"Where" — "the school" is a place → use "where" (= "in which").'},
+{u:7,q:'"The singer, _____ new album has topped the charts, will perform here tonight." Choose the correct pronoun.',o:['who','whose','which','that'],a:1,e:'"Whose" — the album BELONGS to the singer (possession). Non-defining clause (commas).'},
+{u:7,q:'In which sentence is the relative pronoun CORRECTLY omitted?',o:['The man who called you is my brother. → The man called you is my brother.','The film that I saw was amazing. → The film I saw was amazing.','The girl whose bag was stolen cried. → The girl bag was stolen cried.','The city where she lives is beautiful. → The city she lives is beautiful.'],a:1,e:'"The film I saw was amazing." — "that" was the OBJECT of "saw" ("I" is the subject), so it can be omitted. Subject pronouns and "whose/where/when" cannot be omitted.'},
+{u:7,q:'"She is the only person _____ can solve this problem." Choose the correct pronoun.',o:['which','who','whom','whose'],a:1,e:'After "the only", "who" or "that" are both used. "Who" is correct here — person + subject of the clause.'},
+{u:7,q:'"The Mona Lisa, _____ was painted by Leonardo da Vinci, hangs in the Louvre." Choose the correct pronoun.',o:['that','who','which','whose'],a:2,e:'Non-defining clause (commas), thing → "which". "That" is NEVER used in non-defining clauses.'},
+{u:7,q:'"I remember the summer _____ we first visited Thailand." Choose the correct pronoun.',o:['which','where','when','that'],a:2,e:'"When" — "the summer" is a time expression → "when" (= in which).'},
+{u:7,q:'Which sentence contains a relative clause ERROR?',o:['The woman who spoke to me was very helpful.','I live in a city where the traffic is terrible.','The man which fixed my car was very skilled.','The year when I graduated was 2022.'],a:2,e:'"The man WHICH fixed my car" ✗ → "The man WHO fixed my car" ✓. "Which" is for things, not people.'},
+// ── UNIT 8: Reported Speech (Q50-60) ──
+{u:8,q:'"I am studying for the exam," he told her. He told her he _____ for the exam.',o:['is studying','was studying','has studied','had studied'],a:1,e:'Tense backshift: Present Continuous ("am studying") → Past Continuous ("was studying"). "I" → "he".'},
+{u:8,q:'"Have you seen my keys?" she asked him. She asked him _____ her keys.',o:['if he saw','whether he had seen','did he see','has he seen'],a:1,e:'Y/N reported question: "whether/if + S + V (backshifted)". Present Perfect → Past Perfect. Normal word order, no "?".'},
+{u:8,q:'"Why are you crying?" he asked. He asked her why she _____.',o:['is crying','cries','was crying','had been crying'],a:2,e:'Wh- reported question: keep "why", normal word order, remove "are", backshift (Pres. Cont. → Past Cont.). "You" → "she".'},
+{u:8,q:'She said, "I will finish the report by Friday." She said she _____ the report by Friday.',o:['will finish','would finish','finished','would have finished'],a:1,e:'"Will" → "would" (backshift). "I" → "she".'},
+{u:8,q:'"I\'m sorry for being rude," he said. He _____ for being rude.',o:['apologised','warned','accused','suggested'],a:0,e:'"Apologise for + V-ing" = the correct pattern. He apologised for being rude.'},
+{u:8,q:'"Please don\'t make so much noise," she said to them. She asked them _____ so much noise.',o:['don\'t make','not to make','to not make','not making'],a:1,e:'Negative reported request: asked + person + NOT TO + V1. "Not to make" is correct.'},
+{u:8,q:'"You broke my vase!" she said to him. She accused him _____ her vase.',o:['of breaking','for breaking','to break','breaking'],a:0,e:'"Accuse + person + OF + V-ing". The preposition is always "of", not "for".'},
+{u:8,q:'"Let me help you," he said. He _____ to help her.',o:['suggested','offered','insisted','warned'],a:1,e:'"Offer + to + V1" = to willingly do something for someone. "He offered to help her."'},
+{u:8,q:'Choose the CORRECTLY reported statement.',o:['She said me she was tired.','She told that she was tired.','She said that she was tired.','She told to me she was tired.'],a:2,e:'"She said that she was tired." — "say (that) + clause" (no person after "say"). "Said me" ✗; "told that" ✗ (needs person); "told to me" ✗.'},
+{u:8,q:'"I must hand in my assignment tomorrow," she said. She said she _____ in her assignment the next day.',o:['must hand','had to hand','should hand','would hand'],a:1,e:'"Must" → "had to" in reported speech (backshift). "Tomorrow" → "the next day".'},
+{u:8,q:'"I haven\'t been to Paris," he admitted. He admitted _____ to Paris.',o:['not to go','that he hadn\'t been','not going','not been'],a:1,e:'"Admit that + clause" — "He admitted that he hadn\'t been to Paris." Present Perfect negative → Past Perfect negative in reported speech.'},
+];
+
+var answers={}, submitted=false, currentQ=0, timerSec=75*60, timerInterval=null;
+
+function updateTimer(){
+  var m=Math.floor(timerSec/60), s=timerSec%60;
+  document.getElementById('timerDisp').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  var box=document.getElementById('timerBox');
+  box.className='timer-box';
+  if(timerSec<=300)box.classList.add('danger');
+  else if(timerSec<=600)box.classList.add('warn');
+  if(timerSec<=0){clearInterval(timerInterval);submitExam();}
+  else timerSec--;
+}
+
+function startExam(){
+  document.getElementById('cover').style.display='none';
+  document.getElementById('exam-ui').style.display='block';
+  buildOverview(); renderQ(0);
+  timerInterval=setInterval(updateTimer,1000);
+}
+
+function buildOverview(){
+  var el=document.getElementById('qOverview');
+  el.innerHTML='';
+  for(var i=0;i<QS.length;i++){
+    var d=document.createElement('div');
+    d.className='qo-dot'; d.id='qd-'+i; d.textContent=i+1;
+    d.onclick=(function(idx){return function(){renderQ(idx);};})(i);
+    el.appendChild(d);
+  }
+}
+
+function refreshDots(){
+  for(var i=0;i<QS.length;i++){
+    var d=document.getElementById('qd-'+i);
+    if(!d) continue;
+    d.className='qo-dot';
+    if(i===currentQ) d.classList.add('current');
+    else if(answers[i]!==undefined) d.classList.add('answered');
+  }
+}
+
+function renderQ(idx){
+  currentQ=idx;
+  var q=QS[idx], u=UNITS.filter(function(x){return x.id===q.u;})[0];
+  var letters=['A','B','C','D'];
+  var ans_count=Object.keys(answers).length;
+  document.getElementById('barFill').style.width=Math.round(ans_count/QS.length*100)+'%';
+  document.getElementById('barCount').textContent='Question '+(idx+1)+' of '+QS.length;
+  document.getElementById('nextBtn').style.display=(idx<QS.length-1)?'':'none';
+  document.getElementById('submitBtn').style.display=(idx===QS.length-1)?'':'none';
+  var qtext=q.q.replace(/_____/g,'<span class="blank">_____</span>');
+  var optsHtml=q.o.map(function(opt,i){
+    var iChosen=(!submitted&&answers[idx]===i);
+    var isCorrect=(submitted&&i===q.a);
+    var isWrong=(submitted&&answers[idx]===i&&i!==q.a);
+    var isReveal=(submitted&&i===q.a&&answers[idx]!==q.a);
+    var cls='opt';
+    if(iChosen) cls+=' chosen';
+    if(isCorrect&&submitted) cls+=' correct';
+    if(isWrong) cls+=' wrong';
+    if(isReveal) cls+=' reveal-correct';
+    var onclick=submitted?'':'onclick="chooseOpt('+idx+','+i+')"';
+    return '<div class="'+cls+'" '+onclick+'><span class="opt-letter">'+letters[i]+'</span>'+opt+'</div>';
+  }).join('');
+  var fb='';
+  if(submitted){
+    var cor=(answers[idx]===q.a);
+    fb='<div class="q-feedback show '+(cor?'ok':'no')+'">'+
+       (cor?'✓ Correct! ':'✗ Incorrect. Correct answer: <strong>'+letters[q.a]+'. '+q.o[q.a]+'</strong><br>')+
+       q.e+'</div>';
+  }
+  var secBreak='';
+  if(idx===0||QS[idx].u!==QS[idx-1].u){
+    var unitQs=QS.filter(function(x){return x.u===q.u;});
+    secBreak='<div class="sec-break"><div class="sec-num">'+q.u+'</div><div class="sec-info"><h3>'+u.label+'</h3><p>'+unitQs.length+' questions in this section</p></div></div>';
+  }
+  document.getElementById('qContainer').innerHTML=secBreak+
+    '<div class="q-wrap"><div class="q-card">'+
+    '<div class="q-num-row"><div class="q-badge">Q'+(idx+1)+'</div>'+
+    '<span class="q-unit-tag" style="color:'+u.color+';border-color:'+u.color+'">'+u.label+'</span></div>'+
+    '<div class="q-text">'+qtext+'</div>'+
+    '<div class="opts">'+optsHtml+'</div>'+fb+
+    '</div></div>';
+  refreshDots();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function chooseOpt(qIdx,optIdx){
+  if(submitted) return;
+  answers[qIdx]=optIdx;
+  renderQ(qIdx);
+}
+
+function nextQ(){if(currentQ<QS.length-1) renderQ(currentQ+1);}
+function prevQ(){if(currentQ>0) renderQ(currentQ-1);}
+
+function confirmSubmit(){
+  var unanswered=QS.length-Object.keys(answers).length;
+  if(unanswered>0){if(!confirm('You have '+unanswered+' unanswered question(s). Submit anyway?')) return;}
+  else{if(!confirm('Submit your exam? You cannot change answers after this.')) return;}
+  submitExam();
+}
+
+function submitExam(){
+  clearInterval(timerInterval);
+  submitted=true;
+  renderQ(currentQ);
+  showResults();
+}
+
+function showResults(){
+  var score=0;
+  for(var i=0;i<QS.length;i++) if(answers[i]===QS[i].a) score++;
+  var pct=Math.round(score/QS.length*100);
+  var grade,gradeColor,gradeMsg;
+  if(pct>=90){grade='A';gradeColor='#22c55e';gradeMsg='Outstanding! You are excellently prepared for the ม.1 Advanced / EP / Gifted exam.';}
+  else if(pct>=80){grade='B';gradeColor='#4ade80';gradeMsg='Great work! A little more practice and you\'ll be at the top.';}
+  else if(pct>=70){grade='C';gradeColor='#facc15';gradeMsg='Good effort! Review the units where you lost marks and try again.';}
+  else if(pct>=60){grade='D';gradeColor='#fb923c';gradeMsg='Keep studying! Focus on the red sections in the breakdown below.';}
+  else{grade='F';gradeColor='#ef4444';gradeMsg='Don\'t give up! Go back to each unit\'s lesson and redo the exercises before retrying.';}
+
+  var unitScores={}, unitTotals={};
+  UNITS.forEach(function(u){unitScores[u.id]=0;unitTotals[u.id]=0;});
+  QS.forEach(function(q,i){unitTotals[q.u]++;if(answers[i]===q.a) unitScores[q.u]++;});
+
+  var breakdownHtml=UNITS.map(function(u){
+    var s=unitScores[u.id], t=unitTotals[u.id], up=Math.round(s/t*100);
+    var bc=up>=70?'#22c55e':up>=50?'#facc15':'#ef4444';
+    return '<div class="unit-row">'+
+      '<div class="ur-top"><span class="ur-label">'+u.label+'</span>'+
+      '<span class="ur-score" style="color:'+bc+'">'+s+' / '+t+'</span></div>'+
+      '<div class="ur-bar"><div class="ur-fill" style="width:'+up+'%;background:'+bc+'"></div></div>'+
+    '</div>';
+  }).join('');
+
+  var wrongHtml='', letters=['A','B','C','D'];
+  QS.forEach(function(q,i){
+    if(answers[i]!==q.a){
+      var u=UNITS.filter(function(x){return x.id===q.u;})[0];
+      var userAns=answers[i]!==undefined?letters[answers[i]]+'. '+q.o[answers[i]]:'Not answered';
+      wrongHtml+='<div class="rev-card">'+
+        '<div class="rev-top"><span class="rev-icon">❌</span>'+
+        '<span class="rev-q">Q'+(i+1)+' ('+u.label+') — '+q.q+'</span></div>'+
+        '<div class="rev-answers">'+
+          '<span class="rev-ans wrong">✗ Your answer: '+userAns+'</span>'+
+          '<span class="rev-ans correct">✓ Correct: '+letters[q.a]+'. '+q.o[q.a]+'</span>'+
+        '</div>'+
+        '<div class="rev-exp">'+q.e+'</div>'+
+      '</div>';
+    }
+  });
+  if(!wrongHtml) wrongHtml='<div style="text-align:center;padding:32px;color:var(--muted);font-size:16px;">🎉 Perfect score! Every answer correct!</div>';
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').innerHTML=
+    '<div class="result-hero">'+
+      '<div class="result-score">'+score+'</div>'+
+      '<div class="result-denom">/ '+QS.length+'</div>'+
+      '<div class="result-pct">'+pct+'% — <span style="color:'+gradeColor+'">Grade '+grade+'</span></div>'+
+      '<div class="result-grade" style="background:'+gradeColor+'22;color:'+gradeColor+';border:1px solid '+gradeColor+'">'+
+        (pct>=70?'🎓 Ready for ม.1!':pct>=60?'📚 Keep Reviewing':'💪 Study More')+
+      '</div>'+
+      '<p class="result-msg">'+gradeMsg+'</p>'+
+    '</div>'+
+    '<div class="breakdown-title">Score by Unit</div>'+breakdownHtml+
+    '<div class="review-title">Questions to Review ('+(QS.length-score)+' incorrect)</div>'+wrongHtml+
+    '<button class="retry-btn" onclick="retryExam()">&#8635; Retry Exam 2</button>'+
+    '<p style="text-align:center;margin-top:16px;font-size:13px;color:var(--muted);">Click any question number above to review it with explanations shown.</p>';
+
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function retryExam(){
+  answers={}; submitted=false; currentQ=0; timerSec=75*60;
+  document.getElementById('results').style.display='none';
+  document.getElementById('results').innerHTML='';
+  document.getElementById('barFill').style.width='0%';
+  document.getElementById('barCount').textContent='Question 1 of 60';
+  document.getElementById('timerBox').className='timer-box';
+  document.getElementById('timerDisp').textContent='75:00';
+  buildOverview(); renderQ(0);
+  timerInterval=setInterval(updateTimer,1000);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

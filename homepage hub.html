@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B1 English Grammar — Complete Course Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e17;
+  --surface: #1a1825;
+  --surface2: #221f33;
+  --ink: #fffffe;
+  --muted: #a7a3c2;
+  --rule: #2e2a45;
+  --accent: #ff8906;
+  --accent2: #e53170;
+
+  /* unit colours */
+  --u1: #f72585; --u1b: #2d0a1e;
+  --u2: #7209b7; --u2b: #1a0730;
+  --u3: #3a0ca3; --u3b: #0d0628;
+  --u4: #4361ee; --u4b: #091028;
+  --u5: #4cc9f0; --u5b: #032030;
+  --u6: #06d6a0; --u6b: #01201a;
+  --u7: #f4d35e; --u7b: #241f03;
+  --u8: #f95738; --u8b: #2d0e08;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(247,37,133,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(67,97,238,.14) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(76,201,240,.08) 0%, transparent 60%);
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--rule);
+  padding: 6px 16px; border-radius: 100px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 28px;
+  position: relative;
+}
+.hero-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(42px, 7vw, 96px);
+  font-weight: 900; line-height: 1.0;
+  margin-bottom: 20px;
+  position: relative;
+}
+.hero h1 .line1 { display: block; }
+.hero h1 .line2 { display: block; font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 16px; color: var(--muted);
+  max-width: 540px; margin: 0 auto 48px;
+  line-height: 1.8; position: relative;
+}
+.hero-pills {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 10px; margin-bottom: 48px; position: relative;
+}
+.hero-pill {
+  padding: 8px 20px; border-radius: 100px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  border: 1px solid; letter-spacing: .04em;
+}
+
+/* stats bar */
+.stats-bar {
+  display: flex; gap: 0; flex-wrap: wrap;
+  border: 1px solid var(--rule); border-radius: 14px;
+  overflow: hidden; position: relative;
+  max-width: 640px; width: 100%;
+}
+.stat { flex: 1; min-width: 100px; padding: 20px 16px; text-align: center; border-right: 1px solid var(--rule); }
+.stat:last-child { border-right: none; }
+.stat-n {
+  font-family: 'Fraunces', serif;
+  font-size: 36px; font-weight: 900; line-height: 1;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-l { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+
+/* ── PROGRESS STRIP ── */
+.progress-strip {
+  background: var(--surface);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 20px 6%;
+}
+.progress-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.prog-label { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); white-space: nowrap; }
+.prog-track { flex: 1; min-width: 200px; height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.prog-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 3px; width: 0%; transition: width 1.2s ease; }
+.prog-units { display: flex; gap: 6px; }
+.prog-dot {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+  border: 1.5px solid var(--rule); color: var(--muted);
+  cursor: pointer; transition: .2s;
+}
+.prog-dot:hover { border-color: var(--accent); color: var(--accent); }
+.prog-dot.done { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+
+/* ── UNIT GRID ── */
+.units-section { padding: 72px 6%; max-width: 1100px; margin: 0 auto; }
+.section-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em;
+  color: var(--muted); margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 700; margin-bottom: 8px;
+}
+.section-sub { font-size: 14px; color: var(--muted); margin-bottom: 44px; }
+
+.unit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.unit-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform .22s, box-shadow .22s, border-color .22s;
+  cursor: pointer;
+  position: relative;
+}
+.unit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+.uc-top {
+  padding: 28px 26px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.uc-top::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 100% 0%, rgba(255,255,255,.06) 0%, transparent 60%);
+}
+.uc-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em;
+  opacity: .7; margin-bottom: 14px;
+}
+.uc-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+.uc-title {
+  font-family: 'Fraunces', serif;
+  font-size: 20px; font-weight: 700;
+  line-height: 1.2; margin-bottom: 6px;
+}
+.uc-thai { font-size: 13px; opacity: .65; margin-bottom: 14px; }
+
+.uc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.uc-tag {
+  padding: 3px 10px; border-radius: 100px;
+  font-size: 11px; font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.7);
+}
+
+.uc-bottom {
+  padding: 16px 26px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.uc-formats { display: flex; gap: 8px; }
+.fmt-pill {
+  padding: 4px 12px; border-radius: 100px;
+  font-size: 11px; font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.5);
+}
+.uc-arrow {
+  width: 32px; height: 32px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,.06);
+  font-size: 16px; transition: background .2s;
+}
+.unit-card:hover .uc-arrow { background: rgba(255,255,255,.14); }
+
+/* ── HOW TO USE ── */
+.how-section {
+  padding: 72px 6%;
+  background: var(--surface);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.how-inner { max-width: 960px; margin: 0 auto; }
+.how-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px; margin-top: 40px;
+}
+.how-card {
+  background: var(--surface2);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 22px 20px;
+}
+.how-num {
+  font-family: 'Fraunces', serif;
+  font-size: 36px; font-weight: 900;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1; margin-bottom: 10px;
+}
+.how-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.how-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── EXAM TIPS ── */
+.tips-section { padding: 72px 6%; max-width: 960px; margin: 0 auto; }
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 36px; }
+.tip-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.tip-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.tip-text { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+.tip-text strong { color: var(--ink); }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--rule);
+  padding: 40px 6%;
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 22px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.footer-logo span { font-style: italic; color: var(--accent); }
+.footer-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.footer-units {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 8px; margin-bottom: 28px;
+}
+.fu { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); }
+.footer-copy { font-size: 12px; color: var(--muted); opacity: .6; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.fade-up { animation: fadeUp .6s ease both; }
+.delay-1 { animation-delay: .1s; }
+.delay-2 { animation-delay: .2s; }
+.delay-3 { animation-delay: .3s; }
+.delay-4 { animation-delay: .4s; }
+
+@media (max-width: 600px) {
+  .unit-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .stats-bar { flex-direction: column; }
+  .stat { border-right: none; border-bottom: 1px solid var(--rule); }
+  .stat:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag fade-up"><span class="dot"></span> ม.1 Advanced &middot; EP &middot; Gifted Prep</div>
+  <h1 class="fade-up delay-1">
+    <span class="line1">B1 English</span>
+    <span class="line2">Grammar Hub</span>
+  </h1>
+  <p class="hero-sub fade-up delay-2">8 complete units covering every grammar topic tested in Thai ม.1 Advanced, EP, and Gifted entrance exams. Interactive HTML lessons, student workbooks, and full teacher answer keys.</p>
+  <div class="hero-pills fade-up delay-3">
+    <span class="hero-pill" style="color:#f72585;border-color:#f72585;">Sentences</span>
+    <span class="hero-pill" style="color:#7209b7;border-color:#7209b7;">SVA</span>
+    <span class="hero-pill" style="color:#3a0ca3;border-color:#3a0ca3;">Tenses</span>
+    <span class="hero-pill" style="color:#4361ee;border-color:#4361ee;">Passive</span>
+    <span class="hero-pill" style="color:#4cc9f0;border-color:#4cc9f0;">Modals</span>
+    <span class="hero-pill" style="color:#06d6a0;border-color:#06d6a0;">Conditionals</span>
+    <span class="hero-pill" style="color:#f4d35e;border-color:#f4d35e;">Relative Clauses</span>
+    <span class="hero-pill" style="color:#f95738;border-color:#f95738;">Reported Speech</span>
+  </div>
+  <div class="stats-bar fade-up delay-4">
+    <div class="stat"><div class="stat-n">8</div><div class="stat-l">Grammar Units</div></div>
+    <div class="stat"><div class="stat-n">24</div><div class="stat-l">Format Files</div></div>
+    <div class="stat"><div class="stat-n">400+</div><div class="stat-l">Practice Questions</div></div>
+    <div class="stat"><div class="stat-n">B1</div><div class="stat-l">CEFR Level</div></div>
+  </div>
+</section>
+
+<!-- ── PROGRESS STRIP ── -->
+<div class="progress-strip">
+  <div class="progress-inner">
+    <span class="prog-label">Your Progress</span>
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    <div class="prog-units">
+      <div class="prog-dot" id="d1" onclick="toggleDone(1)" title="Unit 1">1</div>
+      <div class="prog-dot" id="d2" onclick="toggleDone(2)" title="Unit 2">2</div>
+      <div class="prog-dot" id="d3" onclick="toggleDone(3)" title="Unit 3">3</div>
+      <div class="prog-dot" id="d4" onclick="toggleDone(4)" title="Unit 4">4</div>
+      <div class="prog-dot" id="d5" onclick="toggleDone(5)" title="Unit 5">5</div>
+      <div class="prog-dot" id="d6" onclick="toggleDone(6)" title="Unit 6">6</div>
+      <div class="prog-dot" id="d7" onclick="toggleDone(7)" title="Unit 7">7</div>
+      <div class="prog-dot" id="d8" onclick="toggleDone(8)" title="Unit 8">8</div>
+    </div>
+    <span class="prog-label" id="progCount">0 / 8 done</span>
+  </div>
+</div>
+
+<!-- ── UNIT CARDS ── -->
+<section class="units-section">
+  <div class="section-eyebrow">Course Content</div>
+  <h2 class="section-title">All 8 Grammar Units</h2>
+  <p class="section-sub">Each unit includes an interactive HTML lesson, a student workbook (no answers), and a teacher edition with full answer key.</p>
+
+  <div class="unit-grid">
+
+    <!-- UNIT 1 -->
+    <div class="unit-card" style="border-color:var(--u1);background:linear-gradient(160deg,var(--u1b) 0%,var(--surface) 60%);" onclick="openUnit(1)">
+      <div class="uc-top" style="background:linear-gradient(135deg,var(--u1b),transparent);">
+        <div class="uc-num" style="color:var(--u1);">Unit 1</div>
+        <span class="uc-icon">🏗️</span>
+        <div class="uc-title">Sentence Structure</div>
+        <div class="uc-thai">โครงสร้างประโยค</div>
+        <div class="uc-tags">
+          <span class="uc-tag">S / V / O / C</span>
+          <span class="uc-tag">6 Patterns</span>
+          <span class="uc-tag">Error Correction</span>
+        </div>
+      </div>
+      <div class="uc-bottom">
+        <div class="uc-formats">
+          <span class="fmt-pill">HTML</span>
+          <span class="fmt-pill">Student</span>
+          <span class="fmt-pill">Teacher</span>
+        </div>
+        <div class="uc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- UNIT 2 -->
+    <div class="unit-card" style="border-color:var(--u2);background:linear-gradient(160deg,var(--u2b) 0%,var(--surface) 60%);" onclick="openUnit(2)">
+      <div class="uc-top" style="background:linear-gradient(135deg,var(--u2b),transparent);">
+        <div class="uc-num" style="color:var(--u2);">Unit 2</div>
+        <span class="uc-icon">⚖️</span>
+        <div class="uc-title">Subject–Verb Agreement</div>
+        <div class="uc-thai">ความสอดคล้องระหว่างประธานและกริยา</div>
+        <div class="uc-tags">
+          <span class="uc-tag">12 Rules</span>
+          <span class="uc-tag">Collective Nouns</span>
+          <span class="uc-tag">Tricky Subjects</span>
+        </div>
+      </div>
+      <div class="uc-bottom">
+        <div class="uc-formats">
+          <span class="fmt-pill">HTML</span>
+          <span class="fmt-pill">Student</span>
+          <span class="fmt-pill">Teacher</span>
+        </div>
+        <div class="uc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- UNIT 3 -->
+    <div class="unit-card" style="border-color:var(--u3);background:linear-gradient(160deg,var(--u3b) 0%,var(--surface) 60%);" onclick="openUnit(3)">
+      <div class="uc-top" style="background:linear-gradient(135deg,var(--u3b),transparent);">
+        <div class="uc-num" style="color:var(--u3);">Unit 3</div>
+        <span class="uc-icon">⏱️</span>
+        <div class="uc-title">All 12 Tenses</div>
+        <div class="uc-thai">กาลทั้ง 12</div>
+        <div class="uc-tags">
+          <span class="uc-tag">12 Tenses</span>
+          <span class="uc-tag">Time Signals</span>
+          <span class="uc-tag">used to</span>
+        </div>
+      </div>
+      <div class="uc-bottom">
+        <div class="uc-formats">
+          <span class="fmt-pill">HTML</span>
+          <span class="fmt-pill">Student</span>
+          <span class="fmt-pill">Teacher</span>
+        </div>
+        <div class="uc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- UNIT 4 -->
+    <div class="unit-card" style="border-color:var(--u4);background:linear-gradient(160deg,var(--u4b) 0%,var(--surface) 60%);" onclick="openUnit(4)">
+      <div class="uc-top" style="background:linear-gradient(135deg,var(--u4b),transparent);">
+        <div class="uc-num" style="color:var(--u4);">Unit 4</div>
+        <span class="uc-icon">🔄</span>
+        <div class="uc-title">Passive Voice</div>
+        <div class="uc-thai">กรรมวาจก</div>
+        <div class="uc-tags">
+          <span class="uc-tag">10 Forms</span>
+          <span class="uc-tag">Active → Passive</span>
+          <span class="uc-tag">Impersonal</span>
+        </div>
+      </div>
+      <div class="uc-bottom">
+        <div class="uc-formats">
+          <span class="fmt-pill">HTML</span>
+          <span class="fmt-pill">Student</span>
+          <span class="fmt-pill">Teacher</span>
+        </div>
+        <div class="uc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- UNIT 5 -->
+    <div class="unit-card" style="border-color:var(--u5);background:linear-gradient(160deg,var(--u5b) 0%,var(--surface) 60%);" onclick="openUnit(5)">
+      <div class="uc-top" style="background:linear-gradient(135deg,var(--u5b),transparent);">
+        <div class="uc-num" style="color:var(--u5);">Unit 5</div>
+        <span class="uc-icon">💡</span>
+        <div class="uc-title">Modal Verbs</div>
+        <div class="uc-thai">กริยาช่วยวิเศษ</div>
+        <div class="uc-tags">
+          <span class="uc-tag">10 Modals</span>
+          <span class="uc-tag">Perfect Modals</span>
+          <span class="uc-tag">Certainty Scale</span>
+        </div>
+      </div>
+      <div class="uc-bottom">
+        <div class="uc-formats">
+          <span class="fmt-pill">HTML</span>
+          <span class="fmt-pill">Student</span>
+          <span class="fmt-pill">Teacher</span>
+        </div>
+        <div class="uc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- UNIT 6 -->
+    <div class="unit-card" style="border-color:var(--u6);background:linear-gradient(160deg,var(--u6b) 0%,var(--surface) 60%);" onclick="openUnit(6)">
+      <div class="uc-top" style="background:linear-gradient(135deg,var(--u6b),transparent);">
+        <div class="uc-num" style="color:var(--u6);">Unit 6</div>
+        <span class="uc-icon">🌿</span>
+        <div class="uc-title">If-Clauses / Conditionals</div>
+        <div class="uc-thai">ประโยคเงื่อนไข</div>
+        <div class="uc-tags">
+          <span class="uc-tag">Types 0–3</span>
+          <span class="uc-tag">Mixed</span>
+          <span class="uc-tag">unless / in case</span>
+        </div>
+      </div>
+      <div class="uc-bottom">
+        <div class="uc-formats">
+          <span class="fmt-pill">HTML</span>
+          <span class="fmt-pill">Student</span>
+          <span class="fmt-pill">Teacher</span>
+        </div>
+        <div class="uc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- UNIT 7 -->
+    <div class="unit-card" style="border-color:var(--u7);background:linear-gradient(160deg,var(--u7b) 0%,var(--surface) 60%);" onclick="openUnit(7)">
+      <div class="uc-top" style="background:linear-gradient(135deg,var(--u7b),transparent);">
+        <div class="uc-num" style="color:var(--u7);">Unit 7</div>
+        <span class="uc-icon">🔗</span>
+        <div class="uc-title">Relative Clauses</div>
+        <div class="uc-thai">อนุประโยคเชื่อมคำนาม</div>
+        <div class="uc-tags">
+          <span class="uc-tag">who/which/whose</span>
+          <span class="uc-tag">Defining</span>
+          <span class="uc-tag">Non-Defining</span>
+        </div>
+      </div>
+      <div class="uc-bottom">
+        <div class="uc-formats">
+          <span class="fmt-pill">HTML</span>
+          <span class="fmt-pill">Student</span>
+          <span class="fmt-pill">Teacher</span>
+        </div>
+        <div class="uc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- UNIT 8 -->
+    <div class="unit-card" style="border-color:var(--u8);background:linear-gradient(160deg,var(--u8b) 0%,var(--surface) 60%);" onclick="openUnit(8)">
+      <div class="uc-top" style="background:linear-gradient(135deg,var(--u8b),transparent);">
+        <div class="uc-num" style="color:var(--u8);">Unit 8</div>
+        <span class="uc-icon">💬</span>
+        <div class="uc-title">Reported Speech</div>
+        <div class="uc-thai">ประโยครายงาน</div>
+        <div class="uc-tags">
+          <span class="uc-tag">Backshift</span>
+          <span class="uc-tag">Questions</span>
+          <span class="uc-tag">Reporting Verbs</span>
+        </div>
+      </div>
+      <div class="uc-bottom">
+        <div class="uc-formats">
+          <span class="fmt-pill">HTML</span>
+          <span class="fmt-pill">Student</span>
+          <span class="fmt-pill">Teacher</span>
+        </div>
+        <div class="uc-arrow">→</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── HOW TO USE ── -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="section-eyebrow">How It Works</div>
+    <h2 class="section-title">Three Formats, One System</h2>
+    <p class="section-sub">Every unit is designed for both self-study and classroom use.</p>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">1</div>
+        <div class="how-title">📖 Read the Theory</div>
+        <div class="how-text">Open the interactive HTML lesson. Read the grammar explanations, Thai translations, and example sentences.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">2</div>
+        <div class="how-title">🧩 Check Comprehension</div>
+        <div class="how-text">Click through the colour-coded reading passage. Identify grammar patterns as you read.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">3</div>
+        <div class="how-title">✍️ Do the Exercises</div>
+        <div class="how-text">Print the Student Workbook. Complete all 5 exercise types. Use the HTML version to check answers interactively.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">4</div>
+        <div class="how-title">🔑 Check with Key</div>
+        <div class="how-text">Teachers use the Teacher Edition to mark work and review. Every answer includes a full explanation.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">5</div>
+        <div class="how-title">✅ Self-Evaluate</div>
+        <div class="how-text">Use the checklist at the end of each unit. Tick off each skill as you master it.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">6</div>
+        <div class="how-title">📊 Track Progress</div>
+        <div class="how-text">Click the unit dots above to mark units complete. Watch your progress bar fill up!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXAM TIPS ── -->
+<section class="tips-section">
+  <div class="section-eyebrow">Exam Strategy</div>
+  <h2 class="section-title">Top Tips for ม.1 Entrance Exams</h2>
+  <p class="section-sub">Applied across all 8 units — these strategies appear in every unit's Review section.</p>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <span class="tip-icon">🎯</span>
+      <div class="tip-text"><strong>Read the whole sentence first.</strong> Don't fill in the blank until you understand the full meaning and context.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🔍</span>
+      <div class="tip-text"><strong>Identify the verb form.</strong> Most questions test tense, voice, modal, or reported form — look at ALL verbs.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">⚡</span>
+      <div class="tip-text"><strong>Use elimination.</strong> Cross out obvious wrong answers first. 2-choice is much easier than 4-choice.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">⏰</span>
+      <div class="tip-text"><strong>Time signal words are clues.</strong> yesterday/ago = past, tomorrow/next = future, since/for = perfect tense.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🚫</span>
+      <div class="tip-text"><strong>Watch for double negatives.</strong> "Unless you don't study" = wrong! "Unless" already means "if not".</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">📌</span>
+      <div class="tip-text"><strong>Commas matter.</strong> A comma before "which/who" = non-defining clause → "that" is forbidden.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🔄</span>
+      <div class="tip-text"><strong>Check active vs. passive.</strong> Does the subject do the action or receive it? This determines active or passive voice.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">💬</span>
+      <div class="tip-text"><strong>Reported speech word order.</strong> Never use question word order after "asked" — always Subject + Verb.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">📝</span>
+      <div class="tip-text"><strong>Learn the "exam trap" lists.</strong> Each unit has 8 top traps. These are the most commonly tested errors.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── UNIT MODAL / DRAWER ── -->
+<div id="modal-bg" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;backdrop-filter:blur(6px);" onclick="closeModal()"></div>
+<div id="modal-box" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1001;background:var(--surface2);border:1px solid var(--rule);border-radius:20px;padding:36px;max-width:480px;width:90%;box-shadow:0 40px 120px rgba(0,0,0,.6);">
+  <div id="modal-content"></div>
+  <button onclick="closeModal()" style="margin-top:24px;padding:12px 28px;border:none;border-radius:100px;background:var(--rule);color:var(--ink);font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Close</button>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-logo">B1 English <span>Grammar Hub</span></div>
+  <div class="footer-sub">Complete ม.1 Advanced / EP / Gifted Entrance Exam Preparation &mdash; 8 Units &middot; B1 Level</div>
+  <div class="footer-units">
+    <span class="fu">Unit 1: Sentence Structure</span><span class="fu">&middot;</span>
+    <span class="fu">Unit 2: SVA</span><span class="fu">&middot;</span>
+    <span class="fu">Unit 3: 12 Tenses</span><span class="fu">&middot;</span>
+    <span class="fu">Unit 4: Passive Voice</span><span class="fu">&middot;</span>
+    <span class="fu">Unit 5: Modal Verbs</span><span class="fu">&middot;</span>
+    <span class="fu">Unit 6: Conditionals</span><span class="fu">&middot;</span>
+    <span class="fu">Unit 7: Relative Clauses</span><span class="fu">&middot;</span>
+    <span class="fu">Unit 8: Reported Speech</span>
+  </div>
+  <div class="footer-copy">B1 Grammar Series &middot; All rights reserved</div>
+</footer>
+
+<script>
+// ── UNIT DATA ──
+var units = [
+  null,
+  {
+    num:1, title:'Sentence Structure', thai:'โครงสร้างประโยค', icon:'🏗️', color:'#f72585',
+    desc:'Learn the 6 core sentence patterns (S+V, S+V+O, S+V+C, S+V+O+O, S+V+O+C, S+V+A) and how to identify Subject, Verb, Object, and Complement.',
+    topics:['S / V / O / C definitions','6 sentence patterns','Identifying sentence parts','Error correction','Exam MCQ (6Q)'],
+    file:'unit1_sentence_structure.html'
+  },
+  {
+    num:2, title:'Subject–Verb Agreement', thai:'ความสอดคล้องระหว่างประธานและกริยา', icon:'⚖️', color:'#7209b7',
+    desc:'Master all 12 SVA rules including collective nouns, proximity rule, -ics subjects, uncountable nouns, and tricky "each / every / a number of" structures.',
+    topics:['12 SVA rules','Collective nouns','Each / every / neither / either','The number of vs a number of','Exam MCQ (10Q)'],
+    file:'unit2_subject_verb_agreement.html'
+  },
+  {
+    num:3, title:'All 12 Tenses', thai:'กาลทั้ง 12', icon:'⏱️', color:'#3a0ca3',
+    desc:'Every tense from Present Simple to Future Perfect Continuous, plus used to / be used to. Includes a 15-word time expression vocabulary set.',
+    topics:['All 12 tenses with formulas','used to vs be used to','15 time expression signals','Reading passage with 8 tenses highlighted','Exam MCQ (12Q)'],
+    file:'unit3_all_tenses.html'
+  },
+  {
+    num:4, title:'Passive Voice', thai:'กรรมวาจก', icon:'🔄', color:'#4361ee',
+    desc:'All 10 passive forms including modal passives and impersonal passive (It is said that…). Includes the 4-step active-to-passive transformation guide.',
+    topics:['10 passive forms','Active → Passive transformation','Modal passive','Impersonal passive','Exam MCQ (12Q)'],
+    file:'unit4_passive_voice.html'
+  },
+  {
+    num:5, title:'Modal Verbs', thai:'กริยาช่วยวิเศษ', icon:'💡', color:'#4cc9f0',
+    desc:'All modal verbs (can, could, may, might, must, should, would, shall, needn\'t) and all 9 perfect modal forms (must have, should have, could have…).',
+    topics:['10 modal groups with Thai','Degrees of certainty scale','must not vs don\'t have to','9 perfect modal forms','Exam MCQ (14Q)'],
+    file:'unit5_modal_verbs.html'
+  },
+  {
+    num:6, title:'If-Clauses / Conditionals', thai:'ประโยคเงื่อนไข', icon:'🌿', color:'#06d6a0',
+    desc:'All four conditional types (0, 1, 2, 3) plus both mixed conditional types (M1 and M2). Includes unless, provided that, as long as, in case, and even if.',
+    topics:['Types 0, 1, 2, 3 with formulas','Mixed conditionals M1 & M2','Special connectors (unless, in case…)','Sentence transformation','Exam MCQ (14Q)'],
+    file:'unit6_conditionals.html'
+  },
+  {
+    num:7, title:'Relative Clauses', thai:'อนุประโยคเชื่อมคำนาม', icon:'🔗', color:'#f4d35e',
+    desc:'All 6 relative pronouns (who, whom, which, whose, where, when, that) with the crucial defining vs. non-defining distinction and omission rules.',
+    topics:['who / whom / which / whose / where / when / that','Defining vs. non-defining clauses','Comma rules','Pronoun omission rules','Exam MCQ (14Q)'],
+    file:'unit7_relative_clauses.html'
+  },
+  {
+    num:8, title:'Reported Speech', thai:'ประโยครายงาน', icon:'💬', color:'#f95738',
+    desc:'Complete tense backshift table (11 shifts), pronoun changes, time expression changes, reported questions (Y/N and Wh-), and all major reporting verb patterns.',
+    topics:['11-row backshift table','Pronoun & time expression changes','say vs. tell','Reported Y/N and Wh- questions','9 reporting verb patterns (deny, suggest, accuse…)'],
+    file:'unit8_reported_speech.html'
+  }
+];
+
+// ── PROGRESS TRACKER ──
+var done = JSON.parse(localStorage.getItem('b1_done') || '{}');
+
+function updateProgress(){
+  var count = Object.values(done).filter(Boolean).length;
+  var pct = Math.round(count / 8 * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progCount').textContent = count + ' / 8 done';
+  for(var i=1;i<=8;i++){
+    var el = document.getElementById('d'+i);
+    if(el){ el.classList.toggle('done', !!done[i]); }
+  }
+}
+
+function toggleDone(n){
+  done[n] = !done[n];
+  localStorage.setItem('b1_done', JSON.stringify(done));
+  updateProgress();
+}
+
+updateProgress();
+setTimeout(function(){
+  var count = Object.values(done).filter(Boolean).length;
+  document.getElementById('progFill').style.width = Math.round(count/8*100) + '%';
+}, 100);
+
+// ── MODAL ──
+function openUnit(n){
+  var u = units[n];
+  if(!u) return;
+  var topicsHtml = u.topics.map(function(t){
+    return '<li style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;font-size:14px;color:#a7a3c2;"><span style="color:'+u.color+';font-size:16px;flex-shrink:0;margin-top:1px;">✓</span><span>'+t+'</span></li>';
+  }).join('');
+  document.getElementById('modal-content').innerHTML = '<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">'
+    + '<span style="font-size:40px;">'+u.icon+'</span>'
+    + '<div><div style="font-family:\'Space Mono\',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:'+u.color+';margin-bottom:4px;">Unit '+u.num+'</div>'
+    + '<div style="font-family:\'Fraunces\',serif;font-size:22px;font-weight:700;line-height:1.2;">'+u.title+'</div>'
+    + '<div style="font-size:13px;color:#a7a3c2;margin-top:2px;">'+u.thai+'</div></div></div>'
+    + '<p style="font-size:14px;color:#a7a3c2;line-height:1.7;margin-bottom:20px;">'+u.desc+'</p>'
+    + '<div style="font-family:\'Space Mono\',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a7a3c2;margin-bottom:10px;">Topics Covered</div>'
+    + '<ul style="list-style:none;padding:0;margin-bottom:24px;">'+topicsHtml+'</ul>'
+    + '<div style="display:flex;gap:10px;flex-wrap:wrap;">'
+    + '<a href="'+u.file+'" style="flex:1;min-width:120px;padding:12px 18px;border-radius:12px;background:'+u.color+';color:#fff;text-decoration:none;font-weight:700;font-size:14px;text-align:center;font-family:\'Manrope\',sans-serif;">Open HTML Lesson</a>'
+    + '<button onclick="toggleDone('+u.num+');updateModalDone('+u.num+')" id="mdone-btn" style="flex:1;min-width:120px;padding:12px 18px;border-radius:12px;background:var(--rule);color:var(--ink);border:none;font-weight:700;font-size:14px;cursor:pointer;font-family:\'Manrope\',sans-serif;">'+(done[n]?'✓ Completed':'Mark Complete')+'</button>'
+    + '</div>';
+  document.getElementById('modal-bg').style.display = 'block';
+  document.getElementById('modal-box').style.display = 'block';
+}
+
+function updateModalDone(n){
+  var btn = document.getElementById('mdone-btn');
+  if(btn) btn.textContent = done[n] ? '✓ Completed' : 'Mark Complete';
+}
+
+function closeModal(){
+  document.getElementById('modal-bg').style.display = 'none';
+  document.getElementById('modal-box').style.display = 'none';
+}
+
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+// Animate cards on scroll
+var cards = document.querySelectorAll('.unit-card');
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e,i){
+    if(e.isIntersecting){
+      e.target.style.animation = 'fadeUp 0.5s ease '+(i*0.06)+'s both';
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:0.1});
+cards.forEach(function(c){ obs.observe(c); });
+</script>
+</body>
+</html>

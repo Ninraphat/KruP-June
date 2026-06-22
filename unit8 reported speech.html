@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 8 — Reported Speech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff8f0;--surface:#fff;--ink:#1c0a00;--muted:#7c5c3e;
+  --rule:#fde8c8;--grey_lt:#fff8f0;
+  --dir:#b45309;--dir_lt:#fef3c7;
+  --rep:#0f766e;--rep_lt:#ccfbf1;
+  --back:#9333ea;--back_lt:#f3e8ff;
+  --verb:#0284c7;--verb_lt:#e0f2fe;
+  --time:#dc2626;--time_lt:#fee2e2;
+  --good:#15803d;--good_lt:#f0fdf4;
+  --bad:#dc2626;--bad_lt:#fef2f2;
+  --r:14px;--sh:0 4px 24px rgba(28,10,0,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);font-size:15.5px;line-height:1.75;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fade{animation:fadeUp .5s ease both;}
+.fade:nth-child(1){animation-delay:.04s}.fade:nth-child(2){animation-delay:.10s}
+.fade:nth-child(3){animation-delay:.16s}.fade:nth-child(4){animation-delay:.22s}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--dir),var(--rep),var(--back));z-index:9999;width:0%;}
+
+.cover{min-height:100vh;background:var(--surface);display:flex;flex-direction:column;justify-content:center;padding:80px 6%;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(180,83,9,.07) 0%,transparent 60%);top:-250px;right:-200px;}
+.cover::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(15,118,110,.07) 0%,transparent 60%);bottom:-200px;left:-150px;}
+.cover-inner{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+.utag{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);padding:7px 18px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:30px;font-family:'Space Mono',monospace;}
+.utag i{width:8px;height:8px;border-radius:50%;background:var(--dir);display:inline-block;}
+.cover h1{font-family:'Fraunces',serif;font-size:clamp(40px,6.5vw,80px);font-weight:900;line-height:1.05;margin-bottom:22px;}
+.cover h1 .hl{font-style:italic;color:var(--rep);}
+.cover-sub{font-size:17px;color:var(--muted);max-width:560px;margin-bottom:44px;line-height:1.7;}
+
+/* Transform arrow demo */
+.rs-demo{background:var(--grey_lt);border:1px solid var(--rule);border-radius:var(--r);padding:24px 28px;margin-bottom:44px;max-width:700px;}
+.rs-row{margin-bottom:14px;}
+.rs-row:last-child{margin-bottom:0;}
+.rs-label{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.rs-sent{font-size:15px;padding:10px 16px;border-radius:8px;}
+.rs-arrow{text-align:center;font-size:20px;color:var(--muted);margin:8px 0;}
+
+.cstats{display:flex;gap:2px;flex-wrap:wrap;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;max-width:600px;}
+.cstat{flex:1;min-width:110px;padding:18px 20px;background:var(--surface);text-align:center;border-right:1px solid var(--rule);}
+.cstat:last-child{border-right:none;}
+.cstat-n{font-family:'Fraunces',serif;font-size:32px;font-weight:900;line-height:1;color:var(--rep);}
+.cstat-l{font-size:12px;color:var(--muted);margin-top:4px;}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,248,240,.94);border-bottom:1px solid var(--rule);backdrop-filter:blur(10px);padding:0 6%;display:flex;gap:0;overflow-x:auto;}
+.nav a{color:var(--muted);text-decoration:none;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:15px 16px;white-space:nowrap;border-bottom:2px solid transparent;transition:.18s;font-family:'Space Mono',monospace;}
+.nav a:hover{color:var(--rep);border-bottom-color:var(--rep);}
+
+.page{max-width:920px;margin:0 auto;padding:60px 24px;}
+.gap{margin-bottom:72px;}
+.sh{display:flex;align-items:flex-start;gap:18px;margin-bottom:36px;}
+.sh-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.sh-text h2{font-family:'Fraunces',serif;font-size:27px;font-weight:700;line-height:1.2;}
+.sh-text p{font-size:14px;color:var(--muted);margin-top:3px;}
+
+/* BACKSHIFT TABLE */
+.twrap{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin:18px 0;overflow-x:auto;box-shadow:var(--sh);}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead tr{background:var(--ink);}
+thead th{padding:12px 14px;text-align:left;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tbody tr:nth-child(even){background:var(--grey_lt);}
+tbody tr:last-child td{border-bottom:none;}
+code{font-family:'Space Mono',monospace;font-size:13px;background:rgba(0,0,0,.06);padding:2px 6px;border-radius:5px;}
+
+/* INFO BOX */
+.ib{border-radius:var(--r);padding:16px 20px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.6;}
+.ib .ico{font-size:18px;flex-shrink:0;}
+.ib.dir{background:var(--dir_lt);border-left:3px solid var(--dir);}
+.ib.rep{background:var(--rep_lt);border-left:3px solid var(--rep);}
+.ib.back{background:var(--back_lt);border-left:3px solid var(--back);}
+.ib.verb{background:var(--verb_lt);border-left:3px solid var(--verb);}
+.ib.time{background:var(--time_lt);border-left:3px solid var(--time);}
+.ib.good{background:var(--good_lt);border-left:3px solid var(--good);}
+.ib.bad{background:var(--bad_lt);border-left:3px solid var(--bad);}
+.ib.gold{background:var(--dir_lt);border-left:3px solid var(--dir);}
+
+/* CONVERSION CARD */
+.conv-card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:var(--sh);}
+.conv-head{padding:18px 24px;display:flex;align-items:center;gap:14px;cursor:pointer;border-bottom:1px solid transparent;}
+.conv-head.open{border-bottom-color:var(--rule);}
+.conv-head:hover{filter:brightness(.97);}
+.conv-badge{padding:6px 18px;border-radius:100px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;}
+.conv-title{flex:1;}
+.conv-title h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;}
+.conv-title p{font-size:13px;color:var(--muted);margin-top:2px;}
+.conv-chev{font-size:20px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+.conv-head.open .conv-chev{transform:rotate(90deg);}
+.conv-body{padding:0 24px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;}
+.conv-body.open{max-height:2000px;padding:0 24px 24px;}
+
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+@media(max-width:640px){.pair{grid-template-columns:1fr;}}
+.pair-box{padding:12px 16px;border-radius:10px;font-size:14px;line-height:1.7;}
+.pair-box .lbl{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;display:block;}
+
+/* READING */
+.rbox{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:24px;box-shadow:var(--sh);}
+.rhead{background:var(--ink);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.rhead h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.rhead span{font-family:'Space Mono',monospace;font-size:11px;opacity:.6;}
+.rbody{padding:28px;font-size:15.5px;line-height:2.1;}
+.rbody p{margin-bottom:14px;}.rbody p:last-child{margin-bottom:0;}
+.hdir{background:var(--dir_lt);color:var(--dir);font-weight:700;padding:1px 5px;border-radius:4px;}
+.hrep{background:var(--rep_lt);color:var(--rep);font-weight:700;padding:1px 5px;border-radius:4px;}
+
+/* EXERCISES */
+.exh{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r) var(--r) 0 0;padding:18px 24px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule);box-shadow:var(--sh);}
+.exn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:17px;font-weight:900;flex-shrink:0;color:#fff;}
+.exh h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.exh p{font-size:13px;color:var(--muted);margin-top:2px;}
+.exb{background:var(--grey_lt);border:1px solid var(--rule);border-top:none;border-radius:0 0 var(--r) var(--r);padding:28px;margin-bottom:28px;}
+.ex-inst{font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--rep);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:22px;}
+
+.mcq{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--rule);}
+.mcq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-q{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;}
+.qn{width:28px;height:28px;border-radius:8px;background:var(--rep_lt);color:var(--rep);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.opts{display:flex;flex-direction:column;gap:8px;padding-left:38px;}
+.opt{display:flex;align-items:center;gap:11px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--rule);font-size:14px;cursor:pointer;transition:.16s;background:var(--surface);}
+.opt:hover{border-color:var(--rep);background:var(--rep_lt);}
+.opt.correct{border-color:var(--good);background:var(--good_lt);color:var(--good);font-weight:600;}
+.opt.wrong{border-color:var(--bad);background:var(--bad_lt);color:var(--bad);}
+.ob{width:26px;height:26px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;transition:.16s;}
+.opt:hover .ob{border-color:var(--rep);background:var(--rep);color:#fff;}
+.opt.correct .ob{border-color:var(--good);background:var(--good);color:#fff;}
+.opt.wrong .ob{border-color:var(--bad);background:var(--bad);color:#fff;}
+.fb{display:none;margin-top:10px;padding:11px 16px;border-radius:10px;font-size:13.5px;font-weight:500;padding-left:38px;line-height:1.55;}
+.fb.show{display:block;}
+.fb.ok{background:var(--good_lt);color:var(--good);}
+.fb.no{background:var(--bad_lt);color:var(--bad);}
+
+.fi-item{margin-bottom:14px;background:var(--surface);border-radius:10px;padding:14px 18px;border:1px solid var(--rule);}
+.fi-sent{font-size:15px;line-height:1.9;}
+.fi-blank{display:inline-block;min-width:120px;border-bottom:2px solid var(--rep);text-align:center;margin:0 4px;font-family:'Space Mono',monospace;font-size:13px;color:transparent;transition:color .25s;}
+.fi-blank.shown{color:var(--rep);font-weight:700;}
+.fi-ans{display:none;font-size:13px;color:var(--muted);padding-top:6px;border-top:1px solid var(--rule);margin-top:6px;}
+.fi-ans.show{display:block;}
+
+.ec-wrong{background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;}
+.ec-fix{display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-bottom:4px;}
+.ec-fix.show{display:block;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:100px;font-size:13.5px;font-weight:700;cursor:pointer;border:none;font-family:'Manrope',sans-serif;transition:.18s;}
+.btn-rep{background:var(--rep);color:#fff;}
+.btn-rep:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn-ghost{background:var(--surface);color:var(--ink);border:1.5px solid var(--rule);}
+.btn-ghost:hover{border-color:var(--rep);color:var(--rep);}
+.btn-sm{padding:8px 16px;font-size:12.5px;}
+
+.scoreboard{background:linear-gradient(135deg,#1c0a00,#3b1a06);color:#fff;border-radius:var(--r);padding:28px 30px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
+.sc-num{font-family:'Fraunces',serif;font-size:56px;font-weight:900;color:#6ee7b7;line-height:1;}
+.sc-txt{flex:1;}.sc-txt h4{font-family:'Fraunces',serif;font-size:19px;font-weight:700;margin-bottom:4px;}.sc-txt p{font-size:13px;opacity:.7;}
+.sc-bar-wrap{flex:1;min-width:180px;}.sc-bar-lbl{font-size:12px;opacity:.7;margin-bottom:6px;}
+.sc-bar{height:10px;background:rgba(255,255,255,.2);border-radius:5px;overflow:hidden;}
+.sc-fill{height:100%;background:linear-gradient(90deg,#6ee7b7,#93c5fd);border-radius:5px;transition:width .7s ease;}
+
+.chk{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;}
+.chk li{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--rule);padding:13px 16px;border-radius:10px;font-size:14px;}
+.chk li input{width:18px;height:18px;accent-color:var(--rep);cursor:pointer;flex-shrink:0;margin-top:2px;}
+.footer{background:var(--surface);border-top:1px solid var(--rule);padding:32px 6%;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;}
+@media(max-width:640px){.page{padding:40px 18px;}.cover{padding:60px 5%;}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="utag fade"><i></i> B1 English &middot; Grammar Series &middot; Unit 8</div>
+    <h1 class="fade">Reported<br><span class="hl">Speech</span></h1>
+    <p class="cover-sub fade">Master how to convert direct speech to indirect (reported) speech &mdash; including tense backshift, pronoun changes, time expressions, and questions. One of the most-tested topics in every Thai entrance exam.</p>
+    <div class="rs-demo fade">
+      <div class="rs-row">
+        <div class="rs-label" style="color:var(--dir);">&#128172; Direct Speech</div>
+        <div class="rs-sent" style="background:var(--dir_lt);border-left:3px solid var(--dir);">She said, <strong>"I am studying English."</strong></div>
+      </div>
+      <div class="rs-arrow">&#8595; convert</div>
+      <div class="rs-row">
+        <div class="rs-label" style="color:var(--rep);">&#128488; Reported Speech</div>
+        <div class="rs-sent" style="background:var(--rep_lt);border-left:3px solid var(--rep);">She said <strong>(that) she was studying English.</strong></div>
+      </div>
+    </div>
+    <div class="cstats fade">
+      <div class="cstat"><div class="cstat-n">4</div><div class="cstat-l">Sentence Types</div></div>
+      <div class="cstat"><div class="cstat-n">15</div><div class="cstat-l">Vocab Words</div></div>
+      <div class="cstat"><div class="cstat-n">5</div><div class="cstat-l">Exercises</div></div>
+      <div class="cstat"><div class="cstat-n">50</div><div class="cstat-l">Exam Questions</div></div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <a href="#vocab">&#128218; Vocab</a>
+  <a href="#reading">&#128214; Reading</a>
+  <a href="#grammar">&#128488; Grammar</a>
+  <a href="#questions">&#10067; Questions</a>
+  <a href="#verbs">&#128295; Reporting Verbs</a>
+  <a href="#exercises">&#9999; Exercises</a>
+  <a href="#review">&#11088; Review</a>
+</nav>
+
+<!-- SECTION A: VOCAB -->
+<div class="page gap" id="vocab">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--dir_lt);">&#128218;</div>
+    <div class="sh-text"><h2>Section A &mdash; Vocabulary Builder</h2><p>15 key words for understanding and using reported speech correctly.</p></div>
+  </div>
+  <div class="ib rep fade"><span class="ico">&#128161;</span><div><strong>Study tip:</strong> Reporting verbs signal how a message was communicated. Knowing them lets you choose the correct structure for each type of reported speech.</div></div>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Word</th><th>Type</th><th>Thai</th><th>Example in Reported Speech</th></tr></thead>
+      <tbody>
+        <tr><td><strong>claim</strong></td><td>verb</td><td>&#3629;&#3657;&#3634;&#3591;&#3623;&#3656;&#3634;</td><td>He claimed that he hadn't taken the money.</td></tr>
+        <tr><td><strong>admit</strong></td><td>verb</td><td>&#3618;&#3629;&#3617;&#3619;&#3633;&#3610;</td><td>She admitted (that) she had made a mistake.</td></tr>
+        <tr><td><strong>deny</strong></td><td>verb</td><td>&#3611;&#3600;&#3636;&#3648;&#3626;&#3608;</td><td>He denied stealing the documents.</td></tr>
+        <tr><td><strong>promise</strong></td><td>verb</td><td>&#3626;&#3633;&#3597;&#3597;&#3634;</td><td>She promised to return the book on time.</td></tr>
+        <tr><td><strong>warn</strong></td><td>verb</td><td>&#3648;&#3605;&#3639;&#3629;&#3609;</td><td>He warned me not to go out alone at night.</td></tr>
+        <tr><td><strong>suggest</strong></td><td>verb</td><td>&#3649;&#3609;&#3632;&#3609;&#3635;</td><td>She suggested going to the cinema that evening.</td></tr>
+        <tr><td><strong>insist</strong></td><td>verb</td><td>&#3618;&#3639;&#3609;&#3618;&#3633;&#3609;</td><td>He insisted that she should take a break.</td></tr>
+        <tr><td><strong>refuse</strong></td><td>verb</td><td>&#3611;&#3600;&#3636;&#3648;&#3626;&#3608;/&#3652;&#3617;&#3656;&#3618;&#3629;&#3617;</td><td>She refused to answer the question.</td></tr>
+        <tr><td><strong>explain</strong></td><td>verb</td><td>&#3629;&#3608;&#3636;&#3610;&#3634;&#3618;</td><td>He explained that the process was complicated.</td></tr>
+        <tr><td><strong>announce</strong></td><td>verb</td><td>&#3611;&#3619;&#3632;&#3585;&#3634;&#3624;</td><td>She announced that the results would be released soon.</td></tr>
+        <tr><td><strong>backshift</strong></td><td>noun</td><td>&#3585;&#3634;&#3619;&#3648;&#3621;&#3639;&#3656;&#3629;&#3609;&#3585;&#3619;&#3636;&#3618;&#3634;&#3648;&#3586;&#3657;&#3634;&#3652;&#3611;&#3651;&#3609;&#3629;&#3604;&#3637;&#3605;&#3648;&#3617;&#3639;&#3656;&#3629;&#3619;&#3634;&#3618;&#3591;&#3634;&#3609;</td><td>Tense backshift: "I am" → "she was" in reported speech.</td></tr>
+        <tr><td><strong>reporting verb</strong></td><td>noun phrase</td><td>&#3585;&#3619;&#3636;&#3618;&#3634;&#3619;&#3634;&#3618;&#3591;&#3634;&#3609;</td><td>say, tell, ask, claim, admit, warn, suggest…</td></tr>
+        <tr><td><strong>indirect speech</strong></td><td>noun phrase</td><td>&#3611;&#3619;&#3632;&#3650;&#3618;&#3588;&#3619;&#3634;&#3618;&#3591;&#3634;&#3609;</td><td>She said that she was happy. (indirect speech)</td></tr>
+        <tr><td><strong>quote</strong></td><td>verb/noun</td><td>&#3629;&#3657;&#3634;&#3591;&#3629;&#3636;&#3591;/&#3648;&#3594;&#3636;&#3591;&#3629;&#3657;&#3634;&#3591;</td><td>He quoted her exact words in his report.</td></tr>
+        <tr><td><strong>acknowledge</strong></td><td>verb</td><td>&#3618;&#3629;&#3617;&#3619;&#3633;&#3610;/&#3618;&#3629;&#3617;&#3619;&#3617;</td><td>She acknowledged that there had been an error.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION B: READING -->
+<div class="page gap" id="reading">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--rep_lt);">&#128214;</div>
+    <div class="sh-text"><h2>Section B &mdash; Reading Passage</h2><p>A news report mixing direct and reported speech. Identify each type!</p></div>
+  </div>
+  <div class="ib rep fade"><span class="ico">&#127912;</span><div>
+    <span class="hdir">AMBER = Direct Speech</span> &nbsp;&middot;&nbsp;
+    <span class="hrep">TEAL = Reported Speech</span>
+  </div></div>
+  <div class="rbox fade">
+    <div class="rhead"><h3>School Wins Regional Science Award</h3><span>~200 words &middot; News Report &middot; B1</span></div>
+    <div class="rbody">
+      <p>Prasert Secondary School has won the regional science award for the third consecutive year. The principal, Dr Suda, <span class="hrep">announced that the school's science team had worked incredibly hard all year</span>. She added <span class="hrep">that the students deserved all the credit for their dedication</span>.</p>
+      <p>Team leader Noon told reporters, <span class="hdir">"We have been preparing for this competition for six months."</span> She <span class="hrep">explained that they had conducted over forty experiments</span> before choosing their final project.</p>
+      <p>Science teacher Mr Dang <span class="hrep">said that he had never been so proud of a group of students</span>. He mentioned <span class="hrep">that the team would represent the school at the national level next month</span>.</p>
+      <p>When asked about the secret to their success, Noon replied, <span class="hdir">"You have to believe in yourself and never give up."</span> Mr Dang added <span class="hrep">that students who worked together always achieved more than those who worked alone</span>.</p>
+      <p>The regional judge <span class="hrep">commented that this had been the strongest year of competition he had ever seen</span>.</p>
+    </div>
+  </div>
+  <div class="exh" style="margin-top:4px;"><div class="exn" style="background:var(--rep);">Q</div><div><h3>Reading Comprehension</h3><p>Click to check.</p></div></div>
+  <div class="exb">
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">1</span> "She announced that the school's science team had worked incredibly hard all year" — why is "had worked" used instead of "have worked"?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Because the action happened before the announcement</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Tense backshift: Present Perfect ("have worked") shifts to Past Perfect ("had worked") in reported speech</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Because "had" is always used in reported speech</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Because "have worked" is incorrect English</div>
+      </div>
+      <div class="fb ok">&#10003; Tense backshift: when the reporting verb is past ("announced"), verbs in the reported clause shift one tense back. Present Perfect ("have worked") → Past Perfect ("had worked").</div>
+      <div class="fb no">&#10007; This is tense backshift. Past reporting verb → everything shifts one tense back.</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">2</span> Noon said "We have been preparing for six months." In reported speech, this becomes:</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> She said they have been preparing for six months.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> She said they were preparing for six months.</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> She said they had been preparing for six months.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> She said they are preparing for six months.</div>
+      </div>
+      <div class="fb ok">&#10003; Present Perfect Continuous ("have been preparing") → Past Perfect Continuous ("had been preparing") after a past reporting verb. Also: "we" → "they".</div>
+      <div class="fb no">&#10007; Present Perfect Continuous shifts to Past Perfect Continuous in reported speech.</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">3</span> Mr Dang "mentioned that the team would represent the school next month." Why is "would" used (not "will")?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> Tense backshift: "will" shifts to "would" in reported speech after a past reporting verb</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Because "would" is always used in reported speech</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Because the event didn't happen</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Because "will" is incorrect here</div>
+      </div>
+      <div class="fb ok">&#10003; "Will" → "would" is one of the standard tense backshifts. After past reporting verbs like "mentioned", "will" becomes "would".</div>
+      <div class="fb no">&#10007; "Will" shifts to "would" in reported speech after past reporting verbs.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION C: GRAMMAR -->
+<div class="page gap" id="grammar">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--back_lt);">&#128488;</div>
+    <div class="sh-text"><h2>Section C &mdash; Grammar Spotlight: Reported Statements</h2><p>Tense backshift, pronoun changes, and time expression changes.</p></div>
+  </div>
+
+  <div class="ib rep fade"><span class="ico">&#128295;</span><div>
+    <strong>What is Reported Speech?</strong><br>
+    Reported (indirect) speech tells us what someone said without using their exact words. When the reporting verb is in the past (said, told, asked…), the verbs inside shift one tense back — this is called <strong>tense backshift</strong>.
+  </div></div>
+
+  <!-- TENSE BACKSHIFT -->
+  <div class="conv-card fade" style="border-top:4px solid var(--back);">
+    <div class="conv-head" style="background:var(--back_lt);" onclick="toggleConv(this)">
+      <span class="conv-badge" style="background:var(--back);color:#fff;">1</span>
+      <div class="conv-title"><h3 style="color:var(--back);">Tense Backshift Table</h3><p>Every tense shifts one step back in time when reported</p></div>
+      <span class="conv-chev" style="color:var(--back);">&#8250;</span>
+    </div>
+    <div class="conv-body">
+      <div class="twrap">
+        <table>
+          <thead><tr><th>Direct Speech</th><th>Reported Speech</th><th>Example (Direct → Reported)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Present Simple</strong><br><code>am/is/are / V1</code></td><td><strong>Past Simple</strong><br><code>was/were / V2</code></td><td>"I <strong>am</strong> happy." → She said she <strong>was</strong> happy.</td></tr>
+            <tr><td><strong>Present Continuous</strong><br><code>am/is/are + V-ing</code></td><td><strong>Past Continuous</strong><br><code>was/were + V-ing</code></td><td>"I <strong>am studying</strong>." → She said she <strong>was studying</strong>.</td></tr>
+            <tr><td><strong>Present Perfect</strong><br><code>have/has + V3</code></td><td><strong>Past Perfect</strong><br><code>had + V3</code></td><td>"I <strong>have finished</strong>." → She said she <strong>had finished</strong>.</td></tr>
+            <tr><td><strong>Present Perfect Cont.</strong><br><code>have/has been + V-ing</code></td><td><strong>Past Perfect Cont.</strong><br><code>had been + V-ing</code></td><td>"I <strong>have been waiting</strong>." → She said she <strong>had been waiting</strong>.</td></tr>
+            <tr><td><strong>Past Simple</strong><br><code>V2 / was/were</code></td><td><strong>Past Perfect</strong><br><code>had + V3</code></td><td>"I <strong>went</strong> there." → She said she <strong>had gone</strong> there.</td></tr>
+            <tr><td><strong>Past Continuous</strong><br><code>was/were + V-ing</code></td><td><strong>Past Perfect Cont.</strong><br><code>had been + V-ing</code></td><td>"I <strong>was sleeping</strong>." → She said she <strong>had been sleeping</strong>.</td></tr>
+            <tr><td><strong>will</strong></td><td><strong>would</strong></td><td>"I <strong>will call</strong> you." → She said she <strong>would call</strong> me.</td></tr>
+            <tr><td><strong>can</strong></td><td><strong>could</strong></td><td>"I <strong>can swim</strong>." → She said she <strong>could swim</strong>.</td></tr>
+            <tr><td><strong>may</strong></td><td><strong>might</strong></td><td>"It <strong>may rain</strong>." → She said it <strong>might rain</strong>.</td></tr>
+            <tr><td><strong>must / have to</strong></td><td><strong>had to</strong></td><td>"I <strong>must go</strong>." → She said she <strong>had to go</strong>.</td></tr>
+            <tr><td><strong>should / would / could / might</strong></td><td><strong>no change</strong></td><td>"You <strong>should rest</strong>." → She said I <strong>should rest</strong>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ib good"><span class="ico">&#128161;</span><div><strong>When NOT to backshift:</strong> If the information is still true at the time of reporting, backshift is optional.<br><em>"The earth goes around the sun." → He said the earth <strong>goes</strong> / <strong>went</strong> around the sun. (Both acceptable)</em></div></div>
+    </div>
+  </div>
+
+  <!-- PRONOUN CHANGES -->
+  <div class="conv-card fade" style="border-top:4px solid var(--verb);">
+    <div class="conv-head" style="background:var(--verb_lt);" onclick="toggleConv(this)">
+      <span class="conv-badge" style="background:var(--verb);color:#fff;">2</span>
+      <div class="conv-title"><h3 style="color:var(--verb);">Pronoun Changes</h3><p>Pronouns shift to match the new speaker's perspective</p></div>
+      <span class="conv-chev" style="color:var(--verb);">&#8250;</span>
+    </div>
+    <div class="conv-body">
+      <div class="twrap">
+        <table>
+          <thead><tr><th>Direct Speech</th><th>Reported Speech</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>I</td><td>he / she (the speaker)</td><td>"<strong>I</strong> am tired." → She said <strong>she</strong> was tired.</td></tr>
+            <tr><td>me</td><td>him / her</td><td>"Call <strong>me</strong>." → She told him to call <strong>her</strong>.</td></tr>
+            <tr><td>my</td><td>his / her</td><td>"<strong>My</strong> bag is here." → She said <strong>her</strong> bag was there.</td></tr>
+            <tr><td>we</td><td>they</td><td>"<strong>We</strong> are ready." → They said <strong>they</strong> were ready.</td></tr>
+            <tr><td>our</td><td>their</td><td>"<strong>Our</strong> team won." → They said <strong>their</strong> team had won.</td></tr>
+            <tr><td>you (listener)</td><td>I / he / she / they (depends on context)</td><td>"<strong>You</strong> should rest." → She told <strong>me</strong> I should rest.</td></tr>
+            <tr><td>this</td><td>that</td><td>"<strong>This</strong> is my book." → She said <strong>that</strong> was her book.</td></tr>
+            <tr><td>these</td><td>those</td><td>"<strong>These</strong> are wrong." → She said <strong>those</strong> were wrong.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIME EXPRESSION CHANGES -->
+  <div class="conv-card fade" style="border-top:4px solid var(--time);">
+    <div class="conv-head" style="background:var(--time_lt);" onclick="toggleConv(this)">
+      <span class="conv-badge" style="background:var(--time);color:#fff;">3</span>
+      <div class="conv-title"><h3 style="color:var(--time);">Time Expression Changes</h3><p>Time and place words also shift in reported speech</p></div>
+      <span class="conv-chev" style="color:var(--time);">&#8250;</span>
+    </div>
+    <div class="conv-body">
+      <div class="twrap">
+        <table>
+          <thead><tr><th>Direct Speech</th><th>Reported Speech</th></tr></thead>
+          <tbody>
+            <tr><td>now</td><td>then / at that time</td></tr>
+            <tr><td>today</td><td>that day</td></tr>
+            <tr><td>tonight</td><td>that night</td></tr>
+            <tr><td>yesterday</td><td>the day before / the previous day</td></tr>
+            <tr><td>tomorrow</td><td>the next day / the following day</td></tr>
+            <tr><td>last week/month/year</td><td>the previous week/month/year</td></tr>
+            <tr><td>next week/month/year</td><td>the following week/month/year</td></tr>
+            <tr><td>ago</td><td>before / earlier</td></tr>
+            <tr><td>here</td><td>there</td></tr>
+            <tr><td>this (time)</td><td>that (time)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ib time"><span class="ico">&#128161;</span><div><strong>Example:</strong><br>"I will call you <strong>tomorrow</strong>." → She said she would call me <strong>the next day</strong>.<br>"I arrived <strong>yesterday</strong>." → He said he had arrived <strong>the day before</strong>.</div></div>
+    </div>
+  </div>
+
+  <!-- SAY vs TELL -->
+  <div class="conv-card fade" style="border-top:4px solid var(--dir);">
+    <div class="conv-head" style="background:var(--dir_lt);" onclick="toggleConv(this)">
+      <span class="conv-badge" style="background:var(--dir);color:#fff;">4</span>
+      <div class="conv-title"><h3 style="color:var(--dir);">SAY vs. TELL</h3><p>The most common reporting verb pair — and the most confused!</p></div>
+      <span class="conv-chev" style="color:var(--dir);">&#8250;</span>
+    </div>
+    <div class="conv-body">
+      <div class="pair">
+        <div class="pair-box" style="background:var(--dir_lt);border:2px solid var(--dir);">
+          <span class="lbl" style="color:var(--dir);">SAY</span>
+          <p><strong>say (that)</strong> — no person object directly after "say"</p>
+          <p style="margin-top:8px;font-style:italic;font-size:13.5px;">✓ She <strong>said</strong> she was tired.<br>✓ He <strong>said</strong> (that) it was raining.<br>✗ She <s>said me</s> she was tired.</p>
+        </div>
+        <div class="pair-box" style="background:var(--rep_lt);border:2px solid var(--rep);">
+          <span class="lbl" style="color:var(--rep);">TELL</span>
+          <p><strong>tell + person</strong> — ALWAYS needs a person object</p>
+          <p style="margin-top:8px;font-style:italic;font-size:13.5px;">✓ She <strong>told me</strong> she was tired.<br>✓ He <strong>told us</strong> it was raining.<br>✗ She <s>told</s> she was tired.</p>
+        </div>
+      </div>
+      <div class="ib bad"><span class="ico">&#10060;</span><div><strong>Most common error: "She said me that she was tired."</strong> ✗<br>"Say" NEVER takes a person object directly. Use "told me" or "said (that)":<br>→ "She <strong>told</strong> me she was tired." ✓ / "She <strong>said</strong> she was tired." ✓</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION D: REPORTED QUESTIONS -->
+<div class="page gap" id="questions">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--verb_lt);">&#10067;</div>
+    <div class="sh-text"><h2>Section D &mdash; Reported Questions</h2><p>How to report Yes/No questions and Wh- questions correctly.</p></div>
+  </div>
+
+  <div class="ib verb fade"><span class="ico">&#128295;</span><div>
+    <strong>Key rule for ALL reported questions:</strong><br>
+    1. Change the <strong>word order</strong> back to normal (Subject + Verb, NOT question order)<br>
+    2. Remove the <strong>auxiliary "do/does/did"</strong><br>
+    3. Apply <strong>tense backshift</strong> (same as reported statements)<br>
+    4. Do <strong>NOT</strong> use a question mark (?)
+  </div></div>
+
+  <!-- YES/NO QUESTIONS -->
+  <div class="conv-card fade" style="border-top:4px solid var(--verb);">
+    <div class="conv-head" style="background:var(--verb_lt);" onclick="toggleConv(this)">
+      <span class="conv-badge" style="background:var(--verb);color:#fff;">Y/N</span>
+      <div class="conv-title"><h3 style="color:var(--verb);">Yes/No Questions — use IF or WHETHER</h3><p>&#3606;&#3657;&#3634;&#3652;&#3617;&#3656;&#3617;&#3637;&#3588;&#3635;&#3606;&#3634;&#3617;&#3648;&#3614;&#3639;&#3656;&#3629;&#3609;&#3635;&#3588;&#3635;&#3605;&#3629;&#3610; &#3651;&#3594;&#3657; if &#3627;&#3619;&#3639;&#3629; whether</p></div>
+      <span class="conv-chev" style="color:var(--verb);">&#8250;</span>
+    </div>
+    <div class="conv-body">
+      <div class="ib verb"><span class="ico">&#128295;</span><div>Formula: <strong>asked + if/whether + Subject + Verb</strong> (normal order, no question mark)</div></div>
+      <div class="pair">
+        <div class="pair-box" style="background:var(--dir_lt);">
+          <span class="lbl" style="color:var(--dir);">Direct Question</span>
+          "Are you ready?"<br>"Do you like coffee?"<br>"Have you finished?"<br>"Will you come?"
+        </div>
+        <div class="pair-box" style="background:var(--rep_lt);">
+          <span class="lbl" style="color:var(--rep);">Reported Question</span>
+          He asked if I <strong>was</strong> ready.<br>She asked if I <strong>liked</strong> coffee.<br>He asked if I <strong>had finished</strong>.<br>She asked if I <strong>would come</strong>.
+        </div>
+      </div>
+      <div class="ib bad"><span class="ico">&#10060;</span><div><strong>Error:</strong> <s>"He asked if was I ready?"</s> ✗<br>→ "He asked if I <strong>was</strong> ready." ✓ (normal word order, no question mark)</div></div>
+    </div>
+  </div>
+
+  <!-- WH- QUESTIONS -->
+  <div class="conv-card fade" style="border-top:4px solid var(--back);">
+    <div class="conv-head" style="background:var(--back_lt);" onclick="toggleConv(this)">
+      <span class="conv-badge" style="background:var(--back);color:#fff;">Wh-</span>
+      <div class="conv-title"><h3 style="color:var(--back);">Wh- Questions — keep the question word</h3><p>&#3588;&#3635;&#3606;&#3634;&#3617; Wh- &#3648;&#3585;&#3655;&#3610;&#3652;&#3623;&#3657; &#3649;&#3605;&#3656;&#3648;&#3611;&#3621;&#3637;&#3656;&#3618;&#3609;&#3621;&#3635;&#3604;&#3633;&#3610;&#3588;&#3635;&#3648;&#31B8;&#3660;&#3609;&#3611;&#3585;&#3605;&#3636;</p></div>
+      <span class="conv-chev" style="color:var(--back);">&#8250;</span>
+    </div>
+    <div class="conv-body">
+      <div class="ib back"><span class="ico">&#128295;</span><div>Formula: <strong>asked + Wh-word + Subject + Verb</strong> (normal order, no question mark)</div></div>
+      <div class="pair">
+        <div class="pair-box" style="background:var(--dir_lt);">
+          <span class="lbl" style="color:var(--dir);">Direct Question</span>
+          "Where <strong>do</strong> you live?"<br>"What <strong>did</strong> she say?"<br>"Why <strong>are</strong> you late?"<br>"When <strong>will</strong> they arrive?"<br>"Who <strong>is</strong> he?"
+        </div>
+        <div class="pair-box" style="background:var(--rep_lt);">
+          <span class="lbl" style="color:var(--rep);">Reported Question</span>
+          He asked where I <strong>lived</strong>.<br>She asked what she <strong>had said</strong>.<br>He asked why I <strong>was</strong> late.<br>She asked when they <strong>would arrive</strong>.<br>He asked who he <strong>was</strong>.
+        </div>
+      </div>
+      <div class="ib bad"><span class="ico">&#10060;</span><div><strong>Error:</strong> <s>"She asked where did I live?"</s> ✗<br>→ "She asked where I <strong>lived</strong>." ✓ (remove "did", normal word order, no question mark)</div></div>
+    </div>
+  </div>
+
+  <!-- REPORTED COMMANDS -->
+  <div class="conv-card fade" style="border-top:4px solid var(--dir);">
+    <div class="conv-head" style="background:var(--dir_lt);" onclick="toggleConv(this)">
+      <span class="conv-badge" style="background:var(--dir);color:#fff;">CMD</span>
+      <div class="conv-title"><h3 style="color:var(--dir);">Reported Commands &amp; Requests</h3><p>&#3588;&#3635;&#3626;&#3633;&#3656;&#3591;&#3649;&#3621;&#3632;&#3588;&#3635;&#3586;&#3629;&#3619;&#3657;&#3629;&#3591; &#3651;&#3594;&#3657; to + V1 &#3627;&#3619;&#3639;&#3629; not to + V1</p></div>
+      <span class="conv-chev" style="color:var(--dir);">&#8250;</span>
+    </div>
+    <div class="conv-body">
+      <div class="ib dir"><span class="ico">&#128295;</span><div>
+        Positive command: <strong>told/asked/ordered + person + to + V1</strong><br>
+        Negative command: <strong>told/asked/warned + person + not to + V1</strong>
+      </div></div>
+      <div class="pair">
+        <div class="pair-box" style="background:var(--dir_lt);">
+          <span class="lbl" style="color:var(--dir);">Direct Command</span>
+          "Open the window!"<br>"Please be quiet."<br>"Don't touch that!"<br>"Be careful!"
+        </div>
+        <div class="pair-box" style="background:var(--rep_lt);">
+          <span class="lbl" style="color:var(--rep);">Reported Command</span>
+          He told me <strong>to open</strong> the window.<br>She asked us <strong>to be</strong> quiet.<br>He told me <strong>not to touch</strong> that.<br>She warned me <strong>to be</strong> careful.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION E: REPORTING VERBS -->
+<div class="page gap" id="verbs">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--verb_lt);">&#128295;</div>
+    <div class="sh-text"><h2>Section E &mdash; Reporting Verbs &amp; Patterns</h2><p>Different verbs need different grammar patterns after them.</p></div>
+  </div>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Pattern</th><th>Verbs</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><code>verb + that + clause</code></td><td>say, tell, explain, announce, admit, claim, deny, insist, suggest, warn, promise</td><td>He <strong>said that</strong> he was tired. / She <strong>admitted that</strong> she had lied.</td></tr>
+        <tr><td><code>verb + to + V1</code></td><td>promise, offer, refuse, agree, threaten, decide, ask (for self)</td><td>She <strong>promised to</strong> return it. / He <strong>refused to</strong> answer.</td></tr>
+        <tr><td><code>verb + person + to + V1</code></td><td>tell, ask, order, warn, remind, advise, persuade, invite</td><td>She <strong>told me to</strong> sit down. / He <strong>warned her not to</strong> go.</td></tr>
+        <tr><td><code>verb + V-ing</code></td><td>admit, deny, suggest, recommend, avoid, regret, mention</td><td>He <strong>admitted stealing</strong> it. / She <strong>suggested going</strong> out.</td></tr>
+        <tr><td><code>verb + person + of + V-ing</code></td><td>accuse, remind (of)</td><td>She <strong>accused him of lying</strong>. / He <strong>reminded her of calling</strong> them.</td></tr>
+        <tr><td><code>verb + preposition + V-ing</code></td><td>insist on, apologise for, object to, complain about</td><td>He <strong>insisted on paying</strong>. / She <strong>apologised for being</strong> late.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ib gold fade"><span class="ico">&#9889;</span><div>
+    <strong>Key Reporting Verbs — Know These for Exams:</strong><br>
+    <strong>deny + V-ing:</strong> "I didn't do it!" → He <strong>denied doing</strong> it.<br>
+    <strong>suggest + V-ing or that + S + should:</strong> "Let's go!" → She <strong>suggested going</strong> / She <strong>suggested that they should go</strong>.<br>
+    <strong>warn + person + not to:</strong> "Don't go out!" → He <strong>warned me not to go out</strong>.<br>
+    <strong>promise + to V1:</strong> "I'll help you." → He <strong>promised to help</strong> me.<br>
+    <strong>accuse + of + V-ing:</strong> "You stole it!" → She <strong>accused him of stealing</strong> it.
+  </div></div>
+</div>
+
+<!-- SECTION F: EXERCISES -->
+<div class="page gap" id="exercises">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--bad_lt);">&#9999;</div>
+    <div class="sh-text"><h2>Section F &mdash; Exercises</h2><p>Five activities covering all aspects of reported speech.</p></div>
+  </div>
+
+  <!-- EX 1 -->
+  <div class="exh"><div class="exn" style="background:var(--rep);">1</div><div><h3>Identify &amp; Choose</h3><p>Choose the correct reported speech form.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Apply tense backshift and change pronouns correctly.</div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> Direct: "I am very happy today." She said _____ very happy that day.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> she is</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> she was</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> I am</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> she has been</div>
+      </div>
+      <div class="fb ok">&#10003; "am" (Present Simple) → "was" (Past Simple). Pronoun "I" → "she". Time word "today" → "that day".</div>
+      <div class="fb no">&#10007; Present Simple backshifts to Past Simple. "I" → "she". "Today" → "that day".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> Direct: "I have already eaten." He said he _____ already eaten.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> has</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> had</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> have</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was</div>
+      </div>
+      <div class="fb ok">&#10003; Present Perfect ("have eaten") → Past Perfect ("had eaten"). "I" → "he".</div>
+      <div class="fb no">&#10007; Present Perfect backshifts to Past Perfect: "have/has" → "had".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> Direct: "Will you help me?" She asked him if he _____ help her.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> will</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> would</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> can</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> could</div>
+      </div>
+      <div class="fb ok">&#10003; "will" → "would" (backshift). Yes/No question → use "if". Normal word order: "if he would help her."</div>
+      <div class="fb no">&#10007; "Will" backshifts to "would". Yes/No question → "if/whether + subject + verb".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> Direct: "Don't use your phone in class!" The teacher told us _____ our phones in class.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> don't use</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> to not use</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> not to use</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> to use not</div>
+      </div>
+      <div class="fb ok">&#10003; Negative command → told + person + NOT TO + V1. "not to use" is the correct form.</div>
+      <div class="fb no">&#10007; Negative reported command: told + person + NOT TO + V1 (never "to not use").</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> Direct: "I was watching TV when you called." She said she _____ TV when I had called.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> was watching</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> had been watching</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> has been watching</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> would be watching</div>
+      </div>
+      <div class="fb ok">&#10003; Past Continuous ("was watching") → Past Perfect Continuous ("had been watching"). "I" → "she", "you" → "I".</div>
+      <div class="fb no">&#10007; Past Continuous backshifts to Past Perfect Continuous.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> Direct: "Where do you live?" She asked me where I _____.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> did live</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> do live</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> lived</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was living</div>
+      </div>
+      <div class="fb ok">&#10003; Wh- question: remove "do", normal word order, backshift. "do live" → "lived". No question mark.</div>
+      <div class="fb no">&#10007; Wh- reported question: keep the Wh- word + normal word order + tense backshift. Remove "do/does/did".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">7</span> He said, "I can't come tomorrow." He said he _____ come the next day.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> can't</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> couldn't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> won't</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> wouldn't</div>
+      </div>
+      <div class="fb ok">&#10003; "can't" → "couldn't" (backshift). "tomorrow" → "the next day".</div>
+      <div class="fb no">&#10007; "can" → "could" in reported speech. "Can't" → "couldn't". "Tomorrow" → "the next day".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">8</span> "Let's go to the cinema tonight," she said. She suggested _____ to the cinema that night.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> to go</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> they go</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> going</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> that go</div>
+      </div>
+      <div class="fb ok">&#10003; "suggest" + V-ing (gerund). "Tonight" → "that night".</div>
+      <div class="fb no">&#10007; "Suggest" is followed by V-ing (gerund) or "that + subject + should". NOT "to + V1".</div>
+    </div>
+  </div>
+
+  <!-- EX 2: Fill-in -->
+  <div class="exh"><div class="exn" style="background:var(--back);">2</div><div><h3>Convert to Reported Speech</h3><p>Rewrite each sentence in reported speech.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Click Reveal to check your answer and rule.</div>
+    <div class="fi-item">
+      <div class="fi-sent">1. Direct: "I am going to London next week."<br>She said <span class="fi-blank" id="f1">she was going to London the following week</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f1','a1')">Reveal</button>
+      <div class="fi-ans" id="a1">&#10003; <strong>she was going to London the following week</strong> — "am going" → "was going"; "I" → "she"; "next week" → "the following week".</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent">2. Direct: "Have you finished the report?"<br>She asked me if <span class="fi-blank" id="f2">I had finished the report</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f2','a2')">Reveal</button>
+      <div class="fi-ans" id="a2">&#10003; <strong>I had finished the report</strong> — Y/N question → "if"; Present Perfect → Past Perfect; normal word order; no question mark.</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent">3. Direct: "Why didn't you call me yesterday?"<br>He asked me why <span class="fi-blank" id="f3">I hadn't called him the day before</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f3','a3')">Reveal</button>
+      <div class="fi-ans" id="a3">&#10003; <strong>I hadn't called him the day before</strong> — "didn't call" → "hadn't called"; "me" → "him"; "yesterday" → "the day before"; normal word order.</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent">4. Direct: "Please wait outside."<br>She asked us <span class="fi-blank" id="f4">to wait outside</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f4','a4')">Reveal</button>
+      <div class="fi-ans" id="a4">&#10003; <strong>to wait outside</strong> — polite request → asked + person + to + V1.</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent">5. Direct: "I will never lie to you again."<br>He promised <span class="fi-blank" id="f5">never to lie to her again / that he would never lie to her again</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f5','a5')">Reveal</button>
+      <div class="fi-ans" id="a5">&#10003; <strong>never to lie to her again</strong> OR <strong>that he would never lie to her again</strong> — "promise" + to + V1 or "promise + that + clause"; "will" → "would"; "you" → "her".</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent">6. Direct: "I didn't break the vase!"<br>He denied <span class="fi-blank" id="f6">breaking the vase / having broken the vase</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f6','a6')">Reveal</button>
+      <div class="fi-ans" id="a6">&#10003; <strong>breaking the vase</strong> (or "having broken the vase") — "deny" is always followed by V-ing (gerund).</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent">7. Direct: "What time does the train leave?"<br>She asked what time <span class="fi-blank" id="f7">the train left</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f7','a7')">Reveal</button>
+      <div class="fi-ans" id="a7">&#10003; <strong>the train left</strong> — Wh- question: keep "what time", remove "does", normal word order, backshift (Present Simple → Past Simple).</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent">8. Direct: "You should see a doctor," she said.<br>She advised me <span class="fi-blank" id="f8">to see a doctor</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f8','a8')">Reveal</button>
+      <div class="fi-ans" id="a8">&#10003; <strong>to see a doctor</strong> — "advise" + person + to + V1. (Also possible: "she said I should see a doctor.")</div>
+    </div>
+  </div>
+
+  <!-- EX 3: Error Correction -->
+  <div class="exh"><div class="exn" style="background:var(--dir);">3</div><div><h3>Error Correction</h3><p>Each sentence has ONE reported speech error. Find and fix it.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Click "Show Correction" to see the fix and rule.</div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">1. She said me that she was tired. <code style="color:var(--bad);">&#10007; said me</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; She <strong>told me</strong> that she was tired. (or: She <strong>said</strong> that she was tired.)<br><span style="color:var(--muted);font-size:13px;">"Say" never takes a person directly after it. Use "tell + person" or "say (that)".</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">2. He asked me where did I live? <code style="color:var(--bad);">&#10007; did I live?</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; He asked me where I <strong>lived</strong>.<br><span style="color:var(--muted);font-size:13px;">Reported questions: normal word order (not question order), remove "did", tense backshift, NO question mark.</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">3. She told me to not go there alone. <code style="color:var(--bad);">&#10007; to not go</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; She told me <strong>not to go</strong> there alone.<br><span style="color:var(--muted);font-size:13px;">Negative reported command: "not to + V1" (NOT "to not + V1"). "Not" comes BEFORE "to".</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">4. He suggested to go to the park. <code style="color:var(--bad);">&#10007; to go</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; He suggested <strong>going</strong> to the park.<br><span style="color:var(--muted);font-size:13px;">"Suggest" is NEVER followed by "to + V1". Use V-ing (gerund) or "that + subject + should".</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">5. She asked whether I will join them. <code style="color:var(--bad);">&#10007; will</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; She asked whether I <strong>would</strong> join them.<br><span style="color:var(--muted);font-size:13px;">Tense backshift: "will" → "would" in reported speech after a past reporting verb.</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">6. He admitted to steal the money. <code style="color:var(--bad);">&#10007; to steal</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; He admitted <strong>stealing</strong> the money.<br><span style="color:var(--muted);font-size:13px;">"Admit" is followed by V-ing (gerund), NOT "to + V1".</span></div>
+    </div>
+  </div>
+
+  <!-- EX 4: Reporting Verb Choice -->
+  <div class="exh"><div class="exn" style="background:var(--verb);">4</div><div><h3>Choose the Correct Reporting Verb</h3><p>Select the verb that fits the meaning and structure.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Read the direct speech and choose the best reporting verb.</div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> "I definitely didn't take your phone!" (strong denial)</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> He said not taking my phone.</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> He denied taking my phone.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> He refused taking my phone.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> He suggested taking my phone.</div>
+      </div>
+      <div class="fb ok">&#10003; "deny" = to say you did not do something. "Deny" + V-ing → "He denied taking my phone."</div>
+      <div class="fb no">&#10007; "Deny" means to say something is not true. Pattern: deny + V-ing.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> "Yes, I did break the window. I'm sorry." (confession)</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> She admitted breaking the window.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> She denied breaking the window.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> She warned breaking the window.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> She refused to break the window.</div>
+      </div>
+      <div class="fb ok">&#10003; "admit" = to say you did something wrong. "Admit" + V-ing → "She admitted breaking the window."</div>
+      <div class="fb no">&#10007; Confessing to doing something wrong = "admit" + V-ing.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> "Watch out! The road is icy!" (danger warning)</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> He told me that the road was icy.</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> He warned me that the road was icy.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> He asked me that the road was icy.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> He suggested that the road was icy.</div>
+      </div>
+      <div class="fb ok">&#10003; "warn" = to alert someone to danger. "He warned me that the road was icy."</div>
+      <div class="fb no">&#10007; Alerting someone to danger = "warn". Pattern: warn + person + that / warn + person + not to.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> "Why don't we visit the museum?" (suggestion)</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> She asked visiting the museum.</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> She suggested visiting the museum.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> She promised to visit the museum.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> She warned visiting the museum.</div>
+      </div>
+      <div class="fb ok">&#10003; "suggest" = to put forward an idea. "Suggest" + V-ing → "She suggested visiting the museum."</div>
+      <div class="fb no">&#10007; Making a suggestion = "suggest" + V-ing (gerund).</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> "You cheated on the exam!" he said to her. (accusation)</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> He told her of cheating on the exam.</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> He accused her of cheating on the exam.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> He warned her of cheating on the exam.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> He admitted her cheating on the exam.</div>
+      </div>
+      <div class="fb ok">&#10003; "accuse" = to say someone has done something wrong. Pattern: accuse + person + of + V-ing.</div>
+      <div class="fb no">&#10007; Accusing someone of wrongdoing = "accuse + person + of + V-ing".</div>
+    </div>
+  </div>
+
+  <!-- EX 5: EXAM MCQ -->
+  <div class="exh"><div class="exn" style="background:linear-gradient(135deg,var(--rep),var(--back));">5</div><div><h3>Exam-Style Multiple Choice (14 Questions)</h3><p>Full exam format — matches &#3617;.1 Advanced / EP / Gifted difficulty.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Choose the best answer. No notes allowed!</div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> She said, "I have finished my homework." She said that she _____ her homework.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> has finished</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> had finished</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> finished</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was finishing</div>
+      </div>
+      <div class="fb ok">&#10003; Present Perfect ("have finished") → Past Perfect ("had finished"). "I" → "she".</div>
+      <div class="fb no">&#10007; Present Perfect backshifts to Past Perfect.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> "Don't open the door!" the teacher told students. The teacher told the students _____ the door.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> don't open</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> not to open</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> to not open</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> not open</div>
+      </div>
+      <div class="fb ok">&#10003; Negative reported command: told + person + NOT TO + V1.</div>
+      <div class="fb no">&#10007; Negative command in reported speech: "not to + V1".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> He asked, "Where is the nearest hospital?" He asked _____ the nearest hospital was.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> that where</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> where</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> if where</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> whether where</div>
+      </div>
+      <div class="fb ok">&#10003; Wh- question: keep "where" + normal word order. "is" → "was".</div>
+      <div class="fb no">&#10007; Wh- reported question: keep the Wh-word, normal order, backshift. No "that" or "if".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> "I will call you tomorrow," she promised. She promised _____ me the next day.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> to call</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> calling</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> that call</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> would call</div>
+      </div>
+      <div class="fb ok">&#10003; "Promise" + to + V1. "Tomorrow" → "the next day".</div>
+      <div class="fb no">&#10007; "Promise" is followed by "to + V1" (infinitive).</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> "Are you coming to the party?" She asked me whether I _____ to the party.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> am coming</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> was coming</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> will come</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> come</div>
+      </div>
+      <div class="fb ok">&#10003; Y/N question → "whether"; "are coming" (Pres. Cont.) → "was coming" (Past Cont.); "you" → "I".</div>
+      <div class="fb no">&#10007; Y/N reported question: "whether + subject + verb" (backshifted).</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> She said to him, "I haven't seen you for ages!" She told him she _____ him for ages.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> hasn't seen</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> hadn't seen</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> didn't see</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> wasn't seeing</div>
+      </div>
+      <div class="fb ok">&#10003; Present Perfect → Past Perfect ("hadn't seen"). "I" → "she", "you" → "him".</div>
+      <div class="fb no">&#10007; Present Perfect negative backshifts to Past Perfect negative.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">7</span> "I'll never do that again," he said. He said he _____ never do that again.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> will</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> would</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> could</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> should</div>
+      </div>
+      <div class="fb ok">&#10003; "will" → "would" (backshift). "I" → "he".</div>
+      <div class="fb no">&#10007; "Will" backshifts to "would".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">8</span> "What are you doing here?" he asked her. He asked her what she _____.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> is doing there</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> was doing there</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> does there</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> did there</div>
+      </div>
+      <div class="fb ok">&#10003; Wh-: keep "what", normal order, backshift ("are doing" → "was doing"), "here" → "there". "You" → "she".</div>
+      <div class="fb no">&#10007; Wh- reported question + backshift + "here" → "there".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">9</span> "I'm sorry I was late," she said. She apologised _____ late.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> to be</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> for being</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> that she be</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> being</div>
+      </div>
+      <div class="fb ok">&#10003; "apologise for + V-ing". Pattern: verb + preposition + gerund.</div>
+      <div class="fb no">&#10007; "Apologise for + V-ing" is the fixed pattern.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">10</span> "Can you swim?" she asked. She asked him if he _____ swim.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> can</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> could</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> would</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> might</div>
+      </div>
+      <div class="fb ok">&#10003; "can" → "could" (backshift). Y/N question → "if". "You" → "he".</div>
+      <div class="fb no">&#10007; "Can" backshifts to "could" in reported speech.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">11</span> He said, "I must leave now." He said he _____ leave then.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> must</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> had to</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> would</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> should</div>
+      </div>
+      <div class="fb ok">&#10003; "must" → "had to" (backshift). "Now" → "then".</div>
+      <div class="fb no">&#10007; "Must" backshifts to "had to" in reported speech. "Now" → "then".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">12</span> "Let's take a break," the manager said. The manager suggested _____ a break.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> taking</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> to take</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> that take</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> take</div>
+      </div>
+      <div class="fb ok">&#10003; "Suggest" + V-ing (gerund). Never "to + V1" after "suggest".</div>
+      <div class="fb no">&#10007; "Suggest" + V-ing. "Suggest to" is always wrong.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">13</span> "You stole my idea!" she said to him. She accused him _____ her idea.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> to steal</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> that he stole</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> of stealing</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> for stealing</div>
+      </div>
+      <div class="fb ok">&#10003; "Accuse + person + of + V-ing." Always "of", never "for" or "to".</div>
+      <div class="fb no">&#10007; Accuse + person + OF + V-ing. The preposition is always "of".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">14</span> The teacher said, "Water boils at 100°C." The teacher said water _____ at 100°C.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> boiled only</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> boils / boiled</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> had boiled</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> was boiling</div>
+      </div>
+      <div class="fb ok">&#10003; Scientific facts don't need backshift — the fact is still true. Both "boils" (no backshift) and "boiled" (with backshift) are acceptable.</div>
+      <div class="fb no">&#10007; Permanent facts / scientific truths don't require backshift. Both present and past simple are acceptable.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION G: REVIEW -->
+<div class="page gap" id="review">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--good_lt);">&#11088;</div>
+    <div class="sh-text"><h2>Section G &mdash; Unit Review</h2><p>Complete summary + self-evaluation checklist.</p></div>
+  </div>
+  <div class="ib bad fade"><span class="ico">&#128680;</span><div>
+    <strong>Top 8 Exam Traps:</strong>
+    <ol style="margin-top:10px;padding-left:20px;font-size:14px;line-height:2.1;">
+      <li>"She <s>said me</s> that she was tired." ✗ → "She <strong>told</strong> me" or "She <strong>said</strong> that she was tired." ✓</li>
+      <li>Forgetting tense backshift: "He said he <s>is</s> tired." ✗ → "He said he <strong>was</strong> tired." ✓</li>
+      <li>Question word order in reported questions: "<s>He asked where was I.</s>" ✗ → "He asked where I was." ✓</li>
+      <li>Using question mark in reported speech: "<s>She asked if I was ready?</s>" ✗ → no "?" in reported speech</li>
+      <li>"not to" vs "to not": "<s>She told me to not go.</s>" ✗ → "She told me <strong>not to go</strong>." ✓</li>
+      <li>"suggest + to V1": "<s>He suggested to go.</s>" ✗ → "He suggested <strong>going</strong>." ✓</li>
+      <li>"admit/deny + to V1": "<s>He denied to take it.</s>" ✗ → "He denied <strong>taking</strong> it." ✓</li>
+      <li>"must" backshift: "<s>He said he must go.</s>" (wrong in past context) → "He said he <strong>had to go</strong>." ✓</li>
+    </ol>
+  </div></div>
+  <div class="twrap fade" style="margin-top:24px;">
+    <table>
+      <thead><tr><th>Type</th><th>Direct Speech</th><th>Reported Speech Structure</th><th>Key Change</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Statement</strong></td><td>"I am happy."</td><td>said/told + (that) + clause</td><td>Tense backshift + pronouns</td></tr>
+        <tr><td><strong>Y/N Question</strong></td><td>"Are you ready?"</td><td>asked + if/whether + S + V</td><td>Normal order, no "?", backshift</td></tr>
+        <tr><td><strong>Wh- Question</strong></td><td>"Where do you live?"</td><td>asked + Wh- + S + V</td><td>Remove do/does/did, normal order</td></tr>
+        <tr><td><strong>Command (+)</strong></td><td>"Come here!"</td><td>told/asked + person + to + V1</td><td>No tense change, use infinitive</td></tr>
+        <tr><td><strong>Command (-)</strong></td><td>"Don't go!"</td><td>told/warned + person + not to + V1</td><td>"Not to" before verb</td></tr>
+        <tr><td><strong>Suggestion</strong></td><td>"Let's go!"</td><td>suggested + V-ing / that S should</td><td>Never "suggest to"</td></tr>
+        <tr><td><strong>Promise</strong></td><td>"I'll help you."</td><td>promised + to + V1</td><td>Infinitive form</td></tr>
+        <tr><td><strong>Denial</strong></td><td>"I didn't do it!"</td><td>denied + V-ing</td><td>Gerund after "deny"</td></tr>
+        <tr><td><strong>Accusation</strong></td><td>"You stole it!"</td><td>accused + person + of + V-ing</td><td>"of" + gerund</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:32px;" class="fade">
+    <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:16px;">Self-Evaluation Checklist — "I Can…"</h3>
+    <ul class="chk">
+      <li><input type="checkbox"> Apply all tense backshifts correctly in reported statements.</li>
+      <li><input type="checkbox"> Change pronouns and possessives correctly.</li>
+      <li><input type="checkbox"> Convert time expressions (today → that day, tomorrow → the next day, etc.).</li>
+      <li><input type="checkbox"> Use "say" vs "tell" correctly (tell + person; say + that).</li>
+      <li><input type="checkbox"> Report Yes/No questions using "if/whether + S + V" (normal order, no "?").</li>
+      <li><input type="checkbox"> Report Wh- questions (keep Wh-word, normal order, remove do/does/did).</li>
+      <li><input type="checkbox"> Report commands using "to + V1" or "not to + V1".</li>
+      <li><input type="checkbox"> Use the correct reporting verb for each speech act (suggest, deny, admit, warn, accuse, promise).</li>
+      <li><input type="checkbox"> Know that scientific facts don't require backshift.</li>
+      <li><input type="checkbox"> Score at least 12/14 on the exam-style MCQ section.</li>
+    </ul>
+  </div>
+  <div class="scoreboard fade" style="margin-top:32px;">
+    <div class="sc-num" id="scoreNum">&ndash;</div>
+    <div class="sc-txt"><h4>Your Live Score</h4><p>Click through the MCQ exercises above.</p></div>
+    <div class="sc-bar-wrap"><div class="sc-bar-lbl">Accuracy</div><div class="sc-bar"><div class="sc-fill" id="scoreFill" style="width:0%"></div></div></div>
+  </div>
+  <div class="ib good fade" style="margin-top:24px;">
+    <span class="ico">&#11088;</span>
+    <div><strong>Congratulations! You have completed Units 1–8.</strong><br>You've covered Sentence Structure, SVA, Tenses, Passive Voice, Modal Verbs, Conditionals, Relative Clauses, and Reported Speech — the complete B1 grammar foundation for the &#3617;.1 Advanced / EP / Gifted entrance exam!</div>
+  </div>
+</div>
+<div class="footer">
+  <span>Unit 8 &middot; Reported Speech &middot; B1 English Course</span>
+  <span>4 Sentence Types &middot; 50 Practice Questions</span>
+</div>
+<script>
+window.addEventListener('scroll',function(){
+  var d=document.documentElement;
+  document.getElementById('prog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+function toggleConv(head){head.classList.toggle('open');head.nextElementSibling.classList.toggle('open');}
+var cor=0,tot=0;
+function chk(el,r){
+  var item=el.closest('.mcq');if(item.dataset.done)return;
+  item.dataset.done='1';tot++;
+  item.querySelectorAll('.opt').forEach(function(o){o.style.pointerEvents='none';});
+  var fbs=item.querySelectorAll('.fb');
+  if(r==='c'){el.classList.add('correct');fbs[0].classList.add('show');cor++;}
+  else{el.classList.add('wrong');fbs[1].classList.add('show');
+    item.querySelectorAll('.opt').forEach(function(o){if(o.getAttribute('onclick')&&o.getAttribute('onclick').indexOf("'c'")>-1)o.classList.add('correct');});}
+  var pct=Math.round(cor/Math.max(tot,1)*100);
+  var sn=document.getElementById('scoreNum'),sf=document.getElementById('scoreFill');
+  if(sn)sn.textContent=cor+' / '+tot;if(sf)sf.style.width=pct+'%';
+}
+function showFill(id,aid){
+  var b=document.getElementById(id),a=document.getElementById(aid);
+  if(b)b.classList.add('shown');if(a)a.classList.add('show');
+}
+function showFix(btn){btn.nextElementSibling.style.display='block';btn.style.display='none';}
+</script>
+</body>
+</html>

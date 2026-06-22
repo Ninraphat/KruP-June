@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 7 — Relative Clauses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdf8ff;--surface:#fff;--ink:#2d1b69;--muted:#6b5ca5;
+  --rule:#e0d5f5;--grey_lt:#faf7ff;
+  --who:#7c3aed;--who_lt:#f5f3ff;
+  --which:#0284c7;--which_lt:#e0f2fe;
+  --whose:#d97706;--whose_lt:#fef3c7;
+  --where:#16a34a;--where_lt:#dcfce7;
+  --that:#dc2626;--that_lt:#fee2e2;
+  --def:#0f766e;--def_lt:#ccfbf1;
+  --non:#9333ea;--non_lt:#f3e8ff;
+  --good:#15803d;--good_lt:#f0fdf4;
+  --bad:#dc2626;--bad_lt:#fef2f2;
+  --r:14px;--sh:0 4px 24px rgba(45,27,105,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);font-size:15.5px;line-height:1.75;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fade{animation:fadeUp .5s ease both;}
+.fade:nth-child(1){animation-delay:.04s}.fade:nth-child(2){animation-delay:.10s}
+.fade:nth-child(3){animation-delay:.16s}.fade:nth-child(4){animation-delay:.22s}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--who),var(--which),var(--where),var(--that));z-index:9999;width:0%;}
+
+.cover{min-height:100vh;background:var(--surface);display:flex;flex-direction:column;justify-content:center;padding:80px 6%;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.07) 0%,transparent 60%);top:-250px;right:-200px;}
+.cover::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(2,132,199,.06) 0%,transparent 60%);bottom:-200px;left:-150px;}
+.cover-inner{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+.utag{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);padding:7px 18px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:30px;font-family:'Space Mono',monospace;}
+.utag i{width:8px;height:8px;border-radius:50%;background:var(--who);display:inline-block;}
+.cover h1{font-family:'Fraunces',serif;font-size:clamp(40px,6.5vw,80px);font-weight:900;line-height:1.05;margin-bottom:22px;}
+.cover h1 .hl{font-style:italic;color:var(--who);}
+.cover-sub{font-size:17px;color:var(--muted);max-width:560px;margin-bottom:44px;line-height:1.7;}
+
+.rp-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;}
+.rp-pill{padding:10px 20px;border-radius:100px;font-weight:800;font-size:14px;font-family:'Space Mono',monospace;display:flex;align-items:center;gap:8px;}
+.rp-who{background:var(--who_lt);color:var(--who);}
+.rp-which{background:var(--which_lt);color:var(--which);}
+.rp-whose{background:var(--whose_lt);color:var(--whose);}
+.rp-where{background:var(--where_lt);color:var(--where);}
+.rp-when{background:var(--def_lt);color:var(--def);}
+.rp-that{background:var(--that_lt);color:var(--that);}
+
+.cstats{display:flex;gap:2px;flex-wrap:wrap;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;max-width:600px;}
+.cstat{flex:1;min-width:110px;padding:18px 20px;background:var(--surface);text-align:center;border-right:1px solid var(--rule);}
+.cstat:last-child{border-right:none;}
+.cstat-n{font-family:'Fraunces',serif;font-size:32px;font-weight:900;line-height:1;color:var(--who);}
+.cstat-l{font-size:12px;color:var(--muted);margin-top:4px;}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(253,248,255,.94);border-bottom:1px solid var(--rule);backdrop-filter:blur(10px);padding:0 6%;display:flex;gap:0;overflow-x:auto;}
+.nav a{color:var(--muted);text-decoration:none;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:15px 16px;white-space:nowrap;border-bottom:2px solid transparent;transition:.18s;font-family:'Space Mono',monospace;}
+.nav a:hover{color:var(--who);border-bottom-color:var(--who);}
+
+.page{max-width:920px;margin:0 auto;padding:60px 24px;}
+.gap{margin-bottom:72px;}
+.sh{display:flex;align-items:flex-start;gap:18px;margin-bottom:36px;}
+.sh-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.sh-text h2{font-family:'Fraunces',serif;font-size:27px;font-weight:700;line-height:1.2;}
+.sh-text p{font-size:14px;color:var(--muted);margin-top:3px;}
+
+/* PRONOUN CARDS */
+.rp-card{background:var(--surface);border-radius:var(--r);overflow:hidden;margin-bottom:14px;box-shadow:var(--sh);}
+.rp-head{padding:20px 24px;display:flex;align-items:center;gap:16px;cursor:pointer;}
+.rp-head:hover{filter:brightness(.97);}
+.rp-head.open{border-bottom:1px solid rgba(0,0,0,.08);}
+.rp-badge{padding:8px 20px;border-radius:100px;font-family:'Space Mono',monospace;font-size:15px;font-weight:700;flex-shrink:0;}
+.rp-title{flex:1;}
+.rp-title h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;}
+.rp-title p{font-size:13px;color:var(--muted);margin-top:3px;}
+.rp-chev{font-size:20px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+.rp-head.open .rp-chev{transform:rotate(90deg);}
+.rp-body{padding:0 24px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;}
+.rp-body.open{max-height:2000px;padding:0 24px 24px;}
+
+/* DEFINING vs NON-DEFINING */
+.split-box{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
+@media(max-width:640px){.split-box{grid-template-columns:1fr;}}
+.split-panel{border-radius:var(--r);padding:20px 22px;}
+.split-panel h4{font-family:'Fraunces',serif;font-size:17px;font-weight:700;margin-bottom:10px;}
+.split-panel p{font-size:14px;line-height:1.7;margin-bottom:8px;}
+.split-panel .ex{font-size:14px;font-style:italic;padding:8px 12px;border-radius:8px;margin-top:6px;}
+
+.ib{border-radius:var(--r);padding:16px 20px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.6;}
+.ib .ico{font-size:18px;flex-shrink:0;}
+.ib.gold{background:var(--whose_lt);border-left:3px solid var(--whose);}
+.ib.bad{background:var(--bad_lt);border-left:3px solid var(--bad);}
+.ib.good{background:var(--good_lt);border-left:3px solid var(--good);}
+.ib.who{background:var(--who_lt);border-left:3px solid var(--who);}
+.ib.blue{background:var(--which_lt);border-left:3px solid var(--which);}
+.ib.def{background:var(--def_lt);border-left:3px solid var(--def);}
+.ib.non{background:var(--non_lt);border-left:3px solid var(--non);}
+
+.ex-row{padding:11px 16px;border-radius:10px;margin-bottom:8px;font-size:14.5px;line-height:1.7;}
+.ex-row:last-child{margin-bottom:0;}
+.ex-row .th{font-size:13px;color:var(--muted);margin-top:3px;}
+
+.twrap{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin:18px 0;overflow-x:auto;box-shadow:var(--sh);}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead tr{background:var(--ink);}
+thead th{padding:12px 14px;text-align:left;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tbody tr:nth-child(even){background:var(--grey_lt);}
+tbody tr:last-child td{border-bottom:none;}
+code{font-family:'Space Mono',monospace;font-size:13px;background:rgba(0,0,0,.06);padding:2px 6px;border-radius:5px;}
+
+.rbox{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:24px;box-shadow:var(--sh);}
+.rhead{background:var(--ink);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.rhead h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.rhead span{font-family:'Space Mono',monospace;font-size:11px;opacity:.6;}
+.rbody{padding:28px;font-size:15.5px;line-height:2.1;}
+.rbody p{margin-bottom:14px;}.rbody p:last-child{margin-bottom:0;}
+.hw{font-weight:700;padding:1px 5px;border-radius:4px;}
+.hwho{background:var(--who_lt);color:var(--who);}
+.hwhich{background:var(--which_lt);color:var(--which);}
+.hwhose{background:var(--whose_lt);color:var(--whose);}
+.hwhere{background:var(--where_lt);color:var(--where);}
+.hthat{background:var(--that_lt);color:var(--that);}
+
+.exh{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r) var(--r) 0 0;padding:18px 24px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule);box-shadow:var(--sh);}
+.exn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:17px;font-weight:900;flex-shrink:0;color:#fff;}
+.exh h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.exh p{font-size:13px;color:var(--muted);margin-top:2px;}
+.exb{background:var(--grey_lt);border:1px solid var(--rule);border-top:none;border-radius:0 0 var(--r) var(--r);padding:28px;margin-bottom:28px;}
+.ex-inst{font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--who);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:22px;}
+
+.mcq{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--rule);}
+.mcq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-q{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;}
+.qn{width:28px;height:28px;border-radius:8px;background:var(--who_lt);color:var(--who);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.opts{display:flex;flex-direction:column;gap:8px;padding-left:38px;}
+.opt{display:flex;align-items:center;gap:11px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--rule);font-size:14px;cursor:pointer;transition:.16s;background:var(--surface);}
+.opt:hover{border-color:var(--who);background:var(--who_lt);}
+.opt.correct{border-color:var(--good);background:var(--good_lt);color:var(--good);font-weight:600;}
+.opt.wrong{border-color:var(--bad);background:var(--bad_lt);color:var(--bad);}
+.ob{width:26px;height:26px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;transition:.16s;}
+.opt:hover .ob{border-color:var(--who);background:var(--who);color:#fff;}
+.opt.correct .ob{border-color:var(--good);background:var(--good);color:#fff;}
+.opt.wrong .ob{border-color:var(--bad);background:var(--bad);color:#fff;}
+.fb{display:none;margin-top:10px;padding:11px 16px;border-radius:10px;font-size:13.5px;font-weight:500;padding-left:38px;line-height:1.55;}
+.fb.show{display:block;}
+.fb.ok{background:var(--good_lt);color:var(--good);}
+.fb.no{background:var(--bad_lt);color:var(--bad);}
+
+.fi-item{margin-bottom:16px;background:var(--surface);border-radius:10px;padding:14px 18px;border:1px solid var(--rule);}
+.fi-sent{font-size:15px;line-height:1.9;}
+.fi-blank{display:inline-block;min-width:80px;border-bottom:2px solid var(--who);text-align:center;margin:0 4px;font-family:'Space Mono',monospace;font-size:13px;color:transparent;transition:color .25s;}
+.fi-blank.shown{color:var(--who);font-weight:700;}
+.fi-ans{display:none;font-size:13px;color:var(--muted);padding-top:6px;border-top:1px solid var(--rule);margin-top:6px;}
+.fi-ans.show{display:block;}
+
+.ec-wrong{background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;}
+.ec-fix{display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-bottom:4px;}
+.ec-fix.show{display:block;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:100px;font-size:13.5px;font-weight:700;cursor:pointer;border:none;font-family:'Manrope',sans-serif;transition:.18s;}
+.btn-who{background:var(--who);color:#fff;}
+.btn-who:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn-ghost{background:var(--surface);color:var(--ink);border:1.5px solid var(--rule);}
+.btn-ghost:hover{border-color:var(--who);color:var(--who);}
+.btn-sm{padding:8px 16px;font-size:12.5px;}
+
+.scoreboard{background:linear-gradient(135deg,#2d1b69,#4c1d95);color:#fff;border-radius:var(--r);padding:28px 30px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
+.sc-num{font-family:'Fraunces',serif;font-size:56px;font-weight:900;color:#c4b5fd;line-height:1;}
+.sc-txt{flex:1;}.sc-txt h4{font-family:'Fraunces',serif;font-size:19px;font-weight:700;margin-bottom:4px;}.sc-txt p{font-size:13px;opacity:.7;}
+.sc-bar-wrap{flex:1;min-width:180px;}.sc-bar-lbl{font-size:12px;opacity:.7;margin-bottom:6px;}
+.sc-bar{height:10px;background:rgba(255,255,255,.2);border-radius:5px;overflow:hidden;}
+.sc-fill{height:100%;background:linear-gradient(90deg,#c4b5fd,#86efac);border-radius:5px;transition:width .7s ease;}
+
+.chk{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;}
+.chk li{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--rule);padding:13px 16px;border-radius:10px;font-size:14px;}
+.chk li input{width:18px;height:18px;accent-color:var(--who);cursor:pointer;flex-shrink:0;margin-top:2px;}
+
+.footer{background:var(--surface);border-top:1px solid var(--rule);padding:32px 6%;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;}
+@media(max-width:640px){.page{padding:40px 18px;}.cover{padding:60px 5%;}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="utag fade"><i></i> B1 English &middot; Grammar Series &middot; Unit 7</div>
+    <h1 class="fade">Relative<br><span class="hl">Clauses</span></h1>
+    <p class="cover-sub fade">Master who, whom, which, whose, where, when, and that &mdash; and learn the crucial difference between defining and non-defining relative clauses that appear in every Thai entrance exam.</p>
+    <div class="rp-grid fade">
+      <span class="rp-pill rp-who">who / whom</span>
+      <span class="rp-pill rp-which">which</span>
+      <span class="rp-pill rp-whose">whose</span>
+      <span class="rp-pill rp-where">where</span>
+      <span class="rp-pill rp-when">when</span>
+      <span class="rp-pill rp-that">that</span>
+    </div>
+    <div class="cstats fade">
+      <div class="cstat"><div class="cstat-n">6</div><div class="cstat-l">Pronouns</div></div>
+      <div class="cstat"><div class="cstat-n">15</div><div class="cstat-l">Vocab Words</div></div>
+      <div class="cstat"><div class="cstat-n">5</div><div class="cstat-l">Exercises</div></div>
+      <div class="cstat"><div class="cstat-n">50</div><div class="cstat-l">Exam Questions</div></div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <a href="#vocab">&#128218; Vocab</a>
+  <a href="#reading">&#128214; Reading</a>
+  <a href="#grammar">&#128279; Pronouns</a>
+  <a href="#defvsnon">&#128202; Def vs Non-Def</a>
+  <a href="#exercises">&#9999; Exercises</a>
+  <a href="#review">&#11088; Review</a>
+</nav>
+
+<!-- SECTION A -->
+<div class="page gap" id="vocab">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--who_lt);">&#128218;</div>
+    <div class="sh-text"><h2>Section A &mdash; Vocabulary Builder</h2><p>15 key words that commonly appear in relative clause sentences.</p></div>
+  </div>
+  <div class="ib who fade"><span class="ico">&#128161;</span><div><strong>Study tip:</strong> These words often appear as antecedents (the nouns that relative clauses describe). Knowing them helps you choose the right relative pronoun.</div></div>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Word</th><th>Type</th><th>Thai</th><th>Relative Clause Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong>antecedent</strong></td><td>noun</td><td>&#3588;&#3635;&#3609;&#3634;&#3617;&#3607;&#3637;&#3656;&#3605;&#3634;&#3617;&#3649;&#3605;&#3656;&#3591; (&#3648;&#3594;&#3656;&#3609; the man, the book)</td><td>The person <em>who</em> called you is my uncle. ("person" = antecedent)</td></tr>
+        <tr><td><strong>relative pronoun</strong></td><td>noun phrase</td><td>&#3626;&#3619;&#3619;&#3614;&#3609;&#3634;&#3617;&#3648;&#3594;&#3639;&#3656;&#3629;&#3617;</td><td>who, whom, which, whose, that, where, when</td></tr>
+        <tr><td><strong>clause</strong></td><td>noun</td><td>&#3629;&#3609;&#3640;&#3611;&#3619;&#3632;&#3650;&#3618;&#3588;</td><td>"The book <em>which I borrowed</em> was interesting." (relative clause)</td></tr>
+        <tr><td><strong>define</strong></td><td>verb</td><td>&#3627;&#3617;&#3634;&#3618;&#3588;&#3623;&#3634;&#3617;/&#3619;&#3632;&#3610;&#3640;</td><td>A defining clause defines/identifies which one we mean.</td></tr>
+        <tr><td><strong>omit</strong></td><td>verb</td><td>&#3621;&#3632;&#3648;&#3623;&#3657;&#3609;/&#3605;&#3633;&#3604;&#3629;&#3629;&#3585;</td><td>The pronoun "that" can be omitted if it's the object.</td></tr>
+        <tr><td><strong>essential</strong></td><td>adjective</td><td>&#3592;&#3635;&#3648;&#3611;&#3655;&#3609;</td><td>A defining clause gives essential (necessary) information.</td></tr>
+        <tr><td><strong>non-essential</strong></td><td>adjective</td><td>&#3652;&#3617;&#3656;&#3592;&#3635;&#3648;&#3611;&#3655;&#3609;</td><td>A non-defining clause gives non-essential (extra) information.</td></tr>
+        <tr><td><strong>comma</strong></td><td>noun</td><td>&#3592;&#3640;&#3604;&#3621;&#3641;&#3585;&#3609;&#3657;&#3635;</td><td>Non-defining clauses are ALWAYS separated by commas.</td></tr>
+        <tr><td><strong>subject</strong></td><td>noun</td><td>&#3611;&#3619;&#3632;&#3608;&#3634;&#3609;</td><td>"The man <em>who won</em> the prize is my father." (who = subject)</td></tr>
+        <tr><td><strong>object</strong></td><td>noun</td><td>&#3585;&#3619;&#3619;&#3617;</td><td>"The book <em>which I read</em> was great." (which = object)</td></tr>
+        <tr><td><strong>possession</strong></td><td>noun</td><td>&#3588;&#3623;&#3634;&#3617;&#3648;&#3611;&#3655;&#3609;&#3648;&#3592;&#3657;&#3634;&#3586;&#3629;&#3591;</td><td>Use "whose" to show possession in relative clauses.</td></tr>
+        <tr><td><strong>refer to</strong></td><td>verb phrase</td><td>&#3629;&#3657;&#3634;&#3591;&#3606;&#3638;&#3591;</td><td>"Who" refers to people; "which" refers to things.</td></tr>
+        <tr><td><strong>replace</strong></td><td>verb</td><td>&#3649;&#3607;&#3609;&#3607;&#3637;&#3656;</td><td>A relative pronoun replaces a noun/pronoun in a clause.</td></tr>
+        <tr><td><strong>combine</strong></td><td>verb</td><td>&#3619;&#3623;&#3617;&#3585;&#3633;&#3609;</td><td>Relative clauses combine two sentences into one.</td></tr>
+        <tr><td><strong>identify</strong></td><td>verb</td><td>&#3619;&#3632;&#3610;&#3640;&#3605;&#3633;&#3623;</td><td>Defining clauses identify which person or thing we mean.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION B: READING -->
+<div class="page gap" id="reading">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--which_lt);">&#128214;</div>
+    <div class="sh-text"><h2>Section B &mdash; Reading Passage</h2><p>A biographical article rich in relative clauses. Find and classify each one!</p></div>
+  </div>
+  <div class="ib who fade"><span class="ico">&#127912;</span><div>
+    <span class="hw hwho">PURPLE = who/whom</span> &nbsp;&middot;&nbsp;
+    <span class="hw hwhich">BLUE = which</span> &nbsp;&middot;&nbsp;
+    <span class="hw hwhose">AMBER = whose</span> &nbsp;&middot;&nbsp;
+    <span class="hw hwhere">GREEN = where</span> &nbsp;&middot;&nbsp;
+    <span class="hw hthat">RED = that</span>
+  </div></div>
+  <div class="rbox fade">
+    <div class="rhead"><h3>The Architect of Change</h3><span>~180 words &middot; Biography &middot; B1</span></div>
+    <div class="rbody">
+      <p>Dr Amara is a scientist <span class="hw hwho">who</span> has dedicated her life to environmental research. She grew up in a small village <span class="hw hwhere">where</span> clean water was scarce. This early experience, <span class="hw hwhich">which</span> shaped her entire career, inspired her to study environmental engineering.</p>
+      <p>At university, she met Professor Chan, <span class="hw hwho">whose</span> groundbreaking research on water purification had already changed thousands of lives. She became his student, and the laboratory <span class="hw hwhere">where</span> they worked together became famous worldwide.</p>
+      <p>Dr Amara developed a low-cost filter <span class="hw hthat">that</span> can purify water using sunlight. The device, <span class="hw hwhich">which</span> costs less than ten dollars to produce, has now been distributed to over fifty countries. The communities <span class="hw hthat">that</span> use her device report a dramatic improvement in health.</p>
+      <p>Last year was the year <span class="hw hwhich">when</span> she received the Global Innovation Prize &mdash; an award <span class="hw hthat">that</span> recognises scientists <span class="hw hwho">who</span> make a real difference in the world.</p>
+    </div>
+  </div>
+
+  <div class="exh" style="margin-top:4px;"><div class="exn" style="background:var(--who);">Q</div><div><h3>Reading Comprehension</h3><p>Click to check your answer.</p></div></div>
+  <div class="exb">
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">1</span> "This early experience, which shaped her entire career, inspired her…" — what type of relative clause is this?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Defining — it tells us which experience</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Non-defining — it adds extra information about an already-identified noun</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> It is not a relative clause</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Defining — "that" could replace "which"</div>
+      </div>
+      <div class="fb ok">&#10003; Non-defining: The commas and "which" show this is non-defining. "This early experience" is already identified — the clause adds extra (non-essential) information about it.</div>
+      <div class="fb no">&#10007; The commas are the key clue. Non-defining clauses use commas and "which" (never "that").</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">2</span> "Professor Chan, whose groundbreaking research…" — why is "whose" used here?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Because Professor Chan is a place</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Because it shows that the research BELONGS to Professor Chan (possession)</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Because "whose" can replace "who" in any sentence</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Because "which" cannot be used for people</div>
+      </div>
+      <div class="fb ok">&#10003; "Whose" is used to show possession. "Whose research" = the research belonging to Professor Chan. "Whose" replaces "his/her/their" before a noun.</div>
+      <div class="fb no">&#10007; "Whose" = showing possession (belonging to someone/something). It replaces "his/her/their/its + noun".</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">3</span> "a low-cost filter that can purify water" — could "that" be replaced with "which" here?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> Yes — "that" and "which" are interchangeable in defining clauses for things</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> No — "that" can never be replaced with "which"</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> No — "that" is only used for people</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Yes — but only if we add commas</div>
+      </div>
+      <div class="fb ok">&#10003; In a DEFINING clause referring to things, "that" and "which" are both correct. "A filter which can purify water" ✓ or "A filter that can purify water" ✓. Both are acceptable.</div>
+      <div class="fb no">&#10007; In defining clauses for things, "that" and "which" are interchangeable. Adding commas would make it non-defining (and then "that" would be wrong).</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION C: GRAMMAR -->
+<div class="page gap" id="grammar">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--who_lt);">&#128279;</div>
+    <div class="sh-text"><h2>Section C &mdash; Relative Pronouns</h2><p>Click each pronoun to see its rules, uses, and examples. Thai explanations included.</p></div>
+  </div>
+  <div class="ib who fade"><span class="ico">&#128295;</span><div>
+    <strong>What is a relative clause?</strong><br>
+    A relative clause is a type of subordinate clause that modifies (describes) a noun. It usually comes directly after the noun it modifies (the antecedent).<br>
+    <em>"The man <strong>who called you</strong> is my uncle."</em> — "who called you" describes "the man"
+  </div></div>
+
+  <!-- WHO -->
+  <div class="rp-card fade" style="border-top:4px solid var(--who);">
+    <div class="rp-head" style="background:var(--who_lt);" onclick="toggleRP(this)">
+      <span class="rp-badge" style="background:var(--who);color:#fff;">who</span>
+      <div class="rp-title"><h3 style="color:var(--who);">WHO</h3><p>For people — as subject or object of the relative clause</p></div>
+      <span class="rp-chev" style="color:var(--who);">&#8250;</span>
+    </div>
+    <div class="rp-body">
+      <div class="ib who"><span class="ico">&#128101;</span><div>Use <strong>who</strong> when referring to <strong>people</strong>. It can be the subject or object of the relative clause. (Thai: &#3625;&#3638;&#3656;&#3591; / &#3604;&#3657;&#3623;&#3618; = &#3588;&#3609;&#3607;&#3637;&#3656;)</div></div>
+      <div class="ex-row" style="background:var(--who_lt);">
+        <strong>Subject:</strong> The student <strong>who</strong> won the prize is in my class.<br>
+        <span class="th">&#3609;&#3633;&#3585;&#3648;&#3619;&#3637;&#3618;&#3609;&#3607;&#3637;&#3656;&#3652;&#3604;&#3657;&#3619;&#3633;&#3591;&#3623;&#3633;&#3621;&#3629;&#3618;&#3641;&#3656;&#3651;&#3609;&#3651;&#3594;&#3617;&#3633;&#3609;&#3648;&#3604;&#3637;&#3618;&#3623;&#3585;&#3633;&#3609;&#3623;&#3633;&#3609;&#3601;&#3660; (who = &#3611;&#3619;&#3632;&#3608;&#3634;&#3609;&#3586;&#3629;&#3591;&#3629;&#3609;&#3640;&#3611;&#3619;&#3632;&#3650;&#3618;&#3588;)</span>
+      </div>
+      <div class="ex-row" style="background:var(--who_lt);">
+        <strong>Object:</strong> The teacher <strong>who</strong> I admire most taught us last year.<br>
+        <span class="th">&#3588;&#3619;&#3641;&#3607;&#3637;&#3656;&#3609;&#3650;&#3618;&#3581;&#3619;&#3656;&#3623;&#3617;&#3594;&#3617;&#3648;&#3594;&#3618;&#3605;&#3619;&#3656;&#3623;&#3610;&#3626;&#3629;&#3609;&#3648;&#3619;&#3634;&#3648;&#3617;&#3639;&#3656;&#3629;&#3611;&#3637;&#3607;&#3637;&#3656;&#3649;&#3621;&#3657;&#3623; (who = &#3585;&#3619;&#3619;&#3617;&#3586;&#3629;&#3591;&#3629;&#3609;&#3640;&#3611;&#3619;&#3632;&#3650;&#3618;&#3588;)</span>
+      </div>
+      <div class="ib gold"><span class="ico">&#128161;</span><div>When "who" is the OBJECT, it can be replaced by <strong>whom</strong> (formal) or omitted entirely in defining clauses:<br><em>"The teacher <strong>whom</strong> I admire…" (formal) / "The teacher I admire…" (omitted)</em></div></div>
+    </div>
+  </div>
+
+  <!-- WHOM -->
+  <div class="rp-card fade" style="border-top:4px solid var(--who);">
+    <div class="rp-head" style="background:var(--who_lt);" onclick="toggleRP(this)">
+      <span class="rp-badge" style="background:var(--who);color:#fff;">whom</span>
+      <div class="rp-title"><h3 style="color:var(--who);">WHOM</h3><p>For people — formal object form of "who"</p></div>
+      <span class="rp-chev" style="color:var(--who);">&#8250;</span>
+    </div>
+    <div class="rp-body">
+      <div class="ib who"><span class="ico">&#128101;</span><div><strong>Whom</strong> is the formal/written object form of "who". Use it after prepositions or when the relative pronoun is the object. (Thai: &#3625;&#3638;&#3656;&#3591;...&#3648;&#3586;&#3634; / &#3605;&#3633;&#3623;&#3652;&#3627;&#3609; = &#3648;&#3591;&#3639;&#3656;&#3629;&#3609;&#3652;&#3586;&#3617;&#3634;&#3605;&#3619;&#3600;&#3634;&#3609;)</div></div>
+      <div class="ex-row" style="background:var(--who_lt);">
+        The man <strong>whom</strong> she married is a doctor.<br>
+        <span class="th">&#3614;&#3656;&#3629;&#3618;&#3604;&#3637;&#3586;&#3629;&#3591;&#3648;&#3608;&#3629;&#3648;&#3611;&#3655;&#3609;&#3627;&#3617;&#3629; (whom = &#3585;&#3619;&#3619;&#3617;&#3082;&#3637;&#3618;&#3617;&#3616;&#3634;&#3614;&#3626;&#3641;&#3591;)</span>
+      </div>
+      <div class="ex-row" style="background:var(--who_lt);">
+        The professor <strong>to whom</strong> I wrote replied immediately. (preposition + whom)<br>
+        <span class="th">&#3624;&#3634;&#3626;&#3605;&#3619;&#3634;&#3592;&#3634;&#3619;&#3618;&#3660;&#3607;&#3637;&#3656;&#3609;&#3650;&#3618;&#3581;&#3648;&#3586;&#3637;&#3618;&#3609;&#3606;&#3638;&#3591;&#3605;&#3629;&#3610;&#3604;&#3657;&#3623;&#3618; (whom &#3627;&#3621;&#3633;&#3591; preposition)</span>
+      </div>
+      <div class="ib bad"><span class="ico">&#10060;</span><div><strong>Exam trap:</strong> In modern/informal English, "whom" is often replaced by "who". But after a preposition, "whom" is required: "the person <strong>to whom</strong> I spoke" (NOT "to who").</div></div>
+    </div>
+  </div>
+
+  <!-- WHICH -->
+  <div class="rp-card fade" style="border-top:4px solid var(--which);">
+    <div class="rp-head" style="background:var(--which_lt);" onclick="toggleRP(this)">
+      <span class="rp-badge" style="background:var(--which);color:#fff;">which</span>
+      <div class="rp-title"><h3 style="color:var(--which);">WHICH</h3><p>For things, animals, or entire clauses</p></div>
+      <span class="rp-chev" style="color:var(--which);">&#8250;</span>
+    </div>
+    <div class="rp-body">
+      <div class="ib blue"><span class="ico">&#128218;</span><div>Use <strong>which</strong> for things, animals, or to refer to an entire preceding clause. (Thai: &#3625;&#3638;&#3656;&#3591; = &#3626;&#3636;&#3656;&#3591;&#3586;&#3629;&#3591; / &#3626;&#3633;&#3605;&#3623;&#3660;)</div></div>
+      <div class="ex-row" style="background:var(--which_lt);">
+        <strong>For things:</strong> The book <strong>which</strong> I borrowed was fascinating.<br>
+        <span class="th">&#3627;&#3609;&#3633;&#3591;&#3626;&#3639;&#3629;&#3607;&#3637;&#3656;&#3609;&#3650;&#3618;&#3581;&#3618;&#3639;&#3617;&#3617;&#3634;&#3609;&#3656;&#3634;&#3650;&#3594;&#3588;&#3617;&#3634;&#3585;</span>
+      </div>
+      <div class="ex-row" style="background:var(--which_lt);">
+        <strong>For entire clause:</strong> She passed the exam, <strong>which</strong> surprised everyone.<br>
+        <span class="th">&#3648;&#3608;&#3629;&#3626;&#3629;&#3610;&#3612;&#3656;&#3634;&#3609; &#3625;&#3638;&#3656;&#3591;&#3607;&#3635;&#3651;&#3627;&#3657;&#3607;&#3640;&#3585;&#3588;&#3609;&#3649;&#3611;&#3621;&#3585;&#3651;&#3592; ("which" refers to the entire idea)</span>
+      </div>
+      <div class="ib gold"><span class="ico">&#9889;</span><div>When "which" refers to an ENTIRE clause (not just a noun), it is ALWAYS non-defining and needs a comma: "She arrived late, <strong>which</strong> was very unusual."</div></div>
+    </div>
+  </div>
+
+  <!-- WHOSE -->
+  <div class="rp-card fade" style="border-top:4px solid var(--whose);">
+    <div class="rp-head" style="background:var(--whose_lt);" onclick="toggleRP(this)">
+      <span class="rp-badge" style="background:var(--whose);color:#fff;">whose</span>
+      <div class="rp-title"><h3 style="color:var(--whose);">WHOSE</h3><p>For people and things — shows possession</p></div>
+      <span class="rp-chev" style="color:var(--whose);">&#8250;</span>
+    </div>
+    <div class="rp-body">
+      <div class="ib gold"><span class="ico">&#128101;</span><div>Use <strong>whose</strong> to show possession — for both people AND things. It replaces "his/her/their/its" before a noun. (Thai: &#3607;&#3637;&#3656;&#3617;&#3637;...&#3614;&#3656;&#3648;&#3586;&#3634; / &#3607;&#3637;&#3656;&#3617;&#3637;...&#3610;&#3629;&#3585;&#3586;&#3629;&#3591;&#3602;&#3660;)</div></div>
+      <div class="ex-row" style="background:var(--whose_lt);">
+        <strong>For people:</strong> The girl <strong>whose</strong> bag was stolen reported it to the police.<br>
+        <span class="th">&#3648;&#3604;&#3655;&#3585;&#32E2;&#3640;&#3607;&#3637;&#3656;&#3627;&#3634;&#3618;&#3647;&#3620;&#3636;&#3604;&#3652;&#3611;&#3649;&#3592;&#3657;&#3591;&#3605;&#3635;&#3619;&#3623;&#3592; (whose = &#3648;&#3592;&#3657;&#3634;&#3586;&#3629;&#3591;&#3035;)</span>
+      </div>
+      <div class="ex-row" style="background:var(--whose_lt);">
+        <strong>For things:</strong> The company <strong>whose</strong> products we use is based in Japan.<br>
+        <span class="th">&#3610;&#3619;&#3636;&#3625;&#3633;&#3607;&#3607;&#3637;&#3656;&#3648;&#3619;&#3634;&#3651;&#3594;&#3657;&#32E2;&#3621;&#3636;&#3605;&#3616;&#3633;&#3603;&#311D;&#3608;&#3660;&#3605;&#3633;&#3657;&#3591;&#3629;&#3618;&#3641;&#3656;&#3651;&#3609;&#3434;&#3637;&#3656;&#3611;&#3640;&#3656;&#3609; (whose &#3626;&#3635;&#3627;&#3619;&#3633;&#3610;&#3626;&#3636;&#3656;&#3591;&#3586;&#3629;&#3591;)</span>
+      </div>
+      <div class="ib bad"><span class="ico">&#10060;</span><div><strong>Common error:</strong> <s>"The student which bag was stolen…"</s> ✗ → Use "whose" for possession, NOT "which": "The student <strong>whose</strong> bag was stolen…" ✓</div></div>
+    </div>
+  </div>
+
+  <!-- WHERE -->
+  <div class="rp-card fade" style="border-top:4px solid var(--where);">
+    <div class="rp-head" style="background:var(--where_lt);" onclick="toggleRP(this)">
+      <span class="rp-badge" style="background:var(--where);color:#fff;">where</span>
+      <div class="rp-title"><h3 style="color:var(--where);">WHERE</h3><p>For places</p></div>
+      <span class="rp-chev" style="color:var(--where);">&#8250;</span>
+    </div>
+    <div class="rp-body">
+      <div class="ib def"><span class="ico">&#128205;</span><div>Use <strong>where</strong> when the antecedent is a place. It replaces "in which / at which / on which". (Thai: &#3607;&#3637;&#3656;&#3624;&#3638;&#3656;&#3591; = &#3626;&#3606;&#3634;&#3609;&#3607;&#3637;&#3656;)</div></div>
+      <div class="ex-row" style="background:var(--where_lt);">
+        The city <strong>where</strong> I was born is very beautiful.<br>
+        <span class="th">&#3648;&#3617;&#3639;&#3629;&#3591;&#3607;&#3637;&#3656;&#3609;&#3650;&#3618;&#3581;&#3648;&#3585;&#3636;&#3604;&#3617;&#3634;&#3653;&#3609;&#3604;&#3637;&#3617;&#3634;&#3585; (where = in which)</span>
+      </div>
+      <div class="ex-row" style="background:var(--where_lt);">
+        The restaurant <strong>where</strong> we had dinner has closed down.<br>
+        <span class="th">&#3619;&#3657;&#3634;&#3609;&#3629;&#3634;&#3627;&#3634;&#3619;&#3607;&#3637;&#3656;&#3648;&#3619;&#3634;&#3652;&#3611;&#3607;&#3634;&#3609;&#3586;&#3657;&#3634;&#3623;&#3648;&#3618;&#3655;&#3609;&#31B9;&#3619;&#3657;&#3648;&#3621;&#3618;</span>
+      </div>
+      <div class="ib def"><span class="ico">&#128161;</span><div>"Where" = "in which" / "at which". Both are correct:<br><em>"The town <strong>where</strong> she lives" = "The town <strong>in which</strong> she lives"</em></div></div>
+    </div>
+  </div>
+
+  <!-- WHEN -->
+  <div class="rp-card fade" style="border-top:4px solid var(--def);">
+    <div class="rp-head" style="background:var(--def_lt);" onclick="toggleRP(this)">
+      <span class="rp-badge" style="background:var(--def);color:#fff;">when</span>
+      <div class="rp-title"><h3 style="color:var(--def);">WHEN</h3><p>For time expressions</p></div>
+      <span class="rp-chev" style="color:var(--def);">&#8250;</span>
+    </div>
+    <div class="rp-body">
+      <div class="ib def"><span class="ico">&#128336;</span><div>Use <strong>when</strong> when the antecedent is a time expression (day, year, moment, time, etc.). It replaces "in which / on which / at which". (Thai: &#3648;&#3617;&#3639;&#3656;&#3629; = &#3648;&#3623;&#3621;&#3634;)</div></div>
+      <div class="ex-row" style="background:var(--def_lt);">
+        I remember the day <strong>when</strong> we first met.<br>
+        <span class="th">&#3609;&#3650;&#3618;&#3581;&#3592;&#3635;&#3623;&#3633;&#3609;&#3607;&#3637;&#3656;&#3648;&#3619;&#3634;&#3614;&#3610;&#3585;&#3633;&#3609;&#3588;&#3619;&#3633;&#3657;&#3591;&#3649;&#3619;&#3585;&#3652;&#3604;&#3657;</span>
+      </div>
+      <div class="ex-row" style="background:var(--def_lt);">
+        2020 was the year <strong>when</strong> everything changed.<br>
+        <span class="th">&#3611;&#3637; 2020 &#3648;&#3611;&#3655;&#3609;&#3611;&#3637;&#3607;&#3637;&#3656;&#3607;&#3640;&#3585;&#3629;&#3618;&#3656;&#3634;&#3591;&#3648;&#3611;&#3621;&#3637;&#3656;&#3618;&#3609;&#3649;&#3611;&#3621;&#3591;&#3652;&#3611;</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- THAT -->
+  <div class="rp-card fade" style="border-top:4px solid var(--that);">
+    <div class="rp-head" style="background:var(--that_lt);" onclick="toggleRP(this)">
+      <span class="rp-badge" style="background:var(--that);color:#fff;">that</span>
+      <div class="rp-title"><h3 style="color:var(--that);">THAT</h3><p>For people OR things — ONLY in defining clauses</p></div>
+      <span class="rp-chev" style="color:var(--that);">&#8250;</span>
+    </div>
+    <div class="rp-body">
+      <div class="ib def"><span class="ico">&#128161;</span><div>Use <strong>that</strong> for people OR things, but ONLY in defining (restrictive) relative clauses. It can NEVER be used in non-defining clauses. (Thai: &#3607;&#3637;&#3656; / &#3608;&#3655;&#3617; / &#3625;&#3638;&#3656;&#3591; = &#3648;&#3607;&#3656;&#3634;&#3609;&#3633;&#3657;&#3609;&#3651;&#3609;&#32E1;&#3619;&#3632;&#3650;&#3618;&#3588;&#3592;&#3635;&#3648;&#3611;&#3655;&#3609;)</div></div>
+      <div class="ex-row" style="background:var(--that_lt);">
+        <strong>For people:</strong> The boy <strong>that</strong> broke the window ran away.<br>
+        <em style="font-size:13px;color:var(--muted);">(= The boy who broke the window ran away.)</em>
+      </div>
+      <div class="ex-row" style="background:var(--that_lt);">
+        <strong>For things:</strong> The car <strong>that</strong> I want to buy is very expensive.<br>
+        <em style="font-size:13px;color:var(--muted);">(= The car which I want to buy is very expensive.)</em>
+      </div>
+      <div class="ib bad"><span class="ico">&#10060;</span><div>
+        <strong>NEVER use "that" in non-defining clauses:</strong><br>
+        <s>"My sister, <strong>that</strong> lives in Bangkok, is a nurse."</s> ✗<br>
+        → "My sister, <strong>who</strong> lives in Bangkok, is a nurse." ✓
+      </div></div>
+      <div class="ib good"><span class="ico">&#128293;</span><div>
+        <strong>"That" is PREFERRED (over "which") after:</strong><br>
+        • Superlatives: "the best film <strong>that</strong> I've ever seen"<br>
+        • "the only": "the only person <strong>that</strong> can help"<br>
+        • "the first/last": "the last train <strong>that</strong> leaves tonight"<br>
+        • "all, everything, nothing, something": "everything <strong>that</strong> you need"
+      </div></div>
+    </div>
+  </div>
+
+  <!-- QUICK REF -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:36px 0 16px;">Quick Reference — All Relative Pronouns</h3>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Pronoun</th><th>Used for</th><th>Subject</th><th>Object</th><th>Can omit?</th><th>Defining only?</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:var(--who);">who</strong></td><td>people</td><td>&#10003;</td><td>&#10003;</td><td>Only if object</td><td>No (both)</td></tr>
+        <tr><td><strong style="color:var(--who);">whom</strong></td><td>people (formal)</td><td>&#10007;</td><td>&#10003;</td><td>Only if object</td><td>No (both)</td></tr>
+        <tr><td><strong style="color:var(--which);">which</strong></td><td>things / entire clause</td><td>&#10003;</td><td>&#10003;</td><td>Only if object (defining)</td><td>No (both)</td></tr>
+        <tr><td><strong style="color:var(--whose);">whose</strong></td><td>people &amp; things (possession)</td><td>&#10003;</td><td>&#10003;</td><td>&#10007;</td><td>No (both)</td></tr>
+        <tr><td><strong style="color:var(--where);">where</strong></td><td>places</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>No (both)</td></tr>
+        <tr><td><strong style="color:var(--def);">when</strong></td><td>time expressions</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>No (both)</td></tr>
+        <tr><td><strong style="color:var(--that);">that</strong></td><td>people &amp; things</td><td>&#10003;</td><td>&#10003;</td><td>Only if object</td><td><strong>YES — defining only</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION D: DEFINING vs NON-DEFINING -->
+<div class="page gap" id="defvsnon">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--non_lt);">&#128202;</div>
+    <div class="sh-text"><h2>Section D — Defining vs. Non-Defining</h2><p>The most important distinction in relative clauses — and the most tested in exams.</p></div>
+  </div>
+
+  <div class="split-box fade">
+    <div class="split-panel" style="background:var(--def_lt);border:2px solid var(--def);">
+      <h4 style="color:var(--def);">&#128994; DEFINING (Restrictive)</h4>
+      <p><strong>Identifies WHICH person/thing</strong> we mean. Without it, the sentence loses its meaning.</p>
+      <p>No commas. Can use <strong>who, which, that, whose, where, when</strong>.</p>
+      <div class="ex" style="background:var(--good_lt);border-left:3px solid var(--good);">
+        "The woman <strong>who called you</strong> is outside." <br>
+        <em style="font-size:12.5px;">(WHICH woman? — the one who called you. Essential info.)</em>
+      </div>
+      <div class="ex" style="background:var(--good_lt);border-left:3px solid var(--good);margin-top:8px;">
+        "Students <strong>who work hard</strong> usually succeed."<br>
+        <em style="font-size:12.5px;">(WHICH students? — the ones who work hard.)</em>
+      </div>
+    </div>
+    <div class="split-panel" style="background:var(--non_lt);border:2px solid var(--non);">
+      <h4 style="color:var(--non);">&#128992; NON-DEFINING (Non-Restrictive)</h4>
+      <p><strong>Adds extra information</strong> about an already-identified noun. Remove it and the sentence still makes sense.</p>
+      <p>Always has commas. Use <strong>who, which, whose, where, when</strong> — NEVER "that".</p>
+      <div class="ex" style="background:var(--non_lt);border-left:3px solid var(--non);">
+        "My mother, <strong>who is a doctor</strong>, works at this hospital."<br>
+        <em style="font-size:12.5px;">(We already know which mother — "who is a doctor" is extra info.)</em>
+      </div>
+      <div class="ex" style="background:var(--non_lt);border-left:3px solid var(--non);margin-top:8px;">
+        "Paris, <strong>which is the capital of France</strong>, is beautiful."<br>
+        <em style="font-size:12.5px;">(Paris is already identified. The clause adds extra info.)</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="twrap fade" style="margin-top:24px;">
+    <table>
+      <thead><tr><th>Feature</th><th>&#128994; Defining</th><th>&#128992; Non-Defining</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Commas</strong></td><td>NO commas</td><td>ALWAYS commas (before and after)</td></tr>
+        <tr><td><strong>Can use "that"?</strong></td><td>&#10003; Yes</td><td>&#10007; NEVER</td></tr>
+        <tr><td><strong>Can omit pronoun?</strong></td><td>&#10003; Yes (if object)</td><td>&#10007; Never</td></tr>
+        <tr><td><strong>Information type</strong></td><td>Essential — identifies WHICH one</td><td>Extra — adds information</td></tr>
+        <tr><td><strong>Remove the clause?</strong></td><td>Sentence loses meaning</td><td>Sentence still makes sense</td></tr>
+        <tr><td><strong>Pronouns allowed</strong></td><td>who, whom, which, that, whose, where, when</td><td>who, whom, which, whose, where, when (NOT that)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ib bad fade"><span class="ico">&#10060;</span><div>
+    <strong>The 3 Most Common Errors:</strong><br>
+    1. Using "that" in a non-defining clause: <s>"My sister, <strong>that</strong> is a nurse…"</s> ✗ → use "who"<br>
+    2. Forgetting commas in non-defining clauses: <s>"My sister who is a nurse works here."</s> ✗ (if this is non-defining, add commas)<br>
+    3. Confusing "whose" with "who's": <s>"The man <strong>who's</strong> car was stolen…"</s> ✗ → "who's" = "who is" — use <strong>whose</strong> for possession
+  </div></div>
+
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:32px 0 16px;">Omitting the Relative Pronoun</h3>
+  <div class="ib who fade"><span class="ico">&#128161;</span><div>
+    A relative pronoun can be omitted ONLY when it is the <strong>object</strong> in a <strong>defining</strong> clause.<br>
+    <em>"The film <strong>that</strong> I watched was amazing." → "The film I watched was amazing." ✓ (omitted)</em><br>
+    But if it is the SUBJECT, it CANNOT be omitted:<br>
+    <em>"The film <strong>that</strong> won the award was amazing." → ✗ Cannot omit — "that" is the subject here.</em>
+  </div></div>
+
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Sentence</th><th>Role of Pronoun</th><th>Can Omit?</th></tr></thead>
+      <tbody>
+        <tr><td>"The book <strong>that</strong> I read was interesting."</td><td>Object (I = subject, book = object)</td><td>&#10003; Yes → "The book I read…"</td></tr>
+        <tr><td>"The book <strong>that</strong> won the prize was interesting."</td><td>Subject (book = subject)</td><td>&#10007; No</td></tr>
+        <tr><td>"The man <strong>who</strong> she loves is kind."</td><td>Object (she = subject)</td><td>&#10003; Yes → "The man she loves…"</td></tr>
+        <tr><td>"The man <strong>who</strong> helped me is kind."</td><td>Subject (man = subject)</td><td>&#10007; No</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION E: EXERCISES -->
+<div class="page gap" id="exercises">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--bad_lt);">&#9999;</div>
+    <div class="sh-text"><h2>Section E — Exercises</h2><p>Five activities covering all relative pronouns and both clause types.</p></div>
+  </div>
+
+  <!-- EX 1 -->
+  <div class="exh"><div class="exn" style="background:var(--who);">1</div><div><h3>Choose the Correct Relative Pronoun</h3><p>Select who, whom, which, whose, where, when, or that.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Think about the antecedent (the noun before the blank) and the pronoun's role in the clause.</div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> The woman _____ called yesterday is my aunt.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> whose</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> where</div>
+      </div>
+      <div class="fb ok">&#10003; "Who" — the antecedent is "the woman" (a person). "Who" is the subject of the relative clause (she called).</div>
+      <div class="fb no">&#10007; The antecedent "the woman" is a person → use "who" (or "that" in defining clauses).</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> This is the village _____ my grandfather was born.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> that</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> where</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> when</div>
+      </div>
+      <div class="fb ok">&#10003; "Where" — "the village" is a place. "Where" = "in which". "The village where my grandfather was born."</div>
+      <div class="fb no">&#10007; The antecedent "village" is a place → use "where".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> The scientist _____ research changed the world received a Nobel Prize.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> which</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> whose</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> whom</div>
+      </div>
+      <div class="fb ok">&#10003; "Whose" — the research BELONGS to the scientist (possession). "Whose research" = "his/her research".</div>
+      <div class="fb no">&#10007; "Research" belongs to "the scientist" → use "whose" to show possession.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> I remember the summer _____ we went to Chiang Mai together.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> where</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> when</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> whose</div>
+      </div>
+      <div class="fb ok">&#10003; "When" — "the summer" is a time expression. "When" = "in which" for time.</div>
+      <div class="fb no">&#10007; The antecedent "the summer" is a time expression → use "when".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> The book _____ she recommended is out of stock.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> that</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> whose</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> where</div>
+      </div>
+      <div class="fb ok">&#10003; "That" (or "which") — "the book" is a thing. "That" is the object of "recommended" in a defining clause.</div>
+      <div class="fb no">&#10007; "The book" is a thing → use "which" or "that". "Who" is only for people.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> She introduced me to her brother, _____ is a famous chef.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> that</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> whose</div>
+      </div>
+      <div class="fb ok">&#10003; "Who" — non-defining clause (comma before), so "that" is NOT allowed. "Her brother" is a person → "who".</div>
+      <div class="fb no">&#10007; The comma shows this is non-defining → "that" is NEVER used in non-defining clauses. Use "who" for a person.</div>
+    </div>
+  </div>
+
+  <!-- EX 2: Fill-in -->
+  <div class="exh"><div class="exn" style="background:var(--which);">2</div><div><h3>Fill in the Correct Relative Pronoun</h3><p>Use who, whom, which, whose, where, when, or that.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Click Reveal to check your answer and see the rule.</div>
+    <div class="fi-item"><div class="fi-sent">1. The hotel <span class="fi-blank" id="f1">where / in which</span> we stayed had a beautiful pool.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f1','a1')">Reveal</button>
+      <div class="fi-ans" id="a1">&#10003; <strong>where</strong> (or "in which") — "the hotel" is a place → use "where".</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">2. The man <span class="fi-blank" id="f2">whose</span> wallet I found was very grateful.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f2','a2')">Reveal</button>
+      <div class="fi-ans" id="a2">&#10003; <strong>whose</strong> — the wallet BELONGS to the man. "Whose wallet" = "his wallet".</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">3. My grandmother, <span class="fi-blank" id="f3">who</span> is 85 years old, still walks five kilometres every day.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f3','a3')">Reveal</button>
+      <div class="fi-ans" id="a3">&#10003; <strong>who</strong> — non-defining clause (comma), person → "who". NEVER "that" in non-defining clauses.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">4. The film <span class="fi-blank" id="f4">that / which</span> won the Academy Award was directed by a Thai filmmaker.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f4','a4')">Reveal</button>
+      <div class="fi-ans" id="a4">&#10003; <strong>that</strong> or <strong>which</strong> — defining clause for a thing. Both are acceptable. "That" is preferred after superlatives/defining contexts.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">5. I'll never forget the moment <span class="fi-blank" id="f5">when</span> she told me the good news.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f5','a5')">Reveal</button>
+      <div class="fi-ans" id="a5">&#10003; <strong>when</strong> — "the moment" is a time expression → use "when".</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">6. The professor to <span class="fi-blank" id="f6">whom</span> I sent my essay has not replied yet.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f6','a6')">Reveal</button>
+      <div class="fi-ans" id="a6">&#10003; <strong>whom</strong> — after a preposition ("to"), always use "whom" not "who".</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">7. Chiang Mai is a city <span class="fi-blank" id="f7">where / which</span> many tourists visit every year.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f7','a7')">Reveal</button>
+      <div class="fi-ans" id="a7">&#10003; <strong>where</strong> (or "which") — "city" is a place. "Which" is also possible if tourists "visit it", making "which" the object.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">8. The company, <span class="fi-blank" id="f8">which</span> was founded in 1990, now employs over 5,000 people.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f8','a8')">Reveal</button>
+      <div class="fi-ans" id="a8">&#10003; <strong>which</strong> — non-defining clause (comma), thing → "which". NEVER "that" in non-defining clauses.</div>
+    </div>
+  </div>
+
+  <!-- EX 3: Combine Sentences -->
+  <div class="exh"><div class="exn" style="background:var(--whose);">3</div><div><h3>Combine the Sentences</h3><p>Join the two sentences using a relative clause.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Click Reveal to see the combined sentence and rule.</div>
+    <div class="fi-item">
+      <div class="fi-sent" style="margin-bottom:6px;">1. The girl is my neighbour. <em>Her</em> cat won a prize.</div>
+      <div class="fi-sent">&#8594; The girl <span class="fi-blank" id="c1">whose cat won a prize</span> is my neighbour.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('c1','ac1')">Reveal</button>
+      <div class="fi-ans" id="ac1">&#10003; "Whose cat won a prize" — "her cat" → "whose cat" (possession).</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent" style="margin-bottom:6px;">2. The restaurant is very popular. We had dinner there last night.</div>
+      <div class="fi-sent">&#8594; The restaurant <span class="fi-blank" id="c2">where we had dinner last night</span> is very popular.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('c2','ac2')">Reveal</button>
+      <div class="fi-ans" id="ac2">&#10003; "where we had dinner last night" — "there" refers to a place → use "where".</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent" style="margin-bottom:6px;">3. Shakespeare was a playwright. He wrote Hamlet.</div>
+      <div class="fi-sent">&#8594; Shakespeare, <span class="fi-blank" id="c3">who wrote Hamlet</span>, was a famous playwright.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('c3','ac3')">Reveal</button>
+      <div class="fi-ans" id="ac3">&#10003; "who wrote Hamlet" — non-defining (Shakespeare already identified, commas needed). Person → "who". NOT "that" in non-defining clauses.</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent" style="margin-bottom:6px;">4. I found a wallet. It contained a lot of money.</div>
+      <div class="fi-sent">&#8594; I found a wallet <span class="fi-blank" id="c4">that / which contained a lot of money</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('c4','ac4')">Reveal</button>
+      <div class="fi-ans" id="ac4">&#10003; "that / which contained a lot of money" — defining clause (which wallet?), thing → "that" or "which".</div>
+    </div>
+    <div class="fi-item">
+      <div class="fi-sent" style="margin-bottom:6px;">5. I will never forget 2020. Everything changed in 2020.</div>
+      <div class="fi-sent">&#8594; I will never forget 2020, <span class="fi-blank" id="c5">when everything changed</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('c5','ac5')">Reveal</button>
+      <div class="fi-ans" id="ac5">&#10003; "when everything changed" — non-defining (2020 already identified, comma), time expression → "when".</div>
+    </div>
+  </div>
+
+  <!-- EX 4: Error Correction -->
+  <div class="exh"><div class="exn" style="background:var(--that);">4</div><div><h3>Error Correction</h3><p>Each sentence has ONE relative clause error. Find and fix it.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Click "Show Correction" to see the fix and the rule.</div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">1. The man which called you is my uncle. <code style="color:var(--bad);">&#10007; which</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; The man <strong>who</strong> called you is my uncle.<br><span style="color:var(--muted);font-size:13px;">"Which" is for things. "The man" is a person → use "who" (or "that").</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">2. My sister, that lives in Phuket, is a doctor. <code style="color:var(--bad);">&#10007; that</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; My sister, <strong>who</strong> lives in Phuket, is a doctor.<br><span style="color:var(--muted);font-size:13px;">Commas = non-defining clause. "That" is NEVER used in non-defining clauses. Use "who" for people.</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">3. The student who's book was stolen reported it to the teacher. <code style="color:var(--bad);">&#10007; who's</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; The student <strong>whose</strong> book was stolen reported it to the teacher.<br><span style="color:var(--muted);font-size:13px;">"Who's" = "who is". For possession, use "whose" (no apostrophe).</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">4. Bangkok is the city which I was born. <code style="color:var(--bad);">&#10007; which</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; Bangkok is the city <strong>where</strong> I was born. (or "in which")<br><span style="color:var(--muted);font-size:13px;">"The city" is a place → use "where" (= "in which"). "Which" alone cannot replace "in which" without the preposition.</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">5. The phone which screen is cracked still works. <code style="color:var(--bad);">&#10007; which screen</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; The phone <strong>whose</strong> screen is cracked still works.<br><span style="color:var(--muted);font-size:13px;">The screen BELONGS to the phone → use "whose" even for things (not "which").</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">6. The Eiffel Tower, that was built in 1889, is in Paris. <code style="color:var(--bad);">&#10007; that</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; The Eiffel Tower, <strong>which</strong> was built in 1889, is in Paris.<br><span style="color:var(--muted);font-size:13px;">Commas = non-defining clause. "That" is NEVER used in non-defining clauses. Use "which" for things.</span></div>
+    </div>
+  </div>
+
+  <!-- EX 5: EXAM MCQ -->
+  <div class="exh"><div class="exn" style="background:linear-gradient(135deg,var(--who),var(--which));">5</div><div><h3>Exam-Style Multiple Choice (14 Questions)</h3><p>Full exam format — matches &#3617;.1 Advanced / EP / Gifted entrance exam difficulty.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Choose the best answer. No notes allowed!</div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> The woman _____ is standing by the door is my English teacher.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> whose</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> where</div>
+      </div>
+      <div class="fb ok">&#10003; "Who" — person (the woman) + subject of clause (she is standing).</div>
+      <div class="fb no">&#10007; Person + subject role → "who".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> This is the house _____ Shakespeare was born.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> that</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> where</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> when</div>
+      </div>
+      <div class="fb ok">&#10003; "Where" — "the house" is a place → "where" = "in which".</div>
+      <div class="fb no">&#10007; Place → "where".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> I met a student _____ father is a famous author.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> which</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> whose</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> whom</div>
+      </div>
+      <div class="fb ok">&#10003; "Whose" — the father BELONGS to the student (possession). "Whose father" = "his/her father".</div>
+      <div class="fb no">&#10007; Possession → "whose".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> The day _____ I graduated was the happiest day of my life.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> where</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> when</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> that</div>
+      </div>
+      <div class="fb ok">&#10003; "When" — "the day" is a time expression → "when".</div>
+      <div class="fb no">&#10007; Time expression → "when".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> The laptop _____ I bought last year has already stopped working.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> whose</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> where</div>
+      </div>
+      <div class="fb ok">&#10003; "Which" (or "that") — "the laptop" is a thing. "Which" is the object of "bought".</div>
+      <div class="fb no">&#10007; Thing + object role → "which" or "that".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> My best friend, _____ moved to Canada last year, emails me every week.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> that</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> whose</div>
+      </div>
+      <div class="fb ok">&#10003; "Who" — non-defining clause (commas), person → "who". "That" is NEVER used in non-defining clauses.</div>
+      <div class="fb no">&#10007; Commas = non-defining. "That" is forbidden in non-defining clauses. Person → "who".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">7</span> The scientist _____ discovered penicillin was Alexander Fleming.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> which</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> whose</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> where</div>
+      </div>
+      <div class="fb ok">&#10003; "Who" — person (the scientist) + subject of the clause (he discovered).</div>
+      <div class="fb no">&#10007; Person + subject → "who".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">8</span> She gave me a book, _____ I found very difficult to understand.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> that</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> whose</div>
+      </div>
+      <div class="fb ok">&#10003; "Which" — non-defining clause (comma), thing → "which". "That" is NEVER used in non-defining clauses.</div>
+      <div class="fb no">&#10007; Comma = non-defining. Thing → "which". "That" is forbidden here.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">9</span> The person to _____ you should speak is the manager.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> whom</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> whose</div>
+      </div>
+      <div class="fb ok">&#10003; "Whom" — after a preposition ("to"), always use "whom" not "who". "To whom you should speak."</div>
+      <div class="fb no">&#10007; After a preposition → "whom" (not "who").</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">10</span> It was the best holiday _____ I have ever had.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> that</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> where</div>
+      </div>
+      <div class="fb ok">&#10003; "That" — after superlatives ("the best"), "that" is preferred over "which".</div>
+      <div class="fb no">&#10007; After superlatives (the best/worst/most/least), use "that" not "which".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">11</span> The company _____ products I use has gone bankrupt.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> that</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> whose</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> who</div>
+      </div>
+      <div class="fb ok">&#10003; "Whose" — the products BELONG to the company. "Whose" is used for possession with things too.</div>
+      <div class="fb no">&#10007; "Products" belongs to the company → "whose" (possession applies to things too).</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">12</span> The film received five awards, _____ was unexpected.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> that</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> where</div>
+      </div>
+      <div class="fb ok">&#10003; "Which" — referring to the ENTIRE previous clause (the fact that it received five awards was unexpected). Always non-defining → "which".</div>
+      <div class="fb no">&#10007; "Which" refers to the entire idea in the main clause. This is always non-defining → "which", not "that".</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">13</span> Do you know the name of the person _____ left this message?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> whom</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> which</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> whose</div>
+      </div>
+      <div class="fb ok">&#10003; "Who" — person + subject (the person left the message). "Who" is the subject of the relative clause.</div>
+      <div class="fb no">&#10007; Person + subject role → "who". "Whom" is for the object position.</div>
+    </div>
+    <div class="mcq"><div class="mcq-q"><span class="qn">14</span> The only student _____ passed the exam was given a scholarship.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> which</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> who</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> whom</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> where</div>
+      </div>
+      <div class="fb ok">&#10003; "Who" — person + subject. After "the only", "that" is also acceptable: "the only student that passed." But "who" is the safest answer.</div>
+      <div class="fb no">&#10007; Person + subject → "who" (or "that" after "the only").</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION F: REVIEW -->
+<div class="page gap" id="review">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--good_lt);">&#11088;</div>
+    <div class="sh-text"><h2>Section F &mdash; Unit Review</h2><p>Summary of all relative pronouns + self-evaluation checklist.</p></div>
+  </div>
+  <div class="ib bad fade"><span class="ico">&#128680;</span><div>
+    <strong>Top 8 Exam Traps:</strong>
+    <ol style="margin-top:10px;padding-left:20px;font-size:14px;line-height:2.1;">
+      <li>"The man <s>which</s> called…" ✗ → "The man <strong>who</strong> called…" ✓ — "which" is for things, not people</li>
+      <li>"My sister, <s>that</s> lives in…" ✗ → "My sister, <strong>who</strong> lives in…" ✓ — "that" NEVER in non-defining clauses</li>
+      <li>"<s>Who's</s> bag" ✗ → "<strong>Whose</strong> bag" ✓ — "who's" = "who is"; "whose" = possession</li>
+      <li>"The city <s>which</s> I was born" ✗ → "The city <strong>where</strong> I was born" ✓ — place → "where"</li>
+      <li>Forgetting commas in non-defining clauses: "My father who is 60 is still working." → add commas if non-defining</li>
+      <li>"To <s>who</s> I spoke" ✗ → "To <strong>whom</strong> I spoke" ✓ — preposition + "whom"</li>
+      <li>"The phone <s>which</s> screen is cracked" ✗ → "The phone <strong>whose</strong> screen is cracked" ✓ — possession for things = "whose"</li>
+      <li>After superlatives, use "that" not "which": "the best film <s>which</s>" ✗ → "the best film <strong>that</strong>" ✓</li>
+    </ol>
+  </div></div>
+  <div class="twrap fade" style="margin-top:24px;">
+    <table>
+      <thead><tr><th>Pronoun</th><th>Used for</th><th>Key Rule</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong style="color:var(--who);">who</strong></td><td>People</td><td>Subject or object; both defining &amp; non-defining</td><td>The woman who called is my aunt.</td></tr>
+        <tr><td><strong style="color:var(--who);">whom</strong></td><td>People (formal)</td><td>Object only; required after prepositions</td><td>The man to whom I spoke was helpful.</td></tr>
+        <tr><td><strong style="color:var(--which);">which</strong></td><td>Things / whole clause</td><td>Both defining &amp; non-defining; after prepositions</td><td>The book which I read was fascinating.</td></tr>
+        <tr><td><strong style="color:var(--whose);">whose</strong></td><td>People &amp; things (possession)</td><td>Replaces his/her/their/its + noun</td><td>The girl whose bag was stolen...</td></tr>
+        <tr><td><strong style="color:var(--where);">where</strong></td><td>Places</td><td>Replaces "in/at/on which"</td><td>The city where I was born...</td></tr>
+        <tr><td><strong style="color:var(--def);">when</strong></td><td>Time expressions</td><td>Replaces "in/at/on which" for time</td><td>The day when we met...</td></tr>
+        <tr><td><strong style="color:var(--that);">that</strong></td><td>People &amp; things</td><td>ONLY in defining clauses; preferred after superlatives/the only/the first</td><td>The best film that I've ever seen...</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:32px;" class="fade">
+    <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:16px;">Self-Evaluation Checklist — "I Can…"</h3>
+    <ul class="chk">
+      <li><input type="checkbox"> Choose the correct relative pronoun (who/which/whose/where/when/that) for any sentence.</li>
+      <li><input type="checkbox"> Explain when "whom" is required (after prepositions; formal object).</li>
+      <li><input type="checkbox"> Distinguish defining from non-defining relative clauses.</li>
+      <li><input type="checkbox"> Use commas correctly in non-defining clauses.</li>
+      <li><input type="checkbox"> Explain why "that" cannot be used in non-defining clauses.</li>
+      <li><input type="checkbox"> Know when a relative pronoun can be omitted (object in defining clause).</li>
+      <li><input type="checkbox"> Use "whose" correctly for both people and things (possession).</li>
+      <li><input type="checkbox"> Use "which" to refer to an entire preceding clause.</li>
+      <li><input type="checkbox"> Use "that" after superlatives, "the only", "the first/last".</li>
+      <li><input type="checkbox"> Combine two sentences correctly using a relative clause.</li>
+      <li><input type="checkbox"> Identify and correct the 8 most common relative clause errors.</li>
+      <li><input type="checkbox"> Score at least 12/14 on the exam-style MCQ section.</li>
+    </ul>
+  </div>
+  <div class="scoreboard fade" style="margin-top:32px;">
+    <div class="sc-num" id="scoreNum">&ndash;</div>
+    <div class="sc-txt"><h4>Your Live Score</h4><p>Click through the MCQ exercises above and your score updates automatically.</p></div>
+    <div class="sc-bar-wrap"><div class="sc-bar-lbl">Accuracy</div><div class="sc-bar"><div class="sc-fill" id="scoreFill" style="width:0%"></div></div></div>
+  </div>
+  <div class="ib good fade" style="margin-top:24px;">
+    <span class="ico">&#8594;</span>
+    <div><strong>Next Unit: Unit 8 &mdash; Reported Speech</strong><br>Master direct vs. indirect speech, backshift rules, and reporting verbs!</div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Unit 7 &middot; Relative Clauses &middot; B1 English Course</span>
+  <span>6 Relative Pronouns &middot; 50 Practice Questions</span>
+</div>
+
+<script>
+window.addEventListener('scroll',function(){
+  var d=document.documentElement;
+  document.getElementById('prog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+function toggleRP(head){head.classList.toggle('open');head.nextElementSibling.classList.toggle('open');}
+var cor=0,tot=0;
+function chk(el,r){
+  var item=el.closest('.mcq');if(item.dataset.done)return;
+  item.dataset.done='1';tot++;
+  item.querySelectorAll('.opt').forEach(function(o){o.style.pointerEvents='none';});
+  var fbs=item.querySelectorAll('.fb');
+  if(r==='c'){el.classList.add('correct');fbs[0].classList.add('show');cor++;}
+  else{el.classList.add('wrong');fbs[1].classList.add('show');
+    item.querySelectorAll('.opt').forEach(function(o){if(o.getAttribute('onclick')&&o.getAttribute('onclick').indexOf("'c'")>-1)o.classList.add('correct');});}
+  var pct=Math.round(cor/Math.max(tot,1)*100);
+  var sn=document.getElementById('scoreNum'),sf=document.getElementById('scoreFill');
+  if(sn)sn.textContent=cor+' / '+tot;if(sf)sf.style.width=pct+'%';
+}
+function showFill(id,aid){
+  var b=document.getElementById(id),a=document.getElementById(aid);
+  if(b)b.classList.add('shown');if(a)a.classList.add('show');
+}
+function showFix(btn){btn.nextElementSibling.style.display='block';btn.style.display='none';}
+</script>
+</body>
+</html>

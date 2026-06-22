@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 6 — If-Clauses / Conditionals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0fdf4; --surface:#fff; --ink:#14532d; --muted:#4b7a5a;
+  --rule:#bbf7d0; --grey_lt:#f0fdf4;
+  --t0:#0284c7;   --t0_lt:#e0f2fe;
+  --t1:#16a34a;   --t1_lt:#dcfce7;
+  --t2:#9333ea;   --t2_lt:#f3e8ff;
+  --t3:#dc2626;   --t3_lt:#fee2e2;
+  --mix:#d97706;  --mix_lt:#fef9c3;
+  --good:#15803d; --good_lt:#f0fdf4;
+  --bad:#dc2626;  --bad_lt:#fef2f2;
+  --r:14px; --sh:0 4px 24px rgba(20,83,45,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--ink);font-size:15.5px;line-height:1.75;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fade{animation:fadeUp .5s ease both;}
+.fade:nth-child(1){animation-delay:.04s}.fade:nth-child(2){animation-delay:.10s}
+.fade:nth-child(3){animation-delay:.16s}.fade:nth-child(4){animation-delay:.22s}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--t0),var(--t1),var(--t2),var(--t3));z-index:9999;width:0%;}
+
+.cover{min-height:100vh;background:var(--surface);display:flex;flex-direction:column;justify-content:center;padding:80px 6%;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(22,163,74,.08) 0%,transparent 60%);top:-250px;right:-200px;}
+.cover::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(147,51,234,.06) 0%,transparent 60%);bottom:-200px;left:-150px;}
+.cover-inner{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+.utag{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--rule);padding:7px 18px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:30px;font-family:'Space Mono',monospace;}
+.utag i{width:8px;height:8px;border-radius:50%;background:var(--t1);display:inline-block;}
+.cover h1{font-family:'Fraunces',serif;font-size:clamp(40px,6.5vw,80px);font-weight:900;line-height:1.05;margin-bottom:22px;}
+.cover h1 .hl{font-style:italic;color:var(--t1);}
+.cover-sub{font-size:17px;color:var(--muted);max-width:560px;margin-bottom:44px;line-height:1.7;}
+
+.type-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px;}
+.tpill{padding:12px 22px;border-radius:12px;font-weight:800;font-size:14px;font-family:'Space Mono',monospace;display:flex;flex-direction:column;gap:4px;}
+.tp0{background:var(--t0_lt);color:var(--t0);} .tp1{background:var(--t1_lt);color:var(--t1);}
+.tp2{background:var(--t2_lt);color:var(--t2);} .tp3{background:var(--t3_lt);color:var(--t3);}
+.tp-mix{background:var(--mix_lt);color:var(--mix);}
+.tpill small{font-size:11px;opacity:.7;font-family:'Manrope',sans-serif;font-weight:500;}
+
+.cstats{display:flex;gap:2px;flex-wrap:wrap;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;max-width:600px;}
+.cstat{flex:1;min-width:110px;padding:18px 20px;background:var(--surface);text-align:center;border-right:1px solid var(--rule);}
+.cstat:last-child{border-right:none;}
+.cstat-n{font-family:'Fraunces',serif;font-size:32px;font-weight:900;line-height:1;color:var(--t1);}
+.cstat-l{font-size:12px;color:var(--muted);margin-top:4px;}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(240,253,244,.94);border-bottom:1px solid var(--rule);backdrop-filter:blur(10px);padding:0 6%;display:flex;gap:0;overflow-x:auto;}
+.nav a{color:var(--muted);text-decoration:none;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:15px 16px;white-space:nowrap;border-bottom:2px solid transparent;transition:.18s;font-family:'Space Mono',monospace;}
+.nav a:hover{color:var(--t1);border-bottom-color:var(--t1);}
+
+.page{max-width:920px;margin:0 auto;padding:60px 24px;}
+.gap{margin-bottom:72px;}
+.sh{display:flex;align-items:flex-start;gap:18px;margin-bottom:36px;}
+.sh-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.sh-text h2{font-family:'Fraunces',serif;font-size:27px;font-weight:700;line-height:1.2;}
+.sh-text p{font-size:14px;color:var(--muted);margin-top:3px;}
+
+/* CONDITIONAL TYPE CARDS */
+.cond-card{background:var(--surface);border-radius:var(--r);overflow:hidden;margin-bottom:16px;box-shadow:var(--sh);}
+.cond-head{padding:22px 26px;display:flex;align-items:center;gap:16px;cursor:pointer;border-bottom:1px solid transparent;}
+.cond-head:hover{filter:brightness(.97);}
+.cond-head.open{border-bottom-color:rgba(0,0,0,.08);}
+.cond-badge{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:22px;font-weight:900;flex-shrink:0;}
+.cond-title{flex:1;}
+.cond-title h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;}
+.cond-title p{font-size:13px;color:var(--muted);margin-top:3px;}
+.cond-tag{padding:5px 14px;border-radius:100px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;white-space:nowrap;}
+.cond-chev{font-size:20px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+.cond-head.open .cond-chev{transform:rotate(90deg);}
+.cond-body{padding:0 26px;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;}
+.cond-body.open{max-height:2000px;padding:0 26px 26px;}
+
+/* FORMULA BOX */
+.formula-box{border-radius:12px;padding:18px 22px;margin:16px 0;font-family:'Space Mono',monospace;font-size:13.5px;}
+.formula-part{display:inline;}
+.formula-if{font-weight:700;} .formula-comma{color:var(--muted);}
+
+/* EXAMPLE ROWS */
+.ex-row{display:flex;gap:12px;padding:11px 16px;border-radius:10px;margin-bottom:8px;font-size:14px;align-items:flex-start;}
+.ex-row:last-child{margin-bottom:0;}
+.ex-icon{font-size:16px;flex-shrink:0;margin-top:2px;}
+.ex-content{flex:1;line-height:1.6;}
+.ex-en{font-size:14.5px;}
+.ex-th{font-size:13px;color:var(--muted);margin-top:2px;}
+
+/* INFO BOX */
+.ib{border-radius:var(--r);padding:16px 20px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.6;}
+.ib .ico{font-size:18px;flex-shrink:0;}
+.ib.gold{background:var(--mix_lt);border-left:3px solid var(--mix);}
+.ib.bad {background:var(--bad_lt); border-left:3px solid var(--bad);}
+.ib.good{background:var(--good_lt);border-left:3px solid var(--good);}
+.ib.t0  {background:var(--t0_lt);  border-left:3px solid var(--t0);}
+.ib.t1  {background:var(--t1_lt);  border-left:3px solid var(--t1);}
+.ib.t2  {background:var(--t2_lt);  border-left:3px solid var(--t2);}
+.ib.t3  {background:var(--t3_lt);  border-left:3px solid var(--t3);}
+.ib.mix {background:var(--mix_lt); border-left:3px solid var(--mix);}
+
+/* TABLE */
+.twrap{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin:18px 0;overflow-x:auto;box-shadow:var(--sh);}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+thead tr{background:var(--ink);}
+thead th{padding:12px 14px;text-align:left;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top;}
+tbody tr:nth-child(even){background:var(--grey_lt);}
+tbody tr:last-child td{border-bottom:none;}
+code{font-family:'Space Mono',monospace;font-size:13px;background:rgba(0,0,0,.06);padding:2px 6px;border-radius:5px;}
+
+/* READING */
+.rbox{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:24px;box-shadow:var(--sh);}
+.rhead{background:var(--ink);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.rhead h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.rhead span{font-family:'Space Mono',monospace;font-size:11px;opacity:.6;}
+.rbody{padding:28px;font-size:15.5px;line-height:2.1;}
+.rbody p{margin-bottom:14px;}.rbody p:last-child{margin-bottom:0;}
+.h0{background:var(--t0_lt);color:var(--t0);font-weight:700;padding:1px 5px;border-radius:4px;}
+.h1{background:var(--t1_lt);color:var(--t1);font-weight:700;padding:1px 5px;border-radius:4px;}
+.h2{background:var(--t2_lt);color:var(--t2);font-weight:700;padding:1px 5px;border-radius:4px;}
+.h3{background:var(--t3_lt);color:var(--t3);font-weight:700;padding:1px 5px;border-radius:4px;}
+
+/* EXERCISES */
+.exh{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r) var(--r) 0 0;padding:18px 24px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--rule);box-shadow:var(--sh);}
+.exn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:17px;font-weight:900;flex-shrink:0;color:#fff;}
+.exh h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;}
+.exh p{font-size:13px;color:var(--muted);margin-top:2px;}
+.exb{background:var(--grey_lt);border:1px solid var(--rule);border-top:none;border-radius:0 0 var(--r) var(--r);padding:28px;margin-bottom:28px;}
+.ex-inst{font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--t1);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:22px;}
+
+.mcq{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--rule);}
+.mcq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.mcq-q{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;}
+.qn{width:28px;height:28px;border-radius:8px;background:var(--t1_lt);color:var(--t1);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.opts{display:flex;flex-direction:column;gap:8px;padding-left:38px;}
+.opt{display:flex;align-items:center;gap:11px;padding:10px 16px;border-radius:10px;border:1.5px solid var(--rule);font-size:14px;cursor:pointer;transition:.16s;background:var(--surface);}
+.opt:hover{border-color:var(--t1);background:var(--t1_lt);}
+.opt.correct{border-color:var(--good);background:var(--good_lt);color:var(--good);font-weight:600;}
+.opt.wrong{border-color:var(--bad);background:var(--bad_lt);color:var(--bad);}
+.ob{width:26px;height:26px;border-radius:50%;border:2px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;transition:.16s;}
+.opt:hover .ob{border-color:var(--t1);background:var(--t1);color:#fff;}
+.opt.correct .ob{border-color:var(--good);background:var(--good);color:#fff;}
+.opt.wrong .ob{border-color:var(--bad);background:var(--bad);color:#fff;}
+.fb{display:none;margin-top:10px;padding:11px 16px;border-radius:10px;font-size:13.5px;font-weight:500;padding-left:38px;line-height:1.55;}
+.fb.show{display:block;}
+.fb.ok{background:var(--good_lt);color:var(--good);}
+.fb.no{background:var(--bad_lt);color:var(--bad);}
+
+.fi-item{margin-bottom:16px;background:var(--surface);border-radius:10px;padding:14px 18px;border:1px solid var(--rule);}
+.fi-sent{font-size:15px;line-height:1.9;}
+.fi-blank{display:inline-block;min-width:100px;border-bottom:2px solid var(--t1);text-align:center;margin:0 4px;font-family:'Space Mono',monospace;font-size:13px;color:transparent;transition:color .25s;}
+.fi-blank.shown{color:var(--t1);font-weight:700;}
+.fi-ans{display:none;font-size:13px;color:var(--muted);padding-top:6px;border-top:1px solid var(--rule);margin-top:6px;}
+.fi-ans.show{display:block;}
+
+.ec-wrong{background:var(--bad_lt);border-left:3px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 18px;font-size:15px;margin-bottom:6px;}
+.ec-fix{display:none;background:var(--good_lt);border-left:3px solid var(--good);border-radius:0 10px 10px 0;padding:13px 18px;font-size:14px;margin-bottom:4px;}
+.ec-fix.show{display:block;}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:100px;font-size:13.5px;font-weight:700;cursor:pointer;border:none;font-family:'Manrope',sans-serif;transition:.18s;}
+.btn-t1{background:var(--t1);color:#fff;}
+.btn-t1:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn-ghost{background:var(--surface);color:var(--ink);border:1.5px solid var(--rule);}
+.btn-ghost:hover{border-color:var(--t1);color:var(--t1);}
+.btn-sm{padding:8px 16px;font-size:12.5px;}
+
+.scoreboard{background:linear-gradient(135deg,#14532d,#166534);color:#fff;border-radius:var(--r);padding:28px 30px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
+.sc-num{font-family:'Fraunces',serif;font-size:56px;font-weight:900;color:#86efac;line-height:1;}
+.sc-txt{flex:1;}.sc-txt h4{font-family:'Fraunces',serif;font-size:19px;font-weight:700;margin-bottom:4px;}.sc-txt p{font-size:13px;opacity:.7;}
+.sc-bar-wrap{flex:1;min-width:180px;}.sc-bar-lbl{font-size:12px;opacity:.7;margin-bottom:6px;}
+.sc-bar{height:10px;background:rgba(255,255,255,.2);border-radius:5px;overflow:hidden;}
+.sc-fill{height:100%;background:linear-gradient(90deg,#86efac,#67e8f9);border-radius:5px;transition:width .7s ease;}
+
+.chk{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;}
+.chk li{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--rule);padding:13px 16px;border-radius:10px;font-size:14px;}
+.chk li input{width:18px;height:18px;accent-color:var(--t1);cursor:pointer;flex-shrink:0;margin-top:2px;}
+
+.footer{background:var(--surface);border-top:1px solid var(--rule);padding:32px 6%;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;}
+@media(max-width:640px){.page{padding:40px 18px;}.cover{padding:60px 5%;}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="utag fade"><i></i> B1 English &middot; Grammar Series &middot; Unit 6</div>
+    <h1 class="fade">If-Clauses &amp;<br><span class="hl">Conditionals</span></h1>
+    <p class="cover-sub fade">Master all four conditional types plus mixed conditionals &mdash; the grammar structure tested in every Thai entrance exam. Learn the formula, the meaning, and the most common exam traps.</p>
+    <div class="type-pills fade">
+      <div class="tpill tp0">Type 0<small>Zero Conditional</small></div>
+      <div class="tpill tp1">Type 1<small>First Conditional</small></div>
+      <div class="tpill tp2">Type 2<small>Second Conditional</small></div>
+      <div class="tpill tp3">Type 3<small>Third Conditional</small></div>
+      <div class="tpill tp-mix">Mixed<small>Mixed Conditional</small></div>
+    </div>
+    <div class="cstats fade">
+      <div class="cstat"><div class="cstat-n">5</div><div class="cstat-l">Conditional Types</div></div>
+      <div class="cstat"><div class="cstat-n">15</div><div class="cstat-l">Vocab Words</div></div>
+      <div class="cstat"><div class="cstat-n">5</div><div class="cstat-l">Exercises</div></div>
+      <div class="cstat"><div class="cstat-n">50</div><div class="cstat-l">Exam Questions</div></div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <a href="#vocab">&#128218; Vocab</a>
+  <a href="#reading">&#128214; Reading</a>
+  <a href="#grammar">&#128218; Grammar</a>
+  <a href="#mixed">&#10024; Mixed</a>
+  <a href="#exercises">&#9999; Exercises</a>
+  <a href="#review">&#11088; Review</a>
+</nav>
+
+<!-- SECTION A: VOCAB -->
+<div class="page gap" id="vocab">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--t1_lt);">&#128218;</div>
+    <div class="sh-text"><h2>Section A &mdash; Vocabulary Builder</h2><p>15 key words that signal conditional situations &mdash; from certainty to regret.</p></div>
+  </div>
+  <div class="ib t1 fade"><span class="ico">&#128161;</span><div><strong>Study tip:</strong> Many of these words appear directly in conditional sentences. Recognising them helps you choose the right conditional type instantly.</div></div>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Word</th><th>Type</th><th>Thai</th><th>Conditional Context</th></tr></thead>
+      <tbody>
+        <tr><td><strong>unless</strong></td><td>conjunction</td><td>&#3649;&#3617;&#3657;&#3623;&#3656;&#3634; / &#3606;&#3657;&#3634;&#3652;&#3617;&#3656;</td><td>"Unless you study, you will fail." (= If you don't study…)</td></tr>
+        <tr><td><strong>provided (that)</strong></td><td>conjunction</td><td>&#3650;&#3604;&#3618;&#3648;&#3591;&#3639;&#3656;&#3629;&#3609;&#3652;&#3586;&#3623;&#3656;&#3634;</td><td>"I'll go, provided that you come too."</td></tr>
+        <tr><td><strong>as long as</strong></td><td>conjunction</td><td>&#3605;&#3619;&#3634;&#3610;&#3648;&#3607;&#3656;&#3634;&#3607;&#3637;&#3656; / &#3607;&#3633;&#3657;&#3591;&#3607;&#3637;&#3656;</td><td>"As long as you try, you will improve."</td></tr>
+        <tr><td><strong>on condition that</strong></td><td>phrase</td><td>&#3650;&#3604;&#3618;&#3617;&#3637;&#3648;&#3591;&#3639;&#3656;&#3629;&#3609;&#3652;&#3586;</td><td>"I'll lend you money on condition that you repay me."</td></tr>
+        <tr><td><strong>suppose / supposing</strong></td><td>conjunction</td><td>&#3626;&#3617;&#3617;&#3605;&#3636; / &#3648;&#3594;&#3656;&#3609;&#3623;&#3656;&#3634;</td><td>"Suppose you won the lottery — what would you do?"</td></tr>
+        <tr><td><strong>even if</strong></td><td>conjunction</td><td>&#3649;&#3617;&#3657;&#3649;&#3605;&#3656;</td><td>"Even if I were rich, I wouldn't stop working."</td></tr>
+        <tr><td><strong>what if</strong></td><td>phrase</td><td>&#3651;&#3609;&#3626;&#3660;&#3607;&#3637;&#3656;&#3623;&#3656;&#3634;</td><td>"What if it rains? Should we cancel?" (Type 1)</td></tr>
+        <tr><td><strong>regret</strong></td><td>noun/verb</td><td>&#3648;&#3626;&#3637;&#3618;&#3651;&#3592;</td><td>"I regret not studying." → Type 3: "If I had studied, I would have passed."</td></tr>
+        <tr><td><strong>hypothetical</strong></td><td>adjective</td><td>&#3626;&#3617;&#3617;&#3605;&#3636;&#3615;&#3634;&#3609;</td><td>Types 2 &amp; 3 describe hypothetical (unreal) situations.</td></tr>
+        <tr><td><strong>consequence</strong></td><td>noun</td><td>&#3612;&#3621;</td><td>The result/main clause shows the consequence of the if-clause.</td></tr>
+        <tr><td><strong>imaginary</strong></td><td>adjective</td><td>&#3626;&#3617;&#3617;&#3605;&#3636;&#3615;&#3634;&#3609; / &#3648;&#3614;&#3657;&#3629;&#3585;&#3633;&#3609;</td><td>Type 2 describes imaginary present/future situations.</td></tr>
+        <tr><td><strong>otherwise</strong></td><td>adverb</td><td>&#3617;&#3636;&#3615;&#3609;&#3633;&#3657;&#3609;</td><td>"Study hard; otherwise, you will fail." (= If you don't, you will fail.)</td></tr>
+        <tr><td><strong>in case</strong></td><td>conjunction</td><td>&#3648;&#3629;&#3634;&#3652;&#3623;&#3657;&#3603;&#3634;/ &#3648;&#3612;&#3639;&#3656;&#3629;&#3588;&#3623;&#3634;&#3617;&#3611;&#3621;&#3629;&#3604;&#3616;&#3633;&#3618;</td><td>"Take an umbrella in case it rains." (precaution)</td></tr>
+        <tr><td><strong>wish</strong></td><td>verb</td><td>&#3611;&#3619;&#3634;&#3619;&#3606;&#3609;&#3634;</td><td>"I wish I had more time." (linked to Type 2/3 thinking)</td></tr>
+        <tr><td><strong>fulfil</strong></td><td>verb</td><td>&#3610;&#3619;&#3619;&#3621;&#3640;</td><td>"If the condition is fulfilled, the result will happen." (Type 1)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION B: READING -->
+<div class="page gap" id="reading">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--t1_lt);">&#128214;</div>
+    <div class="sh-text"><h2>Section B &mdash; Reading Passage</h2><p>An article using all four conditional types. Spot them all!</p></div>
+  </div>
+  <div class="ib t1 fade"><span class="ico">&#127912;</span><div>
+    <span class="h0">BLUE = Type 0</span> &nbsp;&middot;&nbsp;
+    <span class="h1">GREEN = Type 1</span> &nbsp;&middot;&nbsp;
+    <span class="h2">PURPLE = Type 2</span> &nbsp;&middot;&nbsp;
+    <span class="h3">RED = Type 3</span>
+  </div></div>
+  <div class="rbox fade">
+    <div class="rhead"><h3>Decisions, Decisions</h3><span>~190 words &middot; Advisory Article &middot; B1</span></div>
+    <div class="rbody">
+      <p>Making good decisions is a skill everyone needs. <span class="h0">If you heat water to 100&deg;C, it boils</span> &mdash; cause and effect are simple in science. But in life, decisions are rarely so straightforward.</p>
+      <p><span class="h1">If you study hard this month, you will pass the entrance exam</span>. It's that simple. Many students, however, delay studying. <span class="h1">If they don't start now, they won't be ready in time</span>. Remember: <span class="h1">if you prepare well, you won't regret it</span>.</p>
+      <p>Some students dream of a different life. "<span class="h2">If I had more time, I would practise English every day</span>," they say. But the truth is, we all have 24 hours. <span class="h2">If I were you, I would make a study schedule right now</span>.</p>
+      <p>Looking back is also important. "<span class="h3">If I had started earlier, I would have had more time to prepare</span>," one student admitted. "<span class="h3">If my teacher had explained it more clearly, I might have understood it better</span>."</p>
+      <p>The lesson? Don't wait. <span class="h1">If you act today, you will thank yourself later</span>.</p>
+    </div>
+  </div>
+
+  <div class="exh" style="margin-top:4px;"><div class="exn" style="background:var(--t1);">Q</div><div><h3>Reading Comprehension</h3><p>Click to check your answer.</p></div></div>
+  <div class="exb">
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">1</span> "If you heat water to 100°C, it boils" &mdash; which conditional type is this and why?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Type 1 — real future possibility</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Type 0 — universal fact / scientific truth</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Type 2 — imaginary present situation</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Type 3 — imaginary past situation</div>
+      </div>
+      <div class="fb ok">&#10003; Type 0: If + Present Simple, Present Simple. Used for general truths, scientific facts, and things that are always true.</div>
+      <div class="fb no">&#10007; Type 0 uses Present Simple in BOTH clauses. It states a universal truth.</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">2</span> "If I were you, I would make a study schedule" &mdash; why is "were" used instead of "was"?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Because the subject is plural.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Because it happened in the past.</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> Because Type 2 conditionals use subjunctive mood — "were" is used for ALL subjects.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Because "was" is not a real English word.</div>
+      </div>
+      <div class="fb ok">&#10003; In Type 2 conditionals, "were" is used for ALL subjects (I/he/she/it/we/they) in formal English. "If I were you..." is the standard form.</div>
+      <div class="fb no">&#10007; Type 2 uses subjunctive mood: "were" is used with ALL subjects, not just plural ones.</div>
+    </div>
+    <div class="mcq">
+      <div class="mcq-q"><span class="qn">3</span> "If I had started earlier, I would have had more time" &mdash; what does this imply?</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> The speaker will start earlier next time.</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> The speaker did NOT start earlier, so they did NOT have more time.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> The speaker is planning to start earlier.</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> The speaker had plenty of time.</div>
+      </div>
+      <div class="fb ok">&#10003; Type 3 conditionals describe IMPOSSIBLE past situations. The reality is the OPPOSITE: they didn't start earlier, and they didn't have more time.</div>
+      <div class="fb no">&#10007; Type 3 = impossible past. The real situation is the OPPOSITE of what is stated.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION C: GRAMMAR -->
+<div class="page gap" id="grammar">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--t1_lt);">&#128218;</div>
+    <div class="sh-text"><h2>Section C &mdash; Grammar Spotlight: All 4 Conditional Types</h2><p>Click each type to expand. Every type includes formula, meaning, examples, and Thai notes.</p></div>
+  </div>
+
+  <div class="ib t1 fade"><span class="ico">&#128295;</span><div>
+    <strong>Structure of every conditional sentence:</strong><br>
+    <code>If-clause (condition)</code> &nbsp;+&nbsp; <code>Main clause (result)</code><br>
+    The if-clause and main clause can swap positions. When the if-clause comes SECOND, no comma is needed.<br>
+    <em>"She will pass <strong>if</strong> she studies." (no comma needed)</em>
+  </div></div>
+
+  <!-- TYPE 0 -->
+  <div class="cond-card fade" style="border-top:5px solid var(--t0);">
+    <div class="cond-head" style="background:var(--t0_lt);" onclick="toggleCond(this)">
+      <div class="cond-badge" style="background:var(--t0);color:#fff;">0</div>
+      <div class="cond-title">
+        <h3 style="color:var(--t0);">Type 0 — Zero Conditional</h3>
+        <p>General truths, scientific facts, things that are always true</p>
+      </div>
+      <span class="cond-tag" style="background:var(--t0);color:#fff;">Always True</span>
+      <span class="cond-chev" style="color:var(--t0);">&#8250;</span>
+    </div>
+    <div class="cond-body">
+      <div class="formula-box" style="background:var(--t0_lt);color:var(--t0);">
+        <span class="formula-if">If</span> + <strong>Present Simple</strong><span class="formula-comma">,</span> &nbsp; <strong>Present Simple</strong>
+      </div>
+      <div class="ex-row" style="background:var(--t0_lt);">
+        <span class="ex-icon">&#128293;</span>
+        <div class="ex-content">
+          <div class="ex-en">If you <strong>heat</strong> ice, it <strong>melts</strong>.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3588;&#3640;&#3603;&#3651;&#3627;&#3657;&#3588;&#3623;&#3634;&#3617;&#3619;&#3657;&#3629;&#3609;&#3649;&#3585;&#3656;&#3609;&#3657;&#3635;&#3649;&#3586;&#3655;&#3591; &#3617;&#3633;&#3609;&#3648;&#3621;&#3637;&#3618;&#3648;&#3605;&#3655;&#3617; (&#3592;&#3619;&#3636;&#3591;&#3648;&#3626;&#3617;&#3629;)</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--t0_lt);">
+        <span class="ex-icon">&#127758;</span>
+        <div class="ex-content">
+          <div class="ex-en">If it <strong>rains</strong>, the ground <strong>gets</strong> wet.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3615;&#3609;&#3605;&#3585; &#3614;&#3639;&#3657;&#3609;&#3604;&#3636;&#3609;&#3648;&#3611;&#3637;&#3618;&#3585; (&#3588;&#3623;&#3634;&#3617;&#3592;&#3619;&#3636;&#3591;&#3607;&#3640;&#3585;&#3588;&#3619;&#3633;&#3657;&#3591;)</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--t0_lt);">
+        <span class="ex-icon">&#128295;</span>
+        <div class="ex-content">
+          <div class="ex-en">If you <strong>press</strong> this button, the door <strong>opens</strong>.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3588;&#3640;&#3603;&#3626;&#3604;&#3611;&#3640;&#3656;&#3617;&#3609;&#3637;&#3657; &#3611;&#3619;&#3632;&#3605;&#3641;&#3648;&#3611;&#3636;&#3604; (&#3614;&#3630;&#3605;&#3636;&#3585;&#3619;&#3619;&#3617;&#3607;&#3640;&#3585;&#3588;&#3619;&#3633;&#3657;&#3591;)</div>
+        </div>
+      </div>
+      <div class="ib t0"><span class="ico">&#128161;</span><div><strong>Note:</strong> You can also use "when" instead of "if" in Type 0: "When you heat ice, it melts." The meaning is the same for facts.</div></div>
+    </div>
+  </div>
+
+  <!-- TYPE 1 -->
+  <div class="cond-card fade" style="border-top:5px solid var(--t1);">
+    <div class="cond-head" style="background:var(--t1_lt);" onclick="toggleCond(this)">
+      <div class="cond-badge" style="background:var(--t1);color:#fff;">1</div>
+      <div class="cond-title">
+        <h3 style="color:var(--t1);">Type 1 — First Conditional</h3>
+        <p>Real and possible future situations</p>
+      </div>
+      <span class="cond-tag" style="background:var(--t1);color:#fff;">Real Future</span>
+      <span class="cond-chev" style="color:var(--t1);">&#8250;</span>
+    </div>
+    <div class="cond-body">
+      <div class="formula-box" style="background:var(--t1_lt);color:var(--t1);">
+        <span class="formula-if">If</span> + <strong>Present Simple</strong><span class="formula-comma">,</span> &nbsp; <strong>will + V1</strong>
+      </div>
+      <div class="ex-row" style="background:var(--t1_lt);">
+        <span class="ex-icon">&#128218;</span>
+        <div class="ex-content">
+          <div class="ex-en">If you <strong>study</strong> hard, you <strong>will pass</strong> the exam.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3588;&#3640;&#3603;&#3605;&#3633;&#3657;&#3591;&#3651;&#3592;&#3648;&#3619;&#3637;&#3618;&#3609; &#3588;&#3640;&#3603;&#3592;&#3632;&#3626;&#3629;&#3610;&#3612;&#3656;&#3634;&#3609; (&#3648;&#3611;&#3655;&#3609;&#3652;&#3611;&#3652;&#3604;&#3657;&#3592;&#3619;&#3636;&#3591;)</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--t1_lt);">
+        <span class="ex-icon">&#9928;</span>
+        <div class="ex-content">
+          <div class="ex-en">If it <strong>rains</strong> tomorrow, we <strong>won't go</strong> on the trip.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3649;&#3621;&#3656;&#3623;&#3617;&#3637;&#3615;&#3609;&#3614;&#3619;&#3640;&#3656;&#3591;&#3609;&#3637;&#3657; &#3648;&#3619;&#3634;&#3652;&#3617;&#3656;&#3652;&#3611;</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--t1_lt);">
+        <span class="ex-icon">&#128241;</span>
+        <div class="ex-content">
+          <div class="ex-en">If you <strong>call</strong> me, I <strong>will answer</strong>.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3588;&#3640;&#3603;&#3650;&#3607;&#3619;&#3609;&#3640;&#3609;&#3621;&#3609;&#3617;&#3634; &#3627;&#3609;&#3641;&#3626;&#3632;&#3629;&#3629;&#3585;</div>
+        </div>
+      </div>
+      <div class="ib t1"><span class="ico">&#9889;</span><div>
+        <strong>Variations in the main clause:</strong><br>
+        Instead of <code>will</code>, you can use: <code>can</code>, <code>may</code>, <code>might</code>, <code>should</code>, or an imperative.<br>
+        <em>"If you finish early, <strong>you can leave</strong>." / "If you're hungry, <strong>eat something</strong>."</em>
+      </div></div>
+      <div class="ib bad"><span class="ico">&#10060;</span><div><strong>Common Error:</strong> <s>"If you will study, you will pass."</s> &#10007;<br>NEVER use "will" in the if-clause of Type 1. Use Present Simple instead.</div></div>
+    </div>
+  </div>
+
+  <!-- TYPE 2 -->
+  <div class="cond-card fade" style="border-top:5px solid var(--t2);">
+    <div class="cond-head" style="background:var(--t2_lt);" onclick="toggleCond(this)">
+      <div class="cond-badge" style="background:var(--t2);color:#fff;">2</div>
+      <div class="cond-title">
+        <h3 style="color:var(--t2);">Type 2 — Second Conditional</h3>
+        <p>Imaginary / hypothetical present or future situations</p>
+      </div>
+      <span class="cond-tag" style="background:var(--t2);color:#fff;">Unreal Present</span>
+      <span class="cond-chev" style="color:var(--t2);">&#8250;</span>
+    </div>
+    <div class="cond-body">
+      <div class="formula-box" style="background:var(--t2_lt);color:var(--t2);">
+        <span class="formula-if">If</span> + <strong>Past Simple</strong><span class="formula-comma">,</span> &nbsp; <strong>would/could/might + V1</strong>
+      </div>
+      <div class="ex-row" style="background:var(--t2_lt);">
+        <span class="ex-icon">&#127756;</span>
+        <div class="ex-content">
+          <div class="ex-en">If I <strong>had</strong> more money, I <strong>would travel</strong> the world. (But I don't have much money.)</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3609;&#3650;&#3618;&#3581;&#3617;&#3637;&#3648;&#3591;&#3636;&#3609;&#3617;&#3634;&#3585;&#3585;&#3623;&#3656;&#3634;&#3609;&#3637;&#3657; &#3609;&#3650;&#3618;&#3581;&#3588;&#3591;&#3648;&#3604;&#3636;&#3609;&#3607;&#3634;&#3591;&#3619;&#3629;&#3610;&#3650;&#3621;&#3585; (&#3649;&#3605;&#3656;&#3588;&#3623;&#3634;&#3617;&#3648;&#3611;&#3655;&#3609;&#3592;&#3619;&#3636;&#3591;: &#3650;&#3618;&#3581;&#3652;&#3617;&#3656;&#3617;&#3637;&#3648;&#3591;&#3636;&#3609;&#3617;&#3634;&#3585;)</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--t2_lt);">
+        <span class="ex-icon">&#129300;</span>
+        <div class="ex-content">
+          <div class="ex-en">If I <strong>were</strong> you, I <strong>would apologise</strong>. (But I am not you.)</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3609;&#3650;&#3618;&#3581;&#3648;&#3611;&#3655;&#3609;&#3588;&#3640;&#3603; &#3609;&#3650;&#3618;&#3581;&#3588;&#3591;&#3582;&#3629;&#3650;&#3607;&#3625; (&#3649;&#3605;&#3656;&#3648;&#3611;&#3655;&#3609;&#3652;&#3611;&#3652;&#3617;&#3656;&#3652;&#3604;&#3657;)</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--t2_lt);">
+        <span class="ex-icon">&#128038;</span>
+        <div class="ex-content">
+          <div class="ex-en">If she <strong>could fly</strong>, she <strong>would visit</strong> every country.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3648;&#3608;&#3629;&#3610;&#3636;&#3609;&#3652;&#3604;&#3657; &#3648;&#3608;&#3629;&#3588;&#3591;&#3648;&#3618;&#3637;&#3618;&#3617;&#3607;&#3640;&#3585;&#3611;&#3619;&#3632;&#3648;&#3607;&#3624;</div>
+        </div>
+      </div>
+      <div class="ib t2"><span class="ico">&#9889;</span><div>
+        <strong>Key rule: Use "were" for ALL subjects in Type 2</strong><br>
+        "If I <strong>were</strong>…" / "If she <strong>were</strong>…" / "If he <strong>were</strong>…"<br>
+        <em>In informal English, "was" is sometimes heard, but "were" is always correct in exams.</em>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- TYPE 3 -->
+  <div class="cond-card fade" style="border-top:5px solid var(--t3);">
+    <div class="cond-head" style="background:var(--t3_lt);" onclick="toggleCond(this)">
+      <div class="cond-badge" style="background:var(--t3);color:#fff;">3</div>
+      <div class="cond-title">
+        <h3 style="color:var(--t3);">Type 3 — Third Conditional</h3>
+        <p>Imaginary / impossible past situations — regret or criticism</p>
+      </div>
+      <span class="cond-tag" style="background:var(--t3);color:#fff;">Unreal Past</span>
+      <span class="cond-chev" style="color:var(--t3);">&#8250;</span>
+    </div>
+    <div class="cond-body">
+      <div class="formula-box" style="background:var(--t3_lt);color:var(--t3);">
+        <span class="formula-if">If</span> + <strong>Past Perfect (had + V3)</strong><span class="formula-comma">,</span> &nbsp; <strong>would/could/might + have + V3</strong>
+      </div>
+      <div class="ex-row" style="background:var(--t3_lt);">
+        <span class="ex-icon">&#128218;</span>
+        <div class="ex-content">
+          <div class="ex-en">If I <strong>had studied</strong>, I <strong>would have passed</strong>. (But I didn't study, so I didn't pass.)</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3609;&#3650;&#3618;&#3581;&#3648;&#3619;&#3637;&#3618;&#3609; &#3609;&#3650;&#3618;&#3581;&#3612;&#3656;&#3634;&#3609; (&#3649;&#3605;&#3656;&#3592;&#3619;&#3636;&#3591;: &#3652;&#3617;&#3656;&#3648;&#3619;&#3637;&#3618;&#3609; &#3652;&#3617;&#3656;&#3612;&#3656;&#3634;&#3609;)</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--t3_lt);">
+        <span class="ex-icon">&#128668;</span>
+        <div class="ex-content">
+          <div class="ex-en">If she <strong>had left</strong> earlier, she <strong>wouldn't have missed</strong> the train.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3648;&#3608;&#3629;&#3629;&#3629;&#3585;&#3648;&#3604;&#3636;&#3609;&#3607;&#3634;&#3591;&#3648;&#3619;&#3655;&#3623;&#3585;&#3623;&#3656;&#3634;&#3609;&#3637;&#3657; &#3648;&#3608;&#3629;&#3652;&#3617;&#3656;&#3614;&#3621;&#3634;&#3604;&#3619;&#3606;&#3652;&#3615;</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--t3_lt);">
+        <span class="ex-icon">&#128188;</span>
+        <div class="ex-content">
+          <div class="ex-en">If he <strong>had applied</strong> sooner, he <strong>might have got</strong> the job.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3648;&#3582;&#3634;&#3618;&#3639;&#3656;&#3609;&#3626;&#3617;&#3633;&#3588;&#3619;&#3648;&#3619;&#3655;&#3623;&#3585;&#3585;&#3623;&#3656;&#3634;&#3609;&#3637;&#3657; &#3648;&#3582;&#3634;&#3629;&#3634;&#3592;&#3652;&#3604;&#3657;&#3591;&#3634;&#3609;</div>
+        </div>
+      </div>
+      <div class="ib t3"><span class="ico">&#128161;</span><div>
+        <strong>Type 3 = always talking about the PAST (impossible to change).</strong><br>
+        The real situation is the OPPOSITE of what is stated.<br>
+        <em>"If I had studied" = I did NOT study.</em><br>
+        <em>"I would have passed" = I did NOT pass.</em>
+      </div></div>
+      <div class="ib bad"><span class="ico">&#10060;</span><div>
+        <strong>Most Common Error:</strong><br>
+        <s>"If I would have studied, I would have passed."</s> &#10007;<br>
+        NEVER use "would have" in the if-clause. Use "had + V3".<br>
+        &#10003; "If I <strong>had studied</strong>, I would have passed."
+      </div></div>
+    </div>
+  </div>
+
+  <!-- QUICK REF TABLE -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:36px 0 16px;">Quick Reference &mdash; All 4 Types</h3>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Type</th><th>If-Clause</th><th>Main Clause</th><th>Meaning</th><th>Reality</th></tr></thead>
+      <tbody>
+        <tr style="background:var(--t0_lt);">
+          <td><strong style="color:var(--t0);">Type 0</strong></td>
+          <td><code>Present Simple</code></td>
+          <td><code>Present Simple</code></td>
+          <td>General truth / scientific fact</td>
+          <td>Always true</td>
+        </tr>
+        <tr style="background:var(--t1_lt);">
+          <td><strong style="color:var(--t1);">Type 1</strong></td>
+          <td><code>Present Simple</code></td>
+          <td><code>will + V1</code></td>
+          <td>Real future possibility</td>
+          <td>Possible &amp; likely</td>
+        </tr>
+        <tr style="background:var(--t2_lt);">
+          <td><strong style="color:var(--t2);">Type 2</strong></td>
+          <td><code>Past Simple (were)</code></td>
+          <td><code>would/could/might + V1</code></td>
+          <td>Imaginary present/future</td>
+          <td>Untrue / unlikely</td>
+        </tr>
+        <tr style="background:var(--t3_lt);">
+          <td><strong style="color:var(--t3);">Type 3</strong></td>
+          <td><code>Past Perfect (had + V3)</code></td>
+          <td><code>would/could/might + have + V3</code></td>
+          <td>Imaginary past (regret)</td>
+          <td>Impossible (past)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- UNLESS -->
+  <h3 style="font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin:36px 0 16px;">Special Connectors: Unless, As long as, Provided that</h3>
+  <div class="twrap fade">
+    <table>
+      <thead><tr><th>Connector</th><th>Meaning</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong>unless</strong></td><td>= if…not (except if)</td><td>"Unless you study, you will fail." = "If you don't study, you will fail."</td></tr>
+        <tr><td><strong>as long as</strong></td><td>= if and only if / on the condition that</td><td>"You can go out as long as you finish your homework."</td></tr>
+        <tr><td><strong>provided (that)</strong></td><td>= on the condition that (formal)</td><td>"I will help you, provided that you help me in return."</td></tr>
+        <tr><td><strong>in case</strong></td><td>= as a precaution (take action now in case something happens later)</td><td>"Take your umbrella in case it rains." (NOT "if it rains")</td></tr>
+        <tr><td><strong>even if</strong></td><td>= despite the condition (the result is the same)</td><td>"Even if you apologise, she won't forgive you."</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION D: MIXED CONDITIONALS -->
+<div class="page gap" id="mixed">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--mix_lt);">&#10024;</div>
+    <div class="sh-text"><h2>Section D &mdash; Mixed Conditionals</h2><p>Combining different time frames — a favourite in advanced exams.</p></div>
+  </div>
+
+  <div class="ib mix fade"><span class="ico">&#128295;</span><div>
+    <strong>What is a Mixed Conditional?</strong><br>
+    A mixed conditional combines the if-clause from one type with the main clause from a different type. This happens when we want to mix a PAST condition with a PRESENT result, or vice versa.
+  </div></div>
+
+  <div class="cond-card fade" style="border-top:5px solid var(--mix);">
+    <div class="cond-head" style="background:var(--mix_lt);" onclick="toggleCond(this)">
+      <div class="cond-badge" style="background:var(--mix);color:#fff;">M1</div>
+      <div class="cond-title">
+        <h3 style="color:var(--mix);">Mixed Type 1: Past Condition → Present Result</h3>
+        <p>If something had happened in the past, the present would be different now</p>
+      </div>
+      <span class="cond-chev" style="color:var(--mix);">&#8250;</span>
+    </div>
+    <div class="cond-body">
+      <div class="formula-box" style="background:var(--mix_lt);color:var(--mix);">
+        <span class="formula-if">If</span> + <strong>Past Perfect (had + V3)</strong> &nbsp;&larr; Type 3 if-clause<span class="formula-comma">,</span> &nbsp; <strong>would + V1</strong> &nbsp;&larr; Type 2 result
+      </div>
+      <div class="ex-row" style="background:var(--mix_lt);">
+        <span class="ex-icon">&#128218;</span>
+        <div class="ex-content">
+          <div class="ex-en">If I <strong>had studied</strong> medicine, I <strong>would be</strong> a doctor now.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3609;&#3650;&#3618;&#3581;&#3648;&#3619;&#3637;&#3618;&#3609;&#3649;&#3614;&#3607;&#3618;&#3660;&#3651;&#3609;&#3629;&#3604;&#3637;&#3605; &#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3609;&#3650;&#3618;&#3581;&#3648;&#3611;&#3655;&#3609;&#3627;&#3617;&#3629;&#3604;&#3641;&#3649;&#3621;&#3657;&#3623; (&#3649;&#3605;&#3656;&#3612;&#3621;&#3588;&#3639;&#3629;&#3614;&#3631;&#3605;&#3637;&#3585;&#3619;&#3619;&#3617;&#3611;&#3633;&#3592;&#3592;&#3640;&#3610;&#3633;&#3609;)</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--mix_lt);">
+        <span class="ex-icon">&#127758;</span>
+        <div class="ex-content">
+          <div class="ex-en">If she <strong>had taken</strong> that job, she <strong>would be</strong> living in New York now.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3648;&#3608;&#3629;&#3619;&#3633;&#3610;&#3591;&#3634;&#3609;&#3609;&#3633;&#3657;&#3609; &#3605;&#3629;&#3609;&#3609;&#3637;&#3657;&#3648;&#3608;&#3629;&#3588;&#3591;&#3629;&#3618;&#3641;&#3656;&#3607;&#3637;&#3656;&#3609;&#3650;&#3618;&#3660;&#3588;&#3649;&#3621;&#3657;&#3623;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cond-card fade" style="border-top:5px solid var(--mix);">
+    <div class="cond-head" style="background:var(--mix_lt);" onclick="toggleCond(this)">
+      <div class="cond-badge" style="background:var(--mix);color:#fff;">M2</div>
+      <div class="cond-title">
+        <h3 style="color:var(--mix);">Mixed Type 2: Present Condition → Past Result</h3>
+        <p>If something were true now, the past would have been different</p>
+      </div>
+      <span class="cond-chev" style="color:var(--mix);">&#8250;</span>
+    </div>
+    <div class="cond-body">
+      <div class="formula-box" style="background:var(--mix_lt);color:var(--mix);">
+        <span class="formula-if">If</span> + <strong>Past Simple (were)</strong> &nbsp;&larr; Type 2 if-clause<span class="formula-comma">,</span> &nbsp; <strong>would + have + V3</strong> &nbsp;&larr; Type 3 result
+      </div>
+      <div class="ex-row" style="background:var(--mix_lt);">
+        <span class="ex-icon">&#129504;</span>
+        <div class="ex-content">
+          <div class="ex-en">If I <strong>were</strong> braver, I <strong>would have spoken</strong> to her yesterday.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3609;&#3650;&#3618;&#3581;&#3649;&#3585;&#3619;&#3656;&#3634;&#3623;&#3585;&#3623;&#3656;&#3634;&#3609;&#3637;&#3657; &#3648;&#3617;&#3639;&#3656;&#3629;&#3623;&#3634;&#3609;&#3609;&#3637;&#3657;&#3609;&#3650;&#3618;&#3581;&#3588;&#3591;&#3602;&#3637;&#3585;&#3588;&#3640;&#3618;&#3585;&#3633;&#3610;&#3648;&#3608;&#3629;&#3649;&#3621;&#3657;&#3623;</div>
+        </div>
+      </div>
+      <div class="ex-row" style="background:var(--mix_lt);">
+        <span class="ex-icon">&#128202;</span>
+        <div class="ex-content">
+          <div class="ex-en">If he <strong>were</strong> more careful, he <strong>wouldn't have made</strong> that mistake.</div>
+          <div class="ex-th">&#3606;&#3657;&#3634;&#3648;&#3582;&#3634;&#3619;&#3632;&#3617;&#3633;&#3604;&#3619;&#3632;&#3623;&#3633;&#3591;&#3618;&#3636;&#3656;&#3591;&#3585;&#3623;&#3656;&#3634;&#3609;&#3637;&#3657; &#3648;&#3582;&#3634;&#3588;&#3591;&#3652;&#3617;&#3656;&#3607;&#3635;&#3586;&#3657;&#3629;&#3612;&#3636;&#3604;&#3614;&#3621;&#3634;&#3604;&#3609;&#3633;&#3657;&#3609;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ib mix fade"><span class="ico">&#9889;</span><div>
+    <strong>Memory Trick for Mixed Conditionals:</strong><br>
+    M1 = Past Condition &rarr; Present Result: <code>had + V3</code> &nbsp;,&nbsp; <code>would + V1</code><br>
+    M2 = Present Condition &rarr; Past Result: &nbsp;<code>were / V2</code> &nbsp;,&nbsp; <code>would have + V3</code><br>
+    <em>The tenses in each clause refer to DIFFERENT time frames.</em>
+  </div></div>
+</div>
+
+<!-- SECTION E: EXERCISES -->
+<div class="page gap" id="exercises">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--bad_lt);">&#9999;</div>
+    <div class="sh-text"><h2>Section E &mdash; Exercises</h2><p>Five activities covering all conditional types — from identification to exam format.</p></div>
+  </div>
+
+  <!-- EX 1 -->
+  <div class="exh"><div class="exn" style="background:var(--t1);">1</div><div><h3>Identify the Conditional Type</h3><p>Choose which conditional type is used in each sentence.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Look at the verb forms in both clauses to identify the conditional type.</div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> "If you freeze water, it turns into ice."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> Type 0 — general truth</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Type 1 — real future</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Type 2 — unreal present</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Type 3 — unreal past</div>
+      </div>
+      <div class="fb ok">&#10003; Type 0: If + Present Simple ("freeze"), Present Simple ("turns"). This is a scientific fact — always true.</div>
+      <div class="fb no">&#10007; Both verbs are Present Simple — that's Type 0 (general truth).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> "If I won the lottery, I would donate half of it to charity."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Type 0</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Type 1</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> Type 2</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Type 3</div>
+      </div>
+      <div class="fb ok">&#10003; Type 2: If + Past Simple ("won"), would + V1 ("would donate"). Imaginary present/future — winning the lottery is unlikely.</div>
+      <div class="fb no">&#10007; "Won" (Past Simple) in if-clause + "would donate" in main clause = Type 2 (unreal present).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> "If she had taken the medicine, she would have recovered faster."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Type 0</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Type 1</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Type 2</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">D</span> Type 3</div>
+      </div>
+      <div class="fb ok">&#10003; Type 3: If + Past Perfect ("had taken"), would + have + V3 ("would have recovered"). Impossible past — she did NOT take the medicine.</div>
+      <div class="fb no">&#10007; "Had taken" (Past Perfect) + "would have recovered" = Type 3 (impossible past regret).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> "If you don't hurry, you'll miss the bus."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Type 0</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Type 1</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Type 2</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Type 3</div>
+      </div>
+      <div class="fb ok">&#10003; Type 1: If + Present Simple ("don't hurry"), will + V1 ("will miss"). Real future possibility — this could actually happen.</div>
+      <div class="fb no">&#10007; "Don't hurry" (Present Simple) + "will miss" = Type 1 (real future possibility).</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> "If she had been more careful, she would be safe now."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Type 2</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Type 3</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> Mixed (Past Condition → Present Result)</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Type 1</div>
+      </div>
+      <div class="fb ok">&#10003; Mixed Conditional (M1): If + Past Perfect ("had been") = past condition, would + V1 ("would be safe now") = present result. Two different time frames!</div>
+      <div class="fb no">&#10007; Past Perfect if-clause + "would + V1" (not "would have + V3") = Mixed Conditional. The "now" is the key clue.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> "Unless you apologise, she will never forgive you."</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> Type 0</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Type 1 (with "unless")</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Type 2</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Type 3</div>
+      </div>
+      <div class="fb ok">&#10003; "Unless" = "if…not". "Unless you apologise" = "If you don't apologise". The verb forms match Type 1 (Present Simple + will).</div>
+      <div class="fb no">&#10007; "Unless" = "if…not". The verb forms (Present Simple + will) show Type 1.</div>
+    </div>
+  </div>
+
+  <!-- EX 2: Fill in -->
+  <div class="exh"><div class="exn" style="background:var(--t2);">2</div><div><h3>Fill in the Correct Verb Form</h3><p>Use the type given in brackets to choose the correct form.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Identify the conditional type, then use the correct verb form. Click Reveal to check.</div>
+
+    <div class="fi-item"><div class="fi-sent">1. If it <span class="fi-blank" id="f1">rains</span> (rain) tomorrow, we will cancel the picnic. [Type 1]</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f1','a1')">Reveal</button>
+      <div class="fi-ans" id="a1">&#10003; <strong>rains</strong> — Type 1: If-clause uses Present Simple, even though we're talking about the future.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">2. If I <span class="fi-blank" id="f2">were</span> (be) taller, I would play basketball. [Type 2]</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f2','a2')">Reveal</button>
+      <div class="fi-ans" id="a2">&#10003; <strong>were</strong> — Type 2: Use "were" for ALL subjects (I, he, she, it, we, they).</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">3. If you <span class="fi-blank" id="f3">had arrived</span> (arrive) on time, you wouldn't have missed the presentation. [Type 3]</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f3','a3')">Reveal</button>
+      <div class="fi-ans" id="a3">&#10003; <strong>had arrived</strong> — Type 3: If-clause uses Past Perfect (had + V3).</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">4. Water boils if you <span class="fi-blank" id="f4">heat</span> (heat) it to 100°C. [Type 0]</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f4','a4')">Reveal</button>
+      <div class="fi-ans" id="a4">&#10003; <strong>heat</strong> — Type 0: Both clauses use Present Simple. This is a scientific fact.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">5. If she <span class="fi-blank" id="f5">had practised</span> (practise) more, she could have won the competition. [Type 3]</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f5','a5')">Reveal</button>
+      <div class="fi-ans" id="a5">&#10003; <strong>had practised</strong> — Type 3: If-clause = Past Perfect. Result = could have + V3.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">6. If I <span class="fi-blank" id="f6">had learnt</span> (learn) Chinese as a child, I would speak it fluently now. [Mixed — M1]</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f6','a6')">Reveal</button>
+      <div class="fi-ans" id="a6">&#10003; <strong>had learnt</strong> — Mixed Conditional M1: Past condition (had + V3) + present result (would + V1 "would speak… now").</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">7. Unless you <span class="fi-blank" id="f7">apply</span> (apply) before Friday, you won't get the scholarship. [Type 1 + unless]</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f7','a7')">Reveal</button>
+      <div class="fi-ans" id="a7">&#10003; <strong>apply</strong> — "Unless" = "if…not". Type 1: unless + Present Simple + will + V1.</div>
+    </div>
+    <div class="fi-item"><div class="fi-sent">8. If she <span class="fi-blank" id="f8">were</span> (be) more confident, she would have asked for a promotion last year. [Mixed — M2]</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('f8','a8')">Reveal</button>
+      <div class="fi-ans" id="a8">&#10003; <strong>were</strong> — Mixed Conditional M2: Present condition (were) + past result (would have + V3 "would have asked").</div>
+    </div>
+  </div>
+
+  <!-- EX 3: Error Correction -->
+  <div class="exh"><div class="exn" style="background:var(--t3);">3</div><div><h3>Error Correction</h3><p>Each conditional sentence has ONE error. Find and fix it.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Click "Show Correction" to see the fix and rule.</div>
+
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">1. If you will study harder, you will pass the exam. <code style="color:var(--bad);">&#10007; will study</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; If you <strong>study</strong> harder, you will pass the exam.<br><span style="color:var(--muted);font-size:13px;">Type 1: NEVER use "will" in the if-clause. Use Present Simple instead.</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">2. If I was rich, I would travel the world. <code style="color:var(--bad);">&#10007; was</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; If I <strong>were</strong> rich, I would travel the world.<br><span style="color:var(--muted);font-size:13px;">Type 2: Use "were" for ALL subjects in the if-clause, not "was".</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">3. If I would have studied, I would have passed. <code style="color:var(--bad);">&#10007; would have studied</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; If I <strong>had studied</strong>, I would have passed.<br><span style="color:var(--muted);font-size:13px;">Type 3: NEVER use "would have" in the if-clause. Use Past Perfect (had + V3).</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">4. Unless you don't hurry, you'll miss the train. <code style="color:var(--bad);">&#10007; don't hurry</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; Unless you <strong>hurry</strong>, you'll miss the train.<br><span style="color:var(--muted);font-size:13px;">"Unless" already means "if…not". Adding "don't" creates a double negative. "Unless you hurry" = "If you don't hurry".</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">5. If she hadn't been ill, she would attend the meeting. <code style="color:var(--bad);">&#10007; would attend</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; If she hadn't been ill, she <strong>would have attended</strong> the meeting.<br><span style="color:var(--muted);font-size:13px;">Type 3: if-clause uses Past Perfect (hadn't been), so result clause must use "would have + V3".</span></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="ec-wrong">6. If he studies yesterday, he would pass today. <code style="color:var(--bad);">&#10007; studies</code></div>
+      <button class="btn btn-ghost btn-sm" style="margin-bottom:6px;" onclick="showFix(this)">Show Correction &#8594;</button>
+      <div class="ec-fix">&#10003; If he <strong>had studied</strong> yesterday, he <strong>would pass</strong> today. (Mixed M1)<br><span style="color:var(--muted);font-size:13px;">The if-clause refers to the past ("yesterday"), so it needs Past Perfect (had + V3). "Would pass" (present result) shows it's a Mixed Conditional M1.</span></div>
+    </div>
+  </div>
+
+  <!-- EX 4: Transform -->
+  <div class="exh"><div class="exn" style="background:var(--mix);">4</div><div><h3>Sentence Transformation</h3><p>Rewrite each sentence using the conditional type given.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Keep the same meaning but change the sentence to the conditional type shown in brackets.</div>
+
+    <div class="fi-item"><div class="fi-sent">1. "She doesn't study, so she fails." → Rewrite as Type 1:</div>
+      <div class="fi-sent" style="margin-top:8px;">If she <span class="fi-blank" id="g1">studies</span>, she <span class="fi-blank" id="g1b">will pass / won't fail</span>.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('g1','ag1');showFill('g1b','ag1')">Reveal</button>
+      <div class="fi-ans" id="ag1">&#10003; If she <strong>studies</strong>, she <strong>will pass / won't fail</strong>. (Type 1: Present Simple + will + V1)</div>
+    </div>
+
+    <div class="fi-item"><div class="fi-sent">2. "He isn't a doctor, so he can't treat patients." → Rewrite as Type 2:</div>
+      <div class="fi-sent" style="margin-top:8px;">If he <span class="fi-blank" id="g2">were</span> a doctor, he <span class="fi-blank" id="g2b">could treat</span> patients.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('g2','ag2');showFill('g2b','ag2')">Reveal</button>
+      <div class="fi-ans" id="ag2">&#10003; If he <strong>were</strong> a doctor, he <strong>could treat</strong> patients. (Type 2: Past Simple "were" + could + V1)</div>
+    </div>
+
+    <div class="fi-item"><div class="fi-sent">3. "She didn't wear a coat, so she caught a cold." → Rewrite as Type 3:</div>
+      <div class="fi-sent" style="margin-top:8px;">If she <span class="fi-blank" id="g3">had worn</span> a coat, she <span class="fi-blank" id="g3b">wouldn't have caught</span> a cold.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('g3','ag3');showFill('g3b','ag3')">Reveal</button>
+      <div class="fi-ans" id="ag3">&#10003; If she <strong>had worn</strong> a coat, she <strong>wouldn't have caught</strong> a cold. (Type 3: Past Perfect + would not have + V3)</div>
+    </div>
+
+    <div class="fi-item"><div class="fi-sent">4. "He didn't save money in the past, so he's poor now." → Rewrite as Mixed (M1):</div>
+      <div class="fi-sent" style="margin-top:8px;">If he <span class="fi-blank" id="g4">had saved</span> money, he <span class="fi-blank" id="g4b">would be</span> rich now.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('g4','ag4');showFill('g4b','ag4')">Reveal</button>
+      <div class="fi-ans" id="ag4">&#10003; If he <strong>had saved</strong> money, he <strong>would be</strong> rich now. (Mixed M1: Past Perfect + would + V1)</div>
+    </div>
+
+    <div class="fi-item"><div class="fi-sent">5. "You don't believe in yourself, so you didn't try last time." → Rewrite as Mixed (M2):</div>
+      <div class="fi-sent" style="margin-top:8px;">If you <span class="fi-blank" id="g5">believed</span> in yourself, you <span class="fi-blank" id="g5b">would have tried</span> last time.</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px;" onclick="showFill('g5','ag5');showFill('g5b','ag5')">Reveal</button>
+      <div class="fi-ans" id="ag5">&#10003; If you <strong>believed</strong> in yourself, you <strong>would have tried</strong> last time. (Mixed M2: Past Simple + would have + V3)</div>
+    </div>
+  </div>
+
+  <!-- EX 5: Exam MCQ -->
+  <div class="exh"><div class="exn" style="background:linear-gradient(135deg,var(--t1),var(--t3));">5</div><div><h3>Exam-Style Multiple Choice (14 Questions)</h3><p>Full exam format — matches &#3617;.1 Advanced / EP / Gifted entrance exam difficulty.</p></div></div>
+  <div class="exb">
+    <div class="ex-inst">&#128204; Choose the best answer. No notes allowed!</div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">1</span> If you _____ water, it evaporates.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> heat</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> will heat</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> heated</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> had heated</div>
+      </div>
+      <div class="fb ok">&#10003; Type 0 (scientific fact): If + Present Simple, Present Simple. "Heat" is correct.</div>
+      <div class="fb no">&#10007; Type 0 (general truth): If-clause uses Present Simple — "heat", not "will heat".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">2</span> If she _____ the first train, she will arrive on time.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> catches</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> will catch</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> caught</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> had caught</div>
+      </div>
+      <div class="fb ok">&#10003; Type 1: If + Present Simple ("catches") + will + V1 ("will arrive"). Real future possibility.</div>
+      <div class="fb no">&#10007; Type 1: If-clause uses Present Simple. Never use "will" in the if-clause.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">3</span> If I _____ you, I would tell her the truth.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> am</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> were</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> was</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> had been</div>
+      </div>
+      <div class="fb ok">&#10003; Type 2: "If I were you..." is the fixed expression. "Were" is used for ALL subjects in Type 2. "Was" is informal and incorrect in exams.</div>
+      <div class="fb no">&#10007; Type 2 uses subjunctive "were" for ALL subjects. "If I were you..." is standard exam English.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">4</span> If he had left home earlier, he _____ the traffic jam.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> would avoid</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> will have avoided</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> would have avoided</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> had avoided</div>
+      </div>
+      <div class="fb ok">&#10003; Type 3: If + Past Perfect ("had left"), result = would + have + V3 ("would have avoided"). Impossible past.</div>
+      <div class="fb no">&#10007; Type 3 result clause: would + have + V3. "Would avoid" is Type 2, not Type 3.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">5</span> _____ you need help, please don't hesitate to call me.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> If</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> Unless</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Even if</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> Provided</div>
+      </div>
+      <div class="fb ok">&#10003; "If you need help" = a positive condition. "Unless" = if not (would mean "if you DON'T need help"). "If" is the only logical choice here.</div>
+      <div class="fb no">&#10007; The sentence is a positive offer of help. "If" is correct. "Unless" would reverse the meaning.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">6</span> She wouldn't have failed the exam if she _____ more carefully.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> read</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> would read</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> had read</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> reads</div>
+      </div>
+      <div class="fb ok">&#10003; Type 3: Result clause "wouldn't have failed" (would + have + V3) → if-clause needs Past Perfect ("had read").</div>
+      <div class="fb no">&#10007; "Wouldn't have failed" = Type 3 result clause → if-clause must be Past Perfect: "had read".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">7</span> If he _____ the instructions, the machine wouldn't have broken down.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> follows</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> followed</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> had followed</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> would follow</div>
+      </div>
+      <div class="fb ok">&#10003; Type 3: "wouldn't have broken" (would + have + V3) in main clause → if-clause needs Past Perfect "had followed".</div>
+      <div class="fb no">&#10007; "Wouldn't have broken down" → Type 3 → if-clause = Past Perfect "had followed".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">8</span> _____ you work harder, you might lose your job.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> If</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> Unless</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> Even if</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> In case</div>
+      </div>
+      <div class="fb ok">&#10003; "Unless you work harder, you might lose your job." = "If you don't work harder, you might lose your job." The threat makes sense: work harder OR ELSE you lose the job.</div>
+      <div class="fb no">&#10007; "Unless" = "if…not". "Unless you work harder" = "If you don't work harder" — a warning/threat.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">9</span> If I had known about the party, I _____ an invitation.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> will send</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> would send</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">C</span> would have sent</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> had sent</div>
+      </div>
+      <div class="fb ok">&#10003; Type 3: If + Past Perfect ("had known") → result = would + have + V3 ("would have sent").</div>
+      <div class="fb no">&#10007; "Had known" (Past Perfect in if-clause) → result must be "would have + V3".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">10</span> Take a jacket in case it _____ cold later.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> gets</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> will get</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> got</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> would get</div>
+      </div>
+      <div class="fb ok">&#10003; "In case" uses Present Simple for future possibility: "in case it gets cold" = as a precaution against the possibility. Never use "will" after "in case".</div>
+      <div class="fb no">&#10007; After "in case", use Present Simple (not "will"). "In case it gets cold" = as a precaution.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">11</span> If he had practised more, he _____ a professional musician now.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> would have been</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> would be</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> will be</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> had been</div>
+      </div>
+      <div class="fb ok">&#10003; Mixed Conditional (M1): Past condition (had practised) → Present result (would be… now). "Now" is the key word showing the present result.</div>
+      <div class="fb no">&#10007; "Now" signals a present result → Mixed M1: had + V3 in if-clause + would + V1 in result. "Would be" not "would have been".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">12</span> I will help you with the project, _____ you help me with mine.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> unless</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> provided that</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> even if</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> in case</div>
+      </div>
+      <div class="fb ok">&#10003; "Provided that" = on the condition that. The speaker will help, but ONLY IF the other person helps back. "Provided that you help me" = a condition for the agreement.</div>
+      <div class="fb no">&#10007; "Provided that" = on the condition that (a requirement or deal). This fits the context of a mutual agreement.</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">13</span> If the weather _____ better, we would have gone hiking.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">A</span> was</div>
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">B</span> had been</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> were</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> is</div>
+      </div>
+      <div class="fb ok">&#10003; Type 3: Result clause "would have gone" (would + have + V3) → if-clause must be Past Perfect "had been".</div>
+      <div class="fb no">&#10007; "Would have gone" = Type 3 result → if-clause needs Past Perfect: "had been".</div>
+    </div>
+
+    <div class="mcq"><div class="mcq-q"><span class="qn">14</span> Even if she _____ the truth, he wouldn't believe her.</div>
+      <div class="opts">
+        <div class="opt" onclick="chk(this,'c')"><span class="ob">A</span> told</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">B</span> tells</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">C</span> had told</div>
+        <div class="opt" onclick="chk(this,'w')"><span class="ob">D</span> will tell</div>
+      </div>
+      <div class="fb ok">&#10003; "Even if" + Type 2: The result wouldn't change regardless of the condition. "Wouldn't believe" (would + V1) → if-clause = Past Simple "told".</div>
+      <div class="fb no">&#10007; "Wouldn't believe" = Type 2 result (would + V1) → if-clause = Past Simple "told". "Even if" follows the same grammar rules as "if".</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION F: REVIEW -->
+<div class="page gap" id="review">
+  <div class="sh fade">
+    <div class="sh-icon" style="background:var(--good_lt);">&#11088;</div>
+    <div class="sh-text"><h2>Section F &mdash; Unit Review</h2><p>Summary of all conditional types + self-evaluation checklist.</p></div>
+  </div>
+
+  <div class="ib bad fade"><span class="ico">&#128680;</span><div>
+    <strong>Top 8 Exam Traps (&#3586;&#3657;&#3629;&#3626;&#3629;&#3610;&#3594;&#3629;&#3610;&#3629;&#3629;&#3585;):</strong>
+    <ol style="margin-top:10px;padding-left:20px;font-size:14px;line-height:2.1;">
+      <li>"If you <s>will study</s>…" &#10007; &rarr; "If you <strong>study</strong>…" &#10003; — NEVER "will" in Type 1 if-clause</li>
+      <li>"If I <s>was</s> rich…" &#10007; &rarr; "If I <strong>were</strong> rich…" &#10003; — Use "were" for ALL subjects in Type 2</li>
+      <li>"If I <s>would have studied</s>…" &#10007; &rarr; "If I <strong>had studied</strong>…" &#10003; — NEVER "would have" in if-clause</li>
+      <li>"<s>Unless you don't</s> study…" &#10007; &rarr; "<strong>Unless you study</strong>…" &#10003; — "unless" already means "if not"</li>
+      <li>Confusing Type 2 and Type 3: "would + V1" (Type 2 present) vs "would + have + V3" (Type 3 past)</li>
+      <li>Forgetting "have" in Type 3 result: "<s>would passed</s>" &#10007; &rarr; "<strong>would have passed</strong>" &#10003;</li>
+      <li>Using wrong tense in "in case": "<s>in case it will rain</s>" &#10007; &rarr; "<strong>in case it rains</strong>" &#10003;</li>
+      <li>Mixed Conditionals: confusing M1 (had + V3 → would + V1) and M2 (were/V2 → would have + V3)</li>
+    </ol>
+  </div></div>
+
+  <div class="twrap fade" style="margin-top:24px;">
+    <table>
+      <thead><tr><th>Type</th><th>If-Clause</th><th>Main Clause</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr style="background:var(--t0_lt);"><td><strong style="color:var(--t0);">Type 0</strong></td><td>Present Simple</td><td>Present Simple</td><td>General truth / fact</td></tr>
+        <tr style="background:var(--t1_lt);"><td><strong style="color:var(--t1);">Type 1</strong></td><td>Present Simple</td><td>will + V1</td><td>Real future possibility</td></tr>
+        <tr style="background:var(--t2_lt);"><td><strong style="color:var(--t2);">Type 2</strong></td><td>Past Simple (were)</td><td>would/could/might + V1</td><td>Imaginary present/future</td></tr>
+        <tr style="background:var(--t3_lt);"><td><strong style="color:var(--t3);">Type 3</strong></td><td>Past Perfect (had + V3)</td><td>would/could/might + have + V3</td><td>Imaginary past (regret)</td></tr>
+        <tr style="background:var(--mix_lt);"><td><strong style="color:var(--mix);">Mixed M1</strong></td><td>Past Perfect (had + V3)</td><td>would + V1</td><td>Past condition → present result</td></tr>
+        <tr style="background:var(--mix_lt);"><td><strong style="color:var(--mix);">Mixed M2</strong></td><td>Past Simple (were / V2)</td><td>would + have + V3</td><td>Present condition → past result</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:32px;" class="fade">
+    <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:16px;">Self-Evaluation Checklist — "I Can…"</h3>
+    <ul class="chk">
+      <li><input type="checkbox"> Identify all four conditional types from verb forms alone.</li>
+      <li><input type="checkbox"> State the correct formula for Types 0, 1, 2, and 3.</li>
+      <li><input type="checkbox"> Explain why "will" is never used in the if-clause of Type 1.</li>
+      <li><input type="checkbox"> Use "were" for all subjects in Type 2 (not "was").</li>
+      <li><input type="checkbox"> Form Type 3 conditionals with had + V3 → would have + V3.</li>
+      <li><input type="checkbox"> Explain what a Type 3 conditional implies about the real situation.</li>
+      <li><input type="checkbox"> Identify and produce Mixed Conditionals (M1 and M2).</li>
+      <li><input type="checkbox"> Use "unless", "provided that", "as long as", "in case", and "even if" correctly.</li>
+      <li><input type="checkbox"> Correct the 8 most common conditional errors.</li>
+      <li><input type="checkbox"> Transform sentences between conditional types correctly.</li>
+      <li><input type="checkbox"> Score at least 12/14 on the exam-style MCQ section.</li>
+    </ul>
+  </div>
+
+  <div class="scoreboard fade" style="margin-top:32px;">
+    <div class="sc-num" id="scoreNum">&ndash;</div>
+    <div class="sc-txt"><h4>Your Live Score</h4><p>Click through the MCQ exercises above and your score updates automatically.</p></div>
+    <div class="sc-bar-wrap"><div class="sc-bar-lbl">Accuracy</div><div class="sc-bar"><div class="sc-fill" id="scoreFill" style="width:0%"></div></div></div>
+  </div>
+
+  <div class="ib good fade" style="margin-top:24px;">
+    <span class="ico">&#8594;</span>
+    <div><strong>Next Unit: Unit 7 &mdash; Relative Clauses</strong><br>Master who, whom, which, whose, where, when, and that — with defining vs. non-defining relative clauses!</div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Unit 6 &middot; If-Clauses / Conditionals &middot; B1 English Course</span>
+  <span>5 Conditional Types &middot; 50 Practice Questions</span>
+</div>
+
+<script>
+window.addEventListener('scroll',function(){
+  var d=document.documentElement;
+  document.getElementById('prog').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+function toggleCond(head){
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
+}
+var cor=0,tot=0;
+function chk(el,r){
+  var item=el.closest('.mcq');
+  if(item.dataset.done)return;
+  item.dataset.done='1';tot++;
+  item.querySelectorAll('.opt').forEach(function(o){o.style.pointerEvents='none';});
+  var fbs=item.querySelectorAll('.fb');
+  if(r==='c'){el.classList.add('correct');fbs[0].classList.add('show');cor++;}
+  else{el.classList.add('wrong');fbs[1].classList.add('show');
+    item.querySelectorAll('.opt').forEach(function(o){
+      if(o.getAttribute('onclick')&&o.getAttribute('onclick').indexOf("'c'")>-1)o.classList.add('correct');
+    });}
+  var pct=Math.round(cor/Math.max(tot,1)*100);
+  var sn=document.getElementById('scoreNum');var sf=document.getElementById('scoreFill');
+  if(sn)sn.textContent=cor+' / '+tot;if(sf)sf.style.width=pct+'%';
+}
+function showFill(id,aid){
+  var b=document.getElementById(id);var a=document.getElementById(aid);
+  if(b)b.classList.add('shown');if(a)a.classList.add('show');
+}
+function showFix(btn){btn.nextElementSibling.style.display='block';btn.style.display='none';}
+</script>
+</body>
+</html>
