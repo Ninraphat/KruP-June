@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise: Article a/an/the | Primary</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff9f0;
+  --primary: #ff6b35;
+  --secondary: #4ecdc4;
+  --accent: #ffe66d;
+  --purple: #a855f7;
+  --green: #22c55e;
+  --red: #ef4444;
+  --text: #1e1b18;
+  --muted: #78716c;
+  --card: #ffffff;
+  --shadow: 0 4px 0 #e5d5c5;
+  --radius: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 8% 15%, #ffe66d33 0%, transparent 38%),
+    radial-gradient(circle at 92% 85%, #4ecdc433 0%, transparent 38%);
+  min-height: 100vh;
+  color: var(--text);
+  padding: 24px 16px 100px;
+}
+
+/* ── BACK ── */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; border: 2px solid #f0e8df;
+  box-shadow: 0 3px 0 #e5d5c5; border-radius: 999px;
+  padding: 8px 18px; font-size: 14px; font-weight: 800;
+  color: var(--muted); text-decoration: none; margin-bottom: 24px;
+  transition: all 0.2s;
+}
+.back-btn:hover { transform: translateY(-2px); color: var(--primary); }
+
+/* ── HEADER ── */
+header { text-align: center; margin-bottom: 28px; }
+.badge {
+  display: inline-block; background: var(--primary); color: white;
+  font-size: 12px; font-weight: 800; padding: 4px 14px;
+  border-radius: 999px; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;
+}
+h1 { font-family: 'Fredoka One', cursive; font-size: clamp(24px,6vw,36px); color: var(--primary); line-height: 1.2; }
+h1 span { color: var(--secondary); }
+.subtitle { color: var(--muted); font-size: 14px; font-weight: 700; margin-top: 6px; }
+
+/* ── OVERALL PROGRESS ── */
+.overall-bar-wrap {
+  max-width: 700px; margin: 0 auto 28px;
+  background: white; border: 2px solid #f0e8df;
+  border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow);
+}
+.bar-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.bar-label { font-size: 13px; font-weight: 800; color: var(--muted); }
+.bar-count { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--primary); }
+.bar-track { background: #f0e8df; border-radius: 999px; height: 12px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--secondary), var(--primary)); width: 0%; transition: width 0.4s ease; }
+
+/* ── SECTION TABS ── */
+.sec-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  max-width: 700px; margin: 0 auto 24px;
+}
+.sec-tab {
+  background: white; border: 2px solid #f0e8df; border-radius: 999px;
+  padding: 7px 16px; font-size: 13px; font-weight: 800; color: var(--muted);
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.sec-tab:hover { border-color: var(--secondary); color: var(--secondary); }
+.sec-tab.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 0 #d94e1f; }
+.sec-tab.done { background: #d1fae5; border-color: var(--green); color: #065f46; }
+.sec-tab.partial { background: #fff3e0; border-color: var(--primary); color: var(--primary); }
+
+/* ── SECTION WRAPPER ── */
+.ex-section { display: none; max-width: 700px; margin: 0 auto; animation: fadeUp 0.3s ease; }
+.ex-section.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.sec-header {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 16px; box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 14px;
+}
+.sec-icon { font-size: 32px; }
+.sec-info {}
+.sec-title { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--primary); }
+.sec-desc { font-size: 13px; font-weight: 700; color: var(--muted); margin-top: 2px; }
+.sec-progress { font-size: 12px; font-weight: 800; color: var(--secondary); margin-top: 2px; }
+
+/* ── QUESTION CARD ── */
+.q-card {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 20px; margin-bottom: 14px; box-shadow: 0 3px 0 #e5d5c5;
+  transition: border-color 0.2s;
+}
+.q-card.answered { border-color: #d1fae5; }
+.q-card.answered-wrong { border-color: #fee2e2; }
+
+.q-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.q-num {
+  background: var(--primary); color: white; font-family: 'Fredoka One', cursive;
+  font-size: 13px; padding: 2px 10px; border-radius: 999px; flex-shrink: 0;
+}
+.q-type-tag {
+  font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.tag-mc   { background: #eff6ff; color: #3b82f6; border: 1.5px solid #bfdbfe; }
+.tag-fill { background: #fff3e0; color: var(--primary); border: 1.5px solid #fed7aa; }
+.tag-pic  { background: #faf5ff; color: var(--purple); border: 1.5px solid #e9d5ff; }
+.tag-fix  { background: #fff1f2; color: var(--red); border: 1.5px solid #fecdd3; }
+.tag-drag { background: #f0fdfa; color: #0d9488; border: 1.5px solid #99f6e4; }
+
+.q-sentence {
+  font-size: 18px; font-weight: 800; color: var(--text);
+  line-height: 1.6; margin-bottom: 14px;
+}
+.q-blank {
+  display: inline-block; min-width: 60px; border-bottom: 3px solid var(--primary);
+  text-align: center; color: var(--primary); font-weight: 900;
+  padding: 0 6px; margin: 0 3px; transition: all 0.2s;
+}
+.q-blank.correct-blank { color: var(--green); border-bottom-color: var(--green); }
+.q-blank.wrong-blank   { color: var(--red);   border-bottom-color: var(--red); }
+
+/* ── MC CHOICES ── */
+.choices { display: flex; gap: 8px; flex-wrap: wrap; }
+.choice-btn {
+  background: white; border: 2px solid #e5d5c5; border-radius: 10px;
+  padding: 9px 22px; font-family: 'Nunito', sans-serif;
+  font-size: 16px; font-weight: 800; cursor: pointer; color: var(--text);
+  transition: all 0.15s;
+}
+.choice-btn:hover:not(:disabled) { border-color: var(--secondary); background: #f0fdfa; transform: translateY(-2px); }
+.choice-btn.correct { background: #d1fae5 !important; border-color: var(--green) !important; color: #065f46 !important; }
+.choice-btn.wrong   { background: #fee2e2 !important; border-color: var(--red) !important;   color: #991b1b !important; }
+.choice-btn:disabled { cursor: default; transform: none; }
+
+/* ── FILL IN INPUT ── */
+.fill-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.fill-input {
+  border: 2px solid #e5d5c5; border-radius: 10px; padding: 10px 16px;
+  font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800;
+  color: var(--text); outline: none; width: 140px; transition: all 0.2s;
+  background: white;
+}
+.fill-input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px #4ecdc420; }
+.fill-input.correct { border-color: var(--green); background: #d1fae5; color: #065f46; }
+.fill-input.wrong   { border-color: var(--red);   background: #fee2e2; color: #991b1b; }
+.fill-input:disabled { cursor: default; }
+.check-btn {
+  background: var(--secondary); color: white; border: none; border-radius: 10px;
+  padding: 10px 20px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; box-shadow: 0 3px 0 #2db5ac; transition: all 0.15s;
+}
+.check-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 0 #2db5ac; }
+.check-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+
+/* ── EMOJI PICTURE CHOICE ── */
+.pic-choices { display: flex; gap: 10px; flex-wrap: wrap; }
+.pic-btn {
+  background: white; border: 2px solid #e5d5c5; border-radius: 12px;
+  padding: 12px 18px; cursor: pointer; text-align: center;
+  font-size: 28px; transition: all 0.2s; min-width: 80px;
+}
+.pic-btn .pic-label { font-size: 13px; font-weight: 800; color: var(--muted); margin-top: 4px; display: block; }
+.pic-btn:hover:not(:disabled) { border-color: var(--secondary); transform: translateY(-3px); box-shadow: 0 4px 0 #e5d5c5; }
+.pic-btn.correct { background: #d1fae5; border-color: var(--green); }
+.pic-btn.wrong   { background: #fee2e2; border-color: var(--red); }
+.pic-btn:disabled { cursor: default; transform: none; }
+
+/* ── FIX SENTENCE ── */
+.fix-sentence {
+  background: #fff1f2; border: 2px solid #fecdd3; border-radius: 10px;
+  padding: 12px 16px; font-size: 17px; font-weight: 800;
+  color: var(--red); margin-bottom: 12px; line-height: 1.6;
+}
+.fix-choices { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ── DRAG & DROP ── */
+.drag-sentence {
+  font-size: 18px; font-weight: 800; color: var(--text);
+  line-height: 2; margin-bottom: 12px;
+}
+.drop-zone {
+  display: inline-block; min-width: 70px; height: 36px;
+  border: 2px dashed var(--secondary); border-radius: 8px;
+  background: #f0fdfa; vertical-align: middle;
+  text-align: center; line-height: 32px;
+  font-weight: 900; color: var(--secondary); margin: 0 4px;
+  transition: all 0.2s; cursor: default; padding: 0 8px;
+  font-size: 16px;
+}
+.drop-zone.drag-over { background: #ccfbf1; border-color: #14b8a6; transform: scale(1.05); }
+.drop-zone.filled { border-style: solid; color: var(--text); background: white; }
+.drop-zone.correct-drop { border-color: var(--green); background: #d1fae5; color: #065f46; }
+.drop-zone.wrong-drop   { border-color: var(--red);   background: #fee2e2; color: #991b1b; }
+
+.word-bank {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
+  padding: 14px; background: #faf5f0; border: 2px solid #f0e8df;
+  border-radius: 12px;
+}
+.word-bank-label { font-size: 12px; font-weight: 800; color: var(--muted); width: 100%; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
+.drag-word {
+  background: white; border: 2px solid #e5d5c5; border-radius: 8px;
+  padding: 6px 16px; font-size: 15px; font-weight: 800; cursor: grab;
+  transition: all 0.15s; color: var(--text); user-select: none;
+}
+.drag-word:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); box-shadow: 0 3px 0 #e5d5c5; }
+.drag-word.used { opacity: 0.3; cursor: default; pointer-events: none; }
+.drag-word:active { cursor: grabbing; }
+
+/* ── FEEDBACK ── */
+.feedback {
+  margin-top: 12px; padding: 10px 14px; border-radius: 10px;
+  font-size: 14px; font-weight: 700; display: none; line-height: 1.5;
+}
+.feedback.show { display: block; }
+.feedback.ok { background: #d1fae5; color: #065f46; }
+.feedback.ng { background: #fee2e2; color: #991b1b; }
+
+/* ── NAV BUTTONS ── */
+.nav-btns {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 24px; max-width: 700px; margin-left: auto; margin-right: auto;
+}
+.btn {
+  background: var(--primary); color: white; border: none; border-radius: 12px;
+  padding: 12px 28px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #d94e1f; transition: all 0.15s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #d94e1f; }
+.btn:active { transform: translateY(1px); box-shadow: 0 2px 0 #d94e1f; }
+.btn.sec { background: white; color: var(--muted); box-shadow: 0 4px 0 #e5d5c5; border: 2px solid #f0e8df; }
+.btn.sec:hover { color: var(--text); box-shadow: 0 6px 0 #e5d5c5; }
+.btn.grn { background: var(--green); box-shadow: 0 4px 0 #15803d; }
+.btn.grn:hover { box-shadow: 0 6px 0 #15803d; }
+
+/* ── FINAL SCORE ── */
+.score-screen {
+  display: none; max-width: 700px; margin: 0 auto;
+  animation: fadeUp 0.4s ease;
+}
+.score-screen.show { display: block; }
+.score-hero {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 36px; text-align: center; box-shadow: var(--shadow); margin-bottom: 16px;
+}
+.score-big { font-family: 'Fredoka One', cursive; font-size: 72px; color: var(--primary); line-height: 1; }
+.score-total { font-size: 16px; font-weight: 800; color: var(--muted); margin-top: 4px; }
+.score-pct {
+  display: inline-block; margin: 12px 0;
+  font-family: 'Fredoka One', cursive; font-size: 28px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.score-msg { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; }
+.score-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+.sg { background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px; padding: 14px; text-align: center; }
+.sg-icon { font-size: 24px; }
+.sg-lbl { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 4px 0 2px; }
+.sg-val { font-family: 'Fredoka One', cursive; font-size: 24px; color: var(--primary); }
+
+.section-breakdown {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 20px; box-shadow: var(--shadow); margin-bottom: 16px;
+}
+.breakdown-title { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--primary); margin-bottom: 14px; }
+.breakdown-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.breakdown-name { font-size: 13px; font-weight: 800; color: var(--text); width: 160px; flex-shrink: 0; }
+.breakdown-bar-wrap { flex: 1; background: #f0e8df; border-radius: 999px; height: 10px; overflow: hidden; }
+.breakdown-bar { height: 100%; border-radius: 999px; background: var(--secondary); }
+.breakdown-score { font-size: 13px; font-weight: 800; color: var(--muted); width: 44px; text-align: right; flex-shrink: 0; }
+
+.score-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+
+@media (max-width: 560px) {
+  .sec-tabs { gap: 6px; }
+  .sec-tab  { font-size: 12px; padding: 6px 12px; }
+  .nav-btns { flex-direction: column; gap: 10px; }
+  .nav-btns .btn { width: 100%; text-align: center; }
+  .score-grid { grid-template-columns: 1fr 1fr; }
+  .breakdown-name { width: 120px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html">← กลับหน้าหลัก</a>
+
+<header>
+  <div class="badge">Primary · Exercise</div>
+  <h1>Article <span>a / an / the</span> 🎯</h1>
+  <p class="subtitle">50 ข้อ · 5 รูปแบบ · ทำให้ครบแล้วดูคะแนนรวม!</p>
+</header>
+
+<!-- OVERALL PROGRESS -->
+<div class="overall-bar-wrap">
+  <div class="bar-row">
+    <span class="bar-label">ความคืบหน้าทั้งหมด</span>
+    <span class="bar-count" id="overall-count">0 / 50</span>
+  </div>
+  <div class="bar-track"><div class="bar-fill" id="overall-fill"></div></div>
+</div>
+
+<!-- SECTION TABS -->
+<div class="sec-tabs">
+  <div class="sec-tab active" id="tab-1" onclick="goSec(1)">1️⃣ MC (ข้อ 1–10)</div>
+  <div class="sec-tab"        id="tab-2" onclick="goSec(2)">2️⃣ Fill-in (11–20)</div>
+  <div class="sec-tab"        id="tab-3" onclick="goSec(3)">3️⃣ รูปภาพ (21–30)</div>
+  <div class="sec-tab"        id="tab-4" onclick="goSec(4)">4️⃣ แก้ประโยค (31–40)</div>
+  <div class="sec-tab"        id="tab-5" onclick="goSec(5)">5️⃣ Drag &amp; Drop (41–50)</div>
+</div>
+
+<!-- ════════════════════
+     SECTION 1 — MC
+════════════════════ -->
+<div class="ex-section active" id="sec-1">
+  <div class="sec-header">
+    <div class="sec-icon">🔘</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 1 — Multiple Choice</div>
+      <div class="sec-desc">เลือกคำตอบที่ถูกต้อง: a, an หรือ the</div>
+      <div class="sec-progress" id="prog-1">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec1-questions"></div>
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn" onclick="goSec(2)">Part 2 →</button>
+  </div>
+</div>
+
+<!-- ════════════════════
+     SECTION 2 — Fill-in
+════════════════════ -->
+<div class="ex-section" id="sec-2">
+  <div class="sec-header">
+    <div class="sec-icon">✍️</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 2 — Fill in the Blank</div>
+      <div class="sec-desc">พิมพ์ a, an หรือ the ลงในช่องว่าง</div>
+      <div class="sec-progress" id="prog-2">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec2-questions"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(1)">← Part 1</button>
+    <button class="btn" onclick="goSec(3)">Part 3 →</button>
+  </div>
+</div>
+
+<!-- ════════════════════
+     SECTION 3 — Picture
+════════════════════ -->
+<div class="ex-section" id="sec-3">
+  <div class="sec-header">
+    <div class="sec-icon">🖼️</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 3 — Picture Choice</div>
+      <div class="sec-desc">ดูรูปและเลือก article ที่ถูกต้อง</div>
+      <div class="sec-progress" id="prog-3">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec3-questions"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(2)">← Part 2</button>
+    <button class="btn" onclick="goSec(4)">Part 4 →</button>
+  </div>
+</div>
+
+<!-- ════════════════════
+     SECTION 4 — Fix It
+════════════════════ -->
+<div class="ex-section" id="sec-4">
+  <div class="sec-header">
+    <div class="sec-icon">🔧</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 4 — Spot the Mistake</div>
+      <div class="sec-desc">ประโยคนี้มีข้อผิดพลาด — เลือกประโยคที่ถูกต้อง</div>
+      <div class="sec-progress" id="prog-4">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec4-questions"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(3)">← Part 3</button>
+    <button class="btn" onclick="goSec(5)">Part 5 →</button>
+  </div>
+</div>
+
+<!-- ════════════════════
+     SECTION 5 — Drag
+════════════════════ -->
+<div class="ex-section" id="sec-5">
+  <div class="sec-header">
+    <div class="sec-icon">🧩</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 5 — Drag &amp; Drop</div>
+      <div class="sec-desc">ลากคำมาวางในช่องว่างให้ถูกต้อง</div>
+      <div class="sec-progress" id="prog-5">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec5-questions"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(4)">← Part 4</button>
+    <button class="btn grn" onclick="showFinal()">ดูคะแนนรวม 🏆</button>
+  </div>
+</div>
+
+<!-- ════════════════════
+     FINAL SCORE
+════════════════════ -->
+<div class="score-screen" id="score-screen">
+  <div class="score-hero">
+    <div class="score-big" id="final-score">–</div>
+    <div class="score-total">จาก 50 ข้อ</div>
+    <div class="score-pct" id="final-pct">–%</div>
+    <div class="score-msg" id="final-msg"></div>
+    <div class="score-grid">
+      <div class="sg"><div class="sg-icon">✅</div><div class="sg-lbl">ถูก</div><div class="sg-val" id="s-correct" style="color:var(--green)">–</div></div>
+      <div class="sg"><div class="sg-icon">❌</div><div class="sg-lbl">ผิด</div><div class="sg-val" id="s-wrong" style="color:var(--red)">–</div></div>
+      <div class="sg"><div class="sg-icon">📊</div><div class="sg-lbl">คะแนน</div><div class="sg-val" id="s-pct">–</div></div>
+    </div>
+  </div>
+  <div class="section-breakdown">
+    <div class="breakdown-title">📊 คะแนนแต่ละ Part</div>
+    <div id="breakdown-rows"></div>
+  </div>
+  <div class="score-actions">
+    <button class="btn sec" onclick="resetAll()">🔁 ทำใหม่ทั้งหมด</button>
+    <a class="btn" href="c-article-p.html">📖 ทบทวนเนื้อหา</a>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// DATA
+// ══════════════════════════════════════
+
+// PART 1 — Multiple Choice (10)
+const mcData = [
+  { s:'I have ___ dog at home.', ans:'a', opts:['a','an','the'], ex:'dog ขึ้นต้นด้วย d (พยัญชนะ) → ใช้ a' },
+  { s:'She ate ___ orange for lunch.', ans:'an', opts:['a','an','the'], ex:'orange ขึ้นต้นด้วย o (สระ) → ใช้ an' },
+  { s:'Look at ___ moon! It is so big tonight.', ans:'the', opts:['a','an','the'], ex:'ดวงจันทร์มีดวงเดียว → ใช้ the' },
+  { s:'He found ___ umbrella on the bench.', ans:'an', opts:['a','an','the'], ex:'umbrella ขึ้นต้นด้วย u (สระ) → ใช้ an' },
+  { s:'My mum is ___ nurse.', ans:'a', opts:['a','an','the'], ex:'nurse ขึ้นต้นด้วย n (พยัญชนะ) → ใช้ a' },
+  { s:'Can you close ___ window? It is cold.', ans:'the', opts:['a','an','the'], ex:'ทุกคนรู้ว่าหมายถึงหน้าต่างบานไหน → ใช้ the' },
+  { s:'There is ___ ant on my book.', ans:'an', opts:['a','an','the'], ex:'ant ขึ้นต้นด้วย a (สระ) → ใช้ an' },
+  { s:'I want to be ___ pilot when I grow up.', ans:'a', opts:['a','an','the'], ex:'pilot ขึ้นต้นด้วย p (พยัญชนะ) → ใช้ a' },
+  { s:'___ sun rises in the east every morning.', ans:'The', opts:['A','An','The'], ex:'ดวงอาทิตย์มีดวงเดียว → ใช้ The' },
+  { s:'She is reading ___ interesting book.', ans:'an', opts:['a','an','the'], ex:'interesting ขึ้นต้นด้วย i (สระ) → ใช้ an' },
+];
+
+// PART 2 — Fill in (10)
+const fillData = [
+  { s:'I saw ___ elephant at the zoo.', ans:'an', ex:'elephant ออกเสียงสระ e → ใช้ an' },
+  { s:'Please turn off ___ light. I want to sleep.', ans:'the', ex:'ทุกคนรู้ว่าหมายถึงไฟดวงไหน → ใช้ the' },
+  { s:'My dad drives ___ blue car.', ans:'a', ex:'blue ขึ้นต้นด้วย b (พยัญชนะ) → ใช้ a' },
+  { s:'She has ___ older sister.', ans:'an', ex:'older ขึ้นต้นด้วย o (สระ) → ใช้ an' },
+  { s:'___ sky is very blue today.', ans:'The', ex:'ท้องฟ้ามีผืนเดียว → ใช้ The' },
+  { s:'I found ___ egg in the nest.', ans:'an', ex:'egg ขึ้นต้นด้วย e (สระ) → ใช้ an' },
+  { s:'He kicked ___ ball into the goal.', ans:'the', ex:'ลูกบอล(ลูกนั้น) ทั้งคู่รู้ว่าหมายถึงลูกไหน → ใช้ the' },
+  { s:'There is ___ cat on the roof.', ans:'a', ex:'cat ขึ้นต้นด้วย c (พยัญชนะ) → ใช้ a' },
+  { s:'We saw ___ owl in the tree last night.', ans:'an', ex:'owl ขึ้นต้นด้วย o (สระ) → ใช้ an' },
+  { s:'She is ___ only child in her family.', ans:'the', ex:'only = มีคนเดียว → ใช้ the' },
+];
+
+// PART 3 — Picture Choice (10)
+const picData = [
+  { emoji:'🍎', label:'apple', s:'I eat ___ apple every day.', ans:'an', opts:['a','an','the'], ex:'apple เสียงสระ a → ใช้ an' },
+  { emoji:'☀️', label:'sun', s:'___ sun is very hot in summer.', ans:'The', opts:['A','An','The'], ex:'ดวงอาทิตย์มีดวงเดียว → ใช้ The' },
+  { emoji:'🐘', label:'elephant', s:'I saw ___ elephant at the zoo.', ans:'an', opts:['a','an','the'], ex:'elephant เสียงสระ e → ใช้ an' },
+  { emoji:'📚', label:'book', s:'She is reading ___ book.', ans:'a', opts:['a','an','the'], ex:'book เสียงพยัญชนะ b → ใช้ a' },
+  { emoji:'🌙', label:'moon', s:'___ moon is round tonight.', ans:'The', opts:['A','An','The'], ex:'ดวงจันทร์มีดวงเดียว → ใช้ The' },
+  { emoji:'🐦', label:'bird', s:'I can see ___ bird on the tree.', ans:'a', opts:['a','an','the'], ex:'bird เสียงพยัญชนะ b → ใช้ a' },
+  { emoji:'🧅', label:'onion', s:'Mum is cutting ___ onion.', ans:'an', opts:['a','an','the'], ex:'onion เสียงสระ o → ใช้ an' },
+  { emoji:'🚪', label:'door', s:'Please open ___ door for me.', ans:'the', opts:['a','an','the'], ex:'ประตูที่รู้กันอยู่แล้ว → ใช้ the' },
+  { emoji:'🏠', label:'house', s:'My friend lives in ___ old house.', ans:'an', opts:['a','an','the'], ex:'old เสียงสระ o → ใช้ an' },
+  { emoji:'🦁', label:'lion', s:'I want to see ___ lion at the zoo.', ans:'a', opts:['a','an','the'], ex:'lion เสียงพยัญชนะ l → ใช้ a' },
+];
+
+// PART 4 — Fix the Sentence (10)
+const fixData = [
+  {
+    wrong:'She has a umbrella.',
+    opts:['She has a umbrella.','She has an umbrella.','She has the umbrella.'],
+    ans:'She has an umbrella.',
+    ex:'umbrella เสียงสระ u → ใช้ an ไม่ใช่ a'
+  },
+  {
+    wrong:'Look at a sun! It is beautiful.',
+    opts:['Look at a sun!','Look at an sun!','Look at the sun!'],
+    ans:'Look at the sun!',
+    ex:'ดวงอาทิตย์มีดวงเดียว → ใช้ the'
+  },
+  {
+    wrong:'He is an teacher.',
+    opts:['He is an teacher.','He is a teacher.','He is the teacher.'],
+    ans:'He is a teacher.',
+    ex:'teacher เสียงพยัญชนะ t → ใช้ a'
+  },
+  {
+    wrong:'I ate a egg this morning.',
+    opts:['I ate a egg.','I ate an egg.','I ate the egg.'],
+    ans:'I ate an egg.',
+    ex:'egg เสียงสระ e → ใช้ an'
+  },
+  {
+    wrong:'Please close a door.',
+    opts:['Please close a door.','Please close an door.','Please close the door.'],
+    ans:'Please close the door.',
+    ex:'ประตูที่รู้กันว่าหมายถึงอันไหน → ใช้ the'
+  },
+  {
+    wrong:'I have the cat and a dog.',
+    opts:['I have the cat and a dog.','I have a cat and a dog.','I have an cat and a dog.'],
+    ans:'I have a cat and a dog.',
+    ex:'พูดถึงแมวและหมาครั้งแรก → ใช้ a ทั้งคู่'
+  },
+  {
+    wrong:'She found an ball under the table.',
+    opts:['She found an ball.','She found a ball.','She found the ball.'],
+    ans:'She found a ball.',
+    ex:'ball เสียงพยัญชนะ b → ใช้ a'
+  },
+  {
+    wrong:'An sky is blue.',
+    opts:['An sky is blue.','A sky is blue.','The sky is blue.'],
+    ans:'The sky is blue.',
+    ex:'ท้องฟ้ามีผืนเดียว → ใช้ The'
+  },
+  {
+    wrong:'He wants to ride an horse.',
+    opts:['He wants to ride an horse.','He wants to ride a horse.','He wants to ride the horse.'],
+    ans:'He wants to ride a horse.',
+    ex:'horse เสียงพยัญชนะ h → ใช้ a'
+  },
+  {
+    wrong:'I saw a interesting film.',
+    opts:['I saw a interesting film.','I saw an interesting film.','I saw the interesting film.'],
+    ans:'I saw an interesting film.',
+    ex:'interesting เสียงสระ i → ใช้ an'
+  },
+];
+
+// PART 5 — Drag & Drop (10)
+const dragData = [
+  { parts:['I have','___','cat.'], ans:'a', bank:['a','an','the'], ex:'cat เสียงพยัญชนะ c → ใช้ a' },
+  { parts:['She is eating','___','egg.'], ans:'an', bank:['a','an','the'], ex:'egg เสียงสระ e → ใช้ an' },
+  { parts:['Look at','___','sun!'], ans:'the', bank:['a','an','the'], ex:'ดวงอาทิตย์มีดวงเดียว → ใช้ the' },
+  { parts:['He wants','___','orange.'], ans:'an', bank:['a','an','the'], ex:'orange เสียงสระ o → ใช้ an' },
+  { parts:['Please open','___','window.'], ans:'the', bank:['a','an','the'], ex:'หน้าต่างที่ทุกคนรู้ → ใช้ the' },
+  { parts:['My sister is','___','teacher.'], ans:'a', bank:['a','an','the'], ex:'teacher เสียงพยัญชนะ t → ใช้ a' },
+  { parts:['I found','___','umbrella.'], ans:'an', bank:['a','an','the'], ex:'umbrella เสียงสระ u → ใช้ an' },
+  { parts:['We can see','___','moon.'], ans:'the', bank:['a','an','the'], ex:'ดวงจันทร์มีดวงเดียว → ใช้ the' },
+  { parts:['He bought','___','new pen.'], ans:'a', bank:['a','an','the'], ex:'new เสียงพยัญชนะ n → ใช้ a' },
+  { parts:['She has','___','older brother.'], ans:'an', bank:['a','an','the'], ex:'older เสียงสระ o → ใช้ an' },
+];
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+const scores = { 1:0, 2:0, 3:0, 4:0, 5:0 };
+const answered = { 1:0, 2:0, 3:0, 4:0, 5:0 };
+const totals   = { 1:10, 2:10, 3:10, 4:10, 5:10 };
+let curSec = 1;
+
+// ══════════════════════════════════════
+// NAV
+// ══════════════════════════════════════
+function goSec(n) {
+  document.getElementById(`sec-${curSec}`).classList.remove('active');
+  document.getElementById(`tab-${curSec}`).classList.remove('active');
+  curSec = n;
+  document.getElementById(`sec-${n}`).classList.add('active');
+  document.getElementById(`tab-${n}`).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateTabState(sec) {
+  const tab = document.getElementById(`tab-${sec}`);
+  tab.classList.remove('done','partial');
+  if (answered[sec] === totals[sec]) tab.classList.add('done');
+  else if (answered[sec] > 0) tab.classList.add('partial');
+}
+
+function onAnswer(sec, isCorrect) {
+  answered[sec]++;
+  if (isCorrect) scores[sec]++;
+  updateTabState(sec);
+  updateOverall();
+  updateSecProg(sec);
+}
+
+function updateSecProg(sec) {
+  document.getElementById(`prog-${sec}`).textContent = `${answered[sec]} / ${totals[sec]} ข้อ`;
+}
+
+function updateOverall() {
+  const total = Object.values(answered).reduce((a,b)=>a+b,0);
+  document.getElementById('overall-count').textContent = `${total} / 50`;
+  document.getElementById('overall-fill').style.width = `${(total/50)*100}%`;
+}
+
+// ══════════════════════════════════════
+// PART 1 — MC
+// ══════════════════════════════════════
+function buildMC() {
+  const c = document.getElementById('sec1-questions');
+  mcData.forEach((q, i) => {
+    const sentHTML = q.s.replace('___', `<span class="q-blank" id="mc-blank-${i}">___</span>`);
+    const optsHTML = q.opts.map(o =>
+      `<button class="choice-btn" id="mc-${i}-${o}" onclick="checkMC(${i},'${o}')">${o}</button>`
+    ).join('');
+    c.innerHTML += `
+      <div class="q-card" id="mc-card-${i}">
+        <div class="q-meta">
+          <span class="q-num">ข้อ ${i+1}</span>
+          <span class="q-type-tag tag-mc">Multiple Choice</span>
+        </div>
+        <div class="q-sentence">${sentHTML}</div>
+        <div class="choices">${optsHTML}</div>
+        <div class="feedback" id="mc-fb-${i}"></div>
+      </div>`;
+  });
+}
+
+function checkMC(i, sel) {
+  const q = mcData[i];
+  const ok = sel.toLowerCase() === q.ans.toLowerCase();
+  q.opts.forEach(o => {
+    const btn = document.getElementById(`mc-${i}-${o}`);
+    if (!btn) return;
+    btn.disabled = true;
+    if (o.toLowerCase() === q.ans.toLowerCase()) btn.classList.add('correct');
+    else if (o === sel) btn.classList.add('wrong');
+  });
+  const bl = document.getElementById(`mc-blank-${i}`);
+  bl.textContent = q.ans;
+  bl.classList.add(ok ? 'correct-blank' : 'wrong-blank');
+  const fb = document.getElementById(`mc-fb-${i}`);
+  fb.classList.add('show', ok ? 'ok' : 'ng');
+  fb.innerHTML = (ok ? '✅ ถูกต้อง! ' : `❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`) + q.ex;
+  document.getElementById(`mc-card-${i}`).classList.add(ok ? 'answered' : 'answered-wrong');
+  onAnswer(1, ok);
+}
+
+// ══════════════════════════════════════
+// PART 2 — FILL IN
+// ══════════════════════════════════════
+function buildFill() {
+  const c = document.getElementById('sec2-questions');
+  fillData.forEach((q, i) => {
+    const sentHTML = q.s.replace('___', `<span class="q-blank" id="fill-blank-${i}">___</span>`);
+    c.innerHTML += `
+      <div class="q-card" id="fill-card-${i}">
+        <div class="q-meta">
+          <span class="q-num">ข้อ ${i+11}</span>
+          <span class="q-type-tag tag-fill">Fill in</span>
+        </div>
+        <div class="q-sentence">${sentHTML}</div>
+        <div class="fill-row">
+          <input class="fill-input" id="fill-inp-${i}" placeholder="a / an / the"
+            onkeydown="if(event.key==='Enter') checkFill(${i})">
+          <button class="check-btn" id="fill-btn-${i}" onclick="checkFill(${i})">ตรวจ ✓</button>
+        </div>
+        <div class="feedback" id="fill-fb-${i}"></div>
+      </div>`;
+  });
+}
+
+function checkFill(i) {
+  const inp = document.getElementById(`fill-inp-${i}`);
+  const val = inp.value.trim().toLowerCase();
+  const q = fillData[i];
+  const ok = val === q.ans.toLowerCase();
+  inp.disabled = true;
+  inp.classList.add(ok ? 'correct' : 'wrong');
+  document.getElementById(`fill-btn-${i}`).disabled = true;
+  const bl = document.getElementById(`fill-blank-${i}`);
+  bl.textContent = q.ans;
+  bl.classList.add(ok ? 'correct-blank' : 'wrong-blank');
+  const fb = document.getElementById(`fill-fb-${i}`);
+  fb.classList.add('show', ok ? 'ok' : 'ng');
+  fb.innerHTML = (ok ? '✅ ถูกต้อง! ' : `❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`) + q.ex;
+  document.getElementById(`fill-card-${i}`).classList.add(ok ? 'answered' : 'answered-wrong');
+  onAnswer(2, ok);
+}
+
+// ══════════════════════════════════════
+// PART 3 — PICTURE CHOICE
+// ══════════════════════════════════════
+function buildPic() {
+  const c = document.getElementById('sec3-questions');
+  picData.forEach((q, i) => {
+    const sentHTML = q.s.replace('___', `<span class="q-blank" id="pic-blank-${i}">___</span>`);
+    const optsHTML = q.opts.map(o =>
+      `<button class="pic-btn" id="pic-${i}-${o}" onclick="checkPic(${i},'${o}')">
+        <span>${q.emoji}</span>
+        <span class="pic-label">${o}</span>
+      </button>`
+    ).join('');
+    c.innerHTML += `
+      <div class="q-card" id="pic-card-${i}">
+        <div class="q-meta">
+          <span class="q-num">ข้อ ${i+21}</span>
+          <span class="q-type-tag tag-pic">Picture</span>
+        </div>
+        <div class="q-sentence">${sentHTML}</div>
+        <div class="pic-choices">${optsHTML}</div>
+        <div class="feedback" id="pic-fb-${i}"></div>
+      </div>`;
+  });
+}
+
+function checkPic(i, sel) {
+  const q = picData[i];
+  const ok = sel.toLowerCase() === q.ans.toLowerCase();
+  q.opts.forEach(o => {
+    const btn = document.getElementById(`pic-${i}-${o}`);
+    if (!btn) return;
+    btn.disabled = true;
+    if (o.toLowerCase() === q.ans.toLowerCase()) btn.classList.add('correct');
+    else if (o === sel) btn.classList.add('wrong');
+  });
+  const bl = document.getElementById(`pic-blank-${i}`);
+  bl.textContent = q.ans;
+  bl.classList.add(ok ? 'correct-blank' : 'wrong-blank');
+  const fb = document.getElementById(`pic-fb-${i}`);
+  fb.classList.add('show', ok ? 'ok' : 'ng');
+  fb.innerHTML = (ok ? '✅ ถูกต้อง! ' : `❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`) + q.ex;
+  document.getElementById(`pic-card-${i}`).classList.add(ok ? 'answered' : 'answered-wrong');
+  onAnswer(3, ok);
+}
+
+// ══════════════════════════════════════
+// PART 4 — FIX SENTENCE
+// ══════════════════════════════════════
+function buildFix() {
+  const c = document.getElementById('sec4-questions');
+  fixData.forEach((q, i) => {
+    const optsHTML = q.opts.map(o =>
+      `<button class="choice-btn fix-choice" id="fix-${i}-${CSS.escape(o)}" onclick="checkFix(${i},this,'${o.replace(/'/g,"\\'")}')">
+        ${o}
+      </button>`
+    ).join('');
+    c.innerHTML += `
+      <div class="q-card" id="fix-card-${i}">
+        <div class="q-meta">
+          <span class="q-num">ข้อ ${i+31}</span>
+          <span class="q-type-tag tag-fix">แก้ประโยค</span>
+        </div>
+        <div class="fix-sentence">❌ ${q.wrong}</div>
+        <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px;">เลือกประโยคที่ถูกต้อง:</p>
+        <div class="fix-choices">${optsHTML}</div>
+        <div class="feedback" id="fix-fb-${i}"></div>
+      </div>`;
+  });
+}
+
+function checkFix(i, btn, sel) {
+  const q = fixData[i];
+  const ok = sel === q.ans;
+  const card = document.getElementById(`fix-card-${i}`);
+  card.querySelectorAll('.fix-choice').forEach(b => {
+    b.disabled = true;
+    if (b.textContent.trim() === q.ans) b.classList.add('correct');
+    else if (b === btn) b.classList.add('wrong');
+  });
+  const fb = document.getElementById(`fix-fb-${i}`);
+  fb.classList.add('show', ok ? 'ok' : 'ng');
+  fb.innerHTML = (ok ? '✅ ถูกต้อง! ' : `❌ ผิด — ที่ถูกคือ: <strong>${q.ans}</strong><br>`) + q.ex;
+  card.classList.add(ok ? 'answered' : 'answered-wrong');
+  onAnswer(4, ok);
+}
+
+// ══════════════════════════════════════
+// PART 5 — DRAG & DROP
+// ══════════════════════════════════════
+function buildDrag() {
+  const c = document.getElementById('sec5-questions');
+  dragData.forEach((q, i) => {
+    const sentHTML = q.parts[0] + ` <span class="drop-zone" id="drop-${i}" 
+      ondragover="event.preventDefault();this.classList.add('drag-over')"
+      ondragleave="this.classList.remove('drag-over')"
+      ondrop="dropWord(event,${i})">___</span> ` + q.parts[2];
+
+    const bankHTML = q.bank.map((w,wi) =>
+      `<span class="drag-word" id="dw-${i}-${wi}" draggable="true"
+        ondragstart="dragStart(event,'${w}',${i},${wi})">${w}</span>`
+    ).join('');
+
+    c.innerHTML += `
+      <div class="q-card" id="drag-card-${i}">
+        <div class="q-meta">
+          <span class="q-num">ข้อ ${i+41}</span>
+          <span class="q-type-tag tag-drag">Drag &amp; Drop</span>
+        </div>
+        <div class="drag-sentence">${sentHTML}</div>
+        <div class="word-bank">
+          <span class="word-bank-label">คำศัพท์</span>
+          ${bankHTML}
+        </div>
+        <div class="feedback" id="drag-fb-${i}"></div>
+      </div>`;
+  });
+}
+
+let dragPayload = {};
+function dragStart(e, word, qi, wi) {
+  dragPayload = { word, qi, wi };
+  e.dataTransfer.effectAllowed = 'move';
+}
+
+function dropWord(e, i) {
+  e.preventDefault();
+  const zone = document.getElementById(`drop-${i}`);
+  zone.classList.remove('drag-over');
+  if (zone.classList.contains('correct-drop') || zone.classList.contains('wrong-drop')) return;
+
+  const { word, qi, wi } = dragPayload;
+  if (qi !== i) return;
+
+  const q = dragData[i];
+  const ok = word === q.ans;
+
+  zone.textContent = word;
+  zone.classList.add('filled', ok ? 'correct-drop' : 'wrong-drop');
+
+  // mark word used
+  document.getElementById(`dw-${i}-${wi}`).classList.add('used');
+
+  // disable remaining words for this q
+  q.bank.forEach((_, idx) => {
+    const el = document.getElementById(`dw-${i}-${idx}`);
+    if (el) el.style.pointerEvents = 'none';
+  });
+
+  const fb = document.getElementById(`drag-fb-${i}`);
+  fb.classList.add('show', ok ? 'ok' : 'ng');
+  fb.innerHTML = (ok ? '✅ ถูกต้อง! ' : `❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`) + q.ex;
+  document.getElementById(`drag-card-${i}`).classList.add(ok ? 'answered' : 'answered-wrong');
+  onAnswer(5, ok);
+}
+
+// ══════════════════════════════════════
+// FINAL SCORE
+// ══════════════════════════════════════
+function showFinal() {
+  document.getElementById(`sec-5`).classList.remove('active');
+  document.getElementById(`tab-5`).classList.remove('active');
+
+  const total = Object.values(scores).reduce((a,b)=>a+b,0);
+  const pct = Math.round(total/50*100);
+  const msg = pct===100?'🏆 Perfect! เก่งมากเลย!':
+              pct>=80?'🎉 ดีมาก! เกือบ Perfect':
+              pct>=60?'👍 ผ่าน! ทบทวนอีกนิดนะ':
+              '📚 ลองอ่านเนื้อหาแล้วมาทำใหม่นะ';
+
+  document.getElementById('final-score').textContent = total;
+  document.getElementById('final-pct').textContent = pct + '%';
+  document.getElementById('s-correct').textContent = total;
+  document.getElementById('s-wrong').textContent = 50 - total;
+  document.getElementById('s-pct').textContent = pct + '%';
+  document.getElementById('final-msg').textContent = msg;
+
+  const parts = ['Multiple Choice','Fill in the Blank','Picture Choice','แก้ประโยค','Drag & Drop'];
+  let rows = '';
+  for (let s=1;s<=5;s++) {
+    const pctS = Math.round(scores[s]/10*100);
+    rows += `<div class="breakdown-row">
+      <div class="breakdown-name">Part ${s}: ${parts[s-1]}</div>
+      <div class="breakdown-bar-wrap"><div class="breakdown-bar" style="width:${pctS}%;background:${pctS>=70?'var(--green)':pctS>=50?'var(--accent)':'var(--red)'}"></div></div>
+      <div class="breakdown-score">${scores[s]}/10</div>
+    </div>`;
+  }
+  document.getElementById('breakdown-rows').innerHTML = rows;
+
+  const sc = document.getElementById('score-screen');
+  sc.classList.add('show');
+  sc.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function resetAll() {
+  location.reload();
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+buildMC();
+buildFill();
+buildPic();
+buildFix();
+buildDrag();
+</script>
+</body>
+</html>

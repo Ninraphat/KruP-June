@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise: Article a/an/the/∅ | Junior High</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff9f0;
+  --primary: #ff6b35;
+  --secondary: #4ecdc4;
+  --accent: #ffe66d;
+  --purple: #a855f7;
+  --green: #22c55e;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --text: #1e1b18;
+  --muted: #78716c;
+  --card: #ffffff;
+  --shadow: 0 4px 0 #e5d5c5;
+  --radius: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 8% 15%, #ffe66d33 0%, transparent 38%),
+    radial-gradient(circle at 92% 85%, #4ecdc433 0%, transparent 38%);
+  min-height: 100vh;
+  color: var(--text);
+  padding: 24px 16px 100px;
+}
+
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; border: 2px solid #f0e8df;
+  box-shadow: 0 3px 0 #e5d5c5; border-radius: 999px;
+  padding: 8px 18px; font-size: 14px; font-weight: 800;
+  color: var(--muted); text-decoration: none; margin-bottom: 24px;
+  transition: all 0.2s;
+}
+.back-btn:hover { transform: translateY(-2px); color: var(--primary); }
+
+header { text-align: center; margin-bottom: 28px; }
+.badge {
+  display: inline-block; background: var(--secondary); color: white;
+  font-size: 12px; font-weight: 800; padding: 4px 14px;
+  border-radius: 999px; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;
+}
+h1 { font-family: 'Fredoka One', cursive; font-size: clamp(24px,6vw,36px); color: var(--primary); line-height: 1.2; }
+h1 span { color: var(--secondary); }
+.subtitle { color: var(--muted); font-size: 14px; font-weight: 700; margin-top: 6px; }
+
+/* ── OVERALL PROGRESS ── */
+.overall-bar-wrap {
+  max-width: 720px; margin: 0 auto 28px;
+  background: white; border: 2px solid #f0e8df;
+  border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow);
+}
+.bar-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.bar-label { font-size: 13px; font-weight: 800; color: var(--muted); }
+.bar-count { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--primary); }
+.bar-track { background: #f0e8df; border-radius: 999px; height: 12px; overflow: hidden; }
+.bar-fill  { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--secondary), var(--primary)); width: 0%; transition: width 0.4s ease; }
+
+/* ── TABS ── */
+.sec-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  max-width: 720px; margin: 0 auto 24px;
+}
+.sec-tab {
+  background: white; border: 2px solid #f0e8df; border-radius: 999px;
+  padding: 7px 16px; font-size: 13px; font-weight: 800; color: var(--muted);
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.sec-tab:hover { border-color: var(--secondary); color: var(--secondary); }
+.sec-tab.active  { background: var(--secondary); color: white; border-color: var(--secondary); box-shadow: 0 2px 0 #2db5ac; }
+.sec-tab.done    { background: #d1fae5; border-color: var(--green); color: #065f46; }
+.sec-tab.partial { background: #fff3e0; border-color: var(--primary); color: var(--primary); }
+
+/* ── SECTIONS ── */
+.ex-section { display: none; max-width: 720px; margin: 0 auto; animation: fadeUp 0.3s ease; }
+.ex-section.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.sec-header {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 16px; box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 14px;
+}
+.sec-icon { font-size: 32px; }
+.sec-title { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--secondary); }
+.sec-desc  { font-size: 13px; font-weight: 700; color: var(--muted); margin-top: 2px; }
+.sec-prog  { font-size: 12px; font-weight: 800; color: var(--primary); margin-top: 2px; }
+
+/* ── Q CARD ── */
+.q-card {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 20px; margin-bottom: 14px; box-shadow: 0 3px 0 #e5d5c5; transition: border-color 0.2s;
+}
+.q-card.answered      { border-color: #d1fae5; }
+.q-card.answered-wrong{ border-color: #fee2e2; }
+
+.q-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.q-num {
+  background: var(--secondary); color: white; font-family: 'Fredoka One', cursive;
+  font-size: 13px; padding: 2px 10px; border-radius: 999px; flex-shrink: 0;
+}
+.q-type-tag {
+  font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.tag-mc   { background: #eff6ff; color: var(--blue);    border: 1.5px solid #bfdbfe; }
+.tag-fill { background: #fff3e0; color: var(--primary);  border: 1.5px solid #fed7aa; }
+.tag-ctx  { background: #faf5ff; color: var(--purple);   border: 1.5px solid #e9d5ff; }
+.tag-fix  { background: #fff1f2; color: var(--red);      border: 1.5px solid #fecdd3; }
+.tag-drag { background: #f0fdfa; color: #0d9488;         border: 1.5px solid #99f6e4; }
+
+.q-sentence { font-size: 17px; font-weight: 800; color: var(--text); line-height: 1.7; margin-bottom: 14px; }
+.q-blank {
+  display: inline-block; min-width: 62px; border-bottom: 3px solid var(--secondary);
+  text-align: center; color: var(--secondary); font-weight: 900;
+  padding: 0 6px; margin: 0 3px; transition: all 0.2s;
+}
+.q-blank.correct-blank { color: var(--green); border-bottom-color: var(--green); }
+.q-blank.wrong-blank   { color: var(--red);   border-bottom-color: var(--red); }
+
+/* ── MC ── */
+.choices { display: flex; gap: 8px; flex-wrap: wrap; }
+.choice-btn {
+  background: white; border: 2px solid #e5d5c5; border-radius: 10px;
+  padding: 9px 20px; font-family: 'Nunito', sans-serif;
+  font-size: 15px; font-weight: 800; cursor: pointer; color: var(--text); transition: all 0.15s;
+}
+.choice-btn:hover:not(:disabled) { border-color: var(--secondary); background: #f0fdfa; transform: translateY(-2px); }
+.choice-btn.correct { background: #d1fae5 !important; border-color: var(--green) !important; color: #065f46 !important; }
+.choice-btn.wrong   { background: #fee2e2 !important; border-color: var(--red) !important;   color: #991b1b !important; }
+.choice-btn:disabled { cursor: default; transform: none; }
+
+/* ── FILL ── */
+.fill-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.fill-input {
+  border: 2px solid #e5d5c5; border-radius: 10px; padding: 10px 16px;
+  font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800;
+  color: var(--text); outline: none; width: 150px; transition: all 0.2s; background: white;
+}
+.fill-input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px #4ecdc420; }
+.fill-input.correct { border-color: var(--green); background: #d1fae5; color: #065f46; }
+.fill-input.wrong   { border-color: var(--red);   background: #fee2e2; color: #991b1b; }
+.fill-input:disabled { cursor: default; }
+.check-btn {
+  background: var(--secondary); color: white; border: none; border-radius: 10px;
+  padding: 10px 20px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; box-shadow: 0 3px 0 #2db5ac; transition: all 0.15s;
+}
+.check-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 0 #2db5ac; }
+.check-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+
+/* ── CONTEXT PASSAGE ── */
+.passage-box {
+  background: #f0fdfa; border: 2px solid #99f6e4; border-radius: 12px;
+  padding: 16px 18px; font-size: 15px; font-weight: 700; line-height: 2;
+  margin-bottom: 14px; color: var(--text);
+}
+.pass-blank {
+  display: inline-block; min-width: 55px; border-bottom: 2px solid var(--secondary);
+  text-align: center; color: var(--secondary); font-weight: 900; padding: 0 4px; margin: 0 2px;
+}
+.pass-blank.correct-blank { color: var(--green); border-bottom-color: var(--green); }
+.pass-blank.wrong-blank   { color: var(--red);   border-bottom-color: var(--red);   }
+.pass-q-row { margin-bottom: 10px; }
+.pass-label { font-size: 13px; font-weight: 800; color: var(--muted); margin-bottom: 6px; }
+
+/* ── FIX ── */
+.fix-sentence {
+  background: #fff1f2; border: 2px solid #fecdd3; border-radius: 10px;
+  padding: 12px 16px; font-size: 16px; font-weight: 800;
+  color: var(--red); margin-bottom: 12px; line-height: 1.6;
+}
+
+/* ── DRAG ── */
+.drag-sentence { font-size: 17px; font-weight: 800; color: var(--text); line-height: 2.2; margin-bottom: 12px; }
+.drop-zone {
+  display: inline-block; min-width: 65px; height: 34px;
+  border: 2px dashed var(--secondary); border-radius: 8px;
+  background: #f0fdfa; vertical-align: middle;
+  text-align: center; line-height: 30px;
+  font-weight: 900; color: var(--secondary); margin: 0 4px;
+  transition: all 0.2s; padding: 0 8px; font-size: 15px;
+}
+.drop-zone.drag-over   { background: #ccfbf1; border-color: #14b8a6; transform: scale(1.05); }
+.drop-zone.filled      { border-style: solid; color: var(--text); background: white; }
+.drop-zone.correct-drop{ border-color: var(--green); background: #d1fae5; color: #065f46; }
+.drop-zone.wrong-drop  { border-color: var(--red);   background: #fee2e2; color: #991b1b; }
+
+.word-bank {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
+  padding: 14px; background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px;
+}
+.word-bank-label { font-size: 12px; font-weight: 800; color: var(--muted); width: 100%; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
+.drag-word {
+  background: white; border: 2px solid #e5d5c5; border-radius: 8px;
+  padding: 6px 16px; font-size: 15px; font-weight: 800; cursor: grab;
+  transition: all 0.15s; color: var(--text); user-select: none;
+}
+.drag-word:hover { border-color: var(--secondary); color: var(--secondary); transform: translateY(-2px); }
+.drag-word.used  { opacity: 0.3; cursor: default; pointer-events: none; }
+
+/* ── FEEDBACK ── */
+.feedback {
+  margin-top: 12px; padding: 10px 14px; border-radius: 10px;
+  font-size: 14px; font-weight: 700; display: none; line-height: 1.5;
+}
+.feedback.show { display: block; }
+.feedback.ok { background: #d1fae5; color: #065f46; }
+.feedback.ng { background: #fee2e2; color: #991b1b; }
+
+/* ── NOTE TAG ── */
+.note-tag {
+  display: inline-block; background: #faf5ff; border: 1.5px solid #e9d5ff;
+  color: var(--purple); font-size: 11px; font-weight: 800; padding: 2px 8px;
+  border-radius: 999px; margin-bottom: 8px;
+}
+
+/* ── NAV ── */
+.nav-btns {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 24px; max-width: 720px; margin-left: auto; margin-right: auto;
+}
+.btn {
+  background: var(--primary); color: white; border: none; border-radius: 12px;
+  padding: 12px 28px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #d94e1f; transition: all 0.15s;
+  text-decoration: none; display: inline-block;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #d94e1f; }
+.btn:active { transform: translateY(1px); box-shadow: 0 2px 0 #d94e1f; }
+.btn.sec { background: white; color: var(--muted); box-shadow: 0 4px 0 #e5d5c5; border: 2px solid #f0e8df; }
+.btn.sec:hover { color: var(--text); box-shadow: 0 6px 0 #e5d5c5; }
+.btn.grn { background: var(--green); box-shadow: 0 4px 0 #15803d; }
+.btn.grn:hover { box-shadow: 0 6px 0 #15803d; }
+.btn.teal { background: var(--secondary); box-shadow: 0 4px 0 #2db5ac; }
+.btn.teal:hover { box-shadow: 0 6px 0 #2db5ac; }
+
+/* ── SCORE ── */
+.score-screen { display: none; max-width: 720px; margin: 0 auto; animation: fadeUp 0.4s ease; }
+.score-screen.show { display: block; }
+.score-hero {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 36px; text-align: center; box-shadow: var(--shadow); margin-bottom: 16px;
+}
+.score-big   { font-family: 'Fredoka One', cursive; font-size: 72px; color: var(--primary); line-height: 1; }
+.score-total { font-size: 16px; font-weight: 800; color: var(--muted); margin-top: 4px; }
+.score-pct   {
+  display: inline-block; margin: 12px 0;
+  font-family: 'Fredoka One', cursive; font-size: 28px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.score-msg { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; }
+.score-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+.sg { background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px; padding: 14px; text-align: center; }
+.sg-icon { font-size: 24px; }
+.sg-lbl  { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 4px 0 2px; }
+.sg-val  { font-family: 'Fredoka One', cursive; font-size: 24px; color: var(--primary); }
+.breakdown { background: white; border: 2px solid #f0e8df; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-bottom: 16px; }
+.breakdown-title { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--primary); margin-bottom: 14px; }
+.bd-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.bd-name  { font-size: 13px; font-weight: 800; color: var(--text); width: 170px; flex-shrink: 0; }
+.bd-track { flex: 1; background: #f0e8df; border-radius: 999px; height: 10px; overflow: hidden; }
+.bd-bar   { height: 100%; border-radius: 999px; }
+.bd-score { font-size: 13px; font-weight: 800; color: var(--muted); width: 44px; text-align: right; flex-shrink: 0; }
+.score-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+@media (max-width: 580px) {
+  .sec-tab { font-size: 12px; padding: 6px 12px; }
+  .nav-btns { flex-direction: column; gap: 10px; }
+  .nav-btns .btn { width: 100%; text-align: center; }
+  .score-grid { grid-template-columns: 1fr 1fr; }
+  .bd-name { width: 120px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html">← กลับหน้าหลัก</a>
+
+<header>
+  <div class="badge">Junior High · Exercise · A2–B1</div>
+  <h1>Article <span>a / an / the / ∅</span> 🎯</h1>
+  <p class="subtitle">50 ข้อ · 5 รูปแบบ · รวม Zero Article & Special Cases</p>
+</header>
+
+<!-- PROGRESS BAR -->
+<div class="overall-bar-wrap">
+  <div class="bar-row">
+    <span class="bar-label">ความคืบหน้าทั้งหมด</span>
+    <span class="bar-count" id="overall-count">0 / 50</span>
+  </div>
+  <div class="bar-track"><div class="bar-fill" id="overall-fill"></div></div>
+</div>
+
+<!-- TABS -->
+<div class="sec-tabs">
+  <div class="sec-tab active" id="tab-1" onclick="goSec(1)">1️⃣ MC (1–10)</div>
+  <div class="sec-tab"        id="tab-2" onclick="goSec(2)">2️⃣ Fill-in (11–20)</div>
+  <div class="sec-tab"        id="tab-3" onclick="goSec(3)">3️⃣ Context (21–30)</div>
+  <div class="sec-tab"        id="tab-4" onclick="goSec(4)">4️⃣ แก้ประโยค (31–40)</div>
+  <div class="sec-tab"        id="tab-5" onclick="goSec(5)">5️⃣ Drag &amp; Drop (41–50)</div>
+</div>
+
+<!-- ══════════════════════════
+     PART 1 — MC
+══════════════════════════ -->
+<div class="ex-section active" id="sec-1">
+  <div class="sec-header">
+    <div class="sec-icon">🔘</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 1 — Multiple Choice</div>
+      <div class="sec-desc">เลือก a / an / the / – (ไม่ใส่ article)</div>
+      <div class="sec-prog" id="prog-1">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec1-q"></div>
+  <div class="nav-btns"><div></div><button class="btn teal" onclick="goSec(2)">Part 2 →</button></div>
+</div>
+
+<!-- ══════════════════════════
+     PART 2 — Fill-in
+══════════════════════════ -->
+<div class="ex-section" id="sec-2">
+  <div class="sec-header">
+    <div class="sec-icon">✍️</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 2 — Fill in the Blank</div>
+      <div class="sec-desc">พิมพ์ a / an / the หรือ – (ขีดกลาง สำหรับไม่ใส่)</div>
+      <div class="sec-prog" id="prog-2">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec2-q"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(1)">← Part 1</button>
+    <button class="btn teal" onclick="goSec(3)">Part 3 →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     PART 3 — Context Passage
+══════════════════════════ -->
+<div class="ex-section" id="sec-3">
+  <div class="sec-header">
+    <div class="sec-icon">📖</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 3 — Context Reading</div>
+      <div class="sec-desc">อ่านเรื่องสั้น แล้วเลือก article ที่ถูกต้อง</div>
+      <div class="sec-prog" id="prog-3">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec3-q"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(2)">← Part 2</button>
+    <button class="btn teal" onclick="goSec(4)">Part 4 →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     PART 4 — Fix Sentence
+══════════════════════════ -->
+<div class="ex-section" id="sec-4">
+  <div class="sec-header">
+    <div class="sec-icon">🔧</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 4 — Spot the Mistake</div>
+      <div class="sec-desc">เลือกประโยคที่ถูกต้อง — รวม Zero Article & Special Cases</div>
+      <div class="sec-prog" id="prog-4">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec4-q"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(3)">← Part 3</button>
+    <button class="btn teal" onclick="goSec(5)">Part 5 →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     PART 5 — Drag & Drop
+══════════════════════════ -->
+<div class="ex-section" id="sec-5">
+  <div class="sec-header">
+    <div class="sec-icon">🧩</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 5 — Drag &amp; Drop</div>
+      <div class="sec-desc">ลากคำมาวางในช่องว่างให้ถูกต้อง</div>
+      <div class="sec-prog" id="prog-5">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec5-q"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(4)">← Part 4</button>
+    <button class="btn grn" onclick="showFinal()">ดูคะแนนรวม 🏆</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     FINAL SCORE
+══════════════════════════ -->
+<div class="score-screen" id="score-screen">
+  <div class="score-hero">
+    <div class="score-big" id="final-score">–</div>
+    <div class="score-total">จาก 50 ข้อ</div>
+    <div class="score-pct" id="final-pct">–%</div>
+    <div class="score-msg" id="final-msg"></div>
+    <div class="score-grid">
+      <div class="sg"><div class="sg-icon">✅</div><div class="sg-lbl">ถูก</div><div class="sg-val" id="s-ok"  style="color:var(--green)">–</div></div>
+      <div class="sg"><div class="sg-icon">❌</div><div class="sg-lbl">ผิด</div><div class="sg-val" id="s-ng"  style="color:var(--red)">–</div></div>
+      <div class="sg"><div class="sg-icon">📊</div><div class="sg-lbl">คะแนน</div><div class="sg-val" id="s-pct">–</div></div>
+    </div>
+  </div>
+  <div class="breakdown">
+    <div class="breakdown-title">📊 คะแนนแต่ละ Part</div>
+    <div id="bd-rows"></div>
+  </div>
+  <div class="score-actions">
+    <button class="btn sec" onclick="location.reload()">🔁 ทำใหม่ทั้งหมด</button>
+    <a class="btn teal" href="c-article-j.html">📖 ทบทวนเนื้อหา</a>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════
+
+// PART 1 — MC (a/an/the/–)  ×10
+const p1 = [
+  { s:'She has been waiting for ___ hour.', ans:'an', opts:['a','an','the','–'], ex:'hour ออกเสียง /aʊər/ (h เงียบ) → เสียงสระ → ใช้ an' },
+  { s:'___ Amazon is the longest river in South America.', ans:'The', opts:['A','An','The','–'], ex:'ชื่อแม่น้ำ → ใช้ The เสมอ' },
+  { s:'My brother goes to ___ school by bus every day.', ans:'–', opts:['a','an','the','–'], ex:'go to school (วัตถุประสงค์เรียน) + by bus → ทั้งคู่ไม่ใส่ article' },
+  { s:'He is ___ most hardworking student in our class.', ans:'the', opts:['a','an','the','–'], ex:'Superlative → ใช้ the เสมอ' },
+  { s:'I want to be ___ engineer when I grow up.', ans:'an', opts:['a','an','the','–'], ex:'engineer ออกเสียง /ɛn/ → เสียงสระ → ใช้ an' },
+  { s:'___ dogs are loyal animals.', ans:'–', opts:['A','An','The','–'], ex:'พูดถึงสุนัขโดยทั่วไป (Generic plural) → ไม่ใส่ article' },
+  { s:'We visited ___ Philippines last summer.', ans:'the', opts:['a','an','the','–'], ex:'ชื่อประเทศที่เป็นหมู่เกาะ → ใช้ the' },
+  { s:'She plays ___ piano very well.', ans:'the', opts:['a','an','the','–'], ex:'เครื่องดนตรี → ใช้ the เสมอ (play the piano)' },
+  { s:'I saw ___ interesting film last night.', ans:'an', opts:['a','an','the','–'], ex:'interesting ออกเสียง /ɪn/ → เสียงสระ → ใช้ an' },
+  { s:'___ water in this bottle is very cold.', ans:'The', opts:['A','An','The','–'], ex:'น้ำในขวดนี้ (ชี้เฉพาะ) → ใช้ The' },
+];
+
+// PART 2 — Fill-in ×10
+const p2 = [
+  { s:'My dad bought ___ new car. ___ car is silver.', ans:'a / The', ex:'พูดถึง car ครั้งแรก → a | ครั้งที่ 2 → The' },
+  { s:'___ Nile is the longest river in Africa.', ans:'The', ex:'ชื่อแม่น้ำ → ใช้ The' },
+  { s:'She speaks ___ French fluently.', ans:'–', ex:'ภาษา → Zero Article เสมอ' },
+  { s:'He is ___ honest person.', ans:'an', ex:'honest ออกเสียง /ɒn/ → h เงียบ → เสียงสระ → ใช้ an' },
+  { s:'They travelled to Japan by ___ plane.', ans:'–', ex:'by + ยานพาหนะ → ไม่ใส่ article' },
+  { s:'I usually have ___ breakfast at 7 a.m.', ans:'–', ex:'มื้ออาหาร → Zero Article เสมอ (have breakfast)' },
+  { s:'This is ___ best book I have ever read.', ans:'the', ex:'Superlative → ใช้ the' },
+  { s:'___ UK is known for its rainy weather.', ans:'The', ex:'ชื่อประเทศที่เป็นสหพันธ์ → ใช้ The' },
+  { s:'She is ___ university student.', ans:'a', ex:'university ออกเสียง /juː/ → เสียงพยัญชนะ /j/ → ใช้ a' },
+  { s:'Turn off ___ lights before you leave.', ans:'the', ex:'ไฟในห้องนี้ (ทุกคนรู้) → ใช้ the' },
+];
+
+// PART 3 — Context Passage  2 passages × 5 questions
+const p3Passages = [
+  {
+    text: `Last weekend, my family went to (1)___ zoo. We saw (2)___ elephant, (3)___ lions, and many other animals. (4)___ elephant was the biggest animal there. After the zoo, we had lunch at (5)___ small restaurant near the park.`,
+    blanks: [
+      { id:'3-0', ans:'the', opts:['a','an','the','–'], ex:'ไปสวนสัตว์ (ที่เฉพาะเจาะจง) → the zoo' },
+      { id:'3-1', ans:'an', opts:['a','an','the','–'], ex:'elephant เสียงสระ e → ใช้ an (พูดถึงครั้งแรก)' },
+      { id:'3-2', ans:'–', opts:['a','an','the','–'], ex:'lions (พหูพจน์ พูดถึงครั้งแรกทั่วไป) → ไม่ใส่ article' },
+      { id:'3-3', ans:'The', opts:['A','An','The','–'], ex:'พูดถึง elephant ซ้ำครั้งที่ 2 → The' },
+      { id:'3-4', ans:'a', opts:['a','an','the','–'], ex:'restaurant เสียงพยัญชนะ r → พูดถึงครั้งแรก → a' },
+    ]
+  },
+  {
+    text: `(6)___ sun rises in (7)___ east every morning. My sister wakes up early to watch (8)___ sunrise. She says it is (9)___ most beautiful thing in (10)___ world.`,
+    blanks: [
+      { id:'3-5', ans:'The', opts:['A','An','The','–'], ex:'ดวงอาทิตย์มีดวงเดียว → The sun' },
+      { id:'3-6', ans:'the', opts:['a','an','the','–'], ex:'ทิศทาง (the east / the west) → ใช้ the' },
+      { id:'3-7', ans:'the', opts:['a','an','the','–'], ex:'sunrise ที่พูดถึงในบริบทนี้ → the sunrise' },
+      { id:'3-8', ans:'the', opts:['a','an','the','–'], ex:'Superlative (most beautiful) → ใช้ the' },
+      { id:'3-9', ans:'the', opts:['a','an','the','–'], ex:'โลกมีใบเดียว → the world' },
+    ]
+  }
+];
+
+// PART 4 — Fix Sentence ×10
+const p4 = [
+  { wrong:'She went to an hospital yesterday.', opts:['She went to an hospital.','She went to a hospital.','She went to the hospital.'], ans:'She went to the hospital.', ex:'ไปโรงพยาบาล (เฉพาะเจาะจง ไม่ใช่เพื่อรักษา) → the hospital' },
+  { wrong:'I want a MBA degree.', opts:['I want a MBA degree.','I want an MBA degree.','I want the MBA degree.'], ans:'I want an MBA degree.', ex:'MBA ออกเสียง /em biː eɪ/ → เสียงสระ /e/ → ใช้ an' },
+  { wrong:'He plays the football every evening.', opts:['He plays the football.','He plays a football.','He plays football.'], ans:'He plays football.', ex:'กีฬา → Zero Article เสมอ (ไม่ใส่ the)' },
+  { wrong:'The knowledge is power.', opts:['The knowledge is power.','A knowledge is power.','Knowledge is power.'], ans:'Knowledge is power.', ex:'Abstract noun ทั่วไป → ไม่ใส่ article' },
+  { wrong:'She is most talented singer I know.', opts:['She is most talented singer.','She is a most talented singer.','She is the most talented singer I know.'], ans:'She is the most talented singer I know.', ex:'Superlative → ใช้ the เสมอ' },
+  { wrong:'We go to school by a bus.', opts:['We go to school by a bus.','We go to the school by bus.','We go to school by bus.'], ans:'We go to school by bus.', ex:'go to school + by bus → ทั้งคู่ไม่ใส่ article' },
+  { wrong:'I like a music very much.', opts:['I like a music very much.','I like the music very much.','I like music very much.'], ans:'I like music very much.', ex:'music เป็น uncountable noun ทั่วไป → Zero Article' },
+  { wrong:'She has a European accent.', opts:['She has a European accent.','She has an European accent.','She has the European accent.'], ans:'She has a European accent.', ex:'European ออกเสียง /jʊər/ → เสียงพยัญชนะ /j/ → ใช้ a' },
+  { wrong:'The Alps are an beautiful mountain range.', opts:['The Alps are an beautiful mountain range.','The Alps are a beautiful mountain range.','The Alps are the beautiful mountain range.'], ans:'The Alps are a beautiful mountain range.', ex:'beautiful ออกเสียง /bjuː/ → พยัญชนะ /b/ → ใช้ a' },
+  { wrong:'He is best student in class.', opts:['He is best student in class.','He is a best student in class.','He is the best student in class.'], ans:'He is the best student in class.', ex:'Superlative (best) → ใช้ the เสมอ' },
+];
+
+// PART 5 — Drag & Drop ×10
+const p5 = [
+  { parts:['I read','___','interesting book last week.'], ans:'an', bank:['a','an','the','–'], ex:'interesting ออกเสียง /ɪn/ → สระ → an' },
+  { parts:['She waited for','___','hour at the station.'], ans:'an', bank:['a','an','the','–'], ex:'hour ออกเสียง /aʊər/ → h เงียบ → สระ → an' },
+  { parts:['My brother plays','___','guitar in a band.'], ans:'the', bank:['a','an','the','–'], ex:'เครื่องดนตรี → the guitar เสมอ' },
+  { parts:['They travel to school by','___','train.'], ans:'–', bank:['a','an','the','–'], ex:'by + ยานพาหนะ → Zero Article' },
+  { parts:['He is','___','most popular boy in school.'], ans:'the', bank:['a','an','the','–'], ex:'Superlative → the most popular' },
+  { parts:['She speaks','___','Japanese very well.'], ans:'–', bank:['a','an','the','–'], ex:'ภาษา → Zero Article เสมอ' },
+  { parts:['This is','___','university in Bangkok.'], ans:'a', bank:['a','an','the','–'], ex:'university ออกเสียง /juː/ → พยัญชนะ /j/ → a' },
+  { parts:['We saw','___','Eiffel Tower when we visited Paris.'], ans:'the', bank:['a','an','the','–'], ex:'สิ่งก่อสร้างที่มีชื่อเสียง มีอยู่สิ่งเดียว → the' },
+  { parts:['She had','___','breakfast before going to work.'], ans:'–', bank:['a','an','the','–'], ex:'มื้ออาหาร → Zero Article (have breakfast)' },
+  { parts:['___ Pacific Ocean is the largest ocean in the world.'], ans:'The', bank:['A','An','The','–'], ex:'ชื่อมหาสมุทร → The เสมอ' },
+];
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+const scores   = {1:0,2:0,3:0,4:0,5:0};
+const answered = {1:0,2:0,3:0,4:0,5:0};
+const totals   = {1:10,2:10,3:10,4:10,5:10};
+let curSec = 1;
+
+// ══════════════════════════════════════════
+//  NAV
+// ══════════════════════════════════════════
+function goSec(n) {
+  document.getElementById(`sec-${curSec}`).classList.remove('active');
+  document.getElementById(`tab-${curSec}`).classList.remove('active');
+  curSec = n;
+  document.getElementById(`sec-${n}`).classList.add('active');
+  document.getElementById(`tab-${n}`).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function onAnswer(sec, ok) {
+  answered[sec]++;
+  if (ok) scores[sec]++;
+  const tab = document.getElementById(`tab-${sec}`);
+  tab.classList.remove('done','partial');
+  if (answered[sec] === totals[sec]) tab.classList.add('done');
+  else if (answered[sec] > 0) tab.classList.add('partial');
+  document.getElementById(`prog-${sec}`).textContent = `${answered[sec]} / ${totals[sec]} ข้อ`;
+  const total = Object.values(answered).reduce((a,b)=>a+b,0);
+  document.getElementById('overall-count').textContent = `${total} / 50`;
+  document.getElementById('overall-fill').style.width = `${(total/50)*100}%`;
+}
+
+// ══════════════════════════════════════════
+//  PART 1 — MC
+// ══════════════════════════════════════════
+function buildP1() {
+  const c = document.getElementById('sec1-q');
+  p1.forEach((q,i) => {
+    const sent = q.s.replace('___',`<span class="q-blank" id="p1b-${i}">___</span>`);
+    const opts = q.opts.map(o =>
+      `<button class="choice-btn" id="p1c-${i}-${o}" onclick="chkP1(${i},'${o}')">${o==='–'?'– (ไม่ใส่)':o}</button>`
+    ).join('');
+    c.innerHTML += `<div class="q-card" id="p1card-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${i+1}</span><span class="q-type-tag tag-mc">Multiple Choice</span></div>
+      <div class="q-sentence">${sent}</div>
+      <div class="choices">${opts}</div>
+      <div class="feedback" id="p1fb-${i}"></div>
+    </div>`;
+  });
+}
+function chkP1(i,sel) {
+  const q=p1[i]; const ok=sel.toLowerCase()===q.ans.toLowerCase();
+  q.opts.forEach(o=>{const b=document.getElementById(`p1c-${i}-${o}`);if(!b)return;b.disabled=true;if(o.toLowerCase()===q.ans.toLowerCase())b.classList.add('correct');else if(o===sel)b.classList.add('wrong');});
+  const bl=document.getElementById(`p1b-${i}`);
+  bl.textContent=q.ans==='–'?'∅':q.ans; bl.classList.add(ok?'correct-blank':'wrong-blank');
+  const fb=document.getElementById(`p1fb-${i}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`)+q.ex;
+  document.getElementById(`p1card-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(1,ok);
+}
+
+// ══════════════════════════════════════════
+//  PART 2 — FILL IN
+// ══════════════════════════════════════════
+function buildP2() {
+  const c = document.getElementById('sec2-q');
+  p2.forEach((q,i) => {
+    let sent = q.s;
+    let blankCount = 0;
+    sent = sent.replace(/___/g, () => `<span class="q-blank" id="p2b-${i}-${blankCount++}">___</span>`);
+    const hasTwo = q.ans.includes('/');
+    c.innerHTML += `<div class="q-card" id="p2card-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${i+11}</span><span class="q-type-tag tag-fill">Fill in</span></div>
+      <div class="q-sentence">${sent}</div>
+      <div class="fill-row">
+        <input class="fill-input" id="p2inp-${i}" placeholder="${hasTwo?'เช่น a / The':'a / an / the / –'}" style="width:${hasTwo?'170px':'150px'}"
+          onkeydown="if(event.key==='Enter')chkP2(${i})">
+        <button class="check-btn" id="p2btn-${i}" onclick="chkP2(${i})">ตรวจ ✓</button>
+      </div>
+      <div class="feedback" id="p2fb-${i}"></div>
+    </div>`;
+  });
+}
+function chkP2(i) {
+  const q=p2[i];
+  const inp=document.getElementById(`p2inp-${i}`);
+  const val=inp.value.trim().toLowerCase().replace(/\s/g,'');
+  const ans=q.ans.toLowerCase().replace(/\s/g,'');
+  const ok=val===ans;
+  inp.disabled=true; inp.classList.add(ok?'correct':'wrong');
+  document.getElementById(`p2btn-${i}`).disabled=true;
+  // update blanks
+  const parts=q.ans.split('/').map(s=>s.trim());
+  parts.forEach((p,pi)=>{
+    const bl=document.getElementById(`p2b-${i}-${pi}`);
+    if(bl){bl.textContent=p==='–'?'∅':p; bl.classList.add(ok?'correct-blank':'wrong-blank');}
+  });
+  const fb=document.getElementById(`p2fb-${i}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`)+q.ex;
+  document.getElementById(`p2card-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(2,ok);
+}
+
+// ══════════════════════════════════════════
+//  PART 3 — CONTEXT
+// ══════════════════════════════════════════
+function buildP3() {
+  const c = document.getElementById('sec3-q');
+  p3Passages.forEach((pass, pi) => {
+    // build passage text with numbered blank labels
+    let txt = pass.text;
+    let bi = 0;
+    txt = txt.replace(/\((\d+)\)___/g, (_, num) => {
+      const b = pass.blanks[bi++];
+      return `<span class="pass-blank" id="pb-${b.id}">(${num})___</span>`;
+    });
+
+    let qHTML = '';
+    pass.blanks.forEach((b, qi) => {
+      const globalNum = pi*5 + qi + 21;
+      const opts = b.opts.map(o =>
+        `<button class="choice-btn" id="pbc-${b.id}-${o}" onclick="chkP3('${b.id}','${o}',${pi*5+qi})">${o==='–'?'– (ไม่ใส่)':o}</button>`
+      ).join('');
+      qHTML += `<div class="pass-q-row" id="pbcard-${b.id}">
+        <div class="pass-label">ช่องว่างที่ ${b.id.split('-')[1]>=5?parseInt(b.id.split('-')[1])-4+'(passage 2)':''} ข้อ ${globalNum}:</div>
+        <div class="choices">${opts}</div>
+        <div class="feedback" id="pbfb-${b.id}"></div>
+      </div>`;
+    });
+
+    c.innerHTML += `<div class="q-card">
+      <div class="q-meta"><span class="q-num">เรื่องที่ ${pi+1}</span><span class="q-type-tag tag-ctx">Context</span></div>
+      <div class="passage-box">${txt}</div>
+      ${qHTML}
+    </div>`;
+  });
+}
+
+function chkP3(bid, sel, qIdx) {
+  const pi = Math.floor(qIdx/5);
+  const qi = qIdx % 5;
+  const b = p3Passages[pi].blanks[qi];
+  const ok = sel.toLowerCase() === b.ans.toLowerCase();
+  b.opts.forEach(o=>{
+    const btn=document.getElementById(`pbc-${bid}-${o}`);
+    if(!btn)return; btn.disabled=true;
+    if(o.toLowerCase()===b.ans.toLowerCase())btn.classList.add('correct');
+    else if(o===sel)btn.classList.add('wrong');
+  });
+  const bl=document.getElementById(`pb-${bid}`);
+  const num=bid.split('-')[1];
+  bl.textContent=`(${parseInt(num)+1}) ${b.ans==='–'?'∅':b.ans}`;
+  bl.classList.add(ok?'correct-blank':'wrong-blank');
+  const fb=document.getElementById(`pbfb-${bid}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — คำตอบที่ถูกคือ <strong>${b.ans}</strong><br>`)+b.ex;
+  onAnswer(3,ok);
+}
+
+// ══════════════════════════════════════════
+//  PART 4 — FIX SENTENCE
+// ══════════════════════════════════════════
+function buildP4() {
+  const c = document.getElementById('sec4-q');
+  p4.forEach((q,i)=>{
+    const opts = q.opts.map((o,oi)=>
+      `<button class="choice-btn" id="p4c-${i}-${oi}" onclick="chkP4(${i},${oi},'${o.replace(/'/g,"\\'")}')">${o}</button>`
+    ).join('');
+    c.innerHTML += `<div class="q-card" id="p4card-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${i+31}</span><span class="q-type-tag tag-fix">แก้ประโยค</span></div>
+      <div class="fix-sentence">❌ ${q.wrong}</div>
+      <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px;">เลือกประโยคที่ถูกต้อง:</p>
+      <div class="choices" style="flex-direction:column;">${opts}</div>
+      <div class="feedback" id="p4fb-${i}"></div>
+    </div>`;
+  });
+}
+function chkP4(i,oi,sel) {
+  const q=p4[i]; const ok=sel===q.ans;
+  q.opts.forEach((_,j)=>{
+    const b=document.getElementById(`p4c-${i}-${j}`);
+    if(!b)return; b.disabled=true;
+    if(q.opts[j]===q.ans)b.classList.add('correct');
+    else if(j===oi)b.classList.add('wrong');
+  });
+  const fb=document.getElementById(`p4fb-${i}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — ที่ถูกคือ: <strong>${q.ans}</strong><br>`)+q.ex;
+  document.getElementById(`p4card-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(4,ok);
+}
+
+// ══════════════════════════════════════════
+//  PART 5 — DRAG & DROP
+// ══════════════════════════════════════════
+function buildP5() {
+  const c = document.getElementById('sec5-q');
+  p5.forEach((q,i)=>{
+    let sent;
+    if (q.parts.length === 1) {
+      sent = q.parts[0].replace('___', `<span class="drop-zone" id="dz-${i}"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="dropW(event,${i})">___</span>`);
+    } else {
+      sent = q.parts[0] + ` <span class="drop-zone" id="dz-${i}"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="dropW(event,${i})">___</span> ` + (q.parts[2]||'');
+    }
+    const bank = q.bank.map((w,wi)=>
+      `<span class="drag-word" id="dw-${i}-${wi}" draggable="true"
+        ondragstart="dragSt(event,'${w}',${i},${wi})">${w==='–'?'– (ไม่ใส่)':w}</span>`
+    ).join('');
+    c.innerHTML += `<div class="q-card" id="p5card-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${i+41}</span><span class="q-type-tag tag-drag">Drag &amp; Drop</span></div>
+      <div class="drag-sentence">${sent}</div>
+      <div class="word-bank"><span class="word-bank-label">คำศัพท์</span>${bank}</div>
+      <div class="feedback" id="p5fb-${i}"></div>
+    </div>`;
+  });
+}
+
+let dp={};
+function dragSt(e,w,qi,wi){dp={w,qi,wi};e.dataTransfer.effectAllowed='move';}
+function dropW(e,i){
+  e.preventDefault();
+  const zone=document.getElementById(`dz-${i}`);
+  zone.classList.remove('drag-over');
+  if(zone.classList.contains('correct-drop')||zone.classList.contains('wrong-drop'))return;
+  if(dp.qi!==i)return;
+  const q=p5[i]; const ok=dp.w===q.ans;
+  zone.textContent=dp.w==='–'?'∅':dp.w;
+  zone.classList.add('filled',ok?'correct-drop':'wrong-drop');
+  document.getElementById(`dw-${i}-${dp.wi}`).classList.add('used');
+  q.bank.forEach((_,wi)=>{const el=document.getElementById(`dw-${i}-${wi}`);if(el)el.style.pointerEvents='none';});
+  const fb=document.getElementById(`p5fb-${i}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`)+q.ex;
+  document.getElementById(`p5card-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(5,ok);
+}
+
+// ══════════════════════════════════════════
+//  FINAL SCORE
+// ══════════════════════════════════════════
+function showFinal() {
+  document.getElementById('sec-5').classList.remove('active');
+  document.getElementById('tab-5').classList.remove('active');
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  const pct=Math.round(total/50*100);
+  const msg=pct===100?'🏆 Perfect! เก่งมากเลย!':pct>=80?'🎉 ดีมาก! เกือบ Perfect':pct>=60?'👍 ผ่าน! ทบทวน Zero Article อีกนิด':'📚 ลองทบทวนเนื้อหาแล้วมาทำใหม่';
+  document.getElementById('final-score').textContent=total;
+  document.getElementById('final-pct').textContent=pct+'%';
+  document.getElementById('s-ok').textContent=total;
+  document.getElementById('s-ng').textContent=50-total;
+  document.getElementById('s-pct').textContent=pct+'%';
+  document.getElementById('final-msg').textContent=msg;
+  const parts=['Multiple Choice','Fill in the Blank','Context Reading','แก้ประโยค','Drag & Drop'];
+  let rows='';
+  for(let s=1;s<=5;s++){
+    const ps=Math.round(scores[s]/10*100);
+    const col=ps>=70?'var(--green)':ps>=50?'#f59e0b':'var(--red)';
+    rows+=`<div class="bd-row">
+      <div class="bd-name">Part ${s}: ${parts[s-1]}</div>
+      <div class="bd-track"><div class="bd-bar" style="width:${ps}%;background:${col}"></div></div>
+      <div class="bd-score">${scores[s]}/10</div>
+    </div>`;
+  }
+  document.getElementById('bd-rows').innerHTML=rows;
+  const sc=document.getElementById('score-screen');
+  sc.classList.add('show');
+  sc.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+buildP1(); buildP2(); buildP3(); buildP4(); buildP5();
+</script>
+</body>
+</html>

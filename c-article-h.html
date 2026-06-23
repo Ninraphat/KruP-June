@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Article – a / an / the / zero | High School</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff9f0;
+    --card: #ffffff;
+    --primary: #ff6b35;
+    --secondary: #4ecdc4;
+    --accent: #ffe66d;
+    --purple: #a855f7;
+    --green: #22c55e;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --text: #1e1b18;
+    --muted: #78716c;
+    --shadow: 0 4px 0 #e5d5c5;
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%);
+    min-height: 100vh;
+    color: var(--text);
+    padding: 24px 16px 80px;
+  }
+
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; border: 2px solid #f0e8df;
+    box-shadow: 0 3px 0 #e5d5c5; border-radius: 999px;
+    padding: 8px 18px; font-family: 'Nunito', sans-serif;
+    font-size: 14px; font-weight: 800; color: var(--muted);
+    cursor: pointer; text-decoration: none; margin-bottom: 24px;
+    transition: all 0.2s;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--primary); }
+
+  header { text-align: center; margin-bottom: 28px; }
+  .badge {
+    display: inline-block; background: var(--purple); color: white;
+    font-size: 12px; font-weight: 800; padding: 4px 14px;
+    border-radius: 999px; margin-bottom: 10px;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  h1 { font-family: 'Fredoka One', cursive; font-size: clamp(26px, 6vw, 38px); color: var(--primary); line-height: 1.2; }
+  h1 span { color: var(--secondary); }
+  .subtitle { margin-top: 6px; color: var(--muted); font-size: 15px; font-weight: 600; }
+
+  /* ── STEP NAV ── */
+  .step-nav {
+    display: flex; justify-content: center; gap: 8px;
+    flex-wrap: wrap; margin-bottom: 28px;
+  }
+  .step-btn {
+    background: white; border: 2px solid #f0e8df; border-radius: 999px;
+    padding: 7px 16px; font-size: 13px; font-weight: 800;
+    color: var(--muted); cursor: pointer; transition: all 0.2s;
+  }
+  .step-btn:hover { border-color: var(--purple); color: var(--purple); }
+  .step-btn.active { background: var(--purple); color: white; border-color: var(--purple); box-shadow: 0 2px 0 #7c3aed; }
+  .step-btn.done { background: #d1fae5; border-color: var(--green); color: #065f46; }
+
+  /* ── SECTIONS ── */
+  .section { display: none; max-width: 860px; margin: 0 auto; }
+  .section.active { display: block; animation: fadeUp 0.35s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); border: 2px solid #f0e8df;
+    padding: 24px; margin-bottom: 20px;
+  }
+  .card-title {
+    font-family: 'Fredoka One', cursive; font-size: 20px;
+    color: var(--primary); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card-title.purple { color: var(--purple); }
+  .card-title.blue   { color: var(--blue); }
+  .card-title.teal   { color: var(--secondary); }
+
+  /* ── TABLE ── */
+  .rule-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .rule-table th {
+    padding: 10px 14px; text-align: left;
+    font-family: 'Fredoka One', cursive; font-size: 14px; color: white;
+  }
+  .rule-table td { padding: 11px 14px; border-bottom: 2px solid #f0e8df; vertical-align: top; font-weight: 600; }
+  .rule-table tr:last-child td { border-bottom: none; }
+  .rule-table tr:nth-child(even) td { background: #faf5f0; }
+  .th-primary { background: var(--primary); }
+  .th-purple  { background: var(--purple); }
+  .th-teal    { background: var(--secondary); }
+  .th-red     { background: var(--red); }
+  .rule-table th:first-child { border-radius: 10px 0 0 0; }
+  .rule-table th:last-child  { border-radius: 0 10px 0 0; }
+
+  .eng  { font-weight: 800; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 3px; }
+  .hl-a   { color: var(--primary);   font-weight: 900; }
+  .hl-an  { color: var(--secondary); font-weight: 900; }
+  .hl-the { color: var(--purple);    font-weight: 900; }
+  .hl-z   { color: var(--red);       font-weight: 900; }
+
+  /* ── EXAMPLES ── */
+  .examples { display: flex; flex-direction: column; gap: 10px; }
+  .ex-row {
+    background: #faf5f0; border-radius: 10px;
+    border-left: 4px solid var(--secondary);
+    padding: 11px 16px; font-size: 14px;
+  }
+  .ex-row.purple { border-left-color: var(--purple); }
+  .ex-row.red    { border-left-color: var(--red); }
+  .ex-row.blue   { border-left-color: var(--blue); }
+  .ex-row .en { font-weight: 800; font-size: 15px; }
+  .ex-row .th { color: var(--muted); font-size: 13px; margin-top: 3px; font-weight: 700; }
+
+  /* ── COMPARE BOX ── */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cmp-box { border-radius: 12px; padding: 14px; border: 2px solid transparent; }
+  .cmp-box.zero-art { background: #fff1f2; border-color: #fecdd3; }
+  .cmp-box.with-art { background: #f0fdfa; border-color: #99f6e4; }
+  .cmp-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .cmp-box.zero-art .cmp-title { color: var(--red); }
+  .cmp-box.with-art .cmp-title { color: #0d9488; }
+  .cmp-sent { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+  .cmp-note { font-size: 12px; color: var(--muted); font-weight: 700; }
+
+  /* ── ALERT BOX ── */
+  .alert-box {
+    border-radius: 12px; padding: 14px 18px; margin-top: 14px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .alert-box.yellow { background: #fffbeb; border: 2px solid #fde68a; }
+  .alert-box.purple { background: #faf5ff; border: 2px solid #e9d5ff; }
+  .alert-box.red    { background: #fff1f2; border: 2px solid #fecdd3; }
+  .alert-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .alert-body { font-size: 14px; font-weight: 700; color: var(--text); }
+  .alert-body strong { display: block; margin-bottom: 4px; }
+
+  /* ── GENERIC NOUN 3-WAY ── */
+  .generic-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 4px; }
+  .gen-card { border-radius: 12px; padding: 14px; text-align: center; border: 2px solid; }
+  .gen-card.a   { background: #fff3e0; border-color: var(--primary); }
+  .gen-card.the { background: #faf5ff; border-color: var(--purple); }
+  .gen-card.pl  { background: #f0fdfa; border-color: var(--secondary); }
+  .gen-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .gen-card.a   .gen-label { color: var(--primary); }
+  .gen-card.the .gen-label { color: var(--purple); }
+  .gen-card.pl  .gen-label { color: #0d9488; }
+  .gen-sent { font-size: 14px; font-weight: 800; color: var(--text); }
+  .gen-th   { font-size: 12px; color: var(--muted); font-weight: 700; margin-top: 4px; }
+
+  /* ── QUIZ ── */
+  .quiz-header { text-align: center; margin-bottom: 20px; }
+  .quiz-header h2 { font-family: 'Fredoka One', cursive; font-size: 22px; color: var(--primary); }
+  .quiz-header p  { font-size: 14px; font-weight: 700; color: var(--muted); margin-top: 4px; }
+
+  .q-card {
+    background: white; border: 2px solid #f0e8df;
+    border-radius: var(--radius); padding: 20px;
+    margin-bottom: 14px; box-shadow: 0 2px 0 #e5d5c5;
+  }
+  .q-num { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .q-sentence { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 14px; line-height: 1.6; }
+  .q-blank {
+    display: inline-block; min-width: 70px; border-bottom: 3px solid var(--primary);
+    text-align: center; color: var(--primary); font-weight: 900; padding: 0 8px; margin: 0 4px;
+  }
+  .choices { display: flex; gap: 8px; flex-wrap: wrap; }
+  .choice-btn {
+    background: white; border: 2px solid #e5d5c5; border-radius: 10px;
+    padding: 8px 20px; font-family: 'Nunito', sans-serif;
+    font-size: 15px; font-weight: 800; cursor: pointer;
+    transition: all 0.15s; color: var(--text);
+  }
+  .choice-btn:hover:not(:disabled) { border-color: var(--purple); background: #faf5ff; }
+  .choice-btn.correct { background: #d1fae5; border-color: var(--green); color: #065f46; }
+  .choice-btn.wrong   { background: #fee2e2; border-color: var(--red);   color: #991b1b; }
+  .choice-btn:disabled { cursor: default; }
+
+  .q-tag {
+    display: inline-block; font-size: 11px; font-weight: 800;
+    padding: 2px 10px; border-radius: 999px; margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .tag-adv  { background: #faf5ff; color: var(--purple); border: 1.5px solid #e9d5ff; }
+  .tag-pat  { background: #fff3e0; color: var(--primary); border: 1.5px solid #fed7aa; }
+  .tag-rev  { background: #f0fdfa; color: #0d9488;        border: 1.5px solid #99f6e4; }
+
+  .feedback {
+    margin-top: 12px; padding: 10px 14px; border-radius: 10px;
+    font-size: 14px; font-weight: 700; display: none; line-height: 1.5;
+  }
+  .feedback.show { display: block; }
+  .feedback.ok { background: #d1fae5; color: #065f46; }
+  .feedback.ng { background: #fee2e2; color: #991b1b; }
+
+  /* ── SCORE ── */
+  .score-box {
+    text-align: center; background: white; border: 2px solid #f0e8df;
+    border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); display: none;
+  }
+  .score-box.show { display: block; animation: fadeUp 0.4s ease; }
+  .score-big   { font-family: 'Fredoka One', cursive; font-size: 60px; color: var(--primary); line-height: 1; }
+  .score-sub   { font-size: 15px; font-weight: 800; color: var(--muted); margin-top: 4px; }
+  .score-msg   { font-size: 18px; font-weight: 800; color: var(--text); margin: 16px 0 20px; }
+  .score-grid  { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .sg-card     { background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px; padding: 12px; text-align: center; }
+  .sg-icon     { font-size: 22px; }
+  .sg-label    { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 4px 0 2px; }
+  .sg-val      { font-family: 'Fredoka One', cursive; font-size: 22px; color: var(--primary); }
+
+  /* ── NAV BTNS ── */
+  .nav-btns {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 24px; max-width: 860px; margin-left: auto; margin-right: auto;
+  }
+  .btn {
+    background: var(--primary); color: white; border: none; border-radius: 12px;
+    padding: 12px 28px; font-family: 'Nunito', sans-serif; font-size: 15px;
+    font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #d94e1f; transition: all 0.15s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #d94e1f; }
+  .btn:active { transform: translateY(1px); box-shadow: 0 2px 0 #d94e1f; }
+  .btn.sec { background: white; color: var(--muted); box-shadow: 0 4px 0 #e5d5c5; border: 2px solid #f0e8df; }
+  .btn.sec:hover { color: var(--text); box-shadow: 0 6px 0 #e5d5c5; }
+  .btn.grn { background: var(--green); box-shadow: 0 4px 0 #15803d; }
+  .btn.grn:hover { box-shadow: 0 6px 0 #15803d; }
+  .btn.pur { background: var(--purple); box-shadow: 0 4px 0 #7c3aed; }
+  .btn.pur:hover { box-shadow: 0 6px 0 #7c3aed; }
+
+  @media (max-width: 600px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .generic-grid { grid-template-columns: 1fr; }
+    .score-grid   { grid-template-columns: 1fr 1fr; }
+    .nav-btns     { flex-direction: column; gap: 10px; }
+    .nav-btns .btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html">← กลับหน้าหลัก</a>
+
+<header>
+  <div class="badge">High School · B1–B2</div>
+  <h1>Article <span>a / an / the / ∅</span> 🎯</h1>
+  <p class="subtitle">ครบทุก rules รวม Advanced cases สำหรับข้อสอบ PAT / O-NET</p>
+</header>
+
+<!-- STEP NAV -->
+<div class="step-nav">
+  <div class="step-btn active" id="step-1" onclick="goSection(1)">1️⃣ ทบทวน a/an/the</div>
+  <div class="step-btn" id="step-2" onclick="goSection(2)">2️⃣ Zero Article</div>
+  <div class="step-btn" id="step-3" onclick="goSection(3)">3️⃣ Advanced Cases</div>
+  <div class="step-btn" id="step-4" onclick="goSection(4)">4️⃣ Tricky PAT</div>
+  <div class="step-btn" id="step-5" onclick="goSection(5)">✏️ ข้อสอบ</div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 1 — Review a/an/the
+═══════════════════════════════ -->
+<div class="section active" id="sec-1">
+  <div class="card">
+    <div class="card-title">📌 ทบทวน a / an</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:14px;">
+      ใช้กับ <strong>คำนามนับได้เอกพจน์</strong> พูดถึงครั้งแรก หรือหมายถึง "หนึ่งใน"<br>
+      ⚡ กฎ: ดู <strong>เสียง</strong> ของคำถัดไป ไม่ใช่ตัวสะกด
+    </p>
+    <table class="rule-table">
+      <tr>
+        <th class="th-primary">Article</th>
+        <th class="th-primary">ใช้เมื่อ</th>
+        <th class="th-primary">Special Cases ที่สอบออกบ่อย</th>
+      </tr>
+      <tr>
+        <td><span class="eng hl-a">a</span></td>
+        <td>เสียงพยัญชนะ</td>
+        <td>
+          <div class="eng"><span class="hl-a">a</span> university <span class="note">/juː/ → เสียง /j/</span></div>
+          <div class="eng"><span class="hl-a">a</span> European country <span class="note">/jʊər/</span></div>
+          <div class="eng"><span class="hl-a">a</span> useful tool <span class="note">/juːs/</span></div>
+          <div class="eng"><span class="hl-a">a</span> one-way street <span class="note">/wʌn/ → เสียง /w/</span></div>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="eng hl-an">an</span></td>
+        <td>เสียงสระ</td>
+        <td>
+          <div class="eng"><span class="hl-an">an</span> hour <span class="note">/aʊər/ → h เงียบ</span></div>
+          <div class="eng"><span class="hl-an">an</span> honest man <span class="note">/ˈɒnɪst/</span></div>
+          <div class="eng"><span class="hl-an">an</span> MBA <span class="note">/em biː eɪ/ → อ่านทีละตัว</span></div>
+          <div class="eng"><span class="hl-an">an</span> X-ray <span class="note">/eks/ → เสียง /e/</span></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📌 ทบทวน the</div>
+    <table class="rule-table">
+      <tr>
+        <th class="th-purple">กรณี</th>
+        <th class="th-purple">ตัวอย่าง</th>
+      </tr>
+      <tr>
+        <td>พูดถึงซ้ำครั้งที่ 2+</td>
+        <td><div class="eng">I bought <span class="hl-a">a</span> laptop. <span class="hl-the">The</span> laptop is fast.</div></td>
+      </tr>
+      <tr>
+        <td>มีอยู่สิ่งเดียวในโลก / บริบท</td>
+        <td><div class="eng"><span class="hl-the">the</span> sun, <span class="hl-the">the</span> moon, <span class="hl-the">the</span> sky, <span class="hl-the">the</span> universe</div></td>
+      </tr>
+      <tr>
+        <td>ชี้เฉพาะ ทุกคนรู้</td>
+        <td><div class="eng">Turn off <span class="hl-the">the</span> light.</div></td>
+      </tr>
+      <tr>
+        <td>Superlative / Ordinal</td>
+        <td><div class="eng"><span class="hl-the">the</span> best, <span class="hl-the">the</span> tallest, <span class="hl-the">the</span> first, <span class="hl-the">the</span> second</div></td>
+      </tr>
+      <tr>
+        <td>แม่น้ำ / ทะเล / เทือกเขา / คลอง</td>
+        <td><div class="eng"><span class="hl-the">the</span> Amazon, <span class="hl-the">the</span> Pacific, <span class="hl-the">the</span> Alps, <span class="hl-the">the</span> Nile</div></td>
+      </tr>
+      <tr>
+        <td>ชื่อประเทศกลุ่ม / สหพันธ์</td>
+        <td><div class="eng"><span class="hl-the">the</span> USA, <span class="hl-the">the</span> UK, <span class="hl-the">the</span> Philippines, <span class="hl-the">the</span> UAE</div></td>
+      </tr>
+      <tr>
+        <td>เครื่องดนตรี (เล่น)</td>
+        <td><div class="eng">play <span class="hl-the">the</span> piano / <span class="hl-the">the</span> violin / <span class="hl-the">the</span> guitar</div></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn pur" onclick="goSection(2)">ถัดไป: Zero Article →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 2 — Zero Article
+═══════════════════════════════ -->
+<div class="section" id="sec-2">
+  <div class="card">
+    <div class="card-title teal">🚫 Zero Article (∅) — ไม่ใส่ Article</div>
+    <table class="rule-table">
+      <tr>
+        <th class="th-teal">กรณี</th>
+        <th class="th-teal">ตัวอย่าง</th>
+      </tr>
+      <tr>
+        <td><strong>Abstract noun</strong> ทั่วไป</td>
+        <td>
+          <div class="eng"><span class="hl-z">∅</span> Love is blind.</div>
+          <div class="eng"><span class="hl-z">∅</span> Knowledge is power.</div>
+          <div class="eng"><span class="hl-z">∅</span> Time flies.</div>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Uncountable noun</strong> ทั่วไป</td>
+        <td>
+          <div class="eng"><span class="hl-z">∅</span> Water is essential for life.</div>
+          <div class="eng">She listens to <span class="hl-z">∅</span> music every day.</div>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Plural noun</strong> ทั่วไป</td>
+        <td>
+          <div class="eng"><span class="hl-z">∅</span> Dogs are loyal animals.</div>
+          <div class="eng"><span class="hl-z">∅</span> Students need to study hard.</div>
+        </td>
+      </tr>
+      <tr>
+        <td>ชื่อคน / เมือง / ประเทศ (ทั่วไป)</td>
+        <td>
+          <div class="eng"><span class="hl-z">∅</span> Thailand is beautiful. <span class="hl-z">∅</span> Bangkok is crowded.</div>
+          <div class="eng"><span class="hl-z">∅</span> Tom studies at <span class="hl-z">∅</span> Chulalongkorn University.</div>
+        </td>
+      </tr>
+      <tr>
+        <td>วัน / เดือน / ฤดูกาล</td>
+        <td>
+          <div class="eng">on <span class="hl-z">∅</span> Monday / in <span class="hl-z">∅</span> January / in <span class="hl-z">∅</span> summer</div>
+        </td>
+      </tr>
+      <tr>
+        <td>มื้ออาหาร / ภาษา / วิชา</td>
+        <td>
+          <div class="eng">at <span class="hl-z">∅</span> lunch / speak <span class="hl-z">∅</span> Thai / study <span class="hl-z">∅</span> Mathematics</div>
+        </td>
+      </tr>
+      <tr>
+        <td>by + ยานพาหนะ</td>
+        <td>
+          <div class="eng">go by <span class="hl-z">∅</span> bus / travel by <span class="hl-z">∅</span> train / fly by <span class="hl-z">∅</span> plane</div>
+        </td>
+      </tr>
+      <tr>
+        <td>กีฬา (เล่น)</td>
+        <td>
+          <div class="eng">play <span class="hl-z">∅</span> football / <span class="hl-z">∅</span> basketball / <span class="hl-z">∅</span> tennis</div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="alert-box yellow" style="margin-top:14px;">
+      <div class="alert-icon">⚡</div>
+      <div class="alert-body">
+        <strong>จุดสอบบ่อย: กีฬา vs เครื่องดนตรี</strong>
+        play <span class="hl-the">the</span> piano ✅ &nbsp;|&nbsp; play <span class="hl-z">∅</span> football ✅<br>
+        เครื่องดนตรีใช้ the เสมอ — กีฬาไม่ใส่ article เสมอ
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title teal">🔍 เปรียบเทียบ: ทั่วไป vs เจาะจง</div>
+    <div class="compare-grid">
+      <div class="cmp-box zero-art">
+        <div class="cmp-title">∅ ทั่วไป (Zero Article)</div>
+        <div class="cmp-sent">I like <span class="hl-z">∅</span> coffee.</div>
+        <div class="cmp-note">ชอบกาแฟโดยทั่วไป</div>
+        <br>
+        <div class="cmp-sent"><span class="hl-z">∅</span> Life is short.</div>
+        <div class="cmp-note">ชีวิตโดยทั่วไป</div>
+        <br>
+        <div class="cmp-sent"><span class="hl-z">∅</span> Dogs make great pets.</div>
+        <div class="cmp-note">สุนัขทั่วๆ ไป</div>
+      </div>
+      <div class="cmp-box with-art">
+        <div class="cmp-title">the เจาะจง</div>
+        <div class="cmp-sent">I like <span class="hl-the">the</span> coffee here.</div>
+        <div class="cmp-note">กาแฟร้านนี้โดยเฉพาะ</div>
+        <br>
+        <div class="cmp-sent"><span class="hl-the">The</span> life of a soldier is hard.</div>
+        <div class="cmp-note">ชีวิตของทหาร (ชี้เฉพาะ)</div>
+        <br>
+        <div class="cmp-sent"><span class="hl-the">The</span> dogs next door bark at night.</div>
+        <div class="cmp-note">สุนัขบ้านข้างๆ (เฉพาะตัว)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSection(1)">← ทบทวน a/an/the</button>
+    <button class="btn pur" onclick="goSection(3)">ถัดไป: Advanced Cases →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 3 — Advanced Cases
+═══════════════════════════════ -->
+<div class="section" id="sec-3">
+
+  <!-- Generic noun -->
+  <div class="card">
+    <div class="card-title purple">🧠 Generic Noun — 3 รูปแบบ ความหมายเหมือนกัน</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:14px;">
+      พูดถึง "สิ่งนั้นทั้งหมดโดยทั่วไป" ทำได้ 3 แบบ — <strong>ทุกแบบถูกหมด</strong> ใช้แทนกันได้
+    </p>
+    <div class="generic-grid">
+      <div class="gen-card a">
+        <div class="gen-label">a + เอกพจน์</div>
+        <div class="gen-sent"><span class="hl-a">A</span> lion is a dangerous animal.</div>
+        <div class="gen-th">สิงโต (โดยทั่วไป) เป็นสัตว์อันตราย</div>
+      </div>
+      <div class="gen-card the">
+        <div class="gen-label">the + เอกพจน์</div>
+        <div class="gen-sent"><span class="hl-the">The</span> lion is a dangerous animal.</div>
+        <div class="gen-th">ความหมายเดียวกัน (formal มากกว่า)</div>
+      </div>
+      <div class="gen-card pl">
+        <div class="gen-label">∅ + พหูพจน์</div>
+        <div class="gen-sent"><span class="hl-z">∅</span> Lions are dangerous animals.</div>
+        <div class="gen-th">ความหมายเดียวกัน (พบบ่อยที่สุด)</div>
+      </div>
+    </div>
+    <div class="alert-box purple" style="margin-top:14px;">
+      <div class="alert-icon">📝</div>
+      <div class="alert-body">
+        <strong>จุดสอบ: ห้ามปนกัน</strong>
+        ❌ <em>The lions are dangerous animal.</em> (the + plural + เอกพจน์ = ผิด)<br>
+        ✅ <em>The lion is / Lions are / A lion is</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- the + adj -->
+  <div class="card">
+    <div class="card-title purple">👥 the + Adjective = กลุ่มคน</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:14px;">
+      ใช้ <strong>the + adjective</strong> หมายถึง "คนกลุ่มนั้น" ทั้งหมด — Verb ใช้รูปพหูพจน์
+    </p>
+    <div class="examples">
+      <div class="ex-row purple">
+        <div class="en"><span class="hl-the">The</span> rich should help <span class="hl-the">the</span> poor.</div>
+        <div class="th">คนรวยควรช่วยเหลือคนจน</div>
+      </div>
+      <div class="ex-row purple">
+        <div class="en">The government must support <span class="hl-the">the</span> elderly.</div>
+        <div class="th">รัฐบาลต้องช่วยเหลือผู้สูงอายุ</div>
+      </div>
+      <div class="ex-row purple">
+        <div class="en">Society should care for <span class="hl-the">the</span> disabled.</div>
+        <div class="th">สังคมควรดูแลผู้พิการ</div>
+      </div>
+    </div>
+    <div class="alert-box yellow" style="margin-top:12px;">
+      <div class="alert-icon">⚡</div>
+      <div class="alert-body">
+        <strong>สังเกต: Verb ต้องพหูพจน์เสมอ</strong>
+        ✅ The rich <em>are</em> not always happy. &nbsp;|&nbsp; ❌ The rich <em>is</em>...
+      </div>
+    </div>
+  </div>
+
+  <!-- Institutional nouns -->
+  <div class="card">
+    <div class="card-title purple">🏫 Institutional Nouns — วัตถุประสงค์ vs สถานที่จริง</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:14px;">
+      คำบางคำเปลี่ยนความหมายตาม article — ออกสอบบ่อยมาก!
+    </p>
+    <table class="rule-table">
+      <tr>
+        <th class="th-purple">คำ</th>
+        <th class="th-purple">∅ Zero = วัตถุประสงค์</th>
+        <th class="th-purple">the = ตัวอาคาร/สถานที่จริง</th>
+      </tr>
+      <tr>
+        <td><strong>school</strong></td>
+        <td><div class="eng">go to <span class="hl-z">∅</span> school</div><div class="note">ไปเรียนหนังสือ</div></td>
+        <td><div class="eng">go to <span class="hl-the">the</span> school</div><div class="note">ไปที่ตัวอาคารโรงเรียน</div></td>
+      </tr>
+      <tr>
+        <td><strong>hospital</strong></td>
+        <td><div class="eng">go to <span class="hl-z">∅</span> hospital</div><div class="note">ไปรักษาตัว (BrE)</div></td>
+        <td><div class="eng">go to <span class="hl-the">the</span> hospital</div><div class="note">ไปที่โรงพยาบาล (เยี่ยมคน)</div></td>
+      </tr>
+      <tr>
+        <td><strong>church / temple</strong></td>
+        <td><div class="eng">go to <span class="hl-z">∅</span> church</div><div class="note">ไปทำพิธีทางศาสนา</div></td>
+        <td><div class="eng">go to <span class="hl-the">the</span> church</div><div class="note">ไปที่อาคารโบสถ์</div></td>
+      </tr>
+      <tr>
+        <td><strong>prison / jail</strong></td>
+        <td><div class="eng">go to <span class="hl-z">∅</span> prison</div><div class="note">ถูกจำคุก</div></td>
+        <td><div class="eng">go to <span class="hl-the">the</span> prison</div><div class="note">ไปที่เรือนจำ (เยี่ยม)</div></td>
+      </tr>
+      <tr>
+        <td><strong>bed</strong></td>
+        <td><div class="eng">go to <span class="hl-z">∅</span> bed</div><div class="note">ไปนอน</div></td>
+        <td><div class="eng">sit on <span class="hl-the">the</span> bed</div><div class="note">นั่งบนเตียง (สิ่งของ)</div></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSection(2)">← Zero Article</button>
+    <button class="btn pur" onclick="goSection(4)">ถัดไป: Tricky PAT →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 4 — Tricky PAT
+═══════════════════════════════ -->
+<div class="section" id="sec-4">
+  <div class="card">
+    <div class="card-title blue">🎯 Tricky Cases — ข้อสอบชอบออก</div>
+    <div class="examples">
+      <div class="ex-row blue">
+        <div class="en">in <span class="hl-the">the</span> morning / afternoon / evening &nbsp;→&nbsp; แต่ at <span class="hl-z">∅</span> noon / midnight / night</div>
+        <div class="th">in the morning ✅ &nbsp;|&nbsp; at night ✅ (ไม่ใส่ the)</div>
+      </div>
+      <div class="ex-row blue">
+        <div class="en">play <span class="hl-the">the</span> piano ✅ &nbsp;vs&nbsp; play <span class="hl-z">∅</span> football ✅</div>
+        <div class="th">เครื่องดนตรี = the เสมอ / กีฬา = zero article เสมอ</div>
+      </div>
+      <div class="ex-row blue">
+        <div class="en"><span class="hl-a">a</span> number of students = นักเรียนจำนวนหนึ่ง (หลาย)</div>
+        <div class="th">vs <span class="hl-the">the</span> number of students = จำนวนนักเรียน (ตัวเลข)</div>
+      </div>
+      <div class="ex-row blue">
+        <div class="en">on <span class="hl-the">the</span> radio / television &nbsp;vs&nbsp; watch <span class="hl-z">∅</span> TV</div>
+        <div class="th">on the radio ✅ &nbsp;|&nbsp; watch TV / watch television (ไม่ใส่ the)</div>
+      </div>
+      <div class="ex-row blue">
+        <div class="en"><span class="hl-a">a</span> lot of / <span class="hl-a">a</span> little / <span class="hl-a">a</span> few — fixed expressions</div>
+        <div class="th">ต้องใส่ a เสมอ ห้ามใช้ an หรือ the</div>
+      </div>
+      <div class="ex-row blue">
+        <div class="en"><span class="hl-the">the</span> Internet &nbsp;vs&nbsp; on <span class="hl-z">∅</span> social media</div>
+        <div class="th">the Internet ✅ (มีอยู่เดียว) &nbsp;|&nbsp; social media ไม่ใส่ article</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title blue">📐 Fixed Expressions ที่ต้องจำ</div>
+    <table class="rule-table">
+      <tr>
+        <th class="th-primary" style="width:50%">ใส่ Article</th>
+        <th class="th-red" style="width:50%">ไม่ใส่ Article</th>
+      </tr>
+      <tr>
+        <td>
+          <div class="eng">in <span class="hl-the">the</span> morning/afternoon/evening</div>
+          <div class="eng">on <span class="hl-the">the</span> way (to)</div>
+          <div class="eng">in <span class="hl-the">the</span> end</div>
+          <div class="eng">tell <span class="hl-the">the</span> truth</div>
+          <div class="eng">play <span class="hl-the">the</span> + [instrument]</div>
+          <div class="eng">on <span class="hl-the">the</span> Internet</div>
+        </td>
+        <td>
+          <div class="eng">at <span class="hl-z">∅</span> night / noon / midnight</div>
+          <div class="eng">at <span class="hl-z">∅</span> home / school / work</div>
+          <div class="eng">by <span class="hl-z">∅</span> bus / train / car</div>
+          <div class="eng">play <span class="hl-z">∅</span> + [sport]</div>
+          <div class="eng">in <span class="hl-z">∅</span> bed / class / town</div>
+          <div class="eng">on <span class="hl-z">∅</span> TV / social media</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSection(3)">← Advanced Cases</button>
+    <button class="btn" onclick="goSection(5)">ทำข้อสอบ ✏️</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 5 — QUIZ
+═══════════════════════════════ -->
+<div class="section" id="sec-5">
+  <div class="quiz-header">
+    <h2>✏️ ข้อสอบ — 12 ข้อ</h2>
+    <p>ระดับ B1–B2 รวม Advanced &amp; PAT cases</p>
+  </div>
+
+  <div id="quiz-container"></div>
+  <div class="score-box" id="score-box"></div>
+
+  <div class="nav-btns" style="margin-top:16px;">
+    <button class="btn sec" onclick="goSection(4)">← Tricky PAT</button>
+    <button class="btn grn" id="retry-btn" onclick="resetQuiz()" style="display:none;">🔁 ทำใหม่</button>
+  </div>
+</div>
+
+<script>
+// ── SECTION NAV ──
+let cur = 1;
+const total = 5;
+
+function goSection(n) {
+  document.getElementById(`sec-${cur}`).classList.remove('active');
+  const ps = document.getElementById(`step-${cur}`);
+  if (ps) { ps.classList.remove('active'); if (cur < total) ps.classList.add('done'); }
+  cur = n;
+  document.getElementById(`sec-${n}`).classList.add('active');
+  const cs = document.getElementById(`step-${n}`);
+  if (cs) { cs.classList.add('active'); cs.classList.remove('done'); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (n === 5 && !document.getElementById('quiz-container').innerHTML.trim()) buildQuiz();
+}
+
+// ── QUIZ DATA ──
+const qs = [
+  { tag: 'rev',  s: 'She waited for ___ hour before the meeting started.', ans: 'an', opts: ['a','an','the','–'], ex: 'hour ออกเสียง /aʊər/ → เสียงสระ → ใช้ an' },
+  { tag: 'rev',  s: 'He plays ___ guitar in a band.', ans: 'the', opts: ['a','an','the','–'], ex: 'เครื่องดนตรี → ใช้ the เสมอ: play the guitar' },
+  { tag: 'rev',  s: 'They go to school by ___ bus every day.', ans: '–', opts: ['a','an','the','–'], ex: 'by + ยานพาหนะ → Zero Article เสมอ' },
+  { tag: 'adv',  s: '___ rich should help ___ poor.', ans: 'The / the', opts: ['The / the','A / a','An / an','– / –'], ex: 'the + adj = กลุ่มคน: the rich, the poor' },
+  { tag: 'adv',  s: 'He went to ___ hospital to visit his friend.', ans: 'the', opts: ['a','an','the','–'], ex: 'ไปที่ตัวอาคาร (เยี่ยมคน) → the hospital' },
+  { tag: 'adv',  s: '___ lion is a powerful animal. (generic)', ans: 'The', opts: ['A','The','–','An'], ex: 'Generic noun แบบ the + singular → The lion is...' },
+  { tag: 'adv',  s: '___ knowledge is the key to success.', ans: '–', opts: ['A','An','The','–'], ex: 'Knowledge = abstract noun ทั่วไป → Zero Article' },
+  { tag: 'pat',  s: 'I watch ___ TV every night.', ans: '–', opts: ['a','an','the','–'], ex: 'watch TV = fixed expression ไม่ใส่ article' },
+  { tag: 'pat',  s: 'A ___ number of people attended the concert.', ans: '–', opts: ['a','an','the','–'], ex: '"a number of" = fixed expression แปลว่าหลาย → ไม่เพิ่ม article อีก' },
+  { tag: 'pat',  s: 'She looked up the answer on ___ Internet.', ans: 'the', opts: ['a','an','the','–'], ex: 'the Internet → มีอยู่อันเดียว ใช้ the เสมอ' },
+  { tag: 'pat',  s: 'He got up early in ___ morning to study.', ans: 'the', opts: ['a','an','the','–'], ex: 'in the morning = fixed expression ต้องใส่ the' },
+  { tag: 'adv',  s: 'She plays ___ football but her brother plays ___ violin.', ans: '– / the', opts: ['– / the','the / –','a / the','– / –'], ex: 'กีฬา = zero article | เครื่องดนตรี = the' },
+];
+
+const tagLabel = { rev: 'ทบทวน', adv: 'Advanced', pat: 'PAT' };
+const tagClass = { rev: 'tag-rev', adv: 'tag-adv', pat: 'tag-pat' };
+
+let answered = 0, correct = 0;
+
+function safeId(s) { return s.replace(/[^a-zA-Z0-9]/g, '_'); }
+
+function buildQuiz() {
+  answered = 0; correct = 0;
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = '';
+  document.getElementById('score-box').classList.remove('show');
+  document.getElementById('retry-btn').style.display = 'none';
+
+  qs.forEach((q, i) => {
+    const sentHTML = q.s.replace('___', `<span class="q-blank" id="blank-${i}">___</span>`);
+    const choicesHTML = q.opts.map(o =>
+      `<button class="choice-btn" id="cb-${i}-${safeId(o)}" onclick="check(${i},'${o}')">${o === '–' ? '– (ไม่ใส่)' : o}</button>`
+    ).join('');
+
+    c.innerHTML += `
+      <div class="q-card" id="qc-${i}">
+        <span class="q-tag ${tagClass[q.tag]}">${tagLabel[q.tag]}</span>
+        <div class="q-num">ข้อ ${i+1} / ${qs.length}</div>
+        <div class="q-sentence">${sentHTML}</div>
+        <div class="choices">${choicesHTML}</div>
+        <div class="feedback" id="fb-${i}"></div>
+      </div>`;
+  });
+}
+
+function check(i, sel) {
+  const q = qs[i];
+  const ok = sel === q.ans;
+  if (ok) correct++;
+  answered++;
+
+  q.opts.forEach(o => {
+    const btn = document.getElementById(`cb-${i}-${safeId(o)}`);
+    if (!btn) return;
+    btn.disabled = true;
+    if (o === q.ans) btn.classList.add('correct');
+    else if (o === sel) btn.classList.add('wrong');
+  });
+
+  const bl = document.getElementById(`blank-${i}`);
+  if (bl) {
+    bl.textContent = q.ans === '–' ? '∅' : q.ans;
+    bl.style.color = ok ? 'var(--green)' : 'var(--red)';
+    bl.style.borderBottomColor = ok ? 'var(--green)' : 'var(--red)';
+  }
+
+  const fb = document.getElementById(`fb-${i}`);
+  fb.classList.add('show', ok ? 'ok' : 'ng');
+  fb.innerHTML = (ok ? '✅ ถูกต้อง! ' : `❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`) + q.ex;
+
+  if (answered === qs.length) showScore();
+}
+
+function showScore() {
+  const pct = Math.round(correct / qs.length * 100);
+  const msg = pct === 100 ? '🏆 Perfect! เก่งมากเลย!' :
+              pct >= 80  ? '🎉 ดีมาก! เกือบ Perfect' :
+              pct >= 60  ? '👍 ผ่าน! ทบทวน Advanced cases อีกนิด' :
+                           '📚 ลองทบทวนเนื้อหาแล้วมาทำใหม่นะ';
+  const box = document.getElementById('score-box');
+  box.innerHTML = `
+    <div class="score-big">${correct}/${qs.length}</div>
+    <div class="score-sub">คะแนนของคุณ</div>
+    <div class="score-msg">${msg}</div>
+    <div class="score-grid">
+      <div class="sg-card"><div class="sg-icon">✅</div><div class="sg-label">ถูก</div><div class="sg-val" style="color:var(--green)">${correct}</div></div>
+      <div class="sg-card"><div class="sg-icon">❌</div><div class="sg-label">ผิด</div><div class="sg-val" style="color:var(--red)">${qs.length-correct}</div></div>
+      <div class="sg-card"><div class="sg-icon">📊</div><div class="sg-label">คะแนน</div><div class="sg-val">${pct}%</div></div>
+    </div>`;
+  box.classList.add('show');
+  document.getElementById('retry-btn').style.display = 'inline-block';
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetQuiz() { buildQuiz(); window.scrollTo({ top: document.getElementById('sec-5').offsetTop - 20, behavior: 'smooth' }); }
+</script>
+</body>
+</html>

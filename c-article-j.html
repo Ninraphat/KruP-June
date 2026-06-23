@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Article – a, an, the | Junior High</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff9f0;
+    --card: #ffffff;
+    --primary: #ff6b35;
+    --secondary: #4ecdc4;
+    --accent: #ffe66d;
+    --purple: #a855f7;
+    --green: #22c55e;
+    --red: #ef4444;
+    --text: #1e1b18;
+    --muted: #78716c;
+    --shadow: 0 4px 0 #e5d5c5;
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%);
+    min-height: 100vh;
+    color: var(--text);
+    padding: 24px 16px 80px;
+  }
+
+  /* ── BACK BUTTON ── */
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; border: 2px solid #f0e8df;
+    box-shadow: 0 3px 0 #e5d5c5; border-radius: 999px;
+    padding: 8px 18px; font-family: 'Nunito', sans-serif;
+    font-size: 14px; font-weight: 800; color: var(--muted);
+    cursor: pointer; text-decoration: none; margin-bottom: 24px;
+    transition: all 0.2s; display: inline-flex;
+  }
+  .back-btn:hover { transform: translateY(-2px); color: var(--primary); }
+
+  /* ── HEADER ── */
+  header { text-align: center; margin-bottom: 32px; }
+  .badge {
+    display: inline-block; background: var(--secondary); color: white;
+    font-size: 12px; font-weight: 800; padding: 4px 14px;
+    border-radius: 999px; margin-bottom: 10px;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  h1 { font-family: 'Fredoka One', cursive; font-size: clamp(28px, 6vw, 40px); color: var(--primary); line-height: 1.2; }
+  h1 span { color: var(--secondary); }
+  .subtitle { margin-top: 6px; color: var(--muted); font-size: 15px; font-weight: 600; }
+
+  /* ── PROGRESS NAV ── */
+  .progress-nav {
+    display: flex; justify-content: center; gap: 8px;
+    flex-wrap: wrap; margin-bottom: 32px;
+  }
+  .nav-step {
+    background: white; border: 2px solid #f0e8df;
+    border-radius: 999px; padding: 6px 16px;
+    font-size: 13px; font-weight: 800; color: var(--muted);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .nav-step:hover { border-color: var(--secondary); color: var(--secondary); }
+  .nav-step.active { background: var(--secondary); color: white; border-color: var(--secondary); box-shadow: 0 2px 0 #2db5ac; }
+  .nav-step.done { background: #d1fae5; border-color: var(--green); color: #065f46; }
+
+  /* ── SECTIONS ── */
+  .section { display: none; max-width: 820px; margin: 0 auto; }
+  .section.active { display: block; animation: fadeUp 0.35s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); border: 2px solid #f0e8df;
+    padding: 24px; margin-bottom: 20px;
+  }
+  .card-title {
+    font-family: 'Fredoka One', cursive; font-size: 20px;
+    color: var(--primary); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  /* ── RULE TABLE ── */
+  .rule-table { width: 100%; border-collapse: collapse; }
+  .rule-table th {
+    background: var(--secondary); color: white;
+    font-family: 'Fredoka One', cursive; font-size: 15px;
+    padding: 10px 16px; text-align: left;
+  }
+  .rule-table th:first-child { border-radius: 10px 0 0 0; }
+  .rule-table th:last-child { border-radius: 0 10px 0 0; }
+  .rule-table td {
+    padding: 12px 16px; border-bottom: 2px solid #f0e8df;
+    font-size: 14px; font-weight: 600; vertical-align: top;
+  }
+  .rule-table tr:last-child td { border-bottom: none; }
+  .rule-table tr:nth-child(even) td { background: #faf5f0; }
+  .eng { font-weight: 800; color: var(--text); }
+  .note { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+  /* ── EXAMPLE CHIPS ── */
+  .examples { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .ex-row {
+    background: #faf5f0; border-radius: 10px; border-left: 4px solid var(--secondary);
+    padding: 10px 14px; font-size: 14px;
+  }
+  .ex-row .en { font-weight: 800; color: var(--text); }
+  .ex-row .th { color: var(--muted); font-size: 13px; margin-top: 3px; }
+  .ex-row .highlight { color: var(--primary); font-weight: 900; }
+
+  /* ── SOUND BOX ── */
+  .sound-box {
+    background: linear-gradient(135deg, #ffe66d22, #ff6b3511);
+    border: 2px solid var(--accent); border-radius: 12px;
+    padding: 16px; margin-top: 12px;
+  }
+  .sound-box h4 { font-family: 'Fredoka One', cursive; color: #b45309; margin-bottom: 10px; font-size: 16px; }
+  .sound-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .sound-chip {
+    background: white; border: 2px solid #f0e8df; border-radius: 10px;
+    padding: 8px 14px; font-size: 14px; font-weight: 700;
+  }
+  .sound-chip .ipa { color: var(--purple); font-size: 12px; font-weight: 800; }
+
+  /* ── SPECIAL CASES BOX ── */
+  .special-box {
+    background: #faf5ff; border: 2px solid #e9d5ff;
+    border-radius: 12px; padding: 16px; margin-top: 12px;
+  }
+  .special-box h4 { font-family: 'Fredoka One', cursive; color: var(--purple); margin-bottom: 10px; font-size: 16px; }
+  .special-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .special-list li {
+    background: white; border-radius: 8px; padding: 10px 14px;
+    font-size: 14px; font-weight: 700; display: flex; align-items: flex-start; gap: 8px;
+  }
+  .special-list li::before { content: '⚡'; }
+
+  /* ── NO ARTICLE BOX ── */
+  .no-art-box {
+    background: #fff1f2; border: 2px solid #fecdd3;
+    border-radius: 12px; padding: 16px; margin-top: 12px;
+  }
+  .no-art-box h4 { font-family: 'Fredoka One', cursive; color: var(--red); margin-bottom: 10px; font-size: 16px; }
+
+  /* ── MINI QUIZ ── */
+  .quiz-intro { text-align: center; margin-bottom: 20px; }
+  .quiz-intro p { color: var(--muted); font-weight: 700; font-size: 15px; margin-top: 6px; }
+
+  .q-card {
+    background: white; border: 2px solid #f0e8df;
+    border-radius: var(--radius); padding: 20px; margin-bottom: 16px;
+    box-shadow: 0 2px 0 #e5d5c5;
+  }
+  .q-num { font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .q-sentence { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 14px; line-height: 1.5; }
+  .q-blank { 
+    display: inline-block; min-width: 70px; border-bottom: 3px solid var(--primary);
+    text-align: center; color: var(--primary); font-weight: 900;
+    padding: 0 8px; margin: 0 4px;
+  }
+  .choices { display: flex; gap: 8px; flex-wrap: wrap; }
+  .choice-btn {
+    background: white; border: 2px solid #e5d5c5; border-radius: 10px;
+    padding: 8px 20px; font-family: 'Nunito', sans-serif;
+    font-size: 15px; font-weight: 800; cursor: pointer;
+    transition: all 0.15s; color: var(--text);
+  }
+  .choice-btn:hover:not(:disabled) { border-color: var(--secondary); background: #f0fdfa; }
+  .choice-btn.correct { background: #d1fae5; border-color: var(--green); color: #065f46; }
+  .choice-btn.wrong { background: #fee2e2; border-color: var(--red); color: #991b1b; }
+  .choice-btn:disabled { cursor: default; }
+
+  .feedback {
+    margin-top: 12px; padding: 10px 14px; border-radius: 10px;
+    font-size: 14px; font-weight: 700; display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.ok { background: #d1fae5; color: #065f46; }
+  .feedback.ng { background: #fee2e2; color: #991b1b; }
+
+  /* ── SCORE ── */
+  .score-box {
+    text-align: center; background: white; border: 2px solid #f0e8df;
+    border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow);
+    display: none;
+  }
+  .score-box.show { display: block; animation: fadeUp 0.4s ease; }
+  .score-num { font-family: 'Fredoka One', cursive; font-size: 56px; color: var(--primary); line-height: 1; }
+  .score-label { font-size: 15px; font-weight: 800; color: var(--muted); margin-top: 6px; }
+  .score-msg { font-size: 18px; font-weight: 800; margin: 16px 0 20px; color: var(--text); }
+
+  /* ── NAV BUTTONS ── */
+  .nav-btns { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; max-width: 820px; margin-left: auto; margin-right: auto; }
+  .btn {
+    background: var(--primary); color: white; border: none;
+    border-radius: 12px; padding: 12px 28px; font-family: 'Nunito', sans-serif;
+    font-size: 16px; font-weight: 800; cursor: pointer;
+    box-shadow: 0 4px 0 #d94e1f; transition: all 0.15s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #d94e1f; }
+  .btn:active { transform: translateY(1px); box-shadow: 0 2px 0 #d94e1f; }
+  .btn.secondary { background: white; color: var(--muted); box-shadow: 0 4px 0 #e5d5c5; border: 2px solid #f0e8df; }
+  .btn.secondary:hover { color: var(--text); box-shadow: 0 6px 0 #e5d5c5; }
+  .btn.green-btn { background: var(--green); box-shadow: 0 4px 0 #15803d; }
+  .btn.green-btn:hover { box-shadow: 0 6px 0 #15803d; }
+  .btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+  /* ── SUMMARY TABLE ── */
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 20px; }
+  .sum-card {
+    background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px;
+    padding: 14px; text-align: center;
+  }
+  .sum-card .sum-icon { font-size: 24px; }
+  .sum-card .sum-title { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 6px 0 4px; }
+  .sum-card .sum-val { font-family: 'Fredoka One', cursive; font-size: 22px; color: var(--primary); }
+
+  @media (max-width: 600px) {
+    .summary-grid { grid-template-columns: 1fr 1fr; }
+    .nav-btns { flex-direction: column; gap: 12px; }
+    .nav-btns .btn { width: 100%; text-align: center; }
+    .sound-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html">← กลับหน้าหลัก</a>
+
+<header>
+  <div class="badge">Junior High · Grammar</div>
+  <h1>Article <span>a / an / the</span> 📌</h1>
+  <p class="subtitle">เรียนรู้การใช้ Article ให้ถูกต้องใน 3 ขั้นตอน</p>
+</header>
+
+<!-- PROGRESS NAV -->
+<div class="progress-nav">
+  <div class="nav-step active" id="step-1" onclick="goSection(1)">1️⃣ a / an</div>
+  <div class="nav-step" id="step-2" onclick="goSection(2)">2️⃣ the</div>
+  <div class="nav-step" id="step-3" onclick="goSection(3)">3️⃣ Zero Article</div>
+  <div class="nav-step" id="step-4" onclick="goSection(4)">✏️ ทำข้อสอบ</div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 1 — a / an
+═══════════════════════════════════ -->
+<div class="section active" id="sec-1">
+
+  <div class="card">
+    <div class="card-title">📌 Indefinite Article — a / an</div>
+    <p style="font-size:15px; font-weight:700; color:var(--muted); margin-bottom:16px;">
+      ใช้กับคำนามนับได้เอกพจน์ที่พูดถึงเป็นครั้งแรก หรือหมายถึง "หนึ่งใน" สิ่งนั้น
+    </p>
+    <table class="rule-table">
+      <tr>
+        <th>Article</th>
+        <th>ใช้เมื่อไหร่</th>
+        <th>ตัวอย่าง</th>
+      </tr>
+      <tr>
+        <td><span class="eng">a</span></td>
+        <td>
+          <div>คำถัดไปออกเสียง<br><strong>พยัญชนะ</strong></div>
+          <div class="note">(b, c, d, f, g … )</div>
+        </td>
+        <td>
+          <div class="eng">a <span style="color:var(--primary)">b</span>ook</div>
+          <div class="eng">a <span style="color:var(--primary)">c</span>at</div>
+          <div class="eng">a <span style="color:var(--primary)">u</span>niversity <span class="note">(ออกเสียง /juː/)</span></div>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="eng">an</span></td>
+        <td>
+          <div>คำถัดไปออกเสียง<br><strong>สระ</strong></div>
+          <div class="note">(a, e, i, o, u)</div>
+        </td>
+        <td>
+          <div class="eng">an <span style="color:var(--secondary)">a</span>pple</div>
+          <div class="eng">an <span style="color:var(--secondary)">e</span>gg</div>
+          <div class="eng">an <span style="color:var(--secondary)">h</span>our <span class="note">(ออกเสียง /aʊər/)</span></div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Sound trick -->
+  <div class="card">
+    <div class="card-title">🔊 ฟังเสียง ไม่ใช่ดูตัวอักษร!</div>
+    <p style="font-size:14px; font-weight:700; color:var(--muted); margin-bottom:14px;">
+      กฎสำคัญ: ดูที่ <strong>เสียง</strong> ของคำถัดไป ไม่ใช่ตัวสะกด
+    </p>
+    <div class="sound-box">
+      <h4>⚡ คำพิเศษที่ต้องระวัง</h4>
+      <div class="sound-row">
+        <div class="sound-chip"><strong>an</strong> hour <br><span class="ipa">/aʊər/ → เสียงสระ ✅</span></div>
+        <div class="sound-chip"><strong>an</strong> honest man<br><span class="ipa">/ˈɒnɪst/ → เสียงสระ ✅</span></div>
+        <div class="sound-chip"><strong>a</strong> university<br><span class="ipa">/juːnɪˈvɜːsɪti/ → /j/ ✅</span></div>
+        <div class="sound-chip"><strong>a</strong> European trip<br><span class="ipa">/jʊərəˈpiːən/ → /j/ ✅</span></div>
+        <div class="sound-chip"><strong>an</strong> MBA<br><span class="ipa">/em biː eɪ/ → /e/ ✅</span></div>
+        <div class="sound-chip"><strong>a</strong> useful tool<br><span class="ipa">/juːs/ → /j/ ✅</span></div>
+      </div>
+    </div>
+
+    <div class="examples" style="margin-top:16px;">
+      <div class="ex-row">
+        <div class="en">She is <span class="highlight">a</span> teacher.</div>
+        <div class="th">เธอเป็นครู (ครูคนหนึ่ง)</div>
+      </div>
+      <div class="ex-row">
+        <div class="en">I ate <span class="highlight">an</span> orange for breakfast.</div>
+        <div class="th">ฉันกินส้มหนึ่งลูกตอนเช้า</div>
+      </div>
+      <div class="ex-row">
+        <div class="en">He wants to be <span class="highlight">a</span> doctor.</div>
+        <div class="th">เขาอยากเป็นหมอ (อาชีพ)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn" onclick="goSection(2)">ถัดไป: the →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 2 — the
+═══════════════════════════════════ -->
+<div class="section" id="sec-2">
+
+  <div class="card">
+    <div class="card-title">📌 Definite Article — the</div>
+    <p style="font-size:15px; font-weight:700; color:var(--muted); margin-bottom:16px;">
+      ใช้เมื่อทั้งผู้พูดและผู้ฟัง <strong>รู้ว่าหมายถึงอะไร</strong> — ชี้เฉพาะเจาะจง
+    </p>
+    <table class="rule-table">
+      <tr><th>กรณี</th><th>ตัวอย่าง</th></tr>
+      <tr>
+        <td>พูดถึงซ้ำเป็นครั้งที่ 2</td>
+        <td>
+          <div class="eng">I saw <span style="color:var(--muted)">a</span> dog. <span class="highlight">The</span> dog was brown.</div>
+          <div class="note">ครั้งแรก "a dog" → ครั้งต่อมา "the dog"</div>
+        </td>
+      </tr>
+      <tr>
+        <td>มีอยู่สิ่งเดียวในโลก</td>
+        <td>
+          <div class="eng"><span class="highlight">the</span> sun, <span class="highlight">the</span> moon, <span class="highlight">the</span> sky</div>
+        </td>
+      </tr>
+      <tr>
+        <td>รู้กันอยู่แล้วว่าอันไหน</td>
+        <td>
+          <div class="eng">Please close <span class="highlight">the</span> door.</div>
+          <div class="note">ประตูที่อยู่ในห้องนี้ ทุกคนรู้</div>
+        </td>
+      </tr>
+      <tr>
+        <td>ชื่อแม่น้ำ, ทะเล, ภูเขาหมู่</td>
+        <td>
+          <div class="eng"><span class="highlight">the</span> Amazon, <span class="highlight">the</span> Pacific Ocean, <span class="highlight">the</span> Alps</div>
+        </td>
+      </tr>
+      <tr>
+        <td>คำคุณศัพท์ขั้นสุด (Superlative)</td>
+        <td>
+          <div class="eng"><span class="highlight">the</span> tallest building, <span class="highlight">the</span> best student</div>
+        </td>
+      </tr>
+      <tr>
+        <td>ชื่อประเทศที่เป็นกลุ่ม / รัฐ</td>
+        <td>
+          <div class="eng"><span class="highlight">the</span> USA, <span class="highlight">the</span> UK, <span class="highlight">the</span> Philippines</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💡 ตัวอย่างประโยค</div>
+    <div class="examples">
+      <div class="ex-row">
+        <div class="en"><span class="highlight">The</span> Chao Phraya River runs through Bangkok.</div>
+        <div class="th">แม่น้ำเจ้าพระยาไหลผ่านกรุงเทพฯ (แม่น้ำ = the)</div>
+      </div>
+      <div class="ex-row">
+        <div class="en">He is <span class="highlight">the</span> smartest boy in class.</div>
+        <div class="th">เขาเป็นเด็กผู้ชายที่ฉลาดที่สุดในชั้น</div>
+      </div>
+      <div class="ex-row">
+        <div class="en">Can you turn off <span class="highlight">the</span> light?</div>
+        <div class="th">ช่วยปิดไฟหน่อยได้ไหม? (ไฟในห้องนี้)</div>
+      </div>
+      <div class="ex-row">
+        <div class="en">I bought a shirt yesterday. <span class="highlight">The</span> shirt is blue.</div>
+        <div class="th">ฉันซื้อเสื้อมาเมื่อวาน เสื้อ(ตัวนั้น)เป็นสีฟ้า</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn secondary" onclick="goSection(1)">← a / an</button>
+    <button class="btn" onclick="goSection(3)">ถัดไป: Zero Article →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 3 — Zero Article
+═══════════════════════════════════ -->
+<div class="section" id="sec-3">
+
+  <div class="card">
+    <div class="card-title">🚫 Zero Article — ไม่ใส่ Article</div>
+    <p style="font-size:15px; font-weight:700; color:var(--muted); margin-bottom:16px;">
+      บางกรณีใช้คำนามโดย<strong>ไม่ต้องมี</strong> article นำหน้า
+    </p>
+    <div class="no-art-box">
+      <h4>❌ ห้ามใส่ article เมื่อ…</h4>
+      <div class="examples">
+        <div class="ex-row">
+          <div class="en">คำนามนับไม่ได้ที่พูดโดยทั่วไป</div>
+          <div class="th"><strong>Water</strong> is essential. / I love <strong>music</strong>.</div>
+        </div>
+        <div class="ex-row">
+          <div class="en">คำนามนับได้พหูพจน์ ที่พูดโดยทั่วไป</div>
+          <div class="th"><strong>Dogs</strong> are loyal animals. / <strong>Students</strong> need to study.</div>
+        </div>
+        <div class="ex-row">
+          <div class="en">ชื่อประเทศ (ทั่วไป), ชื่อคน, ชื่อเมือง</div>
+          <div class="th"><strong>Thailand</strong> is beautiful. / <strong>Bangkok</strong> is crowded. / <strong>Tom</strong> plays football.</div>
+        </div>
+        <div class="ex-row">
+          <div class="en">วันในสัปดาห์, เดือน, มื้ออาหาร, ภาษา</div>
+          <div class="th">on <strong>Monday</strong> / in <strong>January</strong> / at <strong>lunch</strong> / speak <strong>Thai</strong></div>
+        </div>
+        <div class="ex-row">
+          <div class="en">การเดินทางโดยยานพาหนะ (by + noun)</div>
+          <div class="th">go by <strong>bus</strong> / travel by <strong>train</strong> / fly by <strong>plane</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔍 เปรียบเทียบให้ชัด</div>
+    <table class="rule-table">
+      <tr><th>Zero Article (ทั่วไป)</th><th>มี Article (เจาะจง)</th></tr>
+      <tr>
+        <td><div class="eng">I like <span class="highlight">coffee</span>.</div><div class="note">ชอบกาแฟโดยทั่วไป</div></td>
+        <td><div class="eng">I like <span class="highlight">the coffee</span> here.</div><div class="note">กาแฟที่ร้านนี้โดยเฉพาะ</div></td>
+      </tr>
+      <tr>
+        <td><div class="eng"><span class="highlight">Dogs</span> are friendly.</div><div class="note">สุนัขทั่วๆ ไป</div></td>
+        <td><div class="eng"><span class="highlight">The dogs</span> next door bark at night.</div><div class="note">สุนัขบ้านข้างๆ (ชี้เฉพาะ)</div></td>
+      </tr>
+      <tr>
+        <td><div class="eng">She goes to <span class="highlight">school</span>.</div><div class="note">ไปเรียนหนังสือ (วัตถุประสงค์)</div></td>
+        <td><div class="eng">She went to <span class="highlight">the school</span> to pick up her brother.</div><div class="note">ไปที่ตัวอาคาร (ชี้สถานที่)</div></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn secondary" onclick="goSection(2)">← the</button>
+    <button class="btn" onclick="goSection(4)">ทำข้อสอบ ✏️</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 4 — MINI QUIZ
+═══════════════════════════════════ -->
+<div class="section" id="sec-4">
+
+  <div class="quiz-intro">
+    <div class="card-title" style="justify-content:center; font-family:'Fredoka One'; font-size:22px; color:var(--primary);">✏️ Mini Quiz — 10 ข้อ</div>
+    <p>เลือกคำตอบที่ถูกต้อง ระบบจะให้ Feedback ทันที</p>
+  </div>
+
+  <div id="quiz-container"></div>
+  <div class="score-box" id="score-box"></div>
+
+  <div class="nav-btns" style="margin-top:20px;">
+    <button class="btn secondary" onclick="goSection(3)">← กลับทบทวน</button>
+    <button class="btn green-btn" id="retry-btn" onclick="resetQuiz()" style="display:none;">🔁 ทำใหม่</button>
+  </div>
+</div>
+
+<!-- ─────────────────────────────── -->
+<script>
+// ── SECTION NAV ──
+let currentSection = 1;
+const totalSections = 4;
+const completedSections = new Set([1]);
+
+function goSection(n) {
+  document.getElementById(`sec-${currentSection}`).classList.remove('active');
+  document.getElementById(`step-${currentSection}`)?.classList.remove('active');
+  if (currentSection < 4) completedSections.add(currentSection);
+  document.getElementById(`step-${currentSection}`)?.classList.toggle('done', currentSection < 4);
+
+  currentSection = n;
+  document.getElementById(`sec-${n}`).classList.add('active');
+  const stepEl = document.getElementById(`step-${n}`);
+  if (stepEl) { stepEl.classList.add('active'); stepEl.classList.remove('done'); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (n === 4 && document.getElementById('quiz-container').innerHTML === '') {
+    buildQuiz();
+  }
+}
+
+// ── QUIZ DATA ──
+const questions = [
+  { s: "I saw ___ elephant at the zoo.", blank: "___", options: ["a", "an", "the", "–"], answer: "an", explain: "elephant ออกเสียง /ɛl/ → เสียงสระ ใช้ 'an'" },
+  { s: "Please close ___ window. It's cold.", blank: "___", options: ["a", "an", "the", "–"], answer: "the", explain: "ทั้งคู่รู้ว่าหมายถึงหน้าต่างบานไหน ใช้ 'the'" },
+  { s: "___ sun rises in the east.", blank: "___", options: ["A", "An", "The", "–"], answer: "The", explain: "ดวงอาทิตย์มีอยู่ดวงเดียวในระบบสุริยะ ใช้ 'the'" },
+  { s: "She wants to be ___ engineer.", blank: "___", options: ["a", "an", "the", "–"], answer: "an", explain: "engineer ออกเสียง /ɛn/ → เสียงสระ ใช้ 'an'" },
+  { s: "___ dogs are loyal animals.", blank: "___", options: ["A", "An", "The", "–"], answer: "–", explain: "พูดถึงสุนัขโดยทั่วไป (พหูพจน์ + ความหมายทั่วไป) ไม่ใส่ article" },
+  { s: "He is ___ most talented student in class.", blank: "___", options: ["a", "an", "the", "–"], answer: "the", explain: "ใช้ 'the' กับ Superlative เสมอ" },
+  { s: "I'd like ___ cup of coffee, please.", blank: "___", options: ["a", "an", "the", "–"], answer: "a", explain: "cup ออกเสียง /k/ → พยัญชนะ ใช้ 'a'" },
+  { s: "We travel to school by ___ bus.", blank: "___", options: ["a", "an", "the", "–"], answer: "–", explain: "'by bus/train/car' ไม่ใส่ article" },
+  { s: "___ Philippines is a beautiful country.", blank: "___", options: ["A", "An", "The", "–"], answer: "The", explain: "ชื่อประเทศที่เป็นกลุ่มหมู่เกาะ ใช้ 'the'" },
+  { s: "I bought a bike yesterday. ___ bike is red.", blank: "___", options: ["A", "An", "The", "–"], answer: "The", explain: "พูดถึง bike ซ้ำเป็นครั้งที่ 2 ใช้ 'the'" },
+];
+
+let answered = 0;
+let correct = 0;
+
+function buildQuiz() {
+  answered = 0; correct = 0;
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  document.getElementById('score-box').classList.remove('show');
+  document.getElementById('retry-btn').style.display = 'none';
+
+  questions.forEach((q, i) => {
+    const parts = q.s.split(q.blank);
+    const sentenceHTML = parts.length === 2
+      ? `${parts[0]}<span class="q-blank" id="blank-${i}">___</span>${parts[1]}`
+      : q.s;
+
+    const choicesHTML = q.options.map(opt =>
+      `<button class="choice-btn" id="choice-${i}-${opt}" onclick="checkAnswer(${i},'${opt}')">${opt === '–' ? '– (ไม่ใส่)' : opt}</button>`
+    ).join('');
+
+    container.innerHTML += `
+      <div class="q-card" id="qcard-${i}">
+        <div class="q-num">ข้อ ${i + 1} / ${questions.length}</div>
+        <div class="q-sentence">${sentenceHTML}</div>
+        <div class="choices">${choicesHTML}</div>
+        <div class="feedback" id="fb-${i}"></div>
+      </div>
+    `;
+  });
+}
+
+function checkAnswer(i, selected) {
+  const q = questions[i];
+  const isCorrect = selected === q.answer;
+  if (isCorrect) correct++;
+  answered++;
+
+  // disable all buttons for this question
+  q.options.forEach(opt => {
+    const btn = document.getElementById(`choice-${i}-${opt}`);
+    if (btn) {
+      btn.disabled = true;
+      if (opt === q.answer) btn.classList.add('correct');
+      else if (opt === selected) btn.classList.add('wrong');
+    }
+  });
+
+  // update blank
+  const blankEl = document.getElementById(`blank-${i}`);
+  if (blankEl) {
+    blankEl.textContent = q.answer === '–' ? '∅' : q.answer;
+    blankEl.style.color = isCorrect ? 'var(--green)' : 'var(--red)';
+    blankEl.style.borderBottomColor = isCorrect ? 'var(--green)' : 'var(--red)';
+  }
+
+  // feedback
+  const fb = document.getElementById(`fb-${i}`);
+  fb.classList.add('show', isCorrect ? 'ok' : 'ng');
+  fb.innerHTML = (isCorrect ? '✅ ถูกต้อง! ' : '❌ ผิด! ') + q.explain;
+
+  if (answered === questions.length) showScore();
+}
+
+function showScore() {
+  const pct = Math.round((correct / questions.length) * 100);
+  let msg = pct === 100 ? '🏆 เยี่ยมมาก! ทำได้ Perfect!' :
+            pct >= 80 ? '🎉 ดีมาก! เกือบ Perfect แล้ว' :
+            pct >= 60 ? '👍 ผ่านแล้ว! ทบทวนอีกนิดนะ' :
+            '📚 ลองทบทวนเนื้อหาก่อนทำใหม่นะ';
+
+  const box = document.getElementById('score-box');
+  box.innerHTML = `
+    <div class="score-num">${correct}/${questions.length}</div>
+    <div class="score-label">คะแนนของคุณ</div>
+    <div class="score-msg">${msg}</div>
+    <div class="summary-grid">
+      <div class="sum-card"><div class="sum-icon">✅</div><div class="sum-title">ถูก</div><div class="sum-val" style="color:var(--green)">${correct}</div></div>
+      <div class="sum-card"><div class="sum-icon">❌</div><div class="sum-title">ผิด</div><div class="sum-val" style="color:var(--red)">${questions.length - correct}</div></div>
+      <div class="sum-card"><div class="sum-icon">📊</div><div class="sum-title">คะแนน</div><div class="sum-val">${pct}%</div></div>
+    </div>
+  `;
+  box.classList.add('show');
+  document.getElementById('retry-btn').style.display = 'inline-block';
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetQuiz() {
+  buildQuiz();
+  window.scrollTo({ top: document.getElementById('sec-4').offsetTop - 20, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
