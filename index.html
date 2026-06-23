@@ -259,7 +259,25 @@ const grammarDatabase = [
         ]}
       ] 
   }},
-  { id: 3, title: "Article", desc: "a, an, the", levels: { primary: [], junior: [], high: [] }},
+  { id: 3, title: "Article", desc: "a, an, the", levels: { 
+      primary: [
+        { name: "Articles: a, an, the", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-article-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "e-article-p.html" }
+        ]}
+      ], 
+      junior: [
+        { name: "Articles (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-article-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "e-article-j.html" }
+        ]}
+      ], 
+      high: [
+        { name: "Advanced Articles", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-article-h.html" }
+        ]}
+      ] 
+  }},
   { id: 4, title: "Quantifier", desc: "some, any, much, many", levels: { primary: [], junior: [], high: [] }},
   { id: 5, title: "Pronoun", desc: "คำสรรพนาม", levels: { primary: [], junior: [], high: [] }},
   { id: 6, title: "Subject-Verb Agreement", desc: "ความสอดคล้องประธานกริยา", levels: { primary: [], junior: [], high: [] }},
