@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pronouns: ม.ต้น | English Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff9f0; --card: #ffffff; --primary: #ff6b35; --secondary: #4ecdc4;
+    --text: #1e1b18; --muted: #78716c; --shadow: 0 4px 0 #e5d5c5; --radius: 16px;
+    --purple: #a855f7;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
+  .container { max-width: 800px; margin: 0 auto; }
+  .btn-back { display: inline-block; background: var(--muted); color: white; padding: 8px 16px; border-radius: 999px; text-decoration: none; font-weight: 700; margin-bottom: 20px; }
+  header { text-align: center; margin-bottom: 30px; }
+  h1 { font-family: 'Fredoka One', cursive; color: var(--primary); }
+  .card { background: var(--card); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); border: 2px solid #f0e8df; margin-bottom: 20px; }
+  .highlight { color: var(--primary); font-weight: 800; }
+  .ex-box { background: #fdf2f2; border-left: 4px solid var(--primary); padding: 15px; margin: 10px 0; border-radius: 4px; font-weight: 600; }
+  .quiz-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #e5d5c5; border-radius: 8px; cursor: pointer; background: white; font-weight: 700; transition: 0.2s; }
+  .quiz-btn:hover { background: #fff3e0; border-color: var(--primary); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="btn-back">⬅️ กลับหน้าหลัก</a>
+  
+  <header>
+    <h1>Pronouns 🔍 (Junior High)</h1>
+    <p>เจาะลึกคำสรรพนามสำหรับ ม.ต้น: Possessive, Reflexive และ Relative Pronouns</p>
+  </header>
+
+  <div class="card">
+    <h2>1. Possessive Pronouns (สรรพนามแสดงความเป็นเจ้าของ)</h2>
+    <p>ใช้บอกว่าของชิ้นนี้เป็น "ของใคร" โดยไม่ต้องมีคำนามตามหลัง</p>
+    <div class="ex-box">That blue backpack is <span class="highlight">mine</span>. (แทน "my backpack")</div>
+  </div>
+
+  <div class="card">
+    <h2>2. Reflexive Pronouns (สรรพนามสะท้อนกลับ)</h2>
+    <p>ใช้เมื่อประธานและกรรมเป็นคนเดียวกัน (ทำตัวเอง)</p>
+    <div class="ex-box">Ted looked at <span class="highlight">himself</span> in the mirror.</div>
+  </div>
+
+  <div class="card">
+    <h2>3. Relative Pronouns (คำเชื่อม)</h2>
+    <p>ใช้เชื่อมประโยคเพื่อขยายคำนาม (who ใช้แทนคน, which ใช้แทนสิ่งของ/สัตว์)</p>
+    <div class="ex-box">The boy <span class="highlight">who</span> is wearing a red shirt is my brother.</div>
+  </div>
+
+  <div class="card">
+    <h2>📝 Mini Quiz: ทดสอบตัวเอง</h2>
+    <p>ประโยคนี้ควรใช้คำว่าอะไร: "I did all the homework by _________."</p>
+    <button class="quiz-btn" onclick="alert('ถูกต้อง! เป็น Reflexive Pronoun')">A) myself</button>
+    <button class="quiz-btn" onclick="alert('ลองใหม่อีกครั้งนะ!')">B) me</button>
+  </div>
+</div>
+
+</body>
+</html>
