@@ -23,15 +23,33 @@
   .container { max-width: 800px; margin: 0 auto; }
   header { text-align: center; margin-bottom: 30px; }
   h1 { font-family: 'Fredoka One', cursive; color: var(--primary); }
+  
   .card { background: var(--card); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); border: 2px solid #f0e8df; margin-bottom: 20px; }
-  .btn-back { display: inline-block; background: var(--muted); color: white; padding: 8px 16px; border-radius: 999px; text-decoration: none; font-weight: 700; margin-bottom: 20px; }
-  .ex-box { background: #fdf2f2; border-left: 4px solid var(--primary); padding: 15px; margin: 10px 0; border-radius: 4px; font-weight: 600; }
-  .quiz-container { margin-top: 20px; }
-  .quiz-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #e5d5c5; border-radius: 8px; cursor: pointer; background: white; font-weight: 700; transition: 0.2s; }
+  .btn-back { display: inline-block; background: var(--muted); color: white; padding: 8px 16px; border-radius: 999px; text-decoration: none; font-weight: 700; margin-bottom: 20px; transition: 0.2s; }
+  .btn-back:hover { opacity: 0.8; }
+  
+  h2 { color: var(--secondary); margin-top: 0; border-bottom: 2px dashed #f0e8df; padding-bottom: 10px; }
+  h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 5px; }
+  
+  .ex-box { background: #fdf2f2; border-left: 4px solid var(--primary); padding: 12px 15px; margin: 10px 0; border-radius: 0 8px 8px 0; font-weight: 600; }
+  .note { background: #e0f2fe; padding: 15px; border-radius: 8px; font-size: 0.95rem; margin-top: 15px; }
+  
+  /* Accordion Styles */
+  details { background: #fff; border-radius: 8px; margin-bottom: 10px; border: 2px solid #e5d5c5; overflow: hidden; }
+  summary { padding: 15px; font-weight: 700; cursor: pointer; list-style: none; color: var(--text); background: #fdf2f2; transition: 0.2s; }
+  summary:hover { background: #fee2e2; }
+  summary::-webkit-details-marker { display: none; }
+  details[open] summary { border-bottom: 2px solid #e5d5c5; background: var(--primary); color: white; }
+  .details-content { padding: 15px; background: white; }
+
+  /* Quiz Styles */
+  .quiz-q { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+  .quiz-q:last-child { border-bottom: none; }
+  .quiz-btn { display: block; width: 100%; text-align: left; padding: 12px 15px; margin: 8px 0; border: 2px solid #e5d5c5; border-radius: 8px; cursor: pointer; background: white; font-weight: 700; transition: 0.2s; }
   .quiz-btn:hover { background: #fff3e0; border-color: var(--primary); }
-  .feedback { margin-top: 10px; padding: 10px; border-radius: 8px; display: none; }
-  .feedback.ok { background: #dcfce7; color: #166534; display: block; }
-  .feedback.ng { background: #fee2e2; color: #991b1b; display: block; }
+  .quiz-btn.correct { background: #dcfce7; border-color: var(--green); color: #166534; }
+  .quiz-btn.wrong { background: #fee2e2; border-color: var(--red); color: #991b1b; }
+  .feedback { margin-top: 10px; padding: 10px; border-radius: 8px; font-size: 0.9rem; display: none; }
 </style>
 </head>
 <body>
@@ -41,49 +59,136 @@
   
   <header>
     <h1>Advanced Pronouns 🎓</h1>
-    <p>เตรียมความพร้อมสู่สนามสอบ A-Level / TGAT</p>
+    <p>อุดรอยรั่ว ทบทวนพื้นฐาน และเจาะลึกไวยากรณ์ขั้นสูงเพื่อพิชิตข้อสอบ A-Level / TGAT</p>
   </header>
 
   <div class="card">
-    <h2>1. เจาะลึก Relative Pronouns & Clauses</h2>
-    <p>สำหรับการสอบระดับสูง เราต้องแม่นเรื่องการเลือกใช้เชื่อมประโยคครับ</p>
+    <h2>1. ฐานแน่นก่อนเริ่ม (Warm-up Review)</h2>
+    <p>ก่อนไปเจอประโยคซับซ้อน เรามาทบทวน Pronoun พื้นฐานที่มักโดนหลอกในข้อสอบกันก่อน ลองคลิกเพื่ออ่านทบทวนได้เลย!</p>
+    
+    <details>
+      <summary>📌 Possessive vs Object Pronouns (ระวังจำสลับกัน!)</summary>
+      <div class="details-content">
+        <p>หลายคนชอบสลับ <b>Object Pronoun</b> (ผู้ถูกกระทำ) กับ <b>Possessive Pronoun</b> (ของฉัน ของเธอ แบบไม่ต้องมีนามตาม)</p>
+        <ul>
+          <li><b>Object:</b> Kru June gave <i>me</i> a sticker. (me = ฉันผู้รับ)</li>
+          <li><b>Possessive:</b> That blue backpack is <i>mine</i>. (mine = ของฉัน)</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>📌 Reflexive & Reciprocal (ทำตัวเอง VS ทำซึ่งกันและกัน)</summary>
+      <div class="details-content">
+        <p><b>Reflexive Pronouns (-self/selves):</b> ประธานและกรรมคือคนเดียวกัน</p>
+        <div class="ex-box">Ted looked at <b>himself</b> in the mirror.</div>
+        <p><b>Reciprocal Pronouns:</b> ทำกริยาใส่กันและกัน (each other / one another)</p>
+        <div class="ex-box">Ted and his friends always help <b>each other</b>.</div>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>2. Advanced Relative Pronouns (คำเชื่อมประโยค)</h2>
+    <p>จุดนี้ออกสอบ Error Identification เป็นประจำ! เราต้องวิเคราะห์ให้เป็นว่าคำนามที่ถูกขยายทำหน้าที่อะไรในประโยคย่อย</p>
+    
+    <h3>🔥 Trick จับผิด: who vs whom vs whose</h3>
     <ul>
-      <li><b>Whose:</b> ใช้แสดงความเป็นเจ้าของสำหรับคนหรือสิ่งของ</li>
-      <li><b>Whom:</b> ใช้แทนกรรมที่เป็นคน (ในทางการ)</li>
-      <li><b>Non-defining Clauses:</b> ข้อมูลเสริมที่ต้องมีคอมม่า (,) กั้น</li>
+      <li><b>Who + Verb:</b> ขยายนามที่เป็น "ประธาน" ของกริยาที่ตามมา</li>
+      <li><b>Whom + Subject + Verb:</b> ขยายนามที่เป็น "กรรม" (มีประธานตัวใหม่มารับกริยาแล้ว)</li>
+      <li><b>Whose + Noun:</b> ขยายนามเพื่อแสดงความเป็นเจ้าของ (แปลว่า "ที่ซึ่งของเขา...")</li>
     </ul>
-    <div class="ex-box">The girl <b>whose</b> phone was lost is crying.</div>
-    <div class="ex-box">The man <b>whom</b> Kru June invited is an expert.</div>
-  </div>
+    
+    <div class="ex-box">1. The girl <b>whose</b> phone was lost is crying. (ผู้หญิงคนที่โทรศัพท์ของเธอหาย)</div>
+    <div class="ex-box">2. The man <b>whom</b> Kru June invited is an expert. (ผู้ชายคนที่ครูจูนเชิญมา)</div>
 
-  <div class="card">
-    <h2>2. สรรพนามอื่นๆ ที่ออกสอบบ่อย</h2>
-    <p><b>Reciprocal Pronouns:</b> each other / one another ใช้บอกการกระทำโต้ตอบกัน</p>
-    <div class="ex-box">Ted and his friends always help <b>each other</b>.</div>
-    <p><b>Subject-Verb Agreement:</b> ระวัง! Indefinite Pronouns เช่น <b>Everyone, Everybody</b> ต้องใช้กริยาเอกพจน์เสมอ</p>
-    <div class="ex-box">Everyone in the room <b>has</b> finished the test.</div>
-  </div>
-
-  <div class="card">
-    <h2>📝 Mini Quiz: ทดสอบความแม่น</h2>
-    <p>ประโยคนี้ควรเติมอะไร: "The professor, ______ I respect greatly, gave a brilliant lecture."</p>
-    <div class="quiz-container">
-      <button class="quiz-btn" onclick="checkAnswer(true)">A) whom</button>
-      <button class="quiz-btn" onclick="checkAnswer(false)">B) who</button>
-      <div id="feedback" class="feedback"></div>
+    <div class="note">
+      <b>💡 Defining vs Non-defining Clauses</b><br>
+      ถ้าคำนามชัดเจนอยู่แล้ว (เช่น ชื่อเฉพาะ My father, Bangkok, John) จะใช้ <b>Non-defining Relative Clause</b> โดยต้องมี "คอมม่า (,)" กั้นเพื่อบอกว่าเป็นแค่ข้อมูลเสริม และ <u>ห้ามใช้ that เด็ดขาด</u><br>
+      <i>ตัวอย่าง:</i> John, <b>who</b> lives next door, is a doctor.
     </div>
+  </div>
+
+  <div class="card">
+    <h2>3. โครงสร้างพิเศษ: Dummy & Indefinite</h2>
+    
+    <h3>Dummy Pronouns (It / There)</h3>
+    <p>สรรพนามลอยๆ ที่เอามาขึ้นต้นประโยคเมื่อไม่มีประธานที่ชัดเจน</p>
+    <div class="ex-box"><b>It</b> is necessary to practice English every day. (It แปลว่า "มัน" ใช้เกริ่นนำ)</div>
+    <div class="ex-box"><b>There are</b> many students in the library. (There is/are แปลว่า "มี")</div>
+
+    <h3>Subject-Verb Agreement กับ Indefinite Pronouns</h3>
+    <p>คำพวกนี้หมายถึงคน/สิ่งของทั่วไป เมื่อเป็นประธาน <b>ต้องใช้กริยาเอกพจน์ (Singular Verb) เสมอ!</b> ได้แก่: Everyone, everybody, someone, anybody, nobody, everything, nothing</p>
+    <div class="ex-box"><b>Everyone</b> in the room <b>has</b> finished the test. (ใช้ has ไม่ใช่ have)</div>
+  </div>
+
+  <div class="card">
+    <h2>📝 Mini Quiz: TGAT/A-Level Simulation</h2>
+    <p>ลองทำข้อสอบแนววิเคราะห์โครงสร้างดูครับ!</p>
+
+    <div class="quiz-q">
+      <p><b>1. "______ requires a lot of patience to teach young children."</b></p>
+      <button class="quiz-btn" onclick="checkQ(this, 1, false)">A) That</button>
+      <button class="quiz-btn" onclick="checkQ(this, 1, true)">B) It</button>
+      <button class="quiz-btn" onclick="checkQ(this, 1, false)">C) There</button>
+      <div id="fb-1" class="feedback"></div>
+    </div>
+
+    <div class="quiz-q">
+      <p><b>2. "Dr. Smith, ______ research was published recently, is giving a speech."</b></p>
+      <button class="quiz-btn" onclick="checkQ(this, 2, false)">A) who</button>
+      <button class="quiz-btn" onclick="checkQ(this, 2, false)">B) whom</button>
+      <button class="quiz-btn" onclick="checkQ(this, 2, true)">C) whose</button>
+      <div id="fb-2" class="feedback"></div>
+    </div>
+    
+    <div class="quiz-q">
+      <p><b>3. Identify the ERROR in this sentence:<br> "Everybody (A) in the company (B) <u>have</u> (C) to attend the meeting tomorrow."</b></p>
+      <button class="quiz-btn" onclick="checkQ(this, 3, false)">A) Everybody</button>
+      <button class="quiz-btn" onclick="checkQ(this, 3, false)">B) in the company</button>
+      <button class="quiz-btn" onclick="checkQ(this, 3, true)">C) have</button>
+      <div id="fb-3" class="feedback"></div>
+    </div>
+
   </div>
 </div>
 
 <script>
-  function checkAnswer(isCorrect) {
-    const fb = document.getElementById('feedback');
+  // Explanations for answers
+  const explanations = {
+    1: { ok: "✅ ถูกต้อง! ใช้ Dummy Pronoun 'It' เพื่อเป็นประธานของประโยค (It requires... to teach...)", 
+         ng: "❌ ผิดครับ โครงสร้างนี้ต้องการ Dummy Pronoun 'It' เป็นประธานเกริ่นนำ" },
+    2: { ok: "✅ ถูกต้อง! 'whose' ใช้แสดงความเป็นเจ้าของ (งานวิจัยของ Dr. Smith)", 
+         ng: "❌ ผิดครับ ตามหลังช่องว่างคือคำนาม (research) จึงต้องใช้ 'whose' เพื่อแสดงความเป็นเจ้าของ" },
+    3: { ok: "✅ ถูกต้อง! Everybody เป็น Indefinite Pronoun ต้องตามด้วยกริยาเอกพจน์ (ต้องแก้ have เป็น has)", 
+         ng: "❌ ผิดครับ ลองดูดีๆ Everybody ถือเป็นประธานเอกพจน์นะ กริยาต้องใช้แบบไหน?" }
+  };
+
+  function checkQ(btn, qNum, isCorrect) {
+    // Reset buttons in the same question
+    let siblings = btn.parentElement.querySelectorAll('.quiz-btn');
+    siblings.forEach(b => { b.className = 'quiz-btn'; b.disabled = true; });
+    
+    let fb = document.getElementById('fb-' + qNum);
+    fb.style.display = 'block';
+    
     if (isCorrect) {
-      fb.className = 'feedback ok';
-      fb.innerHTML = '✅ ถูกต้อง! เพราะทำหน้าที่เป็นกรรมของประโยค';
+      btn.className = 'quiz-btn correct';
+      fb.innerHTML = explanations[qNum].ok;
+      fb.style.backgroundColor = '#dcfce7';
+      fb.style.color = '#166534';
     } else {
-      fb.className = 'feedback ng';
-      fb.innerHTML = '❌ ผิด — คำตอบที่ถูกต้องคือ <b>whom</b> เพราะเป็นกรรมของประโยคครับ';
+      btn.className = 'quiz-btn wrong';
+      fb.innerHTML = explanations[qNum].ng;
+      fb.style.backgroundColor = '#fee2e2';
+      fb.style.color = '#991b1b';
+      
+      // Highlight the correct answer
+      siblings.forEach(b => {
+        if(b.getAttribute('onclick').includes('true')) {
+          b.className = 'quiz-btn correct';
+        }
+      });
     }
   }
 </script>
