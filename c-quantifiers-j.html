@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantifiers | Junior High</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff9f0;
+  --card: #ffffff;
+  --primary: #ff6b35;
+  --secondary: #4ecdc4;
+  --accent: #ffe66d;
+  --purple: #a855f7;
+  --green: #22c55e;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --amber: #f59e0b;
+  --text: #1e1b18;
+  --muted: #78716c;
+  --shadow: 0 4px 0 #e5d5c5;
+  --radius: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%);
+  min-height: 100vh; color: var(--text); padding: 24px 16px 80px;
+}
+
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; border: 2px solid #f0e8df; box-shadow: 0 3px 0 #e5d5c5;
+  border-radius: 999px; padding: 8px 18px; font-size: 14px; font-weight: 800;
+  color: var(--muted); text-decoration: none; margin-bottom: 24px; transition: all 0.2s;
+}
+.back-btn:hover { transform: translateY(-2px); color: var(--secondary); }
+
+header { text-align: center; margin-bottom: 28px; }
+.badge {
+  display: inline-block; background: var(--secondary); color: white;
+  font-size: 12px; font-weight: 800; padding: 4px 14px;
+  border-radius: 999px; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;
+}
+h1 { font-family: 'Fredoka One', cursive; font-size: clamp(26px,6vw,38px); color: var(--primary); line-height: 1.2; }
+h1 span { color: var(--secondary); }
+.subtitle { margin-top: 6px; color: var(--muted); font-size: 15px; font-weight: 600; }
+
+/* ── STEP NAV ── */
+.step-nav { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.step-btn {
+  background: white; border: 2px solid #f0e8df; border-radius: 999px;
+  padding: 7px 16px; font-size: 13px; font-weight: 800; color: var(--muted);
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.step-btn:hover  { border-color: var(--secondary); color: var(--secondary); }
+.step-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); box-shadow: 0 2px 0 #2db5ac; }
+.step-btn.done   { background: #d1fae5; border-color: var(--green); color: #065f46; }
+
+/* ── SECTIONS ── */
+.section { display: none; max-width: 840px; margin: 0 auto; }
+.section.active { display: block; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+
+/* ── CARD ── */
+.card {
+  background: var(--card); border-radius: var(--radius);
+  box-shadow: var(--shadow); border: 2px solid #f0e8df; padding: 24px; margin-bottom: 20px;
+}
+.card-title {
+  font-family: 'Fredoka One', cursive; font-size: 20px; color: var(--primary);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+}
+.card-title.teal   { color: var(--secondary); }
+.card-title.blue   { color: var(--blue); }
+.card-title.purple { color: var(--purple); }
+.card-title.amber  { color: var(--amber); }
+.card-title.red    { color: var(--red); }
+
+/* ── COMPARE GRID ── */
+.cmp-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.cmp-box {
+  border-radius: 14px; padding: 18px; border: 2px solid transparent; text-align: center;
+}
+.cmp-box.positive { background: #f0fdf4; border-color: var(--green); }
+.cmp-box.negative { background: #fff1f2; border-color: var(--red); }
+.cmp-box.teal-box { background: #f0fdfa; border-color: var(--secondary); }
+.cmp-box.blue-box { background: #eff6ff; border-color: var(--blue); }
+.cmp-box.amber-box{ background: #fffbeb; border-color: var(--amber); }
+.cmp-box.purple-box{ background: #faf5ff; border-color: var(--purple); }
+
+.cmp-word { font-family: 'Fredoka One', cursive; font-size: 28px; line-height: 1; margin-bottom: 6px; }
+.positive .cmp-word { color: var(--green); }
+.negative .cmp-word { color: var(--red); }
+.teal-box .cmp-word { color: var(--secondary); }
+.blue-box .cmp-word { color: var(--blue); }
+.amber-box .cmp-word{ color: var(--amber); }
+.purple-box .cmp-word{ color: var(--purple); }
+
+.cmp-sub  { font-size: 13px; font-weight: 800; color: var(--muted); margin-bottom: 8px; }
+.cmp-ex   { font-size: 14px; font-weight: 800; color: var(--text); line-height: 1.5; }
+.cmp-th   { font-size: 12px; color: var(--muted); font-weight: 700; margin-top: 3px; }
+
+/* ── RULE TABLE ── */
+.rule-table { width: 100%; border-collapse: collapse; }
+.rule-table th { padding: 10px 14px; text-align: left; font-family: 'Fredoka One', cursive; font-size: 14px; color: white; }
+.rule-table th:first-child { border-radius: 10px 0 0 0; }
+.rule-table th:last-child  { border-radius: 0 10px 0 0; }
+.rule-table td { padding: 12px 14px; border-bottom: 2px solid #f0e8df; font-size: 14px; font-weight: 600; vertical-align: top; }
+.rule-table tr:last-child td { border-bottom: none; }
+.rule-table tr:nth-child(even) td { background: #faf5f0; }
+.th-teal   { background: var(--secondary); }
+.th-orange { background: var(--primary); }
+.th-blue   { background: var(--blue); }
+.th-purple { background: var(--purple); }
+.th-amber  { background: var(--amber); }
+.note-sm   { font-size: 12px; color: var(--muted); font-weight: 700; margin-top: 3px; }
+
+/* ── HIGHLIGHTS ── */
+.hl-some  { color: var(--primary);   font-weight: 900; }
+.hl-any   { color: var(--secondary); font-weight: 900; }
+.hl-many  { color: var(--blue);      font-weight: 900; }
+.hl-much  { color: var(--purple);    font-weight: 900; }
+.hl-alot  { color: var(--green);     font-weight: 900; }
+.hl-few   { color: var(--green);     font-weight: 900; }
+.hl-fewn  { color: var(--red);       font-weight: 900; }
+.hl-lit   { color: var(--amber);     font-weight: 900; }
+.hl-litn  { color: var(--red);       font-weight: 900; }
+.hl-enuf  { color: var(--blue);      font-weight: 900; }
+.hl-too   { color: var(--red);       font-weight: 900; }
+.hl-each  { color: var(--purple);    font-weight: 900; }
+.hl-every { color: var(--secondary); font-weight: 900; }
+.hl-no    { color: var(--red);       font-weight: 900; }
+
+/* ── EXAMPLES ── */
+.examples { display: flex; flex-direction: column; gap: 10px; }
+.ex-row {
+  background: #faf5f0; border-radius: 10px; border-left: 4px solid var(--secondary);
+  padding: 12px 16px;
+}
+.ex-row.orange { border-left-color: var(--primary); }
+.ex-row.blue   { border-left-color: var(--blue); }
+.ex-row.purple { border-left-color: var(--purple); }
+.ex-row.green  { border-left-color: var(--green); }
+.ex-row.red    { border-left-color: var(--red); }
+.ex-row.amber  { border-left-color: var(--amber); }
+.ex-row .en { font-size: 16px; font-weight: 800; color: var(--text); line-height: 1.5; }
+.ex-row .th { font-size: 13px; color: var(--muted); font-weight: 700; margin-top: 3px; }
+
+/* ── ALERT BOX ── */
+.alert-box {
+  border-radius: 12px; padding: 14px 18px; margin-top: 14px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.alert-box.yellow  { background: #fffbeb; border: 2px solid #fde68a; }
+.alert-box.teal    { background: #f0fdfa; border: 2px solid #99f6e4; }
+.alert-box.red     { background: #fff1f2; border: 2px solid #fecdd3; }
+.alert-box.blue    { background: #eff6ff; border: 2px solid #bfdbfe; }
+.alert-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+.alert-body { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.6; }
+.alert-body strong { display: block; margin-bottom: 4px; }
+
+/* ── SVA BADGE ── */
+.sva-row {
+  display: flex; align-items: center; gap: 10px; background: #faf5ff;
+  border: 2px solid #e9d5ff; border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+}
+.sva-word { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--purple); min-width: 80px; }
+.sva-arrow { font-size: 18px; color: var(--muted); }
+.sva-rule  { font-size: 14px; font-weight: 800; color: var(--text); }
+.sva-ex    { font-size: 13px; color: var(--muted); font-weight: 700; margin-top: 2px; }
+
+/* ── QUIZ ── */
+.quiz-header { text-align: center; margin-bottom: 20px; }
+.quiz-header h2 { font-family: 'Fredoka One', cursive; font-size: 22px; color: var(--primary); }
+.quiz-header p  { font-size: 14px; font-weight: 700; color: var(--muted); margin-top: 4px; }
+
+.q-card {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 20px; margin-bottom: 14px; box-shadow: 0 2px 0 #e5d5c5;
+}
+.q-num  { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.q-tag  {
+  display: inline-block; font-size: 11px; font-weight: 800; padding: 2px 8px;
+  border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
+}
+.tag-review { background: #f0fdfa; color: #0d9488; border: 1.5px solid #99f6e4; }
+.tag-new    { background: #faf5ff; color: var(--purple); border: 1.5px solid #e9d5ff; }
+.tag-sva    { background: #fffbeb; color: var(--amber);  border: 1.5px solid #fde68a; }
+
+.q-sentence { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 14px; line-height: 1.6; }
+.q-blank {
+  display: inline-block; min-width: 90px; border-bottom: 3px solid var(--secondary);
+  text-align: center; color: var(--secondary); font-weight: 900; padding: 0 6px; margin: 0 4px;
+}
+.q-blank.correct-blank { color: var(--green); border-bottom-color: var(--green); }
+.q-blank.wrong-blank   { color: var(--red);   border-bottom-color: var(--red); }
+
+.choices { display: flex; gap: 8px; flex-wrap: wrap; }
+.choice-btn {
+  background: white; border: 2px solid #e5d5c5; border-radius: 10px;
+  padding: 9px 18px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; color: var(--text); transition: all 0.15s;
+}
+.choice-btn:hover:not(:disabled) { border-color: var(--secondary); background: #f0fdfa; transform: translateY(-2px); }
+.choice-btn.correct { background: #d1fae5 !important; border-color: var(--green) !important; color: #065f46 !important; }
+.choice-btn.wrong   { background: #fee2e2 !important; border-color: var(--red)   !important; color: #991b1b !important; }
+.choice-btn:disabled { cursor: default; transform: none; }
+
+.feedback { margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 700; display: none; line-height: 1.5; }
+.feedback.show { display: block; }
+.feedback.ok { background: #d1fae5; color: #065f46; }
+.feedback.ng { background: #fee2e2; color: #991b1b; }
+
+/* ── SCORE ── */
+.score-box {
+  text-align: center; background: white; border: 2px solid #f0e8df;
+  border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); display: none;
+}
+.score-box.show { display: block; animation: fadeUp 0.4s ease; }
+.score-big  { font-family: 'Fredoka One', cursive; font-size: 60px; color: var(--primary); line-height: 1; }
+.score-sub  { font-size: 15px; font-weight: 800; color: var(--muted); margin-top: 4px; }
+.score-msg  { font-size: 18px; font-weight: 800; color: var(--text); margin: 16px 0 20px; }
+.score-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.sg { background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px; padding: 12px; text-align: center; }
+.sg-icon { font-size: 22px; }
+.sg-lbl  { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 4px 0 2px; }
+.sg-val  { font-family: 'Fredoka One', cursive; font-size: 22px; color: var(--primary); }
+
+/* ── NAV ── */
+.nav-btns { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; max-width: 840px; margin-left: auto; margin-right: auto; }
+.btn {
+  background: var(--primary); color: white; border: none; border-radius: 12px;
+  padding: 12px 28px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #d94e1f; transition: all 0.15s;
+}
+.btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #d94e1f; }
+.btn:active { transform: translateY(1px);  box-shadow: 0 2px 0 #d94e1f; }
+.btn.sec { background: white; color: var(--muted); box-shadow: 0 4px 0 #e5d5c5; border: 2px solid #f0e8df; }
+.btn.sec:hover { color: var(--text); box-shadow: 0 6px 0 #e5d5c5; }
+.btn.teal { background: var(--secondary); box-shadow: 0 4px 0 #2db5ac; }
+.btn.teal:hover { box-shadow: 0 6px 0 #2db5ac; }
+.btn.grn { background: var(--green); box-shadow: 0 4px 0 #15803d; }
+.btn.grn:hover { box-shadow: 0 6px 0 #15803d; }
+
+@media(max-width:580px){
+  .cmp-2 { grid-template-columns: 1fr; }
+  .score-grid { grid-template-columns: 1fr 1fr; }
+  .nav-btns { flex-direction: column; gap: 10px; }
+  .nav-btns .btn { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html">← กลับหน้าหลัก</a>
+
+<header>
+  <div class="badge">Junior High · Grammar · A2–B1</div>
+  <h1>Quantifiers <span>บอกปริมาณ</span> 🔢</h1>
+  <p class="subtitle">ครบทุก Quantifiers พร้อม few vs a few, enough, each/every และ SVA</p>
+</header>
+
+<div class="step-nav">
+  <div class="step-btn active" id="step-1" onclick="goSection(1)">1️⃣ ทบทวน + few/little</div>
+  <div class="step-btn"        id="step-2" onclick="goSection(2)">2️⃣ enough / too</div>
+  <div class="step-btn"        id="step-3" onclick="goSection(3)">3️⃣ each / every / no</div>
+  <div class="step-btn"        id="step-4" onclick="goSection(4)">4️⃣ SVA กับ Quantifiers</div>
+  <div class="step-btn"        id="step-5" onclick="goSection(5)">✏️ ทำแบบฝึกหัด</div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 1 — Review + few/little
+═══════════════════════════════ -->
+<div class="section active" id="sec-1">
+
+  <div class="card">
+    <div class="card-title teal">🔁 ทบทวนจาก Primary</div>
+    <table class="rule-table">
+      <tr>
+        <th class="th-teal">คำ</th>
+        <th class="th-teal">ใช้กับ</th>
+        <th class="th-teal">ตัวอย่าง</th>
+      </tr>
+      <tr><td><strong class="hl-some">some</strong></td><td>นับได้/ไม่ได้ (บอกเล่า)</td><td>some books / some water</td></tr>
+      <tr><td><strong class="hl-any">any</strong></td><td>นับได้/ไม่ได้ (คำถาม/ปฏิเสธ)</td><td>any apples? / no any milk</td></tr>
+      <tr><td><strong class="hl-many">many</strong></td><td>นับได้ พหูพจน์</td><td>many students</td></tr>
+      <tr><td><strong class="hl-much">much</strong></td><td>นับไม่ได้</td><td>much time / much money</td></tr>
+      <tr><td><strong class="hl-alot">a lot of</strong></td><td>ทั้งคู่</td><td>a lot of friends / water</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ NEW: few vs a few — little vs a little</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:16px;">
+      การเติม <strong>a</strong> ข้างหน้าเปลี่ยนความหมายอย่างสิ้นเชิง!
+    </p>
+
+    <div class="cmp-2">
+      <div class="cmp-box positive">
+        <div class="cmp-word">a few</div>
+        <div class="cmp-sub">+ นับได้พหูพจน์</div>
+        <div class="cmp-ex">นิดหน่อย <strong>(ยังพอมี ✅)</strong></div>
+        <div class="cmp-th" style="margin-top:8px;">I have <strong>a few</strong> friends here.<br><span style="font-size:11px;">มีเพื่อนบ้าง — ดีแล้ว</span></div>
+      </div>
+      <div class="cmp-box negative">
+        <div class="cmp-word">few</div>
+        <div class="cmp-sub">+ นับได้พหูพจน์</div>
+        <div class="cmp-ex">น้อยมาก <strong>(แทบไม่มี ❌)</strong></div>
+        <div class="cmp-th" style="margin-top:8px;">I have <strong>few</strong> friends here.<br><span style="font-size:11px;">มีเพื่อนน้อยมาก — น่าเสียใจ</span></div>
+      </div>
+    </div>
+
+    <div class="cmp-2">
+      <div class="cmp-box positive">
+        <div class="cmp-word">a little</div>
+        <div class="cmp-sub">+ นับไม่ได้</div>
+        <div class="cmp-ex">นิดหน่อย <strong>(ยังพอมี ✅)</strong></div>
+        <div class="cmp-th" style="margin-top:8px;">There's <strong>a little</strong> time left.<br><span style="font-size:11px;">มีเวลาเหลือบ้าง — โล่งใจ</span></div>
+      </div>
+      <div class="cmp-box negative">
+        <div class="cmp-word">little</div>
+        <div class="cmp-sub">+ นับไม่ได้</div>
+        <div class="cmp-ex">น้อยมาก <strong>(แทบไม่มี ❌)</strong></div>
+        <div class="cmp-th" style="margin-top:8px;">There's <strong>little</strong> time left.<br><span style="font-size:11px;">มีเวลาเหลือน้อยมาก — รีบด่วน!</span></div>
+      </div>
+    </div>
+
+    <div class="alert-box yellow">
+      <div class="alert-icon">⚡</div>
+      <div class="alert-body">
+        <strong>จำง่าย: a = มีความหวัง / ไม่มี a = หมดหวัง</strong>
+        <span class="hl-few">a few / a little</span> → ยังดี มีเหลืออยู่บ้าง (positive)<br>
+        <span class="hl-fewn">few / little</span> → น้อยแทบไม่มี น่าเป็นห่วง (negative)
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💬 ตัวอย่างประโยคเปรียบเทียบ</div>
+    <div class="examples">
+      <div class="ex-row green">
+        <div class="en">There are <span class="hl-few">a few</span> cookies left — help yourself!</div>
+        <div class="th">มีคุกกี้เหลืออยู่บ้าง — เชิญทานได้เลย!</div>
+      </div>
+      <div class="ex-row red">
+        <div class="en">There are <span class="hl-fewn">few</span> cookies left — we need to buy more.</div>
+        <div class="th">คุกกี้เหลือน้อยมาก — ต้องไปซื้อเพิ่มแล้ว</div>
+      </div>
+      <div class="ex-row amber">
+        <div class="en">I have <span class="hl-lit">a little</span> money — enough for lunch.</div>
+        <div class="th">ฉันมีเงินอยู่นิดหน่อย — พอสำหรับมื้อกลางวัน</div>
+      </div>
+      <div class="ex-row red">
+        <div class="en">I have <span class="hl-litn">little</span> money — I can't afford anything.</div>
+        <div class="th">ฉันมีเงินน้อยมาก — ซื้ออะไรไม่ได้เลย</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn teal" onclick="goSection(2)">ถัดไป: enough / too →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 2 — enough / too much / too many
+═══════════════════════════════ -->
+<div class="section" id="sec-2">
+
+  <div class="card">
+    <div class="card-title blue">✅ enough — มากพอ</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:16px;">
+      <strong>enough</strong> แปลว่า "พอเพียง / พอแล้ว" — ใช้ได้กับนามนับได้และนับไม่ได้
+    </p>
+
+    <div class="alert-box blue">
+      <div class="alert-icon">📌</div>
+      <div class="alert-body">
+        <strong>ตำแหน่งของ enough</strong><br>
+        <span class="hl-enuf">enough</span> + Noun → enough time, enough money, enough students<br>
+        Adjective + <span class="hl-enuf">enough</span> → tall enough, fast enough, good enough
+      </div>
+    </div>
+
+    <div class="examples" style="margin-top:14px;">
+      <div class="ex-row blue">
+        <div class="en">Do we have <span class="hl-enuf">enough</span> chairs for everyone?</div>
+        <div class="th">เรามีเก้าอี้พอสำหรับทุกคนไหม?</div>
+      </div>
+      <div class="ex-row blue">
+        <div class="en">She is tall <span class="hl-enuf">enough</span> to reach the shelf.</div>
+        <div class="th">เธอสูงพอที่จะเอื้อมถึงชั้น</div>
+      </div>
+      <div class="ex-row blue">
+        <div class="en">I don't have <span class="hl-enuf">enough</span> money to buy that phone.</div>
+        <div class="th">ฉันมีเงินไม่พอที่จะซื้อโทรศัพท์เครื่องนั้น</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title red">❌ too much / too many — มากเกินไป</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:16px;">
+      <strong>too</strong> = เกินไป (มีความหมายลบ — ปัญหา/ไม่ดี)
+    </p>
+
+    <div class="cmp-2">
+      <div class="cmp-box blue-box">
+        <div class="cmp-word">too many</div>
+        <div class="cmp-sub">+ นับได้พหูพจน์</div>
+        <div class="cmp-ex" style="margin-top:8px;">too many <strong>people</strong><br>too many <strong>mistakes</strong><br>too many <strong>cars</strong></div>
+      </div>
+      <div class="cmp-box amber-box">
+        <div class="cmp-word">too much</div>
+        <div class="cmp-sub">+ นับไม่ได้</div>
+        <div class="cmp-ex" style="margin-top:8px;">too much <strong>noise</strong><br>too much <strong>work</strong><br>too much <strong>sugar</strong></div>
+      </div>
+    </div>
+
+    <div class="examples">
+      <div class="ex-row red">
+        <div class="en">There are <span class="hl-too">too many</span> students in this class.</div>
+        <div class="th">มีนักเรียนมากเกินไปในชั้นเรียนนี้ (เป็นปัญหา)</div>
+      </div>
+      <div class="ex-row red">
+        <div class="en">She has <span class="hl-too">too much</span> homework tonight.</div>
+        <div class="th">เธอมีการบ้านมากเกินไปคืนนี้</div>
+      </div>
+      <div class="ex-row red">
+        <div class="en">Don't eat <span class="hl-too">too much</span> sugar — it's bad for your teeth.</div>
+        <div class="th">อย่ากินน้ำตาลมากเกินไป — มันไม่ดีต่อฟัน</div>
+      </div>
+    </div>
+
+    <div class="alert-box yellow" style="margin-top:14px;">
+      <div class="alert-icon">⚡</div>
+      <div class="alert-body">
+        <strong>enough vs too — เปรียบเทียบ</strong>
+        I have <span class="hl-enuf">enough</span> money. ✅ (มีพอ — OK)<br>
+        I have <span class="hl-too">too much</span> money. 💸 (มีมากเกิน — อาจเป็นปัญหา)<br>
+        I don't have <span class="hl-enuf">enough</span> money. ❌ (ไม่พอ — ปัญหา)
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSection(1)">← few / little</button>
+    <button class="btn teal" onclick="goSection(3)">ถัดไป: each / every →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 3 — each / every / no
+═══════════════════════════════ -->
+<div class="section" id="sec-3">
+
+  <div class="card">
+    <div class="card-title purple">🔍 each และ every</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:16px;">
+      ทั้งคู่แปลว่า <strong>"ทุก / แต่ละ"</strong> แต่มุมมองต่างกัน — ตามด้วยคำนาม<strong>เอกพจน์</strong>เสมอ
+    </p>
+
+    <div class="cmp-2">
+      <div class="cmp-box purple-box">
+        <div class="cmp-word">each</div>
+        <div class="cmp-sub">แต่ละ (ทีละอัน — มองแยก)</div>
+        <div class="cmp-ex" style="margin-top:10px;font-size:13px;line-height:1.6;">
+          👤 👤 👤 → มองทีละคน<br>
+          <strong>Each student</strong> got a certificate.<br>
+          <span style="color:var(--muted);font-size:12px;">นักเรียนแต่ละคนได้รับเกียรติบัตร</span>
+        </div>
+      </div>
+      <div class="cmp-box teal-box">
+        <div class="cmp-word">every</div>
+        <div class="cmp-sub">ทุก (รวมหมด — มองรวม)</div>
+        <div class="cmp-ex" style="margin-top:10px;font-size:13px;line-height:1.6;">
+          👥 → มองทั้งกลุ่ม<br>
+          <strong>Every student</strong> passed the exam.<br>
+          <span style="color:var(--muted);font-size:12px;">นักเรียนทุกคนสอบผ่าน</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-box teal">
+      <div class="alert-icon">📌</div>
+      <div class="alert-body">
+        <strong>each / every + Noun เอกพจน์ → Verb เอกพจน์ (is/has/does)</strong>
+        <span class="hl-each">Each</span> student <strong>has</strong> a textbook. ✅<br>
+        <span class="hl-every">Every</span> door <strong>is</strong> locked. ✅<br>
+        ❌ Each students have... / Every doors are...
+      </div>
+    </div>
+
+    <div class="examples" style="margin-top:14px;">
+      <div class="ex-row purple">
+        <div class="en"><span class="hl-each">Each</span> player has a different role in the team.</div>
+        <div class="th">ผู้เล่นแต่ละคนมีบทบาทที่แตกต่างกันในทีม</div>
+      </div>
+      <div class="ex-row">
+        <div class="en"><span class="hl-every">Every</span> child deserves a good education.</div>
+        <div class="th">เด็กทุกคนสมควรได้รับการศึกษาที่ดี</div>
+      </div>
+      <div class="ex-row purple">
+        <div class="en">She visits her grandparents <span class="hl-every">every</span> weekend.</div>
+        <div class="th">เธอไปเยี่ยมปู่ย่าทุกสุดสัปดาห์ (ความถี่ → every)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title red">🚫 no — ใช้แทน not any</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:14px;">
+      <strong>no</strong> + Noun = ไม่มี... เลย — ใช้กับ Verb บอกเล่า (ไม่ต้องใช้ don't/doesn't)
+    </p>
+
+    <table class="rule-table">
+      <tr>
+        <th class="th-teal">ใช้ not any (2 คำ)</th>
+        <th class="th-orange">ใช้ no (1 คำ — กระชับกว่า)</th>
+      </tr>
+      <tr>
+        <td><div style="font-weight:800;">I don't have <span class="hl-any">any</span> money.</div></td>
+        <td><div style="font-weight:800;">I have <span class="hl-no">no</span> money.</div><div class="note-sm">ความหมายเหมือนกัน</div></td>
+      </tr>
+      <tr>
+        <td><div style="font-weight:800;">There aren't <span class="hl-any">any</span> seats left.</div></td>
+        <td><div style="font-weight:800;">There are <span class="hl-no">no</span> seats left.</div></td>
+      </tr>
+      <tr>
+        <td><div style="font-weight:800;">She doesn't have <span class="hl-any">any</span> time.</div></td>
+        <td><div style="font-weight:800;">She has <span class="hl-no">no</span> time.</div></td>
+      </tr>
+    </table>
+
+    <div class="alert-box red" style="margin-top:14px;">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <strong>ห้ามใช้ no กับ not พร้อมกัน (Double Negative)</strong>
+        ❌ I don't have no money. (ผิด — ความหมายกลับ)<br>
+        ✅ I have no money. หรือ ✅ I don't have any money.
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSection(2)">← enough / too</button>
+    <button class="btn teal" onclick="goSection(4)">ถัดไป: SVA →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 4 — SVA
+═══════════════════════════════ -->
+<div class="section" id="sec-4">
+
+  <div class="card">
+    <div class="card-title amber">⚖️ Subject-Verb Agreement กับ Quantifiers</div>
+    <p style="font-size:14px;font-weight:700;color:var(--muted);margin-bottom:16px;">
+      Quantifier ที่ใช้นำหน้าประธานมีผลต่อ Verb — จุดสอบบ่อยมากสำหรับ ม.ต้น
+    </p>
+
+    <div class="sva-row">
+      <div class="sva-word">each / every</div>
+      <div class="sva-arrow">→</div>
+      <div>
+        <div class="sva-rule">+ Noun เอกพจน์ → Verb เอกพจน์ (is / has / does / V+s)</div>
+        <div class="sva-ex"><span class="hl-each">Each</span> student <strong>has</strong> a book. | <span class="hl-every">Every</span> door <strong>is</strong> open.</div>
+      </div>
+    </div>
+
+    <div class="sva-row">
+      <div class="sva-word">many / a few / several</div>
+      <div class="sva-arrow">→</div>
+      <div>
+        <div class="sva-rule">+ Noun พหูพจน์ → Verb พหูพจน์ (are / have / do)</div>
+        <div class="sva-ex"><span class="hl-many">Many</span> students <strong>are</strong> absent. | <span class="hl-few">A few</span> books <strong>were</strong> missing.</div>
+      </div>
+    </div>
+
+    <div class="sva-row">
+      <div class="sva-word">much / a little / little</div>
+      <div class="sva-arrow">→</div>
+      <div>
+        <div class="sva-rule">+ Noun นับไม่ได้ → Verb เอกพจน์</div>
+        <div class="sva-ex"><span class="hl-much">Much</span> of the water <strong>was</strong> wasted. | <span class="hl-lit">A little</span> help <strong>goes</strong> a long way.</div>
+      </div>
+    </div>
+
+    <div class="sva-row">
+      <div class="sva-word">some / any / no / a lot of</div>
+      <div class="sva-arrow">→</div>
+      <div>
+        <div class="sva-rule">ขึ้นอยู่กับ Noun ที่ตามมา</div>
+        <div class="sva-ex"><span class="hl-some">Some</span> water <strong>is</strong> left. | <span class="hl-some">Some</span> students <strong>are</strong> late.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title amber">💬 ตัวอย่างประโยค SVA</div>
+    <div class="examples">
+      <div class="ex-row amber">
+        <div class="en"><span class="hl-every">Every</span> student in our class <strong>has</strong> a laptop.</div>
+        <div class="th">every → เอกพจน์ → has ✅</div>
+      </div>
+      <div class="ex-row amber">
+        <div class="en"><span class="hl-many">Many</span> countries <strong>have</strong> signed the agreement.</div>
+        <div class="th">many → พหูพจน์ → have ✅</div>
+      </div>
+      <div class="ex-row amber">
+        <div class="en"><span class="hl-much">Much</span> of the food <strong>was</strong> wasted at the party.</div>
+        <div class="th">much + นับไม่ได้ → เอกพจน์ → was ✅</div>
+      </div>
+      <div class="ex-row amber">
+        <div class="en"><span class="hl-each">Each</span> of the players <strong>was</strong> given a trophy.</div>
+        <div class="th">each → เอกพจน์ → was ✅ (แม้ตามด้วย of the players)</div>
+      </div>
+    </div>
+
+    <div class="alert-box yellow" style="margin-top:14px;">
+      <div class="alert-icon">⚡</div>
+      <div class="alert-body">
+        <strong>จุดสอบ: each of + plural noun → singular verb</strong>
+        <span class="hl-each">Each of</span> the students <strong>was</strong> given a prize. ✅<br>
+        ❌ Each of the students were given... (ผิด)
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSection(3)">← each / every / no</button>
+    <button class="btn teal" onclick="goSection(5)">ทำแบบฝึกหัด ✏️</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SEC 5 — MINI QUIZ
+═══════════════════════════════ -->
+<div class="section" id="sec-5">
+  <div class="quiz-header">
+    <h2>✏️ Mini Quiz — 12 ข้อ</h2>
+    <p>ครอบคลุมทุก Quantifier รวม SVA</p>
+  </div>
+  <div id="quiz-container"></div>
+  <div class="score-box" id="score-box"></div>
+  <div class="nav-btns" style="margin-top:16px;">
+    <button class="btn sec" onclick="goSection(4)">← SVA</button>
+    <button class="btn grn" id="retry-btn" onclick="resetQuiz()" style="display:none;">🔁 ทำใหม่</button>
+  </div>
+</div>
+
+<script>
+// ── NAV ──
+let cur = 1;
+function goSection(n) {
+  document.getElementById(`sec-${cur}`).classList.remove('active');
+  const ps = document.getElementById(`step-${cur}`);
+  if (ps) { ps.classList.remove('active'); if (cur < 5) ps.classList.add('done'); }
+  cur = n;
+  document.getElementById(`sec-${n}`).classList.add('active');
+  const cs = document.getElementById(`step-${n}`);
+  if (cs) { cs.classList.add('active'); cs.classList.remove('done'); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (n === 5 && !document.getElementById('quiz-container').innerHTML.trim()) buildQuiz();
+}
+
+// ── QUIZ DATA ──
+const qs = [
+  { tag:'review', s:'There are ___ cookies left — help yourself!', ans:'a few',    opts:['few','a few','a little','little'],       ex:'ยังมีเหลืออยู่บ้าง (มีความหวัง) → a few + นับได้พหูพจน์' },
+  { tag:'review', s:'There is ___ hope left. I am worried.', ans:'little',          opts:['a little','little','few','a few'],        ex:'แทบไม่มีความหวัง (หมดหวัง) → little + นับไม่ได้' },
+  { tag:'new',    s:'Do we have ___ time to finish the project?', ans:'enough',     opts:['enough','too much','many','few'],         ex:'พอเพียงไหม? → enough + นับไม่ได้ (time)' },
+  { tag:'new',    s:'There are ___ cars on the road. It is a traffic jam.', ans:'too many', opts:['too many','too much','enough','many'], ex:'รถมากเกินไป (ปัญหา) → too many + นับได้พหูพจน์' },
+  { tag:'new',    s:'She drinks ___ coffee. She can\'t sleep at night.', ans:'too much', opts:['too many','too much','enough','much'], ex:'กาแฟมากเกินไป → too much + นับไม่ได้' },
+  { tag:'new',    s:'I have ___ money — I cannot buy anything.', ans:'no',          opts:['no','not','none','any'],                  ex:'no + noun = ไม่มีเลย (กระชับ)' },
+  { tag:'sva',    s:'___ student in this school has to wear a uniform.', ans:'Every', opts:['Every','Each of','Many','Some'],        ex:'ทุก (รวมหมด) + noun เอกพจน์ → Every' },
+  { tag:'sva',    s:'___ of the players was given a gold medal.', ans:'Each',       opts:['Each','Every','Many','All'],              ex:'each of + plural noun → singular verb (was)' },
+  { tag:'sva',    s:'___ students were absent because of the storm.', ans:'Many',   opts:['Many','Much','Every','Each'],             ex:'absent students (นับได้พหูพจน์) → Many' },
+  { tag:'sva',    s:'Much of the water ___ wasted during the drought.', ans:'was',  opts:['was','were','are','have'],                ex:'much + นับไม่ได้ → Verb เอกพจน์ → was' },
+  { tag:'new',    s:'She has ___ experience, so she can handle the job.', ans:'enough', opts:['enough','too much','little','any'],   ex:'มีประสบการณ์พอเพียง → enough' },
+  { tag:'sva',    s:'Every door in the building ___ locked at night.', ans:'is',    opts:['is','are','were','have'],                 ex:'every + noun เอกพจน์ → Verb เอกพจน์ → is' },
+];
+
+let answered = 0, correct = 0;
+const tagLabel = { review: 'ทบทวน', new: 'ใหม่', sva: 'SVA' };
+const tagClass = { review: 'tag-review', new: 'tag-new', sva: 'tag-sva' };
+
+function buildQuiz() {
+  answered = 0; correct = 0;
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = '';
+  document.getElementById('score-box').classList.remove('show');
+  document.getElementById('retry-btn').style.display = 'none';
+
+  qs.forEach((q, i) => {
+    const sent = q.s.replace('___', `<span class="q-blank" id="bl-${i}">___</span>`);
+    const opts = q.opts.map(o =>
+      `<button class="choice-btn" id="cb-${i}-${o.replace(/\s/g,'_')}" onclick="chk(${i},'${o}')">${o}</button>`
+    ).join('');
+    c.innerHTML += `<div class="q-card" id="qc-${i}">
+      <div class="q-num">ข้อ ${i+1} / ${qs.length}</div>
+      <span class="q-tag ${tagClass[q.tag]}">${tagLabel[q.tag]}</span>
+      <div class="q-sentence">${sent}</div>
+      <div class="choices">${opts}</div>
+      <div class="feedback" id="fb-${i}"></div>
+    </div>`;
+  });
+}
+
+function chk(i, sel) {
+  const q = qs[i]; const ok = sel === q.ans;
+  if (ok) correct++; answered++;
+  q.opts.forEach(o => {
+    const b = document.getElementById(`cb-${i}-${o.replace(/\s/g,'_')}`);
+    if (!b) return; b.disabled = true;
+    if (o === q.ans) b.classList.add('correct');
+    else if (o === sel) b.classList.add('wrong');
+  });
+  const bl = document.getElementById(`bl-${i}`);
+  bl.textContent = q.ans; bl.classList.add(ok ? 'correct-blank' : 'wrong-blank');
+  const fb = document.getElementById(`fb-${i}`);
+  fb.classList.add('show', ok ? 'ok' : 'ng');
+  fb.innerHTML = (ok ? '✅ ถูกต้อง! ' : `❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`) + q.ex;
+  if (answered === qs.length) showScore();
+}
+
+function showScore() {
+  const pct = Math.round(correct / qs.length * 100);
+  const msg = pct === 100 ? '🏆 Perfect! เก่งมากเลย!' : pct >= 80 ? '🎉 ดีมาก!' : pct >= 60 ? '👍 ผ่านแล้ว ทบทวน SVA อีกนิด' : '📚 ลองทบทวนเนื้อหาแล้วมาทำใหม่นะ';
+  const box = document.getElementById('score-box');
+  box.innerHTML = `
+    <div class="score-big">${correct}/${qs.length}</div>
+    <div class="score-sub">คะแนนของคุณ</div>
+    <div class="score-msg">${msg}</div>
+    <div class="score-grid">
+      <div class="sg"><div class="sg-icon">✅</div><div class="sg-lbl">ถูก</div><div class="sg-val" style="color:var(--green)">${correct}</div></div>
+      <div class="sg"><div class="sg-icon">❌</div><div class="sg-lbl">ผิด</div><div class="sg-val" style="color:var(--red)">${qs.length-correct}</div></div>
+      <div class="sg"><div class="sg-icon">📊</div><div class="sg-lbl">คะแนน</div><div class="sg-val">${pct}%</div></div>
+    </div>`;
+  box.classList.add('show');
+  document.getElementById('retry-btn').style.display = 'inline-block';
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetQuiz() { buildQuiz(); }
+</script>
+</body>
+</html>

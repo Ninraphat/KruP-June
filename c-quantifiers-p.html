@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantifiers | Primary</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff9f0;
+  --card: #ffffff;
+  --primary: #ff6b35;
+  --secondary: #4ecdc4;
+  --accent: #ffe66d;
+  --purple: #a855f7;
+  --green: #22c55e;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --text: #1e1b18;
+  --muted: #78716c;
+  --shadow: 0 4px 0 #e5d5c5;
+  --radius: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 10% 20%, #ffe66d33 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, #4ecdc433 0%, transparent 40%);
+  min-height: 100vh; color: var(--text); padding: 24px 16px 80px;
+}
+
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; border: 2px solid #f0e8df; box-shadow: 0 3px 0 #e5d5c5;
+  border-radius: 999px; padding: 8px 18px; font-size: 14px; font-weight: 800;
+  color: var(--muted); text-decoration: none; margin-bottom: 24px; transition: all 0.2s;
+}
+.back-btn:hover { transform: translateY(-2px); color: var(--primary); }
+
+header { text-align: center; margin-bottom: 28px; }
+.badge {
+  display: inline-block; background: var(--primary); color: white;
+  font-size: 12px; font-weight: 800; padding: 4px 14px;
+  border-radius: 999px; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;
+}
+h1 { font-family: 'Fredoka One', cursive; font-size: clamp(26px,6vw,38px); color: var(--primary); line-height: 1.2; }
+h1 span { color: var(--secondary); }
+.subtitle { margin-top: 6px; color: var(--muted); font-size: 15px; font-weight: 600; }
+
+/* ── STEP NAV ── */
+.step-nav { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.step-btn {
+  background: white; border: 2px solid #f0e8df; border-radius: 999px;
+  padding: 7px 18px; font-size: 13px; font-weight: 800; color: var(--muted);
+  cursor: pointer; transition: all 0.2s;
+}
+.step-btn:hover { border-color: var(--primary); color: var(--primary); }
+.step-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 0 #d94e1f; }
+.step-btn.done   { background: #d1fae5; border-color: var(--green); color: #065f46; }
+
+/* ── SECTIONS ── */
+.section { display: none; max-width: 820px; margin: 0 auto; }
+.section.active { display: block; animation: fadeUp 0.35s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+
+/* ── CARD ── */
+.card {
+  background: var(--card); border-radius: var(--radius);
+  box-shadow: var(--shadow); border: 2px solid #f0e8df; padding: 24px; margin-bottom: 20px;
+}
+.card-title {
+  font-family: 'Fredoka One', cursive; font-size: 20px; color: var(--primary);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+}
+.card-title.teal   { color: var(--secondary); }
+.card-title.blue   { color: var(--blue); }
+.card-title.purple { color: var(--purple); }
+
+/* ── BIG WORD SHOWCASE ── */
+.word-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+.word-block {
+  border-radius: 14px; padding: 20px; text-align: center; border: 3px solid transparent;
+}
+.wb-some  { background: #fff3e0; border-color: var(--primary); }
+.wb-any   { background: #f0fdfa; border-color: var(--secondary); }
+.wb-many  { background: #eff6ff; border-color: var(--blue); }
+.wb-much  { background: #faf5ff; border-color: var(--purple); }
+.wb-alot  { background: #f0fdf4; border-color: var(--green); }
+.wb-few   { background: #fffbeb; border-color: #f59e0b; }
+
+.wb-word  { font-family: 'Fredoka One', cursive; font-size: 36px; line-height: 1; }
+.wb-some .wb-word  { color: var(--primary); }
+.wb-any  .wb-word  { color: var(--secondary); }
+.wb-many .wb-word  { color: var(--blue); }
+.wb-much .wb-word  { color: var(--purple); }
+.wb-alot .wb-word  { color: var(--green); }
+.wb-few  .wb-word  { color: #f59e0b; }
+
+.wb-thai { font-size: 14px; font-weight: 800; color: var(--muted); margin-top: 6px; }
+.wb-rule { font-size: 12px; font-weight: 800; margin-top: 4px; padding: 3px 10px; border-radius: 999px; display: inline-block; }
+.wb-some .wb-rule  { background: #fff3e0; color: var(--primary); border: 1.5px solid #fed7aa; }
+.wb-any  .wb-rule  { background: #f0fdfa; color: #0d9488; border: 1.5px solid #99f6e4; }
+.wb-many .wb-rule  { background: #eff6ff; color: var(--blue); border: 1.5px solid #bfdbfe; }
+.wb-much .wb-rule  { background: #faf5ff; color: var(--purple); border: 1.5px solid #e9d5ff; }
+.wb-alot .wb-rule  { background: #f0fdf4; color: #15803d; border: 1.5px solid #86efac; }
+.wb-few  .wb-rule  { background: #fffbeb; color: #92400e; border: 1.5px solid #fde68a; }
+
+/* ── EXAMPLES ── */
+.examples { display: flex; flex-direction: column; gap: 10px; }
+.ex-row {
+  background: #faf5f0; border-radius: 10px; border-left: 4px solid var(--secondary);
+  padding: 12px 16px;
+}
+.ex-row.orange { border-left-color: var(--primary); }
+.ex-row.blue   { border-left-color: var(--blue); }
+.ex-row.purple { border-left-color: var(--purple); }
+.ex-row.green  { border-left-color: var(--green); }
+.ex-row.amber  { border-left-color: #f59e0b; }
+.ex-row .en { font-size: 16px; font-weight: 800; color: var(--text); }
+.ex-row .th { font-size: 13px; color: var(--muted); font-weight: 700; margin-top: 3px; }
+.hl-some  { color: var(--primary); font-weight: 900; }
+.hl-any   { color: var(--secondary); font-weight: 900; }
+.hl-many  { color: var(--blue); font-weight: 900; }
+.hl-much  { color: var(--purple); font-weight: 900; }
+.hl-alot  { color: var(--green); font-weight: 900; }
+.hl-few   { color: #f59e0b; font-weight: 900; }
+
+/* ── COMPARE TABLE ── */
+.cmp-table { width: 100%; border-collapse: collapse; }
+.cmp-table th { padding: 10px 14px; text-align: left; font-family: 'Fredoka One', cursive; font-size: 14px; color: white; }
+.cmp-table th:first-child { border-radius: 10px 0 0 0; }
+.cmp-table th:last-child  { border-radius: 0 10px 0 0; }
+.cmp-table td { padding: 12px 14px; border-bottom: 2px solid #f0e8df; font-size: 14px; font-weight: 600; vertical-align: top; }
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tr:nth-child(even) td { background: #faf5f0; }
+.th-orange { background: var(--primary); }
+.th-teal   { background: var(--secondary); }
+.th-blue   { background: var(--blue); }
+.note-sm   { font-size: 12px; color: var(--muted); font-weight: 700; margin-top: 3px; }
+
+/* ── VISUAL COUNTER ── */
+.visual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.vis-box { border-radius: 12px; padding: 16px; border: 2px solid transparent; text-align: center; }
+.vis-box.many-box { background: #eff6ff; border-color: #bfdbfe; }
+.vis-box.much-box { background: #faf5ff; border-color: #e9d5ff; }
+.vis-title { font-family: 'Fredoka One', cursive; font-size: 20px; margin-bottom: 8px; }
+.many-box .vis-title { color: var(--blue); }
+.much-box .vis-title { color: var(--purple); }
+.vis-emoji { font-size: 24px; letter-spacing: 4px; margin-bottom: 8px; display: block; }
+.vis-rule  { font-size: 13px; font-weight: 800; color: var(--muted); }
+.vis-rule strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 2px; }
+
+/* ── ALERT BOX ── */
+.alert-box {
+  border-radius: 12px; padding: 14px 18px; margin-top: 14px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.alert-box.yellow { background: #fffbeb; border: 2px solid #fde68a; }
+.alert-box.teal   { background: #f0fdfa; border: 2px solid #99f6e4; }
+.alert-icon { font-size: 22px; flex-shrink: 0; }
+.alert-body { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.6; }
+.alert-body strong { display: block; margin-bottom: 4px; }
+
+/* ── QUIZ ── */
+.quiz-header { text-align: center; margin-bottom: 20px; }
+.quiz-header h2 { font-family: 'Fredoka One', cursive; font-size: 22px; color: var(--primary); }
+.quiz-header p  { font-size: 14px; font-weight: 700; color: var(--muted); margin-top: 4px; }
+
+.q-card {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 20px; margin-bottom: 14px; box-shadow: 0 2px 0 #e5d5c5;
+}
+.q-num { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.q-emoji { font-size: 30px; display: block; margin-bottom: 8px; }
+.q-sentence { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 14px; line-height: 1.6; }
+.q-blank {
+  display: inline-block; min-width: 80px; border-bottom: 3px solid var(--primary);
+  text-align: center; color: var(--primary); font-weight: 900; padding: 0 6px; margin: 0 4px;
+}
+.q-blank.correct-blank { color: var(--green); border-bottom-color: var(--green); }
+.q-blank.wrong-blank   { color: var(--red);   border-bottom-color: var(--red); }
+.choices { display: flex; gap: 8px; flex-wrap: wrap; }
+.choice-btn {
+  background: white; border: 2px solid #e5d5c5; border-radius: 10px;
+  padding: 9px 20px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; color: var(--text); transition: all 0.15s;
+}
+.choice-btn:hover:not(:disabled) { border-color: var(--secondary); background: #f0fdfa; transform: translateY(-2px); }
+.choice-btn.correct { background: #d1fae5 !important; border-color: var(--green) !important; color: #065f46 !important; }
+.choice-btn.wrong   { background: #fee2e2 !important; border-color: var(--red)   !important; color: #991b1b !important; }
+.choice-btn:disabled { cursor: default; transform: none; }
+
+.feedback { margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 700; display: none; }
+.feedback.show { display: block; }
+.feedback.ok { background: #d1fae5; color: #065f46; }
+.feedback.ng { background: #fee2e2; color: #991b1b; }
+
+/* ── SCORE ── */
+.score-box { text-align: center; background: white; border: 2px solid #f0e8df; border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); display: none; }
+.score-box.show { display: block; animation: fadeUp 0.4s ease; }
+.score-big   { font-family: 'Fredoka One', cursive; font-size: 60px; color: var(--primary); line-height: 1; }
+.score-sub   { font-size: 15px; font-weight: 800; color: var(--muted); margin-top: 4px; }
+.score-msg   { font-size: 18px; font-weight: 800; color: var(--text); margin: 16px 0 20px; }
+.score-grid  { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.sg { background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px; padding: 12px; text-align: center; }
+.sg-icon { font-size: 22px; }
+.sg-lbl  { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 4px 0 2px; }
+.sg-val  { font-family: 'Fredoka One', cursive; font-size: 22px; color: var(--primary); }
+
+/* ── NAV BTNS ── */
+.nav-btns { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; max-width: 820px; margin-left: auto; margin-right: auto; }
+.btn {
+  background: var(--primary); color: white; border: none; border-radius: 12px;
+  padding: 12px 28px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #d94e1f; transition: all 0.15s;
+}
+.btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #d94e1f; }
+.btn:active { transform: translateY(1px);  box-shadow: 0 2px 0 #d94e1f; }
+.btn.sec { background: white; color: var(--muted); box-shadow: 0 4px 0 #e5d5c5; border: 2px solid #f0e8df; }
+.btn.sec:hover { color: var(--text); box-shadow: 0 6px 0 #e5d5c5; }
+.btn.grn { background: var(--green); box-shadow: 0 4px 0 #15803d; }
+.btn.grn:hover { box-shadow: 0 6px 0 #15803d; }
+
+@media(max-width:560px){
+  .word-showcase { grid-template-columns: 1fr; }
+  .visual-grid   { grid-template-columns: 1fr; }
+  .score-grid    { grid-template-columns: 1fr 1fr; }
+  .nav-btns      { flex-direction: column; gap: 10px; }
+  .nav-btns .btn { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html">← กลับหน้าหลัก</a>
+
+<header>
+  <div class="badge">Primary · Grammar</div>
+  <h1>Quantifiers <span>บอกปริมาณ</span> 🔢</h1>
+  <p class="subtitle">เรียนรู้คำบอกจำนวนและปริมาณใน 4 ขั้นตอน!</p>
+</header>
+
+<div class="step-nav">
+  <div class="step-btn active" id="step-1" onclick="goSection(1)">1️⃣ some / any</div>
+  <div class="step-btn"        id="step-2" onclick="goSection(2)">2️⃣ many / much</div>
+  <div class="step-btn"        id="step-3" onclick="goSection(3)">3️⃣ a lot of / a few / a little</div>
+  <div class="step-btn"        id="step-4" onclick="goSection(4)">✏️ ทำแบบฝึกหัด</div>
+</div>
+
+<!-- ═══════════════════════════
+     SEC 1 — some / any
+═══════════════════════════ -->
+<div class="section active" id="sec-1">
+
+  <div class="card">
+    <div class="card-title">🍎 some และ any คืออะไร?</div>
+    <p style="font-size:15px;font-weight:700;color:var(--muted);margin-bottom:18px;">
+      ทั้งคู่แปลว่า <strong>"บางส่วน / นิดหน่อย / สักหน่อย"</strong><br>
+      ใช้กับคำนาม<strong>นับได้พหูพจน์</strong> และ<strong>นับไม่ได้</strong>
+    </p>
+    <div class="word-showcase">
+      <div class="word-block wb-some">
+        <div class="wb-word">some</div>
+        <div class="wb-thai">บางส่วน / นิดหน่อย</div>
+        <div class="wb-rule">ประโยคบอกเล่า ✅</div>
+      </div>
+      <div class="word-block wb-any">
+        <div class="wb-word">any</div>
+        <div class="wb-thai">บางส่วน / สักหน่อย</div>
+        <div class="wb-rule">ปฏิเสธ & คำถาม ✅</div>
+      </div>
+    </div>
+
+    <table class="cmp-table">
+      <tr>
+        <th class="th-orange">ประโยคบอกเล่า → some</th>
+        <th class="th-teal">คำถาม / ปฏิเสธ → any</th>
+      </tr>
+      <tr>
+        <td>
+          <div style="font-weight:800;">I have <span class="hl-some">some</span> apples.</div>
+          <div class="note-sm">ฉันมีแอปเปิ้ลอยู่บ้าง</div>
+        </td>
+        <td>
+          <div style="font-weight:800;">Do you have <span class="hl-any">any</span> apples?</div>
+          <div class="note-sm">คุณมีแอปเปิ้ลไหม?</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="font-weight:800;">She wants <span class="hl-some">some</span> water.</div>
+          <div class="note-sm">เธออยากได้น้ำหน่อย</div>
+        </td>
+        <td>
+          <div style="font-weight:800;">I don't have <span class="hl-any">any</span> water.</div>
+          <div class="note-sm">ฉันไม่มีน้ำเลย</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="font-weight:800;">We need <span class="hl-some">some</span> help.</div>
+          <div class="note-sm">เราต้องการความช่วยเหลือบ้าง</div>
+        </td>
+        <td>
+          <div style="font-weight:800;">Is there <span class="hl-any">any</span> milk?</div>
+          <div class="note-sm">มีนมอยู่ไหม?</div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="alert-box yellow" style="margin-top:14px;">
+      <div class="alert-icon">⚡</div>
+      <div class="alert-body">
+        <strong>ข้อยกเว้น: ใช้ some ในคำถามได้!</strong>
+        เมื่อเสนอหรือขอสิ่งของอย่างสุภาพ → ใช้ some<br>
+        Would you like <span class="hl-some">some</span> cake? 🎂 (เสนอให้)
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💬 ตัวอย่างประโยค</div>
+    <div class="examples">
+      <div class="ex-row orange">
+        <div class="en">There are <span class="hl-some">some</span> birds in the tree.</div>
+        <div class="th">มีนกอยู่บนต้นไม้บ้าง</div>
+      </div>
+      <div class="ex-row">
+        <div class="en">Are there <span class="hl-any">any</span> cookies in the jar?</div>
+        <div class="th">มีคุกกี้อยู่ในขวดไหม?</div>
+      </div>
+      <div class="ex-row orange">
+        <div class="en">I have <span class="hl-some">some</span> homework to do.</div>
+        <div class="th">ฉันมีการบ้านต้องทำ</div>
+      </div>
+      <div class="ex-row">
+        <div class="en">She doesn't have <span class="hl-any">any</span> sisters.</div>
+        <div class="th">เธอไม่มีพี่สาวน้องสาวเลย</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <div></div>
+    <button class="btn" onclick="goSection(2)">ถัดไป: many / much →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     SEC 2 — many / much
+═══════════════════════════ -->
+<div class="section" id="sec-2">
+
+  <div class="card">
+    <div class="card-title blue">🔢 many และ much</div>
+    <p style="font-size:15px;font-weight:700;color:var(--muted);margin-bottom:18px;">
+      ทั้งคู่แปลว่า <strong>"มาก"</strong> แต่ใช้ต่างกันตาม<strong>ชนิดของคำนาม</strong>
+    </p>
+    <div class="visual-grid">
+      <div class="vis-box many-box">
+        <div class="vis-title">many = มาก</div>
+        <span class="vis-emoji">🍎🍎🍎🍎🍎</span>
+        <div class="vis-rule">
+          <strong>นับได้ พหูพจน์</strong>
+          many apples, many students,<br>many books, many cats
+        </div>
+      </div>
+      <div class="vis-box much-box">
+        <div class="vis-title">much = มาก</div>
+        <span class="vis-emoji">💧💧💧💧💧</span>
+        <div class="vis-rule">
+          <strong>นับไม่ได้</strong>
+          much water, much milk,<br>much time, much money
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-box teal" style="margin-top:16px;">
+      <div class="alert-icon">💡</div>
+      <div class="alert-body">
+        <strong>จำง่ายๆ:</strong>
+        นับได้ (มีหลายอัน) → <span class="hl-many">many</span> &nbsp;|&nbsp;
+        นับไม่ได้ (เป็นก้อน/ของเหลว) → <span class="hl-much">much</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title blue">💬 ตัวอย่างประโยค</div>
+    <div class="examples">
+      <div class="ex-row blue">
+        <div class="en">There are <span class="hl-many">many</span> students in my class.</div>
+        <div class="th">มีนักเรียนมากคนในชั้นเรียนของฉัน</div>
+      </div>
+      <div class="ex-row purple">
+        <div class="en">I don't have <span class="hl-much">much</span> time today.</div>
+        <div class="th">ฉันไม่มีเวลามากวันนี้</div>
+      </div>
+      <div class="ex-row blue">
+        <div class="en">How <span class="hl-many">many</span> cats do you have?</div>
+        <div class="th">คุณมีแมวกี่ตัว?</div>
+      </div>
+      <div class="ex-row purple">
+        <div class="en">How <span class="hl-much">much</span> milk is in the fridge?</div>
+        <div class="th">มีนมในตู้เย็นเท่าไหร่?</div>
+      </div>
+      <div class="ex-row blue">
+        <div class="en">She has <span class="hl-many">many</span> friends at school.</div>
+        <div class="th">เธอมีเพื่อนมากมายที่โรงเรียน</div>
+      </div>
+    </div>
+
+    <div class="alert-box yellow" style="margin-top:14px;">
+      <div class="alert-icon">⚡</div>
+      <div class="alert-body">
+        <strong>How many? vs How much?</strong>
+        How <span class="hl-many">many</span> + นับได้ → How many books? (กี่เล่ม?)<br>
+        How <span class="hl-much">much</span> + นับไม่ได้ → How much water? (เท่าไหร่?)
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSection(1)">← some / any</button>
+    <button class="btn" onclick="goSection(3)">ถัดไป: a lot of →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     SEC 3 — a lot of / a few / a little
+═══════════════════════════ -->
+<div class="section" id="sec-3">
+
+  <div class="card">
+    <div class="card-title green">📦 a lot of</div>
+    <p style="font-size:15px;font-weight:700;color:var(--muted);margin-bottom:16px;">
+      แปลว่า <strong>"มาก / มากมาย"</strong> — ใช้ได้ทั้งคำนาม<strong>นับได้</strong>และ<strong>นับไม่ได้</strong> 🎉
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+      <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:14px;text-align:center;">
+        <div style="font-family:'Fredoka One';font-size:16px;color:var(--green);margin-bottom:8px;">นับได้ ✅</div>
+        <div style="font-size:14px;font-weight:800;">a lot of <span style="color:var(--green)">books</span></div>
+        <div style="font-size:14px;font-weight:800;">a lot of <span style="color:var(--green)">friends</span></div>
+        <div style="font-size:14px;font-weight:800;">a lot of <span style="color:var(--green)">cars</span></div>
+      </div>
+      <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:14px;text-align:center;">
+        <div style="font-family:'Fredoka One';font-size:16px;color:var(--green);margin-bottom:8px;">นับไม่ได้ ✅</div>
+        <div style="font-size:14px;font-weight:800;">a lot of <span style="color:var(--green)">water</span></div>
+        <div style="font-size:14px;font-weight:800;">a lot of <span style="color:var(--green)">time</span></div>
+        <div style="font-size:14px;font-weight:800;">a lot of <span style="color:var(--green)">money</span></div>
+      </div>
+    </div>
+    <div class="examples">
+      <div class="ex-row green">
+        <div class="en">She has <span class="hl-alot">a lot of</span> books on her shelf.</div>
+        <div class="th">เธอมีหนังสือมากมายบนชั้น</div>
+      </div>
+      <div class="ex-row green">
+        <div class="en">We need <span class="hl-alot">a lot of</span> water on a hot day.</div>
+        <div class="th">เราต้องการน้ำมากๆ ในวันที่อากาศร้อน</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="color:#f59e0b;">🌟 a few และ a little</div>
+    <p style="font-size:15px;font-weight:700;color:var(--muted);margin-bottom:16px;">
+      ทั้งคู่แปลว่า <strong>"นิดหน่อย / สักหน่อย"</strong> — ยังพอมีอยู่บ้าง
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+      <div style="background:#fffbeb;border:2px solid #fde68a;border-radius:12px;padding:14px;text-align:center;">
+        <div style="font-family:'Fredoka One';font-size:20px;color:#f59e0b;margin-bottom:6px;">a few</div>
+        <div style="font-size:13px;font-weight:800;color:var(--muted);">+ นับได้ (พหูพจน์)</div>
+        <div style="font-size:14px;font-weight:800;margin-top:8px;">a few <span style="color:#f59e0b">friends</span></div>
+        <div style="font-size:14px;font-weight:800;">a few <span style="color:#f59e0b">cookies</span></div>
+      </div>
+      <div style="background:#fffbeb;border:2px solid #fde68a;border-radius:12px;padding:14px;text-align:center;">
+        <div style="font-family:'Fredoka One';font-size:20px;color:#f59e0b;margin-bottom:6px;">a little</div>
+        <div style="font-size:13px;font-weight:800;color:var(--muted);">+ นับไม่ได้</div>
+        <div style="font-size:14px;font-weight:800;margin-top:8px;">a little <span style="color:#f59e0b">water</span></div>
+        <div style="font-size:14px;font-weight:800;">a little <span style="color:#f59e0b">time</span></div>
+      </div>
+    </div>
+    <div class="examples">
+      <div class="ex-row amber">
+        <div class="en">I have <span class="hl-few">a few</span> friends in this city.</div>
+        <div class="th">ฉันมีเพื่อนอยู่บ้างในเมืองนี้ (มีนิดหน่อย)</div>
+      </div>
+      <div class="ex-row amber">
+        <div class="en">Can I have <span class="hl-few">a little</span> sugar in my tea?</div>
+        <div class="th">ขอน้ำตาลนิดหน่อยในชาได้ไหม?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 สรุปรวมทั้งหมด</div>
+    <table class="cmp-table">
+      <tr>
+        <th class="th-orange">คำ</th>
+        <th class="th-orange">ใช้กับ</th>
+        <th class="th-orange">ตัวอย่าง</th>
+      </tr>
+      <tr><td><strong class="hl-some">some</strong></td><td>นับได้ / นับไม่ได้ (บอกเล่า)</td><td>some apples / some water</td></tr>
+      <tr><td><strong class="hl-any">any</strong></td><td>นับได้ / นับไม่ได้ (คำถาม/ปฏิเสธ)</td><td>any apples / any water</td></tr>
+      <tr><td><strong class="hl-many">many</strong></td><td>นับได้ พหูพจน์ เท่านั้น</td><td>many books / many cats</td></tr>
+      <tr><td><strong class="hl-much">much</strong></td><td>นับไม่ได้ เท่านั้น</td><td>much milk / much time</td></tr>
+      <tr><td><strong class="hl-alot">a lot of</strong></td><td>นับได้ AND นับไม่ได้</td><td>a lot of friends / water</td></tr>
+      <tr><td><strong class="hl-few">a few</strong></td><td>นับได้ พหูพจน์</td><td>a few cookies</td></tr>
+      <tr><td><strong class="hl-few">a little</strong></td><td>นับไม่ได้</td><td>a little sugar</td></tr>
+    </table>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSection(2)">← many / much</button>
+    <button class="btn" onclick="goSection(4)">ทำแบบฝึกหัด ✏️</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     SEC 4 — MINI QUIZ
+═══════════════════════════ -->
+<div class="section" id="sec-4">
+  <div class="quiz-header">
+    <h2>✏️ Mini Quiz — 10 ข้อ</h2>
+    <p>เลือกคำ Quantifier ที่ถูกต้อง</p>
+  </div>
+  <div id="quiz-container"></div>
+  <div class="score-box" id="score-box"></div>
+  <div class="nav-btns" style="margin-top:16px;">
+    <button class="btn sec" onclick="goSection(3)">← ทบทวน</button>
+    <button class="btn grn" id="retry-btn" onclick="resetQuiz()" style="display:none;">🔁 ทำใหม่</button>
+  </div>
+</div>
+
+<script>
+// ── NAV ──
+let cur = 1;
+function goSection(n) {
+  document.getElementById(`sec-${cur}`).classList.remove('active');
+  const ps = document.getElementById(`step-${cur}`);
+  if (ps) { ps.classList.remove('active'); if (cur < 4) ps.classList.add('done'); }
+  cur = n;
+  document.getElementById(`sec-${n}`).classList.add('active');
+  const cs = document.getElementById(`step-${n}`);
+  if (cs) { cs.classList.add('active'); cs.classList.remove('done'); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (n === 4 && !document.getElementById('quiz-container').innerHTML.trim()) buildQuiz();
+}
+
+// ── QUIZ DATA ──
+const qs = [
+  { emoji:'🍎', s:'I have ___ apples in my bag.', ans:'some', opts:['some','any','much','many'], ex:'ประโยคบอกเล่า + นับได้พหูพจน์ → some' },
+  { emoji:'🥛', s:'Do you have ___ milk in the fridge?', ans:'any', opts:['some','any','much','many'], ex:'คำถาม → any' },
+  { emoji:'📚', s:'There are ___ books on the shelf.', ans:'many', opts:['some','many','much','a little'], ex:'books นับได้พหูพจน์ + มาก → many' },
+  { emoji:'💧', s:'She doesn\'t drink ___ water every day.', ans:'much', opts:['many','much','a few','some'], ex:'water นับไม่ได้ + ปฏิเสธ → much' },
+  { emoji:'🐱', s:'He has ___ cats at home.', ans:'a lot of', opts:['a lot of','much','a little','any'], ex:'cats นับได้ + มากมาย → a lot of' },
+  { emoji:'🧂', s:'Can I have ___ salt on my food?', ans:'a little', opts:['a few','a little','many','some'], ex:'salt นับไม่ได้ + นิดหน่อย → a little' },
+  { emoji:'👫', s:'She has ___ friends in this school.', ans:'a few', opts:['a few','a little','much','any'], ex:'friends นับได้พหูพจน์ + นิดหน่อย → a few' },
+  { emoji:'⏰', s:'We have ___ time before the movie starts.', ans:'a lot of', opts:['many','much','a lot of','any'], ex:'time นับไม่ได้ + มาก → a lot of (ใช้ได้กับทั้งคู่)' },
+  { emoji:'🍪', s:'I don\'t have ___ cookies left.', ans:'any', opts:['some','any','many','much'], ex:'ปฏิเสธ → any' },
+  { emoji:'💰', s:'How ___ money do you have?', ans:'much', opts:['many','much','some','any'], ex:'money นับไม่ได้ → How much' },
+];
+
+let answered = 0, correct = 0;
+
+function buildQuiz() {
+  answered = 0; correct = 0;
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = '';
+  document.getElementById('score-box').classList.remove('show');
+  document.getElementById('retry-btn').style.display = 'none';
+
+  qs.forEach((q, i) => {
+    const sent = q.s.replace('___', `<span class="q-blank" id="bl-${i}">___</span>`);
+    const opts = q.opts.map(o =>
+      `<button class="choice-btn" id="cb-${i}-${o.replace(/\s/g,'_')}" onclick="chk(${i},'${o}')">${o}</button>`
+    ).join('');
+    c.innerHTML += `<div class="q-card" id="qc-${i}">
+      <div class="q-num">ข้อ ${i+1} / ${qs.length}</div>
+      <span class="q-emoji">${q.emoji}</span>
+      <div class="q-sentence">${sent}</div>
+      <div class="choices">${opts}</div>
+      <div class="feedback" id="fb-${i}"></div>
+    </div>`;
+  });
+}
+
+function chk(i, sel) {
+  const q = qs[i]; const ok = sel === q.ans;
+  if (ok) correct++; answered++;
+  q.opts.forEach(o => {
+    const b = document.getElementById(`cb-${i}-${o.replace(/\s/g,'_')}`);
+    if (!b) return; b.disabled = true;
+    if (o === q.ans) b.classList.add('correct');
+    else if (o === sel) b.classList.add('wrong');
+  });
+  const bl = document.getElementById(`bl-${i}`);
+  bl.textContent = q.ans; bl.classList.add(ok ? 'correct-blank' : 'wrong-blank');
+  const fb = document.getElementById(`fb-${i}`);
+  fb.classList.add('show', ok ? 'ok' : 'ng');
+  fb.innerHTML = (ok ? '✅ ถูกต้อง! ' : `❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`) + q.ex;
+  if (answered === qs.length) showScore();
+}
+
+function showScore() {
+  const pct = Math.round(correct / qs.length * 100);
+  const msg = pct === 100 ? '🏆 เก่งมากเลย! Perfect!' : pct >= 80 ? '🎉 ดีมาก!' : pct >= 60 ? '👍 ผ่านแล้ว ทบทวนอีกนิด' : '📚 ลองอ่านเนื้อหาใหม่แล้วมาทำอีกครั้งนะ';
+  const box = document.getElementById('score-box');
+  box.innerHTML = `
+    <div class="score-big">${correct}/${qs.length}</div>
+    <div class="score-sub">คะแนนของคุณ</div>
+    <div class="score-msg">${msg}</div>
+    <div class="score-grid">
+      <div class="sg"><div class="sg-icon">✅</div><div class="sg-lbl">ถูก</div><div class="sg-val" style="color:var(--green)">${correct}</div></div>
+      <div class="sg"><div class="sg-icon">❌</div><div class="sg-lbl">ผิด</div><div class="sg-val" style="color:var(--red)">${qs.length-correct}</div></div>
+      <div class="sg"><div class="sg-icon">📊</div><div class="sg-lbl">คะแนน</div><div class="sg-val">${pct}%</div></div>
+    </div>`;
+  box.classList.add('show');
+  document.getElementById('retry-btn').style.display = 'inline-block';
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetQuiz() { buildQuiz(); }
+</script>
+</body>
+</html>
