@@ -279,9 +279,24 @@ const grammarDatabase = [
       ] 
   }},
   { id: 4, title: "Quantifier", desc: "some, any, much, many", levels: { primary: [], junior: [], high: [] }},
-  { id: 5, title: "Pronoun", desc: "คำสรรพนาม", levels: { primary: [], junior: [], high: [] }},
+  { id: 5, title: "Pronoun", desc: "คำสรรพนาม", levels: { 
+      primary: [
+        { name: "Pronouns: คำสรรพนาม (ประถม)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-pronoun-p.html" }
+        ]}
+      ], 
+      junior: [
+        { name: "Pronouns (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-pronoun-j.html" }
+        ]}
+      ], 
+      high: [
+        { name: "Advanced Pronouns", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "c-pronoun-h.html" }
+        ]}
+      ] 
+  }},
   { id: 6, title: "Subject-Verb Agreement", desc: "ความสอดคล้องประธานกริยา", levels: { primary: [], junior: [], high: [] }},
-  
   { id: 7, title: "Present Tenses", desc: "เหตุการณ์ปัจจุบัน", levels: {
       primary: [],
       junior: [
@@ -303,7 +318,6 @@ const grammarDatabase = [
       ],
       high: []
   }},
-  
   { id: 9, title: "Future Tenses", desc: "เหตุการณ์ในอนาคต", levels: { primary: [], junior: [], high: [] }},
   { id: 10, title: "Passive Voice", desc: "ประธานถูกกระทำ", levels: { primary: [], junior: [], high: [] }},
   { id: 11, title: "Conditional Sentence", desc: "ประโยคเงื่อนไข (If-clause)", levels: { primary: [], junior: [], high: [] }},
@@ -311,7 +325,6 @@ const grammarDatabase = [
   { id: 13, title: "Modal Verb", desc: "กริยาช่วย", levels: { primary: [], junior: [], high: [] }},
   { id: 14, title: "Reported Speech", desc: "การนำคำพูดไปเล่าต่อ", levels: { primary: [], junior: [], high: [] }},
   { id: 15, title: "Adjective", desc: "คำคุณศัพท์", levels: { primary: [], junior: [], high: [] }},
-  
   { id: 16, title: "Adverb", desc: "คำกริยาวิเศษณ์", levels: {
       primary: [],
       junior: [
@@ -321,7 +334,6 @@ const grammarDatabase = [
       ],
       high: []
   }},
-  
   { id: 17, title: "Comparison", desc: "การเปรียบเทียบขั้นกว่า/สุด", levels: { primary: [], junior: [], high: [] }},
   { id: 18, title: "Preposition", desc: "คำบุพบทบอกตำแหน่ง/เวลา", levels: { primary: [], junior: [], high: [] }},
   { id: 19, title: "Conjunction", desc: "คำเชื่อมประโยค", levels: { primary: [], junior: [], high: [] }},
