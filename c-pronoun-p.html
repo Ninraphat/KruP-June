@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pronouns: คำสรรพนามแสนสนุก 🌟</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff9f0;
+    --card: #ffffff;
+    --primary: #ff6b35;
+    --secondary: #4ecdc4;
+    --text: #1e1b18;
+    --muted: #78716c;
+    --shadow: 0 4px 0 #e5d5c5;
+    --radius: 16px;
+  }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); padding: 20px; line-height: 1.6; }
+  .container { max-width: 800px; margin: 0 auto; }
+  
+  header { text-align: center; margin-bottom: 30px; }
+  h1 { font-family: 'Fredoka One', cursive; color: var(--primary); }
+  
+  .card { background: var(--card); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); border: 2px solid #f0e8df; margin-bottom: 20px; }
+  
+  .btn-back { display: inline-block; background: var(--muted); color: white; padding: 8px 16px; border-radius: 999px; text-decoration: none; font-weight: 700; margin-bottom: 20px; }
+  
+  .ex-box { background: #fdf2f2; border-left: 4px solid var(--primary); padding: 15px; margin: 10px 0; border-radius: 4px; }
+  
+  .quiz-option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #e5d5c5; border-radius: 8px; cursor: pointer; transition: 0.2s; background: white; font-weight: 700; }
+  .quiz-option:hover { background: #fff3e0; border-color: var(--primary); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="btn-back">⬅️ กลับหน้าหลัก</a>
+  
+  <header>
+    <h1>Pronouns: คำสรรพนาม 🌟</h1>
+    <p>มาเรียนรู้คำศัพท์ที่ใช้ "แทนชื่อคน สัตว์ สิ่งของ" กันเถอะ!</p>
+  </header>
+
+  <div class="card">
+    <h2>1. Pronoun คืออะไร?</h2>
+    <p>Pronoun (คำสรรพนาม) คือคำที่ใช้เรียกแทนคำนาม เพื่อไม่ให้ต้องพูดชื่อซ้ำๆ เช่น แทนที่จะบอกว่า "Kru June สวยมาก Kru June ใจดี" เราพูดว่า "Kru June สวยมาก <b>She</b> ใจดี" จะฟังดูเป็นธรรมชาติกว่าครับ</p>
+  </div>
+
+  <div class="card">
+    <h2>2. ตารางเรียนรู้พื้นฐาน (Primary)</h2>
+    <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
+      <tr style="background: var(--secondary); color: white;">
+        <th style="padding: 10px;">ทำหน้าที่เป็นประธาน (Subject)</th>
+        <th style="padding: 10px;">ทำหน้าที่เป็นผู้ถูกกระทำ (Object)</th>
+      </tr>
+      <tr><td style="padding: 10px; border-bottom: 1px solid #eee;">I (ฉัน)</td><td style="padding: 10px; border-bottom: 1px solid #eee;">me (ฉัน)</td></tr>
+      <tr><td style="padding: 10px; border-bottom: 1px solid #eee;">He (เขา - ชาย)</td><td style="padding: 10px; border-bottom: 1px solid #eee;">him</td></tr>
+      <tr><td style="padding: 10px; border-bottom: 1px solid #eee;">She (เขา - หญิง)</td><td style="padding: 10px; border-bottom: 1px solid #eee;">her</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>3. ตัวอย่างการใช้</h2>
+    <div class="ex-box">1. <b>She</b> is my English teacher.</div>
+    <div class="ex-box">2. Kru June gave <b>me</b> a sticker.</div>
+    <div class="ex-box">3. <b>This</b> is a big dinosaur.</div>
+  </div>
+
+  <div class="card">
+    <h2>📝 Mini Quiz: ทดสอบความเข้าใจ</h2>
+    <p>ประโยคนี้ควรเติมคำว่าอะไร: "I like dogs, but I don't like _____ inside the house."</p>
+    <button class="quiz-option" onclick="alert('ถูกต้อง! เพราะ them ใช้แทน dogs ที่เป็นพหูพจน์')">A) them</button>
+    <button class="quiz-option" onclick="alert('ลองใหม่อีกครั้งนะ!')">B) they</button>
+  </div>
+
+</div>
+
+</body>
+</html>
