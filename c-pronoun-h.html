@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Pronouns | High School | English Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff9f0;
+    --card: #ffffff;
+    --primary: #ff6b35;
+    --secondary: #4ecdc4;
+    --text: #1e1b18;
+    --muted: #78716c;
+    --green: #22c55e;
+    --red: #ef4444;
+    --shadow: 0 4px 0 #e5d5c5;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); padding: 20px; line-height: 1.6; }
+  .container { max-width: 800px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 30px; }
+  h1 { font-family: 'Fredoka One', cursive; color: var(--primary); }
+  .card { background: var(--card); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); border: 2px solid #f0e8df; margin-bottom: 20px; }
+  .btn-back { display: inline-block; background: var(--muted); color: white; padding: 8px 16px; border-radius: 999px; text-decoration: none; font-weight: 700; margin-bottom: 20px; }
+  .ex-box { background: #fdf2f2; border-left: 4px solid var(--primary); padding: 15px; margin: 10px 0; border-radius: 4px; font-weight: 600; }
+  .quiz-container { margin-top: 20px; }
+  .quiz-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #e5d5c5; border-radius: 8px; cursor: pointer; background: white; font-weight: 700; transition: 0.2s; }
+  .quiz-btn:hover { background: #fff3e0; border-color: var(--primary); }
+  .feedback { margin-top: 10px; padding: 10px; border-radius: 8px; display: none; }
+  .feedback.ok { background: #dcfce7; color: #166534; display: block; }
+  .feedback.ng { background: #fee2e2; color: #991b1b; display: block; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="btn-back">⬅️ กลับหน้าหลัก</a>
+  
+  <header>
+    <h1>Advanced Pronouns 🎓</h1>
+    <p>เตรียมความพร้อมสู่สนามสอบ A-Level / TGAT</p>
+  </header>
+
+  <div class="card">
+    <h2>1. เจาะลึก Relative Pronouns & Clauses</h2>
+    <p>สำหรับการสอบระดับสูง เราต้องแม่นเรื่องการเลือกใช้เชื่อมประโยคครับ</p>
+    <ul>
+      <li><b>Whose:</b> ใช้แสดงความเป็นเจ้าของสำหรับคนหรือสิ่งของ</li>
+      <li><b>Whom:</b> ใช้แทนกรรมที่เป็นคน (ในทางการ)</li>
+      <li><b>Non-defining Clauses:</b> ข้อมูลเสริมที่ต้องมีคอมม่า (,) กั้น</li>
+    </ul>
+    <div class="ex-box">The girl <b>whose</b> phone was lost is crying.</div>
+    <div class="ex-box">The man <b>whom</b> Kru June invited is an expert.</div>
+  </div>
+
+  <div class="card">
+    <h2>2. สรรพนามอื่นๆ ที่ออกสอบบ่อย</h2>
+    <p><b>Reciprocal Pronouns:</b> each other / one another ใช้บอกการกระทำโต้ตอบกัน</p>
+    <div class="ex-box">Ted and his friends always help <b>each other</b>.</div>
+    <p><b>Subject-Verb Agreement:</b> ระวัง! Indefinite Pronouns เช่น <b>Everyone, Everybody</b> ต้องใช้กริยาเอกพจน์เสมอ</p>
+    <div class="ex-box">Everyone in the room <b>has</b> finished the test.</div>
+  </div>
+
+  <div class="card">
+    <h2>📝 Mini Quiz: ทดสอบความแม่น</h2>
+    <p>ประโยคนี้ควรเติมอะไร: "The professor, ______ I respect greatly, gave a brilliant lecture."</p>
+    <div class="quiz-container">
+      <button class="quiz-btn" onclick="checkAnswer(true)">A) whom</button>
+      <button class="quiz-btn" onclick="checkAnswer(false)">B) who</button>
+      <div id="feedback" class="feedback"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function checkAnswer(isCorrect) {
+    const fb = document.getElementById('feedback');
+    if (isCorrect) {
+      fb.className = 'feedback ok';
+      fb.innerHTML = '✅ ถูกต้อง! เพราะทำหน้าที่เป็นกรรมของประโยค';
+    } else {
+      fb.className = 'feedback ng';
+      fb.innerHTML = '❌ ผิด — คำตอบที่ถูกต้องคือ <b>whom</b> เพราะเป็นกรรมของประโยคครับ';
+    }
+  }
+</script>
+
+</body>
+</html>
