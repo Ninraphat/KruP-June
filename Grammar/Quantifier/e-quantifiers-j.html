@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise: Quantifiers | Junior High</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff9f0;
+  --primary: #ff6b35;
+  --secondary: #4ecdc4;
+  --purple: #a855f7;
+  --green: #22c55e;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --amber: #f59e0b;
+  --text: #1e1b18;
+  --muted: #78716c;
+  --shadow: 0 4px 0 #e5d5c5;
+  --radius: 16px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 8% 15%, #ffe66d33 0%, transparent 38%),
+    radial-gradient(circle at 92% 85%, #4ecdc433 0%, transparent 38%);
+  min-height: 100vh; color: var(--text); padding: 24px 16px 100px;
+}
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; border: 2px solid #f0e8df; box-shadow: 0 3px 0 #e5d5c5;
+  border-radius: 999px; padding: 8px 18px; font-size: 14px; font-weight: 800;
+  color: var(--muted); text-decoration: none; margin-bottom: 24px; transition: all 0.2s;
+}
+.back-btn:hover { transform: translateY(-2px); color: var(--secondary); }
+
+header { text-align: center; margin-bottom: 28px; }
+.badge {
+  display: inline-block; background: var(--secondary); color: white;
+  font-size: 12px; font-weight: 800; padding: 4px 14px;
+  border-radius: 999px; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;
+}
+h1 { font-family: 'Fredoka One', cursive; font-size: clamp(24px,6vw,36px); color: var(--primary); line-height: 1.2; }
+h1 span { color: var(--secondary); }
+.subtitle { color: var(--muted); font-size: 14px; font-weight: 700; margin-top: 6px; }
+
+/* ── PROGRESS ── */
+.overall-bar-wrap {
+  max-width: 740px; margin: 0 auto 28px; background: white;
+  border: 2px solid #f0e8df; border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow);
+}
+.bar-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.bar-label { font-size: 13px; font-weight: 800; color: var(--muted); }
+.bar-count { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--primary); }
+.bar-track { background: #f0e8df; border-radius: 999px; height: 12px; overflow: hidden; }
+.bar-fill  { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--secondary), var(--primary)); width: 0%; transition: width 0.4s ease; }
+
+/* ── TABS ── */
+.sec-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  max-width: 740px; margin: 0 auto 24px;
+}
+.sec-tab {
+  background: white; border: 2px solid #f0e8df; border-radius: 999px;
+  padding: 7px 16px; font-size: 13px; font-weight: 800; color: var(--muted);
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.sec-tab:hover  { border-color: var(--secondary); color: var(--secondary); }
+.sec-tab.active { background: var(--secondary); color: white; border-color: var(--secondary); box-shadow: 0 2px 0 #2db5ac; }
+.sec-tab.done   { background: #d1fae5; border-color: var(--green); color: #065f46; }
+.sec-tab.partial{ background: #f0fdfa; border-color: var(--secondary); color: #0d9488; }
+
+/* ── SECTIONS ── */
+.ex-section { display: none; max-width: 740px; margin: 0 auto; animation: fadeUp 0.3s ease; }
+.ex-section.active { display: block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)} }
+
+.sec-header {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 16px; box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 14px;
+}
+.sec-icon  { font-size: 32px; }
+.sec-title { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--secondary); }
+.sec-desc  { font-size: 13px; font-weight: 700; color: var(--muted); margin-top: 2px; }
+.sec-prog  { font-size: 12px; font-weight: 800; color: var(--primary); margin-top: 2px; }
+
+/* ── Q CARD ── */
+.q-card {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 20px; margin-bottom: 14px; box-shadow: 0 3px 0 #e5d5c5; transition: border-color 0.2s;
+}
+.q-card.answered       { border-color: #d1fae5; }
+.q-card.answered-wrong { border-color: #fee2e2; }
+.q-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.q-num {
+  background: var(--secondary); color: white; font-family: 'Fredoka One', cursive;
+  font-size: 13px; padding: 2px 10px; border-radius: 999px; flex-shrink: 0;
+}
+.q-type-tag { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px; }
+.tag-mc   { background: #eff6ff; color: var(--blue);   border: 1.5px solid #bfdbfe; }
+.tag-fill { background: #fff3e0; color: var(--primary); border: 1.5px solid #fed7aa; }
+.tag-ctx  { background: #faf5ff; color: var(--purple);  border: 1.5px solid #e9d5ff; }
+.tag-fix  { background: #fff1f2; color: var(--red);     border: 1.5px solid #fecdd3; }
+.tag-drag { background: #f0fdfa; color: #0d9488;        border: 1.5px solid #99f6e4; }
+.tag-sva  { background: #fffbeb; color: var(--amber);   border: 1.5px solid #fde68a; }
+.tag-new  { background: #faf5ff; color: var(--purple);  border: 1.5px solid #e9d5ff; }
+
+.q-sentence { font-size: 17px; font-weight: 800; color: var(--text); line-height: 1.8; margin-bottom: 14px; }
+.q-blank {
+  display: inline-block; min-width: 80px; border-bottom: 3px solid var(--secondary);
+  text-align: center; color: var(--secondary); font-weight: 900; padding: 0 6px; margin: 0 3px;
+}
+.q-blank.correct-blank { color: var(--green); border-bottom-color: var(--green); }
+.q-blank.wrong-blank   { color: var(--red);   border-bottom-color: var(--red); }
+
+/* ── MC ── */
+.choices { display: flex; gap: 8px; flex-wrap: wrap; }
+.choices.col { flex-direction: column; }
+.choice-btn {
+  background: white; border: 2px solid #e5d5c5; border-radius: 10px;
+  padding: 9px 18px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; color: var(--text); transition: all 0.15s;
+}
+.choice-btn:hover:not(:disabled) { border-color: var(--secondary); background: #f0fdfa; transform: translateY(-2px); }
+.choice-btn.correct { background: #d1fae5 !important; border-color: var(--green) !important; color: #065f46 !important; }
+.choice-btn.wrong   { background: #fee2e2 !important; border-color: var(--red)   !important; color: #991b1b !important; }
+.choice-btn:disabled { cursor: default; transform: none; }
+
+/* ── FILL ── */
+.fill-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.fill-input {
+  border: 2px solid #e5d5c5; border-radius: 10px; padding: 10px 14px;
+  font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800;
+  color: var(--text); outline: none; width: 180px; transition: all 0.2s; background: white;
+}
+.fill-input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px #4ecdc420; }
+.fill-input.correct { border-color: var(--green); background: #d1fae5; color: #065f46; }
+.fill-input.wrong   { border-color: var(--red);   background: #fee2e2; color: #991b1b; }
+.fill-input:disabled { cursor: default; }
+.check-btn {
+  background: var(--secondary); color: white; border: none; border-radius: 10px;
+  padding: 10px 20px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; box-shadow: 0 3px 0 #2db5ac; transition: all 0.15s;
+}
+.check-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 0 #2db5ac; }
+.check-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+
+/* ── PASSAGE ── */
+.passage-box {
+  background: #f0fdfa; border: 2px solid #99f6e4; border-radius: 12px;
+  padding: 16px 18px; font-size: 15px; font-weight: 700; line-height: 2.4;
+  margin-bottom: 14px; color: var(--text);
+}
+.pass-blank {
+  display: inline-block; min-width: 60px; border-bottom: 2px solid var(--secondary);
+  text-align: center; color: var(--secondary); font-weight: 900; padding: 0 4px; margin: 0 2px;
+}
+.pass-blank.correct-blank { color: var(--green); border-bottom-color: var(--green); }
+.pass-blank.wrong-blank   { color: var(--red);   border-bottom-color: var(--red); }
+.pass-q-row { margin-bottom: 12px; }
+.pass-label { font-size: 13px; font-weight: 800; color: var(--muted); margin-bottom: 6px; }
+
+/* ── FIX ── */
+.fix-sentence {
+  background: #fff1f2; border: 2px solid #fecdd3; border-radius: 10px;
+  padding: 12px 16px; font-size: 16px; font-weight: 800; color: var(--red);
+  margin-bottom: 12px; line-height: 1.6;
+}
+
+/* ── DRAG ── */
+.drag-sentence { font-size: 17px; font-weight: 800; color: var(--text); line-height: 2.4; margin-bottom: 12px; }
+.drop-zone {
+  display: inline-block; min-width: 90px; height: 34px;
+  border: 2px dashed var(--secondary); border-radius: 8px;
+  background: #f0fdfa; vertical-align: middle; text-align: center;
+  line-height: 30px; font-weight: 900; color: var(--secondary);
+  margin: 0 4px; transition: all 0.2s; padding: 0 8px; font-size: 14px;
+}
+.drop-zone.drag-over   { background: #ccfbf1; border-color: #14b8a6; transform: scale(1.05); }
+.drop-zone.filled      { border-style: solid; color: var(--text); background: white; }
+.drop-zone.correct-drop{ border-color: var(--green); background: #d1fae5; color: #065f46; }
+.drop-zone.wrong-drop  { border-color: var(--red);   background: #fee2e2; color: #991b1b; }
+.word-bank {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
+  padding: 14px; background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px;
+}
+.wbl { font-size: 12px; font-weight: 800; color: var(--muted); width: 100%; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
+.drag-word {
+  background: white; border: 2px solid #e5d5c5; border-radius: 8px;
+  padding: 6px 14px; font-size: 14px; font-weight: 800; cursor: grab;
+  transition: all 0.15s; color: var(--text); user-select: none;
+}
+.drag-word:hover { border-color: var(--secondary); color: var(--secondary); transform: translateY(-2px); }
+.drag-word.used  { opacity: 0.3; cursor: default; pointer-events: none; }
+
+/* ── FEEDBACK ── */
+.feedback { margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 700; display: none; line-height: 1.5; }
+.feedback.show { display: block; }
+.feedback.ok { background: #d1fae5; color: #065f46; }
+.feedback.ng { background: #fee2e2; color: #991b1b; }
+
+/* ── NAV ── */
+.nav-btns {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 24px; max-width: 740px; margin-left: auto; margin-right: auto;
+}
+.btn {
+  background: var(--primary); color: white; border: none; border-radius: 12px;
+  padding: 12px 28px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #d94e1f; transition: all 0.15s;
+  text-decoration: none; display: inline-block;
+}
+.btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #d94e1f; }
+.btn:active { transform: translateY(1px);  box-shadow: 0 2px 0 #d94e1f; }
+.btn.sec  { background: white; color: var(--muted); box-shadow: 0 4px 0 #e5d5c5; border: 2px solid #f0e8df; }
+.btn.sec:hover { color: var(--text); box-shadow: 0 6px 0 #e5d5c5; }
+.btn.teal { background: var(--secondary); box-shadow: 0 4px 0 #2db5ac; }
+.btn.teal:hover { box-shadow: 0 6px 0 #2db5ac; }
+.btn.grn  { background: var(--green); box-shadow: 0 4px 0 #15803d; }
+.btn.grn:hover  { box-shadow: 0 6px 0 #15803d; }
+
+/* ── SCORE ── */
+.score-screen { display: none; max-width: 740px; margin: 0 auto; animation: fadeUp 0.4s ease; }
+.score-screen.show { display: block; }
+.score-hero {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 36px; text-align: center; box-shadow: var(--shadow); margin-bottom: 16px;
+}
+.score-big   { font-family: 'Fredoka One', cursive; font-size: 72px; color: var(--primary); line-height: 1; }
+.score-total { font-size: 16px; font-weight: 800; color: var(--muted); margin-top: 4px; }
+.score-pct   { display: inline-block; margin: 12px 0; font-family: 'Fredoka One', cursive; font-size: 28px; background: linear-gradient(135deg,var(--secondary),var(--primary)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.score-msg   { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; }
+.score-grid  { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+.sg { background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px; padding: 14px; text-align: center; }
+.sg-icon { font-size: 24px; }
+.sg-lbl  { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 4px 0 2px; }
+.sg-val  { font-family: 'Fredoka One', cursive; font-size: 24px; color: var(--primary); }
+.breakdown { background: white; border: 2px solid #f0e8df; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-bottom: 16px; }
+.breakdown-title { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--secondary); margin-bottom: 14px; }
+.bd-row   { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.bd-name  { font-size: 13px; font-weight: 800; color: var(--text); width: 175px; flex-shrink: 0; }
+.bd-track { flex: 1; background: #f0e8df; border-radius: 999px; height: 10px; overflow: hidden; }
+.bd-bar   { height: 100%; border-radius: 999px; }
+.bd-score { font-size: 13px; font-weight: 800; color: var(--muted); width: 44px; text-align: right; flex-shrink: 0; }
+.score-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+@media(max-width:580px){
+  .sec-tab { font-size: 12px; padding: 6px 12px; }
+  .nav-btns { flex-direction: column; gap: 10px; }
+  .nav-btns .btn { width: 100%; text-align: center; }
+  .score-grid { grid-template-columns: 1fr 1fr; }
+  .bd-name { width: 120px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<a class="back-btn" href="index.html">← กลับหน้าหลัก</a>
+
+<header>
+  <div class="badge">Junior High · Exercise · A2–B1</div>
+  <h1>Quantifiers <span>บอกปริมาณ</span> 🔢</h1>
+  <p class="subtitle">50 ข้อ · 5 รูปแบบ · few/little, enough, each/every, no + SVA</p>
+</header>
+
+<div class="overall-bar-wrap">
+  <div class="bar-row">
+    <span class="bar-label">ความคืบหน้าทั้งหมด</span>
+    <span class="bar-count" id="overall-count">0 / 50</span>
+  </div>
+  <div class="bar-track"><div class="bar-fill" id="overall-fill"></div></div>
+</div>
+
+<div class="sec-tabs">
+  <div class="sec-tab active" id="tab-1" onclick="goSec(1)">1️⃣ MC (1–10)</div>
+  <div class="sec-tab"        id="tab-2" onclick="goSec(2)">2️⃣ Fill-in (11–20)</div>
+  <div class="sec-tab"        id="tab-3" onclick="goSec(3)">3️⃣ Context (21–30)</div>
+  <div class="sec-tab"        id="tab-4" onclick="goSec(4)">4️⃣ แก้ประโยค (31–40)</div>
+  <div class="sec-tab"        id="tab-5" onclick="goSec(5)">5️⃣ Drag &amp; Drop (41–50)</div>
+</div>
+
+<!-- PART 1 -->
+<div class="ex-section active" id="sec-1">
+  <div class="sec-header">
+    <div class="sec-icon">🔘</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 1 — Multiple Choice</div>
+      <div class="sec-desc">เลือก Quantifier ที่ถูกต้อง — รวม few/little, enough, each/every</div>
+      <div class="sec-prog" id="prog-1">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec1-q"></div>
+  <div class="nav-btns"><div></div><button class="btn teal" onclick="goSec(2)">Part 2 →</button></div>
+</div>
+
+<!-- PART 2 -->
+<div class="ex-section" id="sec-2">
+  <div class="sec-header">
+    <div class="sec-icon">✍️</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 2 — Fill in the Blank</div>
+      <div class="sec-desc">พิมพ์ Quantifier หรือ Verb ที่ถูกต้อง</div>
+      <div class="sec-prog" id="prog-2">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec2-q"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(1)">← Part 1</button>
+    <button class="btn teal" onclick="goSec(3)">Part 3 →</button>
+  </div>
+</div>
+
+<!-- PART 3 -->
+<div class="ex-section" id="sec-3">
+  <div class="sec-header">
+    <div class="sec-icon">📖</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 3 — Context Reading</div>
+      <div class="sec-desc">อ่าน passage แล้วเลือก Quantifier ที่เหมาะสม</div>
+      <div class="sec-prog" id="prog-3">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec3-q"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(2)">← Part 2</button>
+    <button class="btn teal" onclick="goSec(4)">Part 4 →</button>
+  </div>
+</div>
+
+<!-- PART 4 -->
+<div class="ex-section" id="sec-4">
+  <div class="sec-header">
+    <div class="sec-icon">🔧</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 4 — Spot the Mistake</div>
+      <div class="sec-desc">เลือกประโยคที่ถูกต้อง — รวม SVA + few vs a few</div>
+      <div class="sec-prog" id="prog-4">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec4-q"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(3)">← Part 3</button>
+    <button class="btn teal" onclick="goSec(5)">Part 5 →</button>
+  </div>
+</div>
+
+<!-- PART 5 -->
+<div class="ex-section" id="sec-5">
+  <div class="sec-header">
+    <div class="sec-icon">🧩</div>
+    <div class="sec-info">
+      <div class="sec-title">Part 5 — Drag &amp; Drop</div>
+      <div class="sec-desc">ลากคำมาวาง — ครอบคลุมทุก Quantifier ระดับ Junior</div>
+      <div class="sec-prog" id="prog-5">0 / 10 ข้อ</div>
+    </div>
+  </div>
+  <div id="sec5-q"></div>
+  <div class="nav-btns">
+    <button class="btn sec" onclick="goSec(4)">← Part 4</button>
+    <button class="btn grn" onclick="showFinal()">ดูคะแนนรวม 🏆</button>
+  </div>
+</div>
+
+<!-- SCORE -->
+<div class="score-screen" id="score-screen">
+  <div class="score-hero">
+    <div class="score-big" id="final-score">–</div>
+    <div class="score-total">จาก 50 ข้อ</div>
+    <div class="score-pct" id="final-pct">–%</div>
+    <div class="score-msg" id="final-msg"></div>
+    <div class="score-grid">
+      <div class="sg"><div class="sg-icon">✅</div><div class="sg-lbl">ถูก</div><div class="sg-val" id="s-ok" style="color:var(--green)">–</div></div>
+      <div class="sg"><div class="sg-icon">❌</div><div class="sg-lbl">ผิด</div><div class="sg-val" id="s-ng" style="color:var(--red)">–</div></div>
+      <div class="sg"><div class="sg-icon">📊</div><div class="sg-lbl">คะแนน</div><div class="sg-val" id="s-pct">–</div></div>
+    </div>
+  </div>
+  <div class="breakdown">
+    <div class="breakdown-title">📊 คะแนนแต่ละ Part</div>
+    <div id="bd-rows"></div>
+  </div>
+  <div class="score-actions">
+    <button class="btn sec" onclick="location.reload()">🔁 ทำใหม่ทั้งหมด</button>
+    <a class="btn teal" href="c-quantifiers-j.html">📖 ทบทวนเนื้อหา</a>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════
+// DATA
+// ═══════════════════════════════════
+
+// PART 1 — MC ×10
+const p1 = [
+  { s:'There are ___ cookies left — have some before they\'re gone!', ans:'a few', opts:['few','a few','a little','little'], ex:'cookies นับได้ + ยังพอมีเหลือ (บวก) → a few' },
+  { s:'She has ___ money to buy a new phone. She\'s saving up.', ans:'little', opts:['little','a little','few','a few'], ex:'money นับไม่ได้ + มีน้อยมาก (ลบ) → little' },
+  { s:'Do we have ___ chairs for all the guests?', ans:'enough', opts:['enough','too many','any','few'], ex:'มีพอสำหรับทุกคนไหม? → enough + นับได้' },
+  { s:'There are ___ cars on this narrow road. It\'s dangerous!', ans:'too many', opts:['too many','too much','enough','many'], ex:'รถมากเกินไป (ปัญหา) + นับได้พหูพจน์ → too many' },
+  { s:'___ student must submit the assignment by Friday.', ans:'Every', opts:['Every','Each of','Many','Some'], ex:'ทุกคน (รวมหมด) + noun เอกพจน์ → Every' },
+  { s:'She has ___ noise in her apartment — she can\'t sleep.', ans:'too much', opts:['too many','too much','enough','much'], ex:'noise นับไม่ได้ + มากเกินไป → too much' },
+  { s:'I have ___ time, so I can help you with your homework.', ans:'a little', opts:['a little','little','a few','few'], ex:'time นับไม่ได้ + ยังพอมี (บวก) → a little' },
+  { s:'I have ___ money — I can\'t even buy lunch today.', ans:'no', opts:['no','not','none','any'], ex:'ไม่มีเงินเลย → no + noun (กระชับ = not any)' },
+  { s:'___ of the students has a different learning style.', ans:'Each', opts:['Each','Every','Many','Some'], ex:'each of + plural noun → singular verb (has) → Each' },
+  { s:'We have ___ friends here — only two or three.', ans:'few', opts:['few','a few','little','a little'], ex:'friends นับได้ + มีน้อยมาก น่าเป็นห่วง (ลบ) → few' },
+];
+
+// PART 2 — Fill-in ×10
+const p2 = [
+  { s:'___ player in the team has to follow the coach\'s instructions.', ans:'Every', ex:'ทุกคน (รวมหมด) + noun เอกพจน์ → Every' },
+  { s:'There is ___ hope — the doctors say he will recover fully.', ans:'a little', ex:'hope นับไม่ได้ + ยังพอมี (โล่งใจ) → a little' },
+  { s:'I don\'t have ___ brothers or sisters.', ans:'any', ex:'ประโยคปฏิเสธ + นับได้พหูพจน์ → any' },
+  { s:'Each of the children ___ given a gift at the party.', ans:'was', ex:'each of + plural noun → singular verb → was' },
+  { s:'She doesn\'t have ___ experience for this job.', ans:'enough', ex:'ไม่มีประสบการณ์พอ → not enough' },
+  { s:'Every door in the building ___ locked at midnight.', ans:'is', ex:'every + noun เอกพจน์ → singular verb → is' },
+  { s:'There are ___ students in this class — the teacher can\'t manage.', ans:'too many', ex:'นักเรียนมากเกินไป (ปัญหา) → too many' },
+  { s:'___ students passed the test. The result was disappointing.', ans:'Few', ex:'students นับได้ + มีน้อยมาก (ผิดหวัง) → Few (ไม่มี a)' },
+  { s:'I have ___ homework tonight, so I can go to the cinema.', ans:'no', ex:'ไม่มีการบ้านเลย → no + noun (= not any)' },
+  { s:'She has ___ water left in her bottle — just a sip.', ans:'a little', ex:'water นับไม่ได้ + เหลือนิดหน่อย (ยังพอ) → a little' },
+];
+
+// PART 3 — Context Passages ×10
+const p3Passages = [
+  {
+    text:`My school organized a charity event last month. (1)___ students and teachers participated. There was (2)___ food and drink for everyone, and (3)___ students brought handmade crafts to sell. Unfortunately, there were (4)___ chairs for visitors, so many people had to stand. Despite this, (5)___ student enjoyed the event and we raised a lot of money for charity.`,
+    blanks:[
+      { id:'3-0', ans:'Many',       opts:['Many','Much','Every','Each'],         ex:'students นับได้พหูพจน์ + จำนวนมาก → Many' },
+      { id:'3-1', ans:'enough',     opts:['enough','too much','many','little'],  ex:'อาหารและเครื่องดื่มพอเพียงสำหรับทุกคน → enough' },
+      { id:'3-2', ans:'a few',      opts:['a few','few','a little','little'],    ex:'students นับได้ + บางส่วน (พูดถึงโดยทั่วไป) → a few' },
+      { id:'3-3', ans:'few',        opts:['few','a few','little','a little'],    ex:'chairs ไม่พอ (ปัญหา) + นับได้ → few (ไม่มี a)' },
+      { id:'3-4', ans:'every',      opts:['every','each of','many','some'],      ex:'นักเรียนทุกคน (รวมหมด) + noun เอกพจน์ → every' },
+    ]
+  },
+  {
+    text:`My friend Tom has (6)___ time to study because he works part-time. He has (7)___ assignments due this week, which is very stressful. He doesn't have (8)___ money to hire a tutor. However, he says there is still (9)___ hope because his teacher gives (10)___ student extra support if they ask.`,
+    blanks:[
+      { id:'3-5', ans:'little',     opts:['little','a little','few','a few'],    ex:'time นับไม่ได้ + มีน้อยมาก (ลบ) → little' },
+      { id:'3-6', ans:'too many',   opts:['too many','too much','enough','many'],ex:'assignments มากเกินไป (stress) → too many + นับได้' },
+      { id:'3-7', ans:'enough',     opts:['enough','any','some','many'],         ex:'ไม่มีเงินพอ → not enough money' },
+      { id:'3-8', ans:'a little',   opts:['a little','little','a few','few'],    ex:'hope นับไม่ได้ + ยังพอมี (บวก) → a little' },
+      { id:'3-9', ans:'each',       opts:['each','every','many','some'],         ex:'each student = ทีละคน (each of = มองแยก) → each' },
+    ]
+  }
+];
+
+// PART 4 — Fix Sentence ×10
+const p4 = [
+  {
+    wrong:'There are few cookies — help yourself, there\'s plenty!',
+    opts:['There are few cookies — help yourself!','There are a few cookies — help yourself!','There are little cookies — help yourself!'],
+    ans:'There are a few cookies — help yourself!',
+    ex:'เชิญทาน = ยังมีเหลืออยู่ (บวก) + นับได้ → a few'
+  },
+  {
+    wrong:'Every students must hand in their work by Monday.',
+    opts:['Every students must hand in their work.','Every student must hand in their work.','Every student must hand in his or her works.'],
+    ans:'Every student must hand in their work.',
+    ex:'every + noun เอกพจน์ (ไม่มี s) → Every student'
+  },
+  {
+    wrong:'She doesn\'t have no time to finish the report.',
+    opts:["She doesn't have no time to finish.",'She has no time to finish the report.',"She doesn't have any times to finish."],
+    ans:'She has no time to finish the report.',
+    ex:'Double negative ผิด → ใช้ "has no time" หรือ "doesn\'t have any time"'
+  },
+  {
+    wrong:'Each of the players were given a number.',
+    opts:['Each of the players were given a number.','Each of the players was given a number.','Every of the players was given a number.'],
+    ans:'Each of the players was given a number.',
+    ex:'each of + plural noun → singular verb → was'
+  },
+  {
+    wrong:'I have little friends in this city — only Tom and Sara.',
+    opts:['I have little friends in this city.','I have a little friends in this city.','I have a few friends in this city.'],
+    ans:'I have a few friends in this city.',
+    ex:'friends นับได้ + มีอยู่บ้าง (ระบุชื่อได้) → a few (ไม่ใช่ little)'
+  },
+  {
+    wrong:'There is too many traffic on this road in the morning.',
+    opts:['There is too many traffic.','There is too much traffic.','There are too much traffic.'],
+    ans:'There is too much traffic.',
+    ex:'traffic นับไม่ได้ + มากเกินไป → too much (ไม่ใช่ too many)'
+  },
+  {
+    wrong:'Do we have enough homeworks to keep us busy?',
+    opts:['Do we have enough homeworks?','Do we have enough homework?','Do we have any enough homework?'],
+    ans:'Do we have enough homework?',
+    ex:'homework = นับไม่ได้ ไม่มี s + enough → enough homework'
+  },
+  {
+    wrong:'Much students stayed late to finish the project.',
+    opts:['Much students stayed late.','Many students stayed late.','Every students stayed late.'],
+    ans:'Many students stayed late.',
+    ex:'students นับได้พหูพจน์ → many (ไม่ใช่ much)'
+  },
+  {
+    wrong:'She has a little friends to talk to — she feels lonely.',
+    opts:['She has a little friends to talk to.','She has few friends to talk to.','She has a few friends to talk to.'],
+    ans:'She has few friends to talk to.',
+    ex:'friends นับได้ + มีน้อยมาก (เหงา = ความหมายลบ) → few (ไม่มี a)'
+  },
+  {
+    wrong:'I don\'t have some sugar — can I borrow some from you?',
+    opts:["I don't have some sugar.",'I have no sugar.','I have not any sugar.'],
+    ans:'I have no sugar.',
+    ex:'ปฏิเสธ → I have no sugar หรือ I don\'t have any sugar (ไม่ใช่ some)'
+  },
+];
+
+// PART 5 — Drag & Drop ×10
+const p5 = [
+  { pre:'There is ___ milk left — just enough for one cup.', ans:'a little', bank:['a little','little','a few','few'], ex:'milk นับไม่ได้ + ยังพอมี (บวก) → a little' },
+  { pre:'___ child in this school wears a blue uniform.', ans:'Every', bank:['Every','Each of','Many','Some'], ex:'ทุกคน (รวมหมด) + noun เอกพจน์ → Every' },
+  { pre:'I don\'t have ___ money to buy that jacket.', ans:'enough', bank:['enough','too much','any','few'], ex:'มีเงินไม่พอ → not enough money' },
+  { pre:'There are ___ people at the party — it\'s very crowded!', ans:'too many', bank:['too many','too much','enough','many'], ex:'คนมากเกินไป → too many + นับได้' },
+  { pre:'She has ___ homework tonight, so she can relax.', ans:'no', bank:['no','not','none','any'], ex:'ไม่มีการบ้านเลย → no + noun' },
+  { pre:'___ of the team members was asked to present their idea.', ans:'Each', bank:['Each','Every','Many','All'], ex:'each of + plural noun → singular verb (was) → Each' },
+  { pre:'Few students ___ the exam last year — it was very hard.', ans:'passed', bank:['passed','pass','passes','were passed'], ex:'few students (พหูพจน์) + past tense → passed' },
+  { pre:'We have ___ time before the bus leaves — let\'s hurry!', ans:'little', bank:['little','a little','few','a few'], ex:'time นับไม่ได้ + แทบไม่มี (รีบ! ความหมายลบ) → little' },
+  { pre:'Every student in our class ___ submitted the project.', ans:'has', bank:['have','has','are','were'], ex:'every + noun เอกพจน์ → singular verb → has' },
+  { pre:'There are ___ seats available — we might not all get in.', ans:'few', bank:['few','a few','little','a little'], ex:'seats นับได้ + มีน้อยมาก (น่าเป็นห่วง) → few' },
+];
+
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+const scores   = {1:0,2:0,3:0,4:0,5:0};
+const answered = {1:0,2:0,3:0,4:0,5:0};
+const totals   = {1:10,2:10,3:10,4:10,5:10};
+let curSec = 1;
+
+function goSec(n){
+  document.getElementById(`sec-${curSec}`).classList.remove('active');
+  document.getElementById(`tab-${curSec}`).classList.remove('active');
+  curSec=n;
+  document.getElementById(`sec-${n}`).classList.add('active');
+  document.getElementById(`tab-${n}`).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function onAnswer(sec,ok){
+  answered[sec]++; if(ok)scores[sec]++;
+  const tab=document.getElementById(`tab-${sec}`);
+  tab.classList.remove('done','partial');
+  if(answered[sec]===totals[sec])tab.classList.add('done');
+  else if(answered[sec]>0)tab.classList.add('partial');
+  document.getElementById(`prog-${sec}`).textContent=`${answered[sec]} / ${totals[sec]} ข้อ`;
+  const tot=Object.values(answered).reduce((a,b)=>a+b,0);
+  document.getElementById('overall-count').textContent=`${tot} / 50`;
+  document.getElementById('overall-fill').style.width=`${(tot/50)*100}%`;
+}
+function sid(s){ return s.replace(/[^a-zA-Z0-9]/g,'_'); }
+
+// ── PART 1 MC ──
+function buildP1(){
+  const c=document.getElementById('sec1-q');
+  p1.forEach((q,i)=>{
+    const sent=q.s.replace('___',`<span class="q-blank" id="p1b-${i}">___</span>`);
+    const opts=q.opts.map(o=>`<button class="choice-btn" id="p1c-${i}-${sid(o)}" onclick="chkP1(${i},'${o.replace(/'/g,"\\'")}')">${o}</button>`).join('');
+    c.innerHTML+=`<div class="q-card" id="p1card-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${i+1}</span><span class="q-type-tag tag-mc">Multiple Choice</span></div>
+      <div class="q-sentence">${sent}</div>
+      <div class="choices">${opts}</div>
+      <div class="feedback" id="p1fb-${i}"></div>
+    </div>`;
+  });
+}
+function chkP1(i,sel){
+  const q=p1[i]; const ok=sel===q.ans;
+  q.opts.forEach(o=>{const b=document.getElementById(`p1c-${i}-${sid(o)}`);if(!b)return;b.disabled=true;if(o===q.ans)b.classList.add('correct');else if(o===sel)b.classList.add('wrong');});
+  const bl=document.getElementById(`p1b-${i}`);
+  bl.textContent=q.ans; bl.classList.add(ok?'correct-blank':'wrong-blank');
+  const fb=document.getElementById(`p1fb-${i}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`)+q.ex;
+  document.getElementById(`p1card-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(1,ok);
+}
+
+// ── PART 2 FILL ──
+function buildP2(){
+  const c=document.getElementById('sec2-q');
+  p2.forEach((q,i)=>{
+    let bi=0;
+    const sent=q.s.replace(/___/g,()=>`<span class="q-blank" id="p2b-${i}-${bi++}">___</span>`);
+    c.innerHTML+=`<div class="q-card" id="p2card-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${i+11}</span><span class="q-type-tag tag-fill">Fill in</span></div>
+      <div class="q-sentence">${sent}</div>
+      <div class="fill-row">
+        <input class="fill-input" id="p2inp-${i}" placeholder="พิมพ์คำตอบ" onkeydown="if(event.key==='Enter')chkP2(${i})">
+        <button class="check-btn" id="p2btn-${i}" onclick="chkP2(${i})">ตรวจ ✓</button>
+      </div>
+      <div class="feedback" id="p2fb-${i}"></div>
+    </div>`;
+  });
+}
+function chkP2(i){
+  const q=p2[i];
+  const inp=document.getElementById(`p2inp-${i}`);
+  const val=inp.value.trim().toLowerCase().replace(/\s+/g,' ');
+  const ok=val===q.ans.toLowerCase();
+  inp.disabled=true; inp.classList.add(ok?'correct':'wrong');
+  document.getElementById(`p2btn-${i}`).disabled=true;
+  const bl=document.getElementById(`p2b-${i}-0`);
+  if(bl){bl.textContent=q.ans; bl.classList.add(ok?'correct-blank':'wrong-blank');}
+  const fb=document.getElementById(`p2fb-${i}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`)+q.ex;
+  document.getElementById(`p2card-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(2,ok);
+}
+
+// ── PART 3 CONTEXT ──
+function buildP3(){
+  const c=document.getElementById('sec3-q');
+  p3Passages.forEach((pass,pi)=>{
+    let bi=0;
+    const txt=pass.text.replace(/\((\d+)\)___/g,(_,num)=>{
+      const b=pass.blanks[bi++];
+      return `<span class="pass-blank" id="pb-${b.id}">(${num})___</span>`;
+    });
+    let qHTML='';
+    pass.blanks.forEach((b,qi)=>{
+      const gNum=pi*5+qi+21;
+      const opts=b.opts.map(o=>`<button class="choice-btn" id="pbc-${b.id}-${sid(o)}" onclick="chkP3('${b.id}','${o.replace(/'/g,"\\''")}',${pi*5+qi})">${o}</button>`).join('');
+      qHTML+=`<div class="pass-q-row">
+        <div class="pass-label">ช่องว่างที่ ${parseInt(b.id.split('-')[1])+1} — ข้อ ${gNum}</div>
+        <div class="choices">${opts}</div>
+        <div class="feedback" id="pbfb-${b.id}"></div>
+      </div>`;
+    });
+    c.innerHTML+=`<div class="q-card">
+      <div class="q-meta"><span class="q-num">เรื่องที่ ${pi+1}</span><span class="q-type-tag tag-ctx">Context</span></div>
+      <div class="passage-box">${txt}</div>${qHTML}
+    </div>`;
+  });
+}
+function chkP3(bid,sel,qIdx){
+  const pi=Math.floor(qIdx/5); const qi=qIdx%5;
+  const b=p3Passages[pi].blanks[qi];
+  const ok=sel===b.ans;
+  b.opts.forEach(o=>{
+    const btn=document.getElementById(`pbc-${bid}-${sid(o)}`);
+    if(!btn)return; btn.disabled=true;
+    if(o===b.ans)btn.classList.add('correct');
+    else if(o===sel)btn.classList.add('wrong');
+  });
+  const bl=document.getElementById(`pb-${bid}`);
+  const num=parseInt(bid.split('-')[1]);
+  bl.textContent=`(${num+1}) ${b.ans}`; bl.classList.add(ok?'correct-blank':'wrong-blank');
+  const fb=document.getElementById(`pbfb-${bid}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — คำตอบที่ถูกคือ <strong>${b.ans}</strong><br>`)+b.ex;
+  onAnswer(3,ok);
+}
+
+// ── PART 4 FIX ──
+function buildP4(){
+  const c=document.getElementById('sec4-q');
+  p4.forEach((q,i)=>{
+    const opts=q.opts.map((o,oi)=>`<button class="choice-btn" id="p4c-${i}-${oi}" onclick="chkP4(${i},${oi},'${o.replace(/'/g,"\\'")}')">${o}</button>`).join('');
+    c.innerHTML+=`<div class="q-card" id="p4card-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${i+31}</span><span class="q-type-tag tag-fix">แก้ประโยค</span></div>
+      <div class="fix-sentence">❌ ${q.wrong}</div>
+      <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px;">เลือกประโยคที่ถูกต้อง:</p>
+      <div class="choices col">${opts}</div>
+      <div class="feedback" id="p4fb-${i}"></div>
+    </div>`;
+  });
+}
+function chkP4(i,oi,sel){
+  const q=p4[i]; const ok=sel===q.ans;
+  q.opts.forEach((_,j)=>{const b=document.getElementById(`p4c-${i}-${j}`);if(!b)return;b.disabled=true;if(q.opts[j]===q.ans)b.classList.add('correct');else if(j===oi)b.classList.add('wrong');});
+  const fb=document.getElementById(`p4fb-${i}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — ที่ถูกคือ: <strong>${q.ans}</strong><br>`)+q.ex;
+  document.getElementById(`p4card-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(4,ok);
+}
+
+// ── PART 5 DRAG ──
+function buildP5(){
+  const c=document.getElementById('sec5-q');
+  p5.forEach((q,i)=>{
+    const sent=q.pre.replace('___',`<span class="drop-zone" id="dz-${i}"
+      ondragover="event.preventDefault();this.classList.add('drag-over')"
+      ondragleave="this.classList.remove('drag-over')"
+      ondrop="dropW(event,${i})">___</span>`);
+    const bank=q.bank.map((w,wi)=>`<span class="drag-word" id="dw-${i}-${wi}" draggable="true"
+      ondragstart="dragSt(event,'${w}',${i},${wi})">${w}</span>`).join('');
+    c.innerHTML+=`<div class="q-card" id="p5card-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${i+41}</span><span class="q-type-tag tag-drag">Drag &amp; Drop</span></div>
+      <div class="drag-sentence">${sent}</div>
+      <div class="word-bank"><span class="wbl">คำศัพท์</span>${bank}</div>
+      <div class="feedback" id="p5fb-${i}"></div>
+    </div>`;
+  });
+}
+let dp={};
+function dragSt(e,w,qi,wi){dp={w,qi,wi};e.dataTransfer.effectAllowed='move';}
+function dropW(e,i){
+  e.preventDefault();
+  const zone=document.getElementById(`dz-${i}`);
+  zone.classList.remove('drag-over');
+  if(zone.classList.contains('correct-drop')||zone.classList.contains('wrong-drop'))return;
+  if(dp.qi!==i)return;
+  const q=p5[i]; const ok=dp.w===q.ans;
+  zone.textContent=dp.w; zone.classList.add('filled',ok?'correct-drop':'wrong-drop');
+  document.getElementById(`dw-${i}-${dp.wi}`).classList.add('used');
+  q.bank.forEach((_,wi)=>{const el=document.getElementById(`dw-${i}-${wi}`);if(el)el.style.pointerEvents='none';});
+  const fb=document.getElementById(`p5fb-${i}`);
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — คำตอบที่ถูกคือ <strong>${q.ans}</strong><br>`)+q.ex;
+  document.getElementById(`p5card-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(5,ok);
+}
+
+// ── FINAL ──
+function showFinal(){
+  document.getElementById('sec-5').classList.remove('active');
+  document.getElementById('tab-5').classList.remove('active');
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  const pct=Math.round(total/50*100);
+  const msg=pct===100?'🏆 Perfect! เก่งมากเลย!':pct>=80?'🎉 ดีมาก! เกือบ Perfect':pct>=60?'👍 ผ่าน! ทบทวน few/little อีกนิด':'📚 ลองทบทวนเนื้อหาแล้วมาทำใหม่นะ';
+  document.getElementById('final-score').textContent=total;
+  document.getElementById('final-pct').textContent=pct+'%';
+  document.getElementById('s-ok').textContent=total;
+  document.getElementById('s-ng').textContent=50-total;
+  document.getElementById('s-pct').textContent=pct+'%';
+  document.getElementById('final-msg').textContent=msg;
+  const parts=['Multiple Choice','Fill in the Blank','Context Reading','แก้ประโยค','Drag & Drop'];
+  let rows='';
+  for(let s=1;s<=5;s++){
+    const ps=Math.round(scores[s]/10*100);
+    const col=ps>=70?'var(--green)':ps>=50?'var(--amber)':'var(--red)';
+    rows+=`<div class="bd-row">
+      <div class="bd-name">Part ${s}: ${parts[s-1]}</div>
+      <div class="bd-track"><div class="bd-bar" style="width:${ps}%;background:${col}"></div></div>
+      <div class="bd-score">${scores[s]}/10</div>
+    </div>`;
+  }
+  document.getElementById('bd-rows').innerHTML=rows;
+  const sc=document.getElementById('score-screen');
+  sc.classList.add('show');
+  sc.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+buildP1(); buildP2(); buildP3(); buildP4(); buildP5();
+</script>
+</body>
+</html>
