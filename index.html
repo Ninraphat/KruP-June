@@ -316,49 +316,291 @@ const grammarDatabase = [
         ]}
       ] 
   }},
-  { id: 6, title: "Subject-Verb Agreement", desc: "ความสอดคล้องประธานกริยา", levels: { primary: [], junior: [], high: [] }},
+  { id: 6, title: "Subject-Verb Agreement", desc: "ความสอดคล้องประธานกริยา", levels: { primary: [], junior: [], 
+];
   { id: 7, title: "Present Tenses", desc: "เหตุการณ์ปัจจุบัน", levels: {
-      primary: [],
-      junior: [
-        { name: "Present Simple", actions: [
-          { type: "lesson", icon: "📖", label: "เนื้อหาและแบบฝึก", url: "present-tenses-jh.html" }
-        ]},
-        { name: "Present Perfect", actions: [
-          { type: "exercise", icon: "🔥", label: "ทดสอบ Perfect", url: "present-perfect-jh.html" }
+      primary: [
+        { name: "Present Simple & Continuous", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Present Tenses/c-present-tenses-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Present Tenses/e-present-tenses-p.html" }
         ]}
       ],
-      high: []
+      junior: [
+        { name: "Present Tenses (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Present Tenses/c-present-tenses-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Present Tenses/e-present-tenses-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Present Tenses", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Present Tenses/c-present-tenses-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Present Tenses/e-present-tenses-h.html" }
+        ]}
+      ]
   }},
   { id: 8, title: "Past Tenses", desc: "เหตุการณ์ในอดีต", levels: {
-      primary: [],
-      junior: [
-        { name: "Past Simple", actions: [
-          { type: "lesson", icon: "📖", label: "เนื้อหาและแบบฝึก", url: "past-simple-jh.html" }
+      primary: [
+        { name: "Past Simple พื้นฐาน", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Past Tenses/c-past-tenses-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Past Tenses/e-past-tenses-p.html" }
         ]}
       ],
-      high: []
-  }},
-  { id: 9, title: "Future Tenses", desc: "เหตุการณ์ในอนาคต", levels: { primary: [], junior: [], high: [] }},
-  { id: 10, title: "Passive Voice", desc: "ประธานถูกกระทำ", levels: { primary: [], junior: [], high: [] }},
-  { id: 11, title: "Conditional Sentence", desc: "ประโยคเงื่อนไข (If-clause)", levels: { primary: [], junior: [], high: [] }},
-  { id: 12, title: "Non-Finite Verb", desc: "กริยาไม่แท้ (Gerund, Infinitive)", levels: { primary: [], junior: [], high: [] }},
-  { id: 13, title: "Modal Verb", desc: "กริยาช่วย", levels: { primary: [], junior: [], high: [] }},
-  { id: 14, title: "Reported Speech", desc: "การนำคำพูดไปเล่าต่อ", levels: { primary: [], junior: [], high: [] }},
-  { id: 15, title: "Adjective", desc: "คำคุณศัพท์", levels: { primary: [], junior: [], high: [] }},
-  { id: 16, title: "Adverb", desc: "คำกริยาวิเศษณ์", levels: {
-      primary: [],
       junior: [
-        { name: "Forming Adverb", actions: [
+        { name: "Past Tenses (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Past Tenses/c-past-tenses-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Past Tenses/e-past-tenses-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Past Tenses", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Past Tenses/c-past-tenses-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Past Tenses/e-past-tenses-h.html" }
+        ]}
+      ]
+  }},
+  { id: 9, title: "Future Tenses", desc: "เหตุการณ์ในอนาคต", levels: {
+      primary: [
+        { name: "Will & Be going to", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Future Tenses/c-future-tenses-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Future Tenses/e-future-tenses-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Future Tenses (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Future Tenses/c-future-tenses-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Future Tenses/e-future-tenses-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Future Tenses", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Future Tenses/c-future-tenses-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Future Tenses/e-future-tenses-h.html" }
+        ]}
+      ]
+  }},
+  { id: 10, title: "Passive Voice", desc: "ประธานถูกกระทำ", levels: {
+      primary: [
+        { name: "Passive Voice พื้นฐาน", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Passive Voice/c-passive-voice-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Passive Voice/e-passive-voice-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Passive Voice (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Passive Voice/c-passive-voice-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Passive Voice/e-passive-voice-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Passive Voice", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Passive Voice/c-passive-voice-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Passive Voice/e-passive-voice-h.html" }
+        ]}
+      ]
+  }},
+  { id: 11, title: "Conditional Sentence", desc: "ประโยคเงื่อนไข (If-clause)", levels: {
+      primary: [
+        { name: "Zero Conditional", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Conditional Sentences/c-conditional-sentences-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Conditional Sentences/e-conditional-sentences-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Conditional Sentences (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Conditional Sentences/c-conditional-sentences-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Conditional Sentences/e-conditional-sentences-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Conditional Sentences", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Conditional Sentences/c-conditional-sentences-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Conditional Sentences/e-conditional-sentences-h.html" }
+        ]}
+      ]
+  }},
+  { id: 12, title: "Non-Finite Verb", desc: "กริยาไม่แท้ (Gerund, Infinitive)", levels: {
+      primary: [
+        { name: "Gerund & Infinitive พื้นฐาน", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Non-Finite Verbs/c-non-finite-verbs-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Non-Finite Verbs/e-non-finite-verbs-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Non-Finite Verbs (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Non-Finite Verbs/c-non-finite-verbs-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Non-Finite Verbs/e-non-finite-verbs-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Non-Finite Verbs", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Non-Finite Verbs/c-non-finite-verbs-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Non-Finite Verbs/e-non-finite-verbs-h.html" }
+        ]}
+      ]
+  }},
+  { id: 13, title: "Modal Verb", desc: "กริยาช่วย", levels: {
+      primary: [
+        { name: "Can & Must พื้นฐาน", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Modal Verbs/c-modal-verbs-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Modal Verbs/e-modal-verbs-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Modal Verbs (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Modal Verbs/c-modal-verbs-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Modal Verbs/e-modal-verbs-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Modal Verbs", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Modal Verbs/c-modal-verbs-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Modal Verbs/e-modal-verbs-h.html" }
+        ]}
+      ]
+  }},
+  { id: 14, title: "Reported Speech", desc: "การนำคำพูดไปเล่าต่อ", levels: {
+      primary: [
+        { name: "Reported Speech พื้นฐาน", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Reported Speech/c-reported-speech-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Reported Speech/e-reported-speech-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Reported Speech (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Reported Speech/c-reported-speech-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Reported Speech/e-reported-speech-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Reported Speech", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Reported Speech/c-reported-speech-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Reported Speech/e-reported-speech-h.html" }
+        ]}
+      ]
+  }},
+  { id: 15, title: "Adjective", desc: "คำคุณศัพท์", levels: {
+      primary: [
+        { name: "Adjective พื้นฐาน & Comparison", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Adjectives/c-adjectives-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Adjectives/e-adjectives-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Adjectives (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Adjectives/c-adjectives-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Adjectives/e-adjectives-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Adjectives", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Adjectives/c-adjectives-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Adjectives/e-adjectives-h.html" }
+        ]}
+      ]
+  }},
+  { id: 16, title: "Adverb", desc: "คำกริยาวิเศษณ์", levels: {
+      primary: [
+        { name: "Adverb of Manner & Frequency", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Adverbs/c-adverbs-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Adverbs/e-adverbs-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Adverbs (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Adverbs/c-adverbs-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Adverbs/e-adverbs-j.html" }
+        ]},
+        { name: "Forming Adverb (เดิม)", actions: [
           { type: "lesson", icon: "📖", label: "การสร้าง Adverb", url: "forming-adverb-jh.html" }
         ]}
       ],
-      high: []
+      high: [
+        { name: "Advanced Adverbs", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Adverbs/c-adverbs-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Adverbs/e-adverbs-h.html" }
+        ]}
+      ]
   }},
-  { id: 17, title: "Comparison", desc: "การเปรียบเทียบขั้นกว่า/สุด", levels: { primary: [], junior: [], high: [] }},
-  { id: 18, title: "Preposition", desc: "คำบุพบทบอกตำแหน่ง/เวลา", levels: { primary: [], junior: [], high: [] }},
-  { id: 19, title: "Conjunction", desc: "คำเชื่อมประโยค", levels: { primary: [], junior: [], high: [] }},
-  { id: 20, title: "Question Tag", desc: "ประโยคคำถามท้ายห้อย", levels: { primary: [], junior: [], high: [] }}
-];
+  { id: 17, title: "Comparison", desc: "การเปรียบเทียบขั้นกว่า/สุด", levels: {
+      primary: [
+        { name: "Comparative & Superlative", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Comparison/c-comparison-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Comparison/e-comparison-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Comparison (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Comparison/c-comparison-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Comparison/e-comparison-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Comparison", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Comparison/c-comparison-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Comparison/e-comparison-h.html" }
+        ]}
+      ]
+  }},
+  { id: 18, title: "Preposition", desc: "คำบุพบทบอกตำแหน่ง/เวลา", levels: {
+      primary: [
+        { name: "Preposition of Place & Time", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Prepositions/c-prepositions-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Prepositions/e-prepositions-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Prepositions (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Prepositions/c-prepositions-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Prepositions/e-prepositions-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Prepositions", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Prepositions/c-prepositions-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Prepositions/e-prepositions-h.html" }
+        ]}
+      ]
+  }},
+  { id: 19, title: "Conjunction", desc: "คำเชื่อมประโยค", levels: {
+      primary: [
+        { name: "And, But, Or, So", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Conjunctions/c-conjunctions-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Conjunctions/e-conjunctions-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Conjunctions (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Conjunctions/c-conjunctions-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Conjunctions/e-conjunctions-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Conjunctions", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Conjunctions/c-conjunctions-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Conjunctions/e-conjunctions-h.html" }
+        ]}
+      ]
+  }},
+  { id: 20, title: "Question Tag", desc: "ประโยคคำถามท้ายห้อย", levels: {
+      primary: [
+        { name: "Question Tag พื้นฐาน", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Question Tags/c-question-tags-p.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Question Tags/e-question-tags-p.html" }
+        ]}
+      ],
+      junior: [
+        { name: "Question Tags (ม.ต้น)", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Question Tags/c-question-tags-j.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Question Tags/e-question-tags-j.html" }
+        ]}
+      ],
+      high: [
+        { name: "Advanced Question Tags", actions: [
+          { type: "lesson", icon: "📖", label: "เนื้อหาบทเรียน", url: "Grammar/Question Tags/c-question-tags-h.html" },
+          { type: "exercise", icon: "✏️", label: "แบบฝึกหัด", url: "Grammar/Question Tags/e-question-tags-h.html" }
+        ]}
+      ]
+  }}
 
 // ==========================================
 // SYSTEM LOGIC (ห้ามแก้โค้ดด้านล่างนี้ ระบบจัดการให้อัตโนมัติ)
