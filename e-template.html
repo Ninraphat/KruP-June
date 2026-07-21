@@ -1,44 +1,715 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise | English Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #fff9f0; --card: #ffffff; --primary: #ff6b35; --secondary: #4ecdc4;
-            --accent: #ffe66d; --green: #22c55e; --red: #ef4444; --text: #1e1b18;
-            --muted: #78716c; --shadow: 0 4px 0 #e5d5c5; --radius: 16px;
-        }
-        body { font-family: 'Nunito', sans-serif; background: var(--bg); padding: 24px 16px; max-width: 600px; margin: 0 auto; color: var(--text); }
-        .back-btn { display: inline-block; margin-bottom: 20px; font-weight: 800; color: var(--primary); text-decoration: none; }
-        
-        /* Quiz Elements */
-        .q-card { background: var(--card); border-radius: var(--radius); padding: 20px; margin-bottom: 15px; box-shadow: var(--shadow); border: 2px solid #f0e8df; }
-        .q-text { font-weight: 700; margin-bottom: 15px; }
-        .options { display: grid; gap: 8px; }
-        .opt-btn { background: #faf5f0; border: 2px solid #e5d5c5; border-radius: 10px; padding: 10px; cursor: pointer; text-align: left; font-weight: 700; }
-        
-        .btn-submit { width: 100%; background: var(--primary); color: white; font-family: 'Fredoka One', cursive; font-size: 20px; border: none; border-radius: var(--radius); padding: 15px; margin-top: 20px; cursor: pointer; box-shadow: 0 5px 0 #c94e1e; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Loading...</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --bg: #fff9f0;
+  --primary: #ff6b35;
+  --secondary: #4ecdc4;
+  --purple: #a855f7;
+  --green: #22c55e;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --amber: #f59e0b;
+  --text: #1e1b18;
+  --muted: #78716c;
+  --shadow: 0 4px 0 #e5d5c5;
+  --radius: 16px;
+  --accent-color: var(--primary);
+  --accent-shadow: #d94e1f;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 8% 15%, #ffe66d33 0%, transparent 38%),
+    radial-gradient(circle at 92% 85%, #4ecdc433 0%, transparent 38%);
+  min-height: 100vh; color: var(--text); padding: 24px 16px 100px;
+}
+
+/* ── BACK ── */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; border: 2px solid #f0e8df; box-shadow: 0 3px 0 #e5d5c5;
+  border-radius: 999px; padding: 8px 18px; font-size: 14px; font-weight: 800;
+  color: var(--muted); text-decoration: none; margin-bottom: 24px; transition: all 0.2s;
+}
+.back-btn:hover { transform: translateY(-2px); color: var(--accent-color); }
+
+/* ── HEADER ── */
+header { text-align: center; margin-bottom: 28px; }
+.badge {
+  display: inline-block; color: white; font-size: 12px; font-weight: 800;
+  padding: 4px 14px; border-radius: 999px; margin-bottom: 10px;
+  letter-spacing: 1px; text-transform: uppercase; background: var(--accent-color);
+}
+h1 { font-family: 'Fredoka One', cursive; font-size: clamp(24px,6vw,36px); color: var(--primary); line-height: 1.2; }
+h1 .h1-accent { color: var(--accent-color); }
+.subtitle { color: var(--muted); font-size: 14px; font-weight: 700; margin-top: 6px; }
+
+/* ── PROGRESS BAR ── */
+.overall-bar-wrap {
+  max-width: 740px; margin: 0 auto 28px; background: white;
+  border: 2px solid #f0e8df; border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow);
+}
+.bar-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.bar-label { font-size: 13px; font-weight: 800; color: var(--muted); }
+.bar-count { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--accent-color); }
+.bar-track { background: #f0e8df; border-radius: 999px; height: 12px; overflow: hidden; }
+.bar-fill  { height: 100%; border-radius: 999px; width: 0%; transition: width 0.4s ease;
+  background: linear-gradient(90deg, var(--secondary), var(--accent-color)); }
+
+/* ── TABS ── */
+.sec-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  max-width: 740px; margin: 0 auto 24px;
+}
+.sec-tab {
+  background: white; border: 2px solid #f0e8df; border-radius: 999px;
+  padding: 7px 16px; font-size: 13px; font-weight: 800; color: var(--muted);
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.sec-tab:hover  { border-color: var(--accent-color); color: var(--accent-color); }
+.sec-tab.active { color: white; border-color: var(--accent-color); background: var(--accent-color); }
+.sec-tab.done   { background: #d1fae5; border-color: var(--green); color: #065f46; }
+.sec-tab.partial{ background: #faf5ff; border-color: var(--accent-color); color: var(--accent-color); opacity:.85; }
+
+/* ── SECTIONS ── */
+.ex-section { display: none; max-width: 740px; margin: 0 auto; animation: fadeUp 0.3s ease; }
+.ex-section.active { display: block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)} }
+
+.sec-header {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 16px; box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 14px;
+}
+.sec-icon  { font-size: 32px; }
+.sec-title { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--accent-color); }
+.sec-desc  { font-size: 13px; font-weight: 700; color: var(--muted); margin-top: 2px; }
+.sec-prog  { font-size: 12px; font-weight: 800; color: var(--primary); margin-top: 2px; }
+
+/* ── Q CARD ── */
+.q-card {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 20px; margin-bottom: 14px; box-shadow: 0 3px 0 #e5d5c5; transition: border-color 0.2s;
+}
+.q-card.answered       { border-color: #d1fae5; }
+.q-card.answered-wrong { border-color: #fee2e2; }
+.q-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.q-num  {
+  color: white; font-family: 'Fredoka One', cursive; font-size: 13px;
+  padding: 2px 10px; border-radius: 999px; flex-shrink: 0;
+  background: var(--accent-color);
+}
+.q-type-tag { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px; }
+.q-emoji   { font-size: 32px; display: block; margin-bottom: 8px; }
+.q-sentence{ font-size: 17px; font-weight: 800; color: var(--text); line-height: 1.8; margin-bottom: 14px; }
+.q-blank {
+  display: inline-block; min-width: 75px; border-bottom: 3px solid var(--accent-color);
+  text-align: center; color: var(--accent-color); font-weight: 900; padding: 0 6px; margin: 0 3px;
+}
+.q-blank.correct-blank { color: var(--green); border-bottom-color: var(--green); }
+.q-blank.wrong-blank   { color: var(--red);   border-bottom-color: var(--red); }
+
+/* ── MC CHOICES ── */
+.choices { display: flex; gap: 8px; flex-wrap: wrap; }
+.choices.col { flex-direction: column; }
+.choice-btn {
+  background: white; border: 2px solid #e5d5c5; border-radius: 10px;
+  padding: 9px 18px; font-family: 'Nunito', sans-serif; font-size: 15px;
+  font-weight: 800; cursor: pointer; color: var(--text); transition: all 0.15s;
+}
+.choice-btn:hover:not(:disabled) { border-color: var(--accent-color); background: #faf5f0; transform: translateY(-2px); }
+.choice-btn.correct { background: #d1fae5 !important; border-color: var(--green) !important; color: #065f46 !important; }
+.choice-btn.wrong   { background: #fee2e2 !important; border-color: var(--red)   !important; color: #991b1b !important; }
+.choice-btn:disabled { cursor: default; transform: none; }
+
+/* ── FILL INPUT ── */
+.fill-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.fill-input {
+  border: 2px solid #e5d5c5; border-radius: 10px; padding: 10px 14px;
+  font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800;
+  color: var(--text); outline: none; width: 180px; transition: all 0.2s; background: white;
+}
+.fill-input:focus { border-color: var(--accent-color); box-shadow: 0 0 0 3px color-mix(in srgb,var(--accent-color) 15%,transparent); }
+.fill-input.correct { border-color: var(--green); background: #d1fae5; color: #065f46; }
+.fill-input.wrong   { border-color: var(--red);   background: #fee2e2; color: #991b1b; }
+.fill-input:disabled { cursor: default; }
+.check-btn {
+  color: white; border: none; border-radius: 10px; padding: 10px 20px;
+  font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800; cursor: pointer;
+  background: var(--accent-color); box-shadow: 0 3px 0 var(--accent-shadow); transition: all 0.15s;
+}
+.check-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 5px 0 var(--accent-shadow); }
+.check-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+
+/* ── PICTURE CHOICE ── */
+.pic-choices { display: flex; gap: 10px; flex-wrap: wrap; }
+.pic-btn {
+  background: white; border: 2px solid #e5d5c5; border-radius: 14px;
+  padding: 12px 16px; cursor: pointer; text-align: center; transition: all 0.2s; min-width: 85px;
+}
+.pic-btn .pic-emoji { font-size: 28px; display: block; }
+.pic-btn .pic-label { font-size: 13px; font-weight: 800; color: var(--text); margin-top: 5px; display: block; }
+.pic-btn:hover:not(:disabled) { border-color: var(--accent-color); transform: translateY(-3px); box-shadow: 0 4px 0 #e5d5c5; }
+.pic-btn.correct { background: #d1fae5; border-color: var(--green); }
+.pic-btn.wrong   { background: #fee2e2; border-color: var(--red); }
+.pic-btn:disabled { cursor: default; transform: none; }
+
+/* ── PASSAGE ── */
+.passage-box {
+  border-radius: 12px; padding: 16px 18px; font-size: 15px; font-weight: 700;
+  line-height: 2.4; margin-bottom: 14px; color: var(--text);
+  border: 2px solid; /* color set by JS */
+}
+.pass-blank {
+  display: inline-block; min-width: 55px; border-bottom: 2px solid var(--accent-color);
+  text-align: center; color: var(--accent-color); font-weight: 900; padding: 0 4px; margin: 0 2px;
+}
+.pass-blank.correct-blank { color: var(--green); border-bottom-color: var(--green); }
+.pass-blank.wrong-blank   { color: var(--red);   border-bottom-color: var(--red); }
+.pass-q-row { margin-bottom: 12px; }
+.pass-label { font-size: 13px; font-weight: 800; color: var(--muted); margin-bottom: 6px; }
+
+/* ── FIX SENTENCE ── */
+.fix-sentence {
+  background: #fff1f2; border: 2px solid #fecdd3; border-radius: 10px;
+  padding: 12px 16px; font-size: 16px; font-weight: 800; color: var(--red);
+  margin-bottom: 12px; line-height: 1.6;
+}
+
+/* ── DRAG & DROP ── */
+.drag-sentence { font-size: 17px; font-weight: 800; color: var(--text); line-height: 2.4; margin-bottom: 12px; }
+.drop-zone {
+  display: inline-block; min-width: 85px; height: 34px;
+  border: 2px dashed var(--accent-color); border-radius: 8px;
+  background: #faf5f0; vertical-align: middle; text-align: center;
+  line-height: 30px; font-weight: 900; color: var(--accent-color);
+  margin: 0 4px; transition: all 0.2s; padding: 0 8px; font-size: 14px;
+}
+.drop-zone.drag-over   { opacity: .75; transform: scale(1.05); }
+.drop-zone.filled      { border-style: solid; color: var(--text); background: white; }
+.drop-zone.correct-drop{ border-color: var(--green); background: #d1fae5; color: #065f46; }
+.drop-zone.wrong-drop  { border-color: var(--red);   background: #fee2e2; color: #991b1b; }
+.word-bank {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;
+  padding: 14px; background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px;
+}
+.wbl { font-size: 12px; font-weight: 800; color: var(--muted); width: 100%; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 1px; }
+.drag-word {
+  background: white; border: 2px solid #e5d5c5; border-radius: 8px;
+  padding: 6px 14px; font-size: 14px; font-weight: 800; cursor: grab;
+  transition: all 0.15s; color: var(--text); user-select: none;
+}
+.drag-word:hover { border-color: var(--accent-color); color: var(--accent-color); transform: translateY(-2px); }
+.drag-word.used  { opacity: 0.3; cursor: default; pointer-events: none; }
+
+/* ── FEEDBACK ── */
+.feedback { margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 700; display: none; line-height: 1.5; }
+.feedback.show { display: block; }
+.feedback.ok { background: #d1fae5; color: #065f46; }
+.feedback.ng { background: #fee2e2; color: #991b1b; }
+
+/* ── NAV ── */
+.nav-btns {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 24px; max-width: 740px; margin-left: auto; margin-right: auto;
+}
+.btn {
+  color: white; border: none; border-radius: 12px; padding: 12px 28px;
+  font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 800;
+  cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block;
+  background: var(--accent-color); box-shadow: 0 4px 0 var(--accent-shadow);
+}
+.btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 var(--accent-shadow); }
+.btn:active { transform: translateY(1px);  box-shadow: 0 2px 0 var(--accent-shadow); }
+.btn.sec { background: white; color: var(--muted); box-shadow: 0 4px 0 #e5d5c5; border: 2px solid #f0e8df; }
+.btn.sec:hover { color: var(--text); box-shadow: 0 6px 0 #e5d5c5; }
+.btn.grn { background: var(--green); box-shadow: 0 4px 0 #15803d; }
+.btn.grn:hover { box-shadow: 0 6px 0 #15803d; }
+
+/* ── FINAL SCORE ── */
+.score-screen { display: none; max-width: 740px; margin: 0 auto; animation: fadeUp 0.4s ease; }
+.score-screen.show { display: block; }
+.score-hero {
+  background: white; border: 2px solid #f0e8df; border-radius: var(--radius);
+  padding: 36px; text-align: center; box-shadow: var(--shadow); margin-bottom: 16px;
+}
+.score-big   { font-family: 'Fredoka One', cursive; font-size: 72px; color: var(--primary); line-height: 1; }
+.score-total { font-size: 16px; font-weight: 800; color: var(--muted); margin-top: 4px; }
+.score-pct   { display: inline-block; margin: 12px 0; font-family: 'Fredoka One', cursive; font-size: 28px; }
+.score-msg   { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; }
+.score-grid  { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+.sg { background: #faf5f0; border: 2px solid #f0e8df; border-radius: 12px; padding: 14px; text-align: center; }
+.sg-icon { font-size: 24px; }
+.sg-lbl  { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 4px 0 2px; }
+.sg-val  { font-family: 'Fredoka One', cursive; font-size: 24px; color: var(--primary); }
+.breakdown { background: white; border: 2px solid #f0e8df; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-bottom: 16px; }
+.breakdown-title { font-family: 'Fredoka One', cursive; font-size: 18px; color: var(--accent-color); margin-bottom: 14px; }
+.bd-row   { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.bd-name  { font-size: 13px; font-weight: 800; color: var(--text); width: 180px; flex-shrink: 0; }
+.bd-track { flex: 1; background: #f0e8df; border-radius: 999px; height: 10px; overflow: hidden; }
+.bd-bar   { height: 100%; border-radius: 999px; }
+.bd-score { font-size: 13px; font-weight: 800; color: var(--muted); width: 44px; text-align: right; flex-shrink: 0; }
+.score-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+@media(max-width:580px){
+  .sec-tab { font-size: 12px; padding: 6px 12px; }
+  .nav-btns { flex-direction: column; gap: 10px; }
+  .nav-btns .btn { width: 100%; text-align: center; }
+  .score-grid { grid-template-columns: 1fr 1fr; }
+  .bd-name { width: 120px; font-size: 12px; }
+}
+</style>
 </head>
 <body>
 
-<a href="index.html" class="back-btn">← ย้อนกลับไปหน้าหลัก</a>
-
-<div id="quiz-content">
+<a class="back-btn" href="index.html">← กลับหน้าหลัก</a>
+<header>
+  <div class="badge" id="hdr-badge"></div>
+  <h1 id="hdr-title"></h1>
+  <p class="subtitle" id="hdr-subtitle"></p>
+</header>
+<div class="overall-bar-wrap">
+  <div class="bar-row">
+    <span class="bar-label">ความคืบหน้าทั้งหมด</span>
+    <span class="bar-count" id="overall-count">0 / 50</span>
+  </div>
+  <div class="bar-track"><div class="bar-fill" id="overall-fill"></div></div>
+</div>
+<div class="sec-tabs" id="sec-tabs"></div>
+<div id="parts-root"></div>
+<div class="score-screen" id="score-screen">
+  <div class="score-hero">
+    <div class="score-big" id="final-score">–</div>
+    <div class="score-total" id="final-total"></div>
+    <div class="score-pct" id="final-pct">–%</div>
+    <div class="score-msg" id="final-msg"></div>
+    <div class="score-grid">
+      <div class="sg"><div class="sg-icon">✅</div><div class="sg-lbl">ถูก</div><div class="sg-val" id="s-ok" style="color:var(--green)">–</div></div>
+      <div class="sg"><div class="sg-icon">❌</div><div class="sg-lbl">ผิด</div><div class="sg-val" id="s-ng" style="color:var(--red)">–</div></div>
+      <div class="sg"><div class="sg-icon">📊</div><div class="sg-lbl">คะแนน</div><div class="sg-val" id="s-pct">–</div></div>
     </div>
-
-<button class="btn-submit" id="submitBtn">ตรวจคำตอบ ✅</button>
+  </div>
+  <div class="breakdown"><div class="breakdown-title">📊 คะแนนแต่ละ Part</div><div id="bd-rows"></div></div>
+  <div class="score-actions" id="score-actions"></div>
+</div>
 
 <script>
-    // ก๊อปปี้ข้อมูลที่ AI เขียนให้ มาวางแทนที่บรรทัดนี้:
-    const allQuestions = [
-        { q: "โจทย์ตัวอย่างที่ 1?", ans: "เฉลย", opts: ["ตัวเลือก1", "ตัวเลือก2", "ตัวเลือก3", "ตัวเลือก4"] }
-    ];
+/* ═══════════════════════════════════════════════
+   COLOR MAP
+═══════════════════════════════════════════════ */
+const COLOR = {
+  primary:   { hex:'#ff6b35', shadow:'#d94e1f', light:'#fff3e0', border:'#fed7aa' },
+  secondary: { hex:'#4ecdc4', shadow:'#2db5ac', light:'#f0fdfa', border:'#99f6e4' },
+  purple:    { hex:'#a855f7', shadow:'#7c3aed', light:'#faf5ff', border:'#e9d5ff' },
+  blue:      { hex:'#3b82f6', shadow:'#1d4ed8', light:'#eff6ff', border:'#bfdbfe' },
+  green:     { hex:'#22c55e', shadow:'#15803d', light:'#f0fdf4', border:'#86efac' },
+  amber:     { hex:'#f59e0b', shadow:'#b45309', light:'#fffbeb', border:'#fde68a' },
+  red:       { hex:'#ef4444', shadow:'#b91c1c', light:'#fff1f2', border:'#fecdd3' },
+};
+function col(name){ return COLOR[name]||COLOR.primary; }
+function sid(s){ return s.replace(/[^a-zA-Z0-9]/g,'_'); }
 
-    // (ในอนาคต ผมจะเตรียมฟังก์ชัน JavaScript สำหรับตรวจคำตอบให้คุณครับ)
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+let scores={}, answered={}, totals={};
+let curSec=1, totalQ=0;
+
+function onAnswer(partIdx, ok){
+  answered[partIdx]++;
+  if(ok) scores[partIdx]++;
+  const tab=document.getElementById(`tab-${partIdx}`);
+  tab.classList.remove('done','partial');
+  if(answered[partIdx]===totals[partIdx]) tab.classList.add('done');
+  else if(answered[partIdx]>0) tab.classList.add('partial');
+  document.getElementById(`prog-${partIdx}`).textContent=`${answered[partIdx]} / ${totals[partIdx]} ข้อ`;
+  const tot=Object.values(answered).reduce((a,b)=>a+b,0);
+  document.getElementById('overall-count').textContent=`${tot} / ${totalQ}`;
+  document.getElementById('overall-fill').style.width=`${(tot/totalQ)*100}%`;
+}
+
+function goSec(n){
+  document.getElementById(`ex-sec-${curSec}`).classList.remove('active');
+  document.getElementById(`tab-${curSec}`).classList.remove('active');
+  curSec=n;
+  document.getElementById(`ex-sec-${n}`).classList.add('active');
+  document.getElementById(`tab-${n}`).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ═══════════════════════════════════════════════
+   PART RENDERERS
+═══════════════════════════════════════════════ */
+
+/* ── MC ── */
+function buildMC(part, partIdx, offset){
+  const c=document.createElement('div');
+  part.questions.forEach((q,i)=>{
+    const sent=(q.sentence||'').replace(/___/g,`<span class="q-blank" id="mc-bl-${partIdx}-${i}">___</span>`);
+    const tagHTML=renderQTag(q);
+    const emojiHTML=q.emoji?`<span class="q-emoji">${q.emoji}</span>`:'';
+    const opts=(q.options||[]).map(o=>`<button class="choice-btn" id="mc-${partIdx}-${i}-${sid(o)}" onclick="chkMC(${partIdx},${i},'${o.replace(/'/g,"\\'")}'">${o==='–'?'– (ไม่ใส่)':o}</button>`).join('');
+    c.innerHTML+=`<div class="q-card" id="mc-card-${partIdx}-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${offset+i+1}</span>${tagHTML}</div>
+      ${emojiHTML}<div class="q-sentence">${sent}</div>
+      <div class="choices">${opts}</div>
+      <div class="feedback" id="mc-fb-${partIdx}-${i}"></div>
+    </div>`;
+  });
+  return c;
+}
+function chkMC(pi,i,sel){
+  const q=EXERCISE.parts[pi].questions[i];
+  const ok=sel===q.answer||(sel==='– (ไม่ใส่)'&&q.answer==='–');
+  const ansDisplay=q.answer==='–'?'– (ไม่ใส่)':q.answer;
+  q.options.forEach(o=>{
+    const b=document.getElementById(`mc-${pi}-${i}-${sid(o==='–'?'– (ไม่ใส่)':o)}`);
+    if(!b)return; b.disabled=true;
+    const isAns=o===q.answer||(o==='– (ไม่ใส่)'&&q.answer==='–')||(o==='–'&&q.answer==='–');
+    if(isAns)b.classList.add('correct');
+    else if((o===sel)||(o==='– (ไม่ใส่)'&&sel==='– (ไม่ใส่)'))b.classList.add('wrong');
+  });
+  const bl=document.getElementById(`mc-bl-${pi}-${i}`);
+  if(bl){bl.textContent=q.answer==='–'?'∅':q.answer;bl.classList.add(ok?'correct-blank':'wrong-blank');}
+  setFeedback(`mc-fb-${pi}-${i}`,ok,q.answer,q.explanation);
+  document.getElementById(`mc-card-${pi}-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(pi,ok);
+}
+
+/* ── FILL ── */
+function buildFill(part, partIdx, offset){
+  const c=document.createElement('div');
+  part.questions.forEach((q,i)=>{
+    let bi=0;
+    const sent=(q.sentence||'').replace(/___/g,()=>`<span class="q-blank" id="fi-bl-${partIdx}-${i}-${bi++}">___</span>`);
+    const tagHTML=renderQTag(q);
+    const isDouble=(q.answer||'').includes('/');
+    c.innerHTML+=`<div class="q-card" id="fi-card-${partIdx}-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${offset+i+1}</span>${tagHTML}</div>
+      <div class="q-sentence">${sent}</div>
+      <div class="fill-row">
+        <input class="fill-input" id="fi-inp-${partIdx}-${i}" placeholder="${isDouble?'เช่น a / The':'พิมพ์คำตอบ'}" style="width:${isDouble?'180px':'160px'}"
+          onkeydown="if(event.key==='Enter')chkFill(${partIdx},${i})">
+        <button class="check-btn" id="fi-btn-${partIdx}-${i}" onclick="chkFill(${partIdx},${i})">ตรวจ ✓</button>
+      </div>
+      <div class="feedback" id="fi-fb-${partIdx}-${i}"></div>
+    </div>`;
+  });
+  return c;
+}
+function chkFill(pi,i){
+  const q=EXERCISE.parts[pi].questions[i];
+  const inp=document.getElementById(`fi-inp-${pi}-${i}`);
+  const val=inp.value.trim().toLowerCase().replace(/\s+/g,' ');
+  const ans=(q.answer||'').toLowerCase().replace(/\s+/g,' ');
+  const ok=val===ans;
+  inp.disabled=true; inp.classList.add(ok?'correct':'wrong');
+  document.getElementById(`fi-btn-${pi}-${i}`).disabled=true;
+  const parts=(q.answer||'').split('/').map(s=>s.trim());
+  parts.forEach((p,pi2)=>{
+    const bl=document.getElementById(`fi-bl-${pi}-${i}-${pi2}`);
+    if(bl){bl.textContent=p==='–'?'∅':p; bl.classList.add(ok?'correct-blank':'wrong-blank');}
+  });
+  setFeedback(`fi-fb-${pi}-${i}`,ok,q.answer,q.explanation);
+  document.getElementById(`fi-card-${pi}-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(pi,ok);
+}
+
+/* ── PICTURE CHOICE ── */
+function buildPicture(part, partIdx, offset){
+  const c=document.createElement('div');
+  part.questions.forEach((q,i)=>{
+    const sent=(q.sentence||'').replace(/___/g,`<span class="q-blank" id="pc-bl-${partIdx}-${i}">___</span>`);
+    const opts=(q.options||[]).map(o=>`<button class="pic-btn" id="pc-${partIdx}-${i}-${sid(o)}" onclick="chkPicture(${partIdx},${i},'${o}')">
+      <span class="pic-emoji">${q.emoji||'❓'}</span>
+      <span class="pic-label">${o}</span>
+    </button>`).join('');
+    c.innerHTML+=`<div class="q-card" id="pc-card-${partIdx}-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${offset+i+1}</span><span class="q-type-tag" style="background:#faf5ff;color:#a855f7;border:1.5px solid #e9d5ff">Picture</span></div>
+      <div class="q-sentence">${sent}</div>
+      <div class="pic-choices">${opts}</div>
+      <div class="feedback" id="pc-fb-${partIdx}-${i}"></div>
+    </div>`;
+  });
+  return c;
+}
+function chkPicture(pi,i,sel){
+  const q=EXERCISE.parts[pi].questions[i];
+  const ok=sel===q.answer;
+  q.options.forEach(o=>{
+    const b=document.getElementById(`pc-${pi}-${i}-${sid(o)}`); if(!b)return;
+    b.disabled=true;
+    if(o===q.answer)b.classList.add('correct');
+    else if(o===sel)b.classList.add('wrong');
+  });
+  const bl=document.getElementById(`pc-bl-${pi}-${i}`);
+  if(bl){bl.textContent=q.answer;bl.classList.add(ok?'correct-blank':'wrong-blank');}
+  setFeedback(`pc-fb-${pi}-${i}`,ok,q.answer,q.explanation);
+  document.getElementById(`pc-card-${pi}-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(pi,ok);
+}
+
+/* ── CONTEXT PASSAGE ── */
+function buildContext(part, partIdx, offset){
+  const c=document.createElement('div');
+  part.passages.forEach((pass,pi2)=>{
+    const accentC=col(EXERCISE.accentColor||'secondary');
+    let bi=0;
+    const txt=(pass.text||'').replace(/\((\d+)\)___/g,(_,num)=>{
+      const b=pass.blanks[bi++];
+      return `<span class="pass-blank" id="ctx-bl-${partIdx}-${pi2}-${b.id}">(${num})___</span>`;
+    });
+    let qHTML='';
+    pass.blanks.forEach((b,qi)=>{
+      const gNum=offset+part.passages.slice(0,pi2).reduce((a,p)=>a+p.blanks.length,0)+qi+1;
+      const opts=(b.options||[]).map(o=>`<button class="choice-btn" id="ctx-${partIdx}-${pi2}-${b.id}-${sid(o)}" onclick="chkCtx(${partIdx},${pi2},'${b.id}','${o.replace(/'/g,"\\'")}',${qi})">${o==='–'?'– (ไม่ใส่)':o}</button>`).join('');
+      qHTML+=`<div class="pass-q-row">
+        <div class="pass-label">ช่องว่างที่ ${b.id+1} — ข้อ ${gNum}</div>
+        <div class="choices">${opts}</div>
+        <div class="feedback" id="ctx-fb-${partIdx}-${pi2}-${b.id}"></div>
+      </div>`;
+    });
+    c.innerHTML+=`<div class="q-card">
+      <div class="q-meta"><span class="q-num">เรื่องที่ ${pi2+1}</span><span class="q-type-tag" style="background:${accentC.light};color:${accentC.hex};border:1.5px solid ${accentC.border}">Context</span></div>
+      <div class="passage-box" style="background:${accentC.light};border-color:${accentC.border}">${txt}</div>
+      ${qHTML}
+    </div>`;
+  });
+  return c;
+}
+function chkCtx(partIdx,pi2,bid,sel,qi){
+  const pass=EXERCISE.parts[partIdx].passages[pi2];
+  const b=pass.blanks[qi];
+  const ok=sel===b.answer||(sel==='– (ไม่ใส่)'&&b.answer==='–');
+  (b.options||[]).forEach(o=>{
+    const btn=document.getElementById(`ctx-${partIdx}-${pi2}-${bid}-${sid(o)}`); if(!btn)return;
+    btn.disabled=true;
+    if(o===b.answer||(b.answer==='–'&&o==='– (ไม่ใส่)'))btn.classList.add('correct');
+    else if(o===sel)btn.classList.add('wrong');
+  });
+  const bl=document.getElementById(`ctx-bl-${partIdx}-${pi2}-${bid}`);
+  if(bl){bl.textContent=`(${b.id+1}) ${b.answer==='–'?'∅':b.answer}`;bl.classList.add(ok?'correct-blank':'wrong-blank');}
+  setFeedback(`ctx-fb-${partIdx}-${pi2}-${bid}`,ok,b.answer,b.explanation);
+  onAnswer(partIdx,ok);
+}
+
+/* ── FIX SENTENCE ── */
+function buildFix(part, partIdx, offset){
+  const c=document.createElement('div');
+  part.questions.forEach((q,i)=>{
+    const opts=q.options.map((o,oi)=>`<button class="choice-btn" id="fx-${partIdx}-${i}-${oi}" onclick="chkFix(${partIdx},${i},${oi},'${o.replace(/'/g,"\\'")}')">${o}</button>`).join('');
+    c.innerHTML+=`<div class="q-card" id="fx-card-${partIdx}-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${offset+i+1}</span>${renderQTag(q)}</div>
+      <div class="fix-sentence">❌ ${q.wrong}</div>
+      <p style="font-size:13px;font-weight:800;color:var(--muted);margin-bottom:10px">เลือกประโยคที่ถูกต้อง:</p>
+      <div class="choices col">${opts}</div>
+      <div class="feedback" id="fx-fb-${partIdx}-${i}"></div>
+    </div>`;
+  });
+  return c;
+}
+function chkFix(pi,i,oi,sel){
+  const q=EXERCISE.parts[pi].questions[i]; const ok=sel===q.answer;
+  q.options.forEach((_,j)=>{const b=document.getElementById(`fx-${pi}-${i}-${j}`);if(!b)return;b.disabled=true;if(q.options[j]===q.answer)b.classList.add('correct');else if(j===oi)b.classList.add('wrong');});
+  setFeedback(`fx-fb-${pi}-${i}`,ok,q.answer,q.explanation);
+  document.getElementById(`fx-card-${pi}-${i}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(pi,ok);
+}
+
+/* ── DRAG & DROP ── */
+function buildDrag(part, partIdx, offset){
+  const c=document.createElement('div');
+  part.questions.forEach((q,i)=>{
+    const sent=(q.sentence||'').replace('___',`<span class="drop-zone" id="dz-${partIdx}-${i}"
+      ondragover="event.preventDefault();this.classList.add('drag-over')"
+      ondragleave="this.classList.remove('drag-over')"
+      ondrop="dropW(event,${partIdx},${i})">___</span>`);
+    const bank=(q.bank||[]).map((w,wi)=>`<span class="drag-word" id="dw-${partIdx}-${i}-${wi}" draggable="true"
+      ondragstart="dragSt(event,'${w}',${partIdx},${i},${wi})">${w}</span>`).join('');
+    c.innerHTML+=`<div class="q-card" id="dg-card-${partIdx}-${i}">
+      <div class="q-meta"><span class="q-num">ข้อ ${offset+i+1}</span><span class="q-type-tag" style="background:#f0fdfa;color:#0d9488;border:1.5px solid #99f6e4">Drag &amp; Drop</span></div>
+      <div class="drag-sentence">${sent}</div>
+      <div class="word-bank"><span class="wbl">คำศัพท์</span>${bank}</div>
+      <div class="feedback" id="dg-fb-${partIdx}-${i}"></div>
+    </div>`;
+  });
+  return c;
+}
+let dragPayload={};
+function dragSt(e,w,pi,qi,wi){dragPayload={w,pi,qi,wi};e.dataTransfer.effectAllowed='move';}
+function dropW(e,pi,qi){
+  e.preventDefault();
+  const zone=document.getElementById(`dz-${pi}-${qi}`);
+  zone.classList.remove('drag-over');
+  if(zone.classList.contains('correct-drop')||zone.classList.contains('wrong-drop'))return;
+  if(dragPayload.pi!==pi||dragPayload.qi!==qi)return;
+  const q=EXERCISE.parts[pi].questions[qi]; const ok=dragPayload.w===q.answer;
+  zone.textContent=dragPayload.w; zone.classList.add('filled',ok?'correct-drop':'wrong-drop');
+  document.getElementById(`dw-${pi}-${qi}-${dragPayload.wi}`).classList.add('used');
+  (q.bank||[]).forEach((_,wi)=>{const el=document.getElementById(`dw-${pi}-${qi}-${wi}`);if(el)el.style.pointerEvents='none';});
+  setFeedback(`dg-fb-${pi}-${qi}`,ok,q.answer,q.explanation);
+  document.getElementById(`dg-card-${pi}-${qi}`).classList.add(ok?'answered':'answered-wrong');
+  onAnswer(pi,ok);
+}
+
+/* ── Q TAG HELPER ── */
+function renderQTag(q){
+  if(!q.tag) return '';
+  const tc=q.tagColor?col(q.tagColor):{hex:'#0d9488',light:'#f0fdfa',border:'#99f6e4'};
+  return `<span class="q-type-tag" style="background:${tc.light};color:${tc.hex};border:1.5px solid ${tc.border}">${q.tag}</span>`;
+}
+
+/* ── FEEDBACK HELPER ── */
+function setFeedback(id,ok,answer,explanation){
+  const fb=document.getElementById(id); if(!fb)return;
+  fb.classList.add('show',ok?'ok':'ng');
+  fb.innerHTML=(ok?'✅ ถูกต้อง! ':`❌ ผิด — คำตอบที่ถูกคือ <strong>${answer}</strong><br>`)+(explanation||'');
+}
+
+/* ═══════════════════════════════════════════════
+   PART COUNT HELPER
+═══════════════════════════════════════════════ */
+function countQuestions(part){
+  if(part.type==='context') return part.passages.reduce((a,p)=>a+p.blanks.length,0);
+  return (part.questions||[]).length;
+}
+
+/* ═══════════════════════════════════════════════
+   PART BUILDER ROUTER
+═══════════════════════════════════════════════ */
+function buildPart(part, partIdx, offset){
+  switch(part.type){
+    case 'mc':      return buildMC(part,partIdx,offset);
+    case 'fill':    return buildFill(part,partIdx,offset);
+    case 'picture': return buildPicture(part,partIdx,offset);
+    case 'context': return buildContext(part,partIdx,offset);
+    case 'fix':     return buildFix(part,partIdx,offset);
+    case 'drag':    return buildDrag(part,partIdx,offset);
+    default: return document.createElement('div');
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   FINAL SCORE
+═══════════════════════════════════════════════ */
+function showFinal(){
+  document.getElementById(`ex-sec-${curSec}`).classList.remove('active');
+  document.getElementById(`tab-${curSec}`).classList.remove('active');
+  const total=Object.values(scores).reduce((a,b)=>a+b,0);
+  const pct=Math.round(total/totalQ*100);
+  const msg=pct===100?'🏆 Perfect!':pct>=80?'🎉 ดีมาก!':pct>=60?'👍 ผ่าน! ทบทวนอีกนิด':'📚 ลองทบทวนเนื้อหาแล้วมาทำใหม่';
+  const c=col(EXERCISE.accentColor||'primary');
+  document.getElementById('final-score').textContent=total;
+  document.getElementById('final-total').textContent=`จาก ${totalQ} ข้อ`;
+  document.getElementById('final-pct').textContent=pct+'%';
+  document.getElementById('final-pct').style.background=`linear-gradient(135deg,${c.hex},#4ecdc4)`;
+  document.getElementById('final-pct').style['-webkit-background-clip']='text';
+  document.getElementById('final-pct').style['-webkit-text-fill-color']='transparent';
+  document.getElementById('final-msg').textContent=msg;
+  document.getElementById('s-ok').textContent=total;
+  document.getElementById('s-ng').textContent=totalQ-total;
+  document.getElementById('s-pct').textContent=pct+'%';
+  let rows='';
+  EXERCISE.parts.forEach((part,pi)=>{
+    const pq=countQuestions(part); const ps=Math.round((scores[pi]||0)/pq*100);
+    const barCol=ps>=70?'var(--green)':ps>=50?'var(--amber)':'var(--red)';
+    rows+=`<div class="bd-row">
+      <div class="bd-name">Part ${pi+1}: ${part.label}</div>
+      <div class="bd-track"><div class="bd-bar" style="width:${ps}%;background:${barCol}"></div></div>
+      <div class="bd-score">${scores[pi]||0}/${pq}</div>
+    </div>`;
+  });
+  document.getElementById('bd-rows').innerHTML=rows;
+  const actions=document.getElementById('score-actions');
+  actions.innerHTML=`
+    <button class="btn sec" onclick="location.reload()">🔁 ทำใหม่ทั้งหมด</button>
+    ${EXERCISE.contentPage?`<a class="btn" href="${EXERCISE.contentPage}">📖 ทบทวนเนื้อหา</a>`:''}`;
+  document.getElementById('score-screen').classList.add('show');
+  document.getElementById('score-screen').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+function init(){
+  const accent=EXERCISE.accentColor||'primary';
+  const c=col(accent);
+  document.documentElement.style.setProperty('--accent-color',c.hex);
+  document.documentElement.style.setProperty('--accent-shadow',c.shadow);
+
+  document.getElementById('page-title').textContent=`Exercise: ${EXERCISE.title} | ${EXERCISE.badge}`;
+  document.getElementById('hdr-badge').textContent=EXERCISE.badge;
+  document.getElementById('hdr-badge').style.background=c.hex;
+  document.getElementById('hdr-title').innerHTML=`${EXERCISE.titleMain} <span class="h1-accent">${EXERCISE.titleAccent||''}</span> ${EXERCISE.emoji||''}`;
+  document.getElementById('hdr-subtitle').textContent=EXERCISE.subtitle;
+
+  totalQ=EXERCISE.parts.reduce((a,p)=>a+countQuestions(p),0);
+  document.getElementById('overall-count').textContent=`0 / ${totalQ}`;
+
+  const tabsRoot=document.getElementById('sec-tabs');
+  const partsRoot=document.getElementById('parts-root');
+  let qOffset=0;
+
+  EXERCISE.parts.forEach((part,pi)=>{
+    scores[pi]=0; answered[pi]=0; totals[pi]=countQuestions(part);
+
+    // tab
+    const tab=document.createElement('div');
+    tab.className='sec-tab'+(pi===0?' active':'');
+    tab.id=`tab-${pi}`;
+    tab.textContent=`${pi+1}️⃣ ${part.label} (${qOffset+1}–${qOffset+totals[pi]})`;
+    tab.onclick=()=>goSec(pi);
+    tabsRoot.appendChild(tab);
+
+    // section wrapper
+    const sec=document.createElement('div');
+    sec.className='ex-section'+(pi===0?' active':'');
+    sec.id=`ex-sec-${pi}`;
+
+    // header
+    const hdr=document.createElement('div');
+    hdr.className='sec-header';
+    hdr.innerHTML=`<div class="sec-icon">${part.icon||'📝'}</div>
+      <div>
+        <div class="sec-title">${part.title||part.label}</div>
+        <div class="sec-desc">${part.description||''}</div>
+        <div class="sec-prog" id="prog-${pi}">0 / ${totals[pi]} ข้อ</div>
+      </div>`;
+    sec.appendChild(hdr);
+
+    // questions
+    sec.appendChild(buildPart(part,pi,qOffset));
+
+    // nav
+    const nav=document.createElement('div');
+    nav.className='nav-btns';
+    const prevBtn=pi>0?`<button class="btn sec" onclick="goSec(${pi-1})">← Part ${pi}</button>`:'<div></div>';
+    const isLast=pi===EXERCISE.parts.length-1;
+    const nextBtn=isLast
+      ?`<button class="btn grn" onclick="showFinal()">ดูคะแนนรวม 🏆</button>`
+      :`<button class="btn" onclick="goSec(${pi+1})">Part ${pi+2} →</button>`;
+    nav.innerHTML=prevBtn+nextBtn;
+    sec.appendChild(nav);
+    partsRoot.appendChild(sec);
+
+    qOffset+=totals[pi];
+  });
+}
+
+/* ── BOOT ── */
+if(typeof EXERCISE!=='undefined'){ init(); }
+else { document.addEventListener('DOMContentLoaded',()=>{ if(typeof EXERCISE!=='undefined') init(); else console.error('EXERCISE not loaded'); }); }
 </script>
 
 </body>
